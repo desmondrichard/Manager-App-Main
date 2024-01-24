@@ -1,0 +1,47 @@
+.col {
+  margin-top: 30px;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  border: 2px solid black !important;
+}
+
+select:focus {
+  border: 2px solid black !important;
+  box-shadow: none !important;
+}
+
+@media only screen and (max-width: 559px) {
+  .radioFields {
+    margin-right: 200px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .QtyMainMargin {
+    margin-left: -38px;
+  }
+}
+
+@media only screen and (min-width: 1115px) {
+  .QtyMainMargin {
+    margin-left: -150px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .QtyMainMargin {
+    margin-left: -30px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .radioFields {
+    margin-right: 500px;
+
+  }
+  .QtyMainMargin{
+    margin-top:-110px;
+  }
+}

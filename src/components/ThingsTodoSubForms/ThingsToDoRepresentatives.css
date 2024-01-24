@@ -1,0 +1,17 @@
+@media only screen and (min-width: 768px) {
+.col1{
+    padding-top: 28px;
+    padding-left:38px;
+}
+}
+
+@media only screen and (max-width: 768px) {
+    .col1{
+        padding-top: 28px;
+        
+    }
+    }
+
+span{
+    font-weight: 400;
+}

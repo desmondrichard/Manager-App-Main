@@ -1,0 +1,35 @@
+.head {
+  font-family: "Black Ops One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.3rem;
+}
+
+.live {
+  font-weight: 500;
+  font-style: normal;
+  font-size: medium;
+}
+
+.matchTime {
+  color: white;
+  font-weight: 600;
+  font-size: large;
+
+}
+
+.matchTime1 {
+  padding-top: 8px;
+  width: 150px;
+  margin: auto;
+  background: rgba(224, 112, 6, 0.1);
+}
+
+.cardGlass {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}

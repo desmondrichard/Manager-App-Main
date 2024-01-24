@@ -1,0 +1,38 @@
+@media only screen and (min-width: 992px) {
+    .dynamicRadioField {
+        margin-left: -27px;
+    }
+
+    .dynamicQtyField {
+        margin-left: 103px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .dynamicRadioField {
+        margin-left: -30px;
+    }
+    .dynamicQtyField{
+        margin-left:30px;
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+    .dynamicRadioField {
+        margin-left: -1px;
+    }
+
+    .dynamicQtyField {
+        margin-left: 25px;
+    }
+
+}
+
+@media only screen and (max-width: 576px) {
+   .dynamicQtyField{
+    margin-left:0px !important;
+    margin-top:40px;
+   }
+}
+

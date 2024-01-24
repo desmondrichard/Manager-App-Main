@@ -1,0 +1,24 @@
+.nav-pills .nav-item:not(:nth-last-child(1)) .nav-link {
+    border-radius: 7px;
+}
+
+
+    @media  screen and (min-width: 768px){
+    .c1 {
+        margin-left: 0px !important;
+    }
+} 
+
+.nav-pills .nav-link{
+    border-radius: 6px;
+}
+
+.btns{
+    display:flex;
+}
+
+@media  screen and (min-width: 767px){
+    .btns{
+        justify-content: end;
+    }
+}

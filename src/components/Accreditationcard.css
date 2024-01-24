@@ -1,0 +1,35 @@
+.nav-pills .nav-link {
+    border-radius: 0;
+    color: black;
+    background-color: #ddd;
+}
+
+.nav-pills .nav-item:not(:nth-last-child(1)) .nav-link {
+    border-right: 1px solid white;
+}
+
+.tab {
+    width: 100%;
+}
+
+.tab-content {
+    background-color: white;
+    margin-left: -5px !important;
+}
+
+.font {
+    font-size: 15px;
+}
+
+/* Horizontal Scroll bar for tab:start */
+.nav-justified .nav-item .nav-link {
+    width: 250px;
+}
+
+
+.tab {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+}
+
+/* Horizontal Scroll bar for tab:end */

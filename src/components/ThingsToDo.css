@@ -1,0 +1,47 @@
+.nav-pills .nav-link {
+    border-radius: 0;
+    color: black;
+    background-color: #ddd;
+
+}
+
+/* Horizontal Scroll bar for tab:start */
+.nav-justified .nav-item .nav-link {
+    width: 215px !important;
+}
+
+
+.tab {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+} 
+
+/* Horizontal Scroll bar for tab:end */
+ .nav-pills .nav-item:not(:nth-last-child(1)) .nav-link {
+    border-right: 1px solid white;
+}
+
+
+
+.tab-content {
+    background-color: white;
+    margin-left: -5px !important;
+}
+
+.font {
+    font-size: 14px !important;
+}
+
+@media only screen and (min-width: 768px) {
+    .row11parent {
+        padding-left: 0px !important;
+    }
+}
+
+.tdTextAlign{
+    text-align: start !important;
+}
+
+.marginRight{
+    margin-right: 10px !important;
+}

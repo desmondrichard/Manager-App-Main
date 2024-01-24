@@ -1,0 +1,55 @@
+/*eye-icon placement inside pwd field:*/
+.pwd {
+    position: relative;
+    display: block;
+}
+
+.input {
+    padding-right: 40px;
+}
+
+.pwd-toggle {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/*Input Group: */
+.input-group-text {
+    padding: 0px;
+    border: 0px;
+    padding-left: 15px;
+}
+
+.paddingStyle {
+    margin-left: 20px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.number {
+    position: relative;
+    display: block;
+}
+
+.cardBg {
+    background-color: #A9C9FF;
+    background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+}
+
+@media screen and (max-width: 767px) { 
+    .row1 {
+       margin-left: 1px;
+    }
+  }
+
+  .span{
+    color:red;
+    font-size: 15px;
+  }
+
+  .fontRegister{
+    font-weight: 600;
+  }

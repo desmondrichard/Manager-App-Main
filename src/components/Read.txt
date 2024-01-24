@@ -1,0 +1,151 @@
+LINK:     
+
+
+ODMS:
+http://52.172.96.40/LSdmsweb/#/
+
+
+CMSODMS 
+
+CMSODMS 
+
+100100 
+---------------------------------------------------------
+Login:
+
+
+USERNAME:Rohit
+
+PASSWORD:Rohit@123
+------------------------------------------------------
+country codes react:
+https://www.npmjs.com/package/react-phone-number-input
+
+country-state-city 
+https://codesandbox.io/p/sandbox/countrydropdown-l8d4en?file=%2Fsrc%2FApp.js
+
+
+refer stack:
+https://stackoverflow.com/questions/62839139/react-useref-forwardref-not-working-as-expected-when-focusing-a-radio-button
+
+country-state-city app:
+
+// import { getCode, getName } from "country-list";
+import { Country, State, City } from "country-state-city";
+import Select from "react-select";
+import { useEffect, useState } from "react";
+
+export default function App() {
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+  useEffect(() => {
+    console.log(selectedCountry);
+    console.log(selectedCountry?.isoCode);
+    console.log(State?.getStatesOfCountry(selectedCountry?.isoCode));
+  }, [selectedCountry]);
+  return (
+    <div className="App">
+      <Select
+        options={Country.getAllCountries()}
+        getOptionLabel={(options) => {
+          return options["name"];
+        }}
+        getOptionValue={(options) => {
+          return options["name"];
+        }}
+        value={selectedCountry}
+        onChange={(item) => {
+          setSelectedCountry(item);
+        }}
+      />
+      <Select
+        options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
+        getOptionLabel={(options) => {
+          return options["name"];
+        }}
+        getOptionValue={(options) => {
+          return options["name"];
+        }}
+        value={selectedState}
+        onChange={(item) => {
+          setSelectedState(item);
+        }}
+      />
+      <Select
+        options={City.getCitiesOfState(
+          selectedState?.countryCode,
+          selectedState?.isoCode
+        )}
+        getOptionLabel={(options) => {
+          return options["name"];
+        }}
+        getOptionValue={(options) => {
+          return options["name"];
+        }}
+        value={selectedCity}
+        onChange={(item) => {
+          setSelectedCity(item);
+        }}
+      />
+    </div>
+  );
+}
+
+
+
+progressbar:
+  this.filledpercent = (filledfields.length / totalfields.length) * 100;
+  this.completedpercent = Math.floor(Number(this.filledpercent));
+
+  ----------------------------------------------------------------------------
+API:
+
+1.Player Registration => GET => Table:
+  `http://192.168.1.192/ManagerApi/GetAllDataAndImages`
+  
+2.Support Staff Registration => GET => Table:
+  `http://192.168.1.192/ManagerApi/GetStaffAllDataAndImages`
+  
+3.Accessories Distribution  => GET  => Table:
+refer player Registration(1)
+
+4.Things To Do => GET => Table
+http://192.168.1.192/ManagerApi/register/AllDataThingsToDo
+ 
+5.Accreadiation => GET => Table
+`http://192.168.1.192/ManagerApi/AllDataAccreadiation`
+
+6.Fixtures Form => GET => Table
+refer Things TODO (4)
+
+  
+
+
+//
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function App() {
+ const [post, setPost] = useState({});
+ const postId = 1; // replace this with the actual post id
+
+ useEffect(() => {
+    axios.get(`https://your-api-url.com/posts/${postId}`)
+      .then(response => {
+        setPost(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+ }, [postId]);
+
+ return (
+    <div className="App">
+      <h1>{post.title}</h1>
+      <p>{post.body}</p>
+    </div>
+ );
+}
+
+export default App;
