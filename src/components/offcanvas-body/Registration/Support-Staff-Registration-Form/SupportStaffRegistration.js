@@ -7,7 +7,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Accordion from 'react-bootstrap/Accordion';
-import SearchButton from '../../../ModalComponents/SearchButton';
 import Table from 'react-bootstrap/Table';
 import PlayerRegistration from '../PlayerRegistration';
 import StaffPersonalInformation from './Support-Staff-Modal-Forms/StaffPersonalInformation';
@@ -127,6 +126,8 @@ function SupportStaffRegistration(props) {
     function handleModalClose() {
         setShow(false);
     }
+
+
     return (
         <div>
             <Header />
@@ -271,14 +272,14 @@ function SupportStaffRegistration(props) {
                                         return (
                                             <tr className='text-center' key={i}>
                                                 <td>{showData.playerImage ? <img src={`data:image;base64,${showData.playerImage.imageData}`} alt="img" style={{ width: '40px', height: '35px' }} /> : <DImage src={require('./../../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '30px', height: '30px' }}></DImage>}</td>
-                                                <td>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</td>
-                                                <td>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</td>
-                                                <td>{showData.designation ? showData.designation : 'N/A'}</td>
-                                                <td>{showData.mobileNo ? showData.mobileNo : 'N/A'}</td>
-                                                <td>{showData.emailId ? showData.emailId : 'N/A'}</td>
-                                                <td>{showData.specialization ? showData.specialization : 'N/A'}</td>
-                                                <td>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
-                                                <td>{showData.club ? showData.club : 'N/A'}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.designation ? showData.designation : 'N/A'}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.emailId ? showData.emailId : 'N/A'}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.specialization ? showData.specialization : 'N/A'}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
+                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.club ? showData.club : 'N/A'}</td>
                                                 <td className='d-flex'><Button variant="primary" className='me-1'><i className="bi bi-binoculars"></i></Button><Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
                                                 <td><Button variant="dark" className='me-1'><i className="bi bi-filetype-pdf"></i></Button><Button variant="dark" className='me-1'><i className="bi bi-file-earmark-spreadsheet"></i></Button></td>
                                             </tr>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StaffKittingDetails.css';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
+import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 
 const validate = values => {
     const errors = {};
@@ -51,7 +52,7 @@ const validate = values => {
 }
 
 function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
-
+    
     // reset form start: 
     const JerseyName1 = useRef("");
     const JerseyNo1 = useRef("");
@@ -78,6 +79,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
         travelpolo1.current.value = "none";
         familyjerseyno1.current.value = "";
         formik.resetForm();
+        setProgress(0);
     }
     // reset form end: 
 
@@ -100,11 +102,50 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
     const handlePreviousButton = () => {
         onPreviousActivationKey("0")
     }
+    //Progress Bar:
+    const [progress, setProgress] = useState(0);
+
+    function handleProgress() {
+        //check form values or formik values:
+        console.log("formik vals:", formik.values.staffFName);
+        //set progress as 1 if current form field is filled else 0:  
+        //get no of form vals filled by adding it inside a object:
+        const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
+        console.log(result);  //returned count is stored in result variable
+        //calc formula
+        let newProgress = ((result / 10) * 100).toFixed();
+        console.log("Progress", newProgress)
+        //store result progress value
+        setProgress(newProgress);
+    }
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    //useEffect will be trigerred whenever formik.values has value
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values]); // Ensure that the effect is triggered when form values change
+
+
 
     return (
 
         <Accordion.Item eventKey="1">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>KITTING DETAILS</span></Accordion.Header>
+            <Accordion.Header ><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>KITTING DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
                     <p>{activationKey}</p>
@@ -188,6 +229,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                     controlId="staffIrowsersize"
                                     label="Trowser Size"
                                     name="staffIrowsersize"
+                                    onChange={formik.handleChange}
                                 >
 
                                     <Form.Select aria-label="staffIrowsersize" ref={trowsersize1}>
@@ -224,6 +266,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                     controlId="staffShortssize"
                                     label="Shorts Size"
                                     name="staffShortssize"
+                                    onChange={formik.handleChange}
                                 >
                                     <Form.Select aria-label="staffShortssize" ref={shortssize1}>
                                         <option value="none">Select Type</option>
@@ -243,6 +286,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                     controlId="staffTracksuit"
                                     label="Track suit"
                                     name="staffTracksuit"
+                                    onChange={formik.handleChange}
                                 >
 
                                     <Form.Select aria-label="staffTracksuit" ref={tracksuit1}>
@@ -263,6 +307,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                     controlId="staffTravelpolo"
                                     label="Travel Polo"
                                     name="staffTravelpolo"
+                                    onChange={formik.handleChange}
                                 >
 
                                     <Form.Select aria-label="staffTravelpolo" ref={travelpolo1}>

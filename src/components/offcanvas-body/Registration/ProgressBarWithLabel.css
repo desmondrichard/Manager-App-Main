@@ -1,0 +1,11 @@
+@media (min-width: 768px) and (max-width: 991px) {
+    .progress {
+        width: 5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .progress {
+        width: 22rem;
+    }
+}

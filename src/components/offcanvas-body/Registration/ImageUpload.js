@@ -2,10 +2,9 @@ import React, { useRef, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-function ImageUpload({ isClearImage }) {
+function ImageUpload({ isClearImage, onActivateProgressBar }) {
     const inputRef = useRef(null);
     const [image, setImage] = useState("");
-
 
 
     function handleImageClick() {
@@ -17,6 +16,7 @@ function ImageUpload({ isClearImage }) {
         const file = e.target.files[0];
         console.log(file);
         setImage(e.target.files[0]);
+        onActivateProgressBar();
     }
 
     return (

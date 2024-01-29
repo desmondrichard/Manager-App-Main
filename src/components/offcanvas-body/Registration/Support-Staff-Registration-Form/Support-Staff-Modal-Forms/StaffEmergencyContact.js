@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,6 +9,7 @@ import Phone from '../../../Phone';
 import { useFormik } from 'formik';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRef } from 'react';
+import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 // validation:
 const validate = values => {
     const errors = {};
@@ -43,6 +44,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         emgcontactrel1.current.value = "";
         setMobileValue(true);
         formik.resetForm();
+        setProgress(0);
     }
 
     const formik = useFormik({
@@ -59,10 +61,53 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
     const handlePreviousButton = () => {
         onPreviousActivationKey("6")
     }
+
+    //Progress Bar:
+    const [progress, setProgress] = useState(0);
+
+    function handleProgress() {
+        //check form values or formik values:
+        console.log("formik vals:", formik.values.staffFName);
+        //set progress as 1 if current form field is filled else 0:  
+        //get no of form vals filled by adding it inside a object:
+        const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
+        console.log(result);  //returned count is stored in result variable
+        //calc formula
+        let newProgress = ((result / 3) * 100).toFixed();
+        console.log("Progress", newProgress)
+        //store result progress value
+        setProgress(newProgress);
+    }
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    //useEffect will be trigerred whenever formik.values has value
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values]); // Ensure that the effect is triggered when form values change
+
+    function onActivateProgressBar() {
+        handleProgress();
+    }
+
     return (
 
         <Accordion.Item eventKey="7">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>EMERGENCY CONTACT INFORMATION</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>EMERGENCY CONTACT INFORMATION</span><ProgressBarWithLabel progressValue={progress} /> </Accordion.Header>
             <Accordion.Body>
                 <Container >
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>

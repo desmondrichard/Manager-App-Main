@@ -1,0 +1,3 @@
+project folder: \manager-app-new_old\
+ 
+ git: Manager-App-Main

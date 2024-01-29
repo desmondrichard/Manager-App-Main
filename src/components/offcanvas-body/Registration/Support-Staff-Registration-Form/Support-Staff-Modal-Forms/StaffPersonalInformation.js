@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -12,7 +12,7 @@ import Phone from '../../../Phone';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
-import { useNavigate } from "react-router-dom";
+
 
 // validation:
 const validate = values => {
@@ -91,6 +91,7 @@ const validate = values => {
     return errors;
 }
 
+
 function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const [mobileValue, setMobileValue] = useState(false);
     const [imageValue, setImageValue] = useState(false);
@@ -120,7 +121,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const spec = useRef("");
 
     // progressbar:
-    const progress = 0;
+
 
     function handleReset() {
         firstName.current.value = "";
@@ -141,6 +142,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         setImageValue(true);
         // console.log("Ref",genderMale);
         formik.resetForm();
+        //after clicking reset btn progress bar should be 0:
+        setProgress(0);
+        // console.log("setprogress after reset", progress)
     }
 
     const formik = useFormik({
@@ -156,7 +160,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             staffMotherName: '',
             staffDob: '',
             staffBloodGroup: '',
-            staffEmail: ''
+            staffEmail: '',
+            // mobNo:''
         },
         validate,
         onSubmit: values => {
@@ -164,14 +169,59 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             onActivationKeyChild(childNextKey)
         }
     });
+
+    //Progress Bar:
+    const [progress, setProgress] = useState(0);
+
+    function handleProgress() {
+        //check form values or formik values:
+        console.log("formik vals:", formik.values.staffFName);
+        //set progress as 1 if current form field is filled else 0:  
+        //get no of form vals filled by adding it inside a object:
+        const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
+        console.log(result);  //returned count is stored in result variable
+        //calc formula
+        let newProgress = ((result / 15) * 100).toFixed();
+        console.log("Progress", newProgress)
+        //store result progress value
+        setProgress(newProgress);
+    }
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    //useEffect will be trigerred whenever formik.values has value
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values]); // Ensure that the effect is triggered when form values change
+
+    function onActivateProgressBar() {
+        handleProgress();
+    }
+
+
     return (
 
         <Accordion.Item eventKey="0">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span><ProgressBarWithLabel /> </Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span><ProgressBarWithLabel progressValue={progress} /> </Accordion.Header>
             <Accordion.Body>
                 <Container>
                     <p>{activationKey}</p>
                     <Form onSubmit={formik.handleSubmit}>
+                        {/* {progress} */}
                         <Row>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
@@ -181,7 +231,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="first name"
                                         name="staffFName"
                                         ref={firstName}
-                                        value={formik.values.staffFName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffFName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffFName && formik.errors.staffFName ? <span className='span'>{formik.errors.staffFName}</span> : null
@@ -197,7 +247,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="second name"
                                         name="staffSName"
                                         ref={middleName}
-                                        value={formik.values.staffSName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffSName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffSName && formik.errors.staffSName ? <span className='span'>{formik.errors.staffSName}</span> : null
@@ -213,7 +263,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="last name"
                                         name="staffLName"
                                         ref={lastName}
-                                        value={formik.values.staffLName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffLName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffLName && formik.errors.staffLName ? <span className='span'>{formik.errors.staffLName}</span> : null
@@ -226,11 +276,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                     controlId="staffDesignation"
                                     label="Designation*"
                                     name="staffDesignation"
-
-                                    value={formik.values.staffDesignation} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    value={formik.values.staffDesignation} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                 >
 
-                                    <Form.Select aria-label="staffDesignation" ref={desig}>
+                                    <Form.Select aria-label="staffDesignation" ref={desig} >
                                         <option value="none">Select Type</option>
                                         <option value="management">Management</option>
                                     </Form.Select>
@@ -244,7 +293,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                     controlId="staffSpecialization"
                                     label="Specialization*"
                                     name="staffSpecialization"
-                                    value={formik.values.staffSpecialization} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    value={formik.values.staffSpecialization} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                 >
 
                                     <Form.Select aria-label="staffSpecialization" ref={spec}>
@@ -264,7 +313,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="initials"
                                         name="staffintials"
                                         ref={initials}
-                                        value={formik.values.staffintials} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffintials} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffintials && formik.errors.staffintials ? <span className='span'>{formik.errors.staffintials}</span> : null
@@ -280,7 +329,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="display name"
                                         name="staffDisplayName"
                                         ref={displayName}
-                                        value={formik.values.staffDisplayName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffDisplayName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffDisplayName && formik.errors.staffDisplayName ? <span className='span'>{formik.errors.staffDisplayName}</span> : null
@@ -296,7 +345,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="father name"
                                         name="staffFatherName"
                                         ref={fathersName}
-                                        value={formik.values.staffFatherName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffFatherName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffFatherName && formik.errors.staffFatherName ? <span className='span'>{formik.errors.staffFatherName}</span> : null
@@ -312,7 +361,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="mother name"
                                         name="staffMotherName"
                                         ref={mothersName}
-                                        value={formik.values.staffMotherName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffMotherName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffMotherName && formik.errors.staffMotherName ? <span className='span'>{formik.errors.staffMotherName}</span> : null
@@ -329,7 +378,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         name="staffDob"
                                         ref={dob}
                                         max={new Date().toISOString().split('T')[0]}
-                                        value={formik.values.staffDob} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffDob} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffDob && formik.errors.staffDob ? <span className='span'>{formik.errors.staffDob}</span> : null
@@ -342,7 +391,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                     controlId="staffBloodGroup"
                                     label="BloodGroup*"
                                     name="staffBloodGroup"
-                                    value={formik.values.staffBloodGroup} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    value={formik.values.staffBloodGroup} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                 >
 
                                     <Form.Select aria-label="staffBloodGroup" ref={bloodgrp}>
@@ -369,7 +418,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="email"
                                         name="staffEmail"
                                         ref={email}
-                                        value={formik.values.staffEmail} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.staffEmail} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.staffEmail && formik.errors.staffEmail ? <span className='span'>{formik.errors.staffEmail}</span> : null
@@ -378,20 +427,20 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValue} onValidate={validateForm} />
+                                <Phone isClear={mobileValue} onValidate={validateForm} onActivateProgressBar={onActivateProgressBar} onChange={(e) => { formik.handleChange(e) }} />
                             </Col>
 
                             <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
                                 <label className='text-muted me-2' htmlFor="gender">Gender:</label>
                                 {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }}>
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
                                         <Form.Check
                                             inline
                                             label="Male"
                                             name="staffGender"
                                             type={type}
                                             id={`inline-${type}-male`}
-                                            defaultChecked={true}
+                                            // defaultChecked={true}
                                             ref={genderMale}
                                         />
                                         <Form.Check
@@ -406,7 +455,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                 ))}
                             </Col>
                             <Col xs={5} lg={2} className='col'>
-                                <ImageUpload isClearImage={imageValue} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={onActivateProgressBar} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>

@@ -52,6 +52,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         allergyYes.current.checked = false;
         allergyNo.current.checked = false;
         allergy1.current.value = "";
+        // setProgress(0);
     }
 
     const handleSubmit = () => {
@@ -63,6 +64,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         onPreviousActivationKey("3")
     }
 
+    
     return (
 
         <Accordion.Item eventKey="4">

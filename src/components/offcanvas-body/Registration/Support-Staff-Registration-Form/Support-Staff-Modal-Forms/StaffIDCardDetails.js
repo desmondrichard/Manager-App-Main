@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Accordion from 'react-bootstrap/Accordion';
@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import { useRef } from 'react';
 // import StaffAddressDynamicFocus from './StaffAddressDynamicFocus';
 import DynamicTextFields from '../DynamicTextFields';
+import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 // validation:
 const validate = values => {
     const errors = {};
@@ -38,15 +39,15 @@ const validate = values => {
         errors.staffPassExp = "*Required";
     }
 
-    if(!values.staffBirth){
-        errors.staffBirth="*Required"
+    if (!values.staffBirth) {
+        errors.staffBirth = "*Required"
     }
     else if (!/^[0-9]{6,14}$/.test(values.staffBirth)) {
         errors.staffBirth = "Enter Valid Birth Certificate Number"
     }
 
-    if(!values.staffVisaNo){
-        errors.staffVisaNo="*Required"
+    if (!values.staffVisaNo) {
+        errors.staffVisaNo = "*Required"
     }
     else if (!/^4[0-9]{12}(?:[0-9]{3})?$/.test(values.staffVisaNo)) {
         errors.staffVisaNo = "Enter Valid Visa Number"
@@ -89,6 +90,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
         //reset address:
         setClearValue(true);
         formik.resetForm();
+        setProgress(0);
     }
 
 
@@ -114,10 +116,52 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
         onPreviousActivationKey("1")
     }
 
+    //Progress Bar:
+    const [progress, setProgress] = useState(0);
+
+    function handleProgress() {
+        //check form values or formik values:
+        console.log("formik vals:", formik.values.staffFName);
+        //set progress as 1 if current form field is filled else 0:  
+        //get no of form vals filled by adding it inside a object:
+        const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
+        console.log(result);  //returned count is stored in result variable
+        //calc formula
+        let newProgress = ((result / 14) * 100).toFixed();
+        console.log("Progress", newProgress)
+        //store result progress value
+        setProgress(newProgress);
+    }
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    //useEffect will be trigerred whenever formik.values has value
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values]); // Ensure that the effect is triggered when form values change
+
+    // function onActivateProgressBar() {
+    //     handleProgress();
+    // }
+
     return (
 
         <Accordion.Item eventKey="2">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>ID CARD DETAILS</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>ID CARD DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
                     <p>{activationKey}</p>
@@ -207,7 +251,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={3} className='col' style={{ textAlign: 'center' }}>
                                 <label className='text-muted' htmlFor="battingpads">DO YOU HAVE VISA CARD</label>
                                 {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} >
+                                    <div key={`inline-${type}`} onChange={(e) => { formik.handleChange(e) }}>
                                         <Form.Check style={{
 
                                         }}
@@ -224,7 +268,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                             name="visa"
                                             type={type}
                                             id={`inline-${type}-notprovided`}
-                                            defaultChecked={true}
+                                            // defaultChecked={true}
                                             ref={visaNo}
                                         />
                                     </div>
@@ -255,6 +299,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         name="staffVisaValidity"
                                         ref={visaValid}
                                         min={new Date().toISOString().split('T')[0]}
+                                        onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     <label htmlFor="staffVisaValidity" className='text-muted' style={{ fontSize: '13px' }}>VISA VALIDITY</label>
                                 </Form.Floating>

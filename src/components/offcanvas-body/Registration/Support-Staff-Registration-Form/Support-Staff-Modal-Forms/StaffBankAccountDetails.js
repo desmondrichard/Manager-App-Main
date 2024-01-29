@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
 import './StaffBankAccountDetails.css';
+import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 // validation:
 const validate = values => {
     const errors = {};
@@ -106,6 +107,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
 
         // console.log("Ref",genderMale);
         formik.resetForm();
+        setProgress(0);
     }
     // reset form end: 
     // 
@@ -133,10 +135,49 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         onPreviousActivationKey("2")
     }
 
+    //Progress Bar:
+    const [progress, setProgress] = useState(0);
+
+    function handleProgress() {
+        //check form values or formik values:
+        console.log("formik vals:", formik.values.staffFName);
+        //set progress as 1 if current form field is filled else 0:  
+        //get no of form vals filled by adding it inside a object:
+        const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
+        console.log(result);  //returned count is stored in result variable
+        //calc formula
+        let newProgress = ((result / 13) * 100).toFixed();
+        console.log("Progress", newProgress)
+        //store result progress value
+        setProgress(newProgress);
+    }
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    //useEffect will be trigerred whenever formik.values has value
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values]); // Ensure that the effect is triggered when form values change
+
+   
     return (
 
         <Accordion.Item eventKey="3">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>BANK ACCOUNT DETAILS</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>BANK ACCOUNT DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
@@ -208,7 +249,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                             <Col xs={12} lg={4} className='col colAccount'>
                                 <label className='text-muted' htmlFor="battingpads">Account Type*</label>
                                 {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} style={{ whiteSpace: 'nowrap' }}>
+                                    <div key={`inline-${type}`} style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
                                         <Form.Check style={{
 
                                         }}
@@ -217,7 +258,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                             name="type"
                                             type={type}
                                             id={`inline-${type}-savings`}
-                                            defaultChecked={true}
+                                            // defaultChecked={true}
                                             ref={savings1}
                                         />
                                         <Form.Check
@@ -255,6 +296,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         placeholder="swiftbic"
                                         name="staffSwiftbic"
                                         ref={swiftbic1}
+                                        onChange={formik.handleChange}
                                     />
 
                                     {/*  */}
@@ -285,6 +327,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         placeholder="iban"
                                         name="staffIban"
                                         ref={iban1}
+                                        onChange={formik.handleChange}
                                     />
 
                                     <label htmlFor="staffIban" className='text-muted'>IBAN Code</label>
@@ -331,6 +374,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         placeholder="bankaddress"
                                         name="staffBankaddress"
                                         ref={bankaddress1}
+                                        onChange={formik.handleChange}
                                     />
                                     <label htmlFor="staffBankaddress" className='text-muted'>Bank Address</label>
                                 </Form.Floating>

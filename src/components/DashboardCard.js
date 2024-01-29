@@ -34,7 +34,7 @@ function DashboardCard() {
             {/* Card: */}
             <div className='my-3 p-2'>
                 <Container>
-                    <Card style={{ width: '90%' }}>
+                    <Card style={{ width: '100%' }}>
                         <Card.Header style={{ fontWeight: 'bold', fontSize: '18px' }}>PLAYERS</Card.Header>
                         <ListGroup variant='flush'>
                             {

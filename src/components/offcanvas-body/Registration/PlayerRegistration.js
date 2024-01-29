@@ -275,16 +275,16 @@ function PlayerRegistration(props) {
                     console.log("ShowData", showData.playerName);
                     return (
                       <tr className='text-center' key={i}>
-                        <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
                         {/* blob to image: */}
-                        <td>{showData.playerImage ? <img src={`data:image;base64,${showData.playerImage.imageData}`} alt="img" style={{ width: '30px', height: '30px' }} /> : <DImage src={require('./../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '30px', height: '30px' }}></DImage>}</td>
-                        <td>{showData.playerName ? showData.playerName : 'N/A'}</td>
-                        <td>{showData.displayName ? showData.displayName : 'N/A'}</td>
-                        <td>{showData.mobileNo ? showData.mobileNo : 'N/A'}</td>
-                        <td>{showData.emailId ? showData.emailId : 'N/A'}</td>
-                        <td>{showData.specialization ? showData.specialization : 'N/A'}</td>
-                        <td>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
-                        <td>{showData.club ? showData.club : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.playerImage ? <img src={`data:image;base64,${showData.playerImage.imageData}`} alt="img" style={{ width: '30px', height: '30px' }} /> : <DImage src={require('./../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '30px', height: '30px' }}></DImage>}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.displayName ? showData.displayName : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.emailId ? showData.emailId : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.specialization ? showData.specialization : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.club ? showData.club : 'N/A'}</td>
                         <td className='d-flex'><Button variant="primary" className='me-1'><i className="bi bi-binoculars"></i></Button><Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
                         <td><Button variant="dark" className='me-1'><i className="bi bi-filetype-pdf"></i></Button><Button variant="dark" className='me-1'><i className="bi bi-file-earmark-spreadsheet"></i></Button></td>
                       </tr>

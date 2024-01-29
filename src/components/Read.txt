@@ -1,5 +1,7 @@
 LINK:     
-
+Application Testing URL: 
+                              Username: user
+                              Password:ragavan@123
 
 ODMS:
 http://52.172.96.40/LSdmsweb/#/

@@ -125,7 +125,7 @@ function Dashboard() {
                         </Card>
                     </Col>
 
-                    <Col lg={4}>
+                    <Col lg={4} style={{ zIndex: 0 }}>
                         <Card className='boxShadow'>
                             {/* <Calendar /> */}
                             <CarouselScoreCard />
@@ -133,8 +133,8 @@ function Dashboard() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col lg={8}>
-                        <Card className='my-3 boxShadow1' style={{paddingLeft:'0px !important'}}>
+                    <Col lg={8} style={{ zIndex: 0 }}>
+                        <Card className='my-3 boxShadow1' style={{ paddingLeft: '0px !important' }}>
                             <Card.Body>
                                 <FullCalendar />
                             </Card.Body>
