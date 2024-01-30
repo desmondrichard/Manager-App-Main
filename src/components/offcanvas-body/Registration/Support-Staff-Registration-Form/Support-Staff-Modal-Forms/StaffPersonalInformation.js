@@ -91,7 +91,6 @@ const validate = values => {
     return errors;
 }
 
-
 function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const [mobileValue, setMobileValue] = useState(false);
     const [imageValue, setImageValue] = useState(false);
@@ -103,6 +102,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const validateForm = (validationErrors) => {
         setErrors(validationErrors);
     };
+    const [count, setCount] = useState(0);
 
     // reset form start: 
     const firstName = useRef("");
@@ -121,7 +121,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const spec = useRef("");
 
     // progressbar:
-
 
     function handleReset() {
         firstName.current.value = "";
@@ -175,7 +174,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
 
     function handleProgress() {
         //check form values or formik values:
-        console.log("formik vals:", formik.values.staffFName);
+        console.log("formik vals PersonalInfo:", formik.values);
         //set progress as 1 if current form field is filled else 0:  
         //get no of form vals filled by adding it inside a object:
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
@@ -208,8 +207,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         handleProgress();
     }, [formik.values]); // Ensure that the effect is triggered when form values change
 
-    function onActivateProgressBar() {
-        handleProgress();
+    const Sample = (a) => {
+        console.log("a", a);
     }
 
 
@@ -426,8 +425,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                     <label htmlFor="staffEmail" className='text-muted'>Email Address*</label>
                                 </Form.Floating>
                             </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValue} onValidate={validateForm} onActivateProgressBar={onActivateProgressBar} onChange={(e) => { formik.handleChange(e) }} />
+
+                            <Col className='col' lg={4}>
+                                <Phone isClear={mobileValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} />
                             </Col>
 
                             <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
@@ -442,6 +442,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                             id={`inline-${type}-male`}
                                             // defaultChecked={true}
                                             ref={genderMale}
+                                            value="Male"
                                         />
                                         <Form.Check
                                             inline
@@ -450,12 +451,13 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                             type={type}
                                             id={`inline-${type}-female`}
                                             ref={genderFemale}
+                                            value="Female"
                                         />
                                     </div>
                                 ))}
                             </Col>
                             <Col xs={5} lg={2} className='col'>
-                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={onActivateProgressBar} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={(a) => Sample(a)} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>

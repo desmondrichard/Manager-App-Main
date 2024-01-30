@@ -188,7 +188,7 @@ function Accessories() {
                     < tbody className='table-light' key={i} >
                       <tr className='text-center'>
                         <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
-                        <td>{showData.playerName ? showData.playerName : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : 'N/A'}</td>
                         <td>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
                         <td>{showData.initials ? showData.initials : 'N/A'}</td>
                         <td>{showData.trouserLength ? showData.trouserLength : 'N/A'}</td>

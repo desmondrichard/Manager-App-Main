@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -140,7 +140,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
 
     function handleProgress() {
         //check form values or formik values:
-        console.log("formik vals:", formik.values.staffFName);
+        console.log("formik vals Bank:", formik.values);
         //set progress as 1 if current form field is filled else 0:  
         //get no of form vals filled by adding it inside a object:
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
@@ -173,7 +173,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         handleProgress();
     }, [formik.values]); // Ensure that the effect is triggered when form values change
 
-   
+
     return (
 
         <Accordion.Item eventKey="3">
@@ -255,19 +255,21 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         }}
                                             inline
                                             label="Savings"
-                                            name="type"
+                                            name="accounttype"
                                             type={type}
                                             id={`inline-${type}-savings`}
                                             // defaultChecked={true}
                                             ref={savings1}
+                                            value="savings"
                                         />
                                         <Form.Check
                                             inline
                                             label="Current"
-                                            name="type"
+                                            name="accounttype"
                                             type={type}
                                             id={`inline-${type}-current`}
                                             ref={current1}
+                                            value="current"
                                         />
                                     </div>
                                 ))}

@@ -43,7 +43,7 @@ function PlayerRegistration(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("5");
+  const [parentkey, setParentKey] = useState("0");
 
   //Data Binding:
   const [showData, setShowData] = useState(null);
@@ -96,7 +96,6 @@ function PlayerRegistration(props) {
         });
     }, 1000); // Delay of 1000 milliseconds (1 second)
   }
-
 
   //excel:
   const handleDownloadExcel = async () => {
@@ -292,7 +291,6 @@ function PlayerRegistration(props) {
                   })
               }
             </tbody>
-
 
           </Table>) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
       }

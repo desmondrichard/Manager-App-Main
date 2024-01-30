@@ -107,7 +107,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
 
     function handleProgress() {
         //check form values or formik values:
-        console.log("formik vals:", formik.values.staffFName);
+        console.log("formik vals Kitting:", formik.values);
         //set progress as 1 if current form field is filled else 0:  
         //get no of form vals filled by adding it inside a object:
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields

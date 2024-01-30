@@ -86,7 +86,6 @@ function SupportStaffRegistration(props) {
         }
     };
 
-
     //download pdf:
 
     const handleDownloadPdf = () => {

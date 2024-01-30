@@ -121,7 +121,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
     function handleProgress() {
         //check form values or formik values:
-        console.log("formik vals:", formik.values.staffFName);
+        console.log("formik vals Idcard:", formik.values);
         //set progress as 1 if current form field is filled else 0:  
         //get no of form vals filled by adding it inside a object:
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
@@ -261,6 +261,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                             type={type}
                                             id={`inline-${type}-provided`}
                                             ref={visaYes}
+                                            value="visaYes"
                                         />
                                         <Form.Check
                                             inline
@@ -270,6 +271,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                             id={`inline-${type}-notprovided`}
                                             // defaultChecked={true}
                                             ref={visaNo}
+                                            value="visaNo"
                                         />
                                     </div>
                                 ))}

@@ -30,6 +30,10 @@ const validate = values => {
 
     return errors;
 }
+
+function Sample(){
+    console.log("samp")
+}
 function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
     const [mobileValue, setMobileValue] = useState(false);
     const [childNextKey, setChildNextKey] = useState("8");
@@ -67,7 +71,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
     function handleProgress() {
         //check form values or formik values:
-        console.log("formik vals:", formik.values.staffFName);
+        console.log("formik vals Emergency:", formik.values);
         //set progress as 1 if current form field is filled else 0:  
         //get no of form vals filled by adding it inside a object:
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
@@ -154,7 +158,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValue} />
+                                <Phone isClear={mobileValue} onActivateProgressBar={Sample()} />
                             </Col>
                         </Row>
 

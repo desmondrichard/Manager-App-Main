@@ -121,8 +121,6 @@ http://192.168.1.192/ManagerApi/register/AllDataThingsToDo
 6.Fixtures Form => GET => Table
 refer Things TODO (4)
 
-  
-
 
 //
 import React, { useState, useEffect } from 'react';

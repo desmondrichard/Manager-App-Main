@@ -26,6 +26,9 @@ function ThingsTodo() {
 
   //Data Binding:
   const [showData, setShowData] = useState(null);
+  //
+  const [fetchedData, setFetchedData] = useState({})
+
   useEffect(() => {
     fetch('http://192.168.1.192/ManagerApi/register/AllDataThingsToDo')
       .then((data) => data.json())
@@ -36,10 +39,15 @@ function ThingsTodo() {
       })
   }, [])
 
-  //
-  const handleClick1 = (id) => {
-    console.log("Branding:", id)
+  //modified
+  const handleClick1 = (showData) => {
+    console.log("showdata1:", showData);
+    //err:
+    setFetchedData("newShowData", fetchedData);
+
   }
+
+
 
   const handleClick2 = (id) => {
     console.log("Representative", id)
@@ -180,9 +188,10 @@ function ThingsTodo() {
                                 <td>{showData.busBranding ? showData.busBranding : 'N/A'}</td>
                                 <td>{showData.busBooking ? showData.busBooking : 'N/A'}</td>
                                 <td className='btnPadding' style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                  <NavLink to='/thingstodo/thingstodoviewcard' className='navLinks' >
                                     <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight'
-                                      onClick={() => handleClick1(showData.alldataThingsId)}
+                                      //cant set data in useState:
+                                      onClick={() => handleClick1(showData)}
                                     ><i className="bi bi-eye-fill"></i></Button>
                                   </NavLink>
                                   <Button variant="primary" style={{ marginTop: '-7px' }} ><i className="bi bi-trash"></i></Button> </td>
@@ -272,12 +281,9 @@ function ThingsTodo() {
                           })
                         }
                       </tbody>
-
-
                     </Table>
                   ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
               }
-
             </Tab>
 
             {/* Tab:3 */}
@@ -324,6 +330,7 @@ function ThingsTodo() {
               }
 
             </Tab>
+
             {/* Tab:4 */}
             <Tab eventKey='tab-4' title='HOTEL ACCOMODATION'>
               {
@@ -373,6 +380,7 @@ function ThingsTodo() {
               }
 
             </Tab>
+
             {/* Tab:5 */}
             <Tab eventKey='tab-5' title='MATCH EQUIPMENT'>
               {
@@ -413,6 +421,7 @@ function ThingsTodo() {
               }
 
             </Tab>
+
             {/* Tab:6 */}
             <Tab eventKey='tab-6' title='TRANSPORT FORM'>
               {
