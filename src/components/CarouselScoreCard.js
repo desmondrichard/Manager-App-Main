@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
@@ -10,6 +10,18 @@ import Logo1 from 'react-bootstrap/Image';
 import Logo2 from 'react-bootstrap/Image';
 import { Card } from 'react-bootstrap';
 function CarouselScoreCard() {
+    //Data Binding:
+    const [showData, setShowData] = useState(null);
+    useEffect(() => {
+        fetch('http://192.168.1.192/ManagerApi/GetAllDataAndImages')
+            .then((data) => data.json())
+            .then((data) => {
+                // console.log("data",data);
+                console.log("Success in getting data", data);
+                setShowData(data);  // showData=data;
+            })
+    }, [])
+
     return (
         <div>
             <Carousel data-bs-theme="dark">

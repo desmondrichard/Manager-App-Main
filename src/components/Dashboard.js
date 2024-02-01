@@ -35,7 +35,7 @@ function Dashboard() {
                                                     <div className='content'>
                                                         <Card.Title className='a'>PLAYERS</Card.Title>
                                                         <Card.Text className='b'>
-                                                            600
+                                                            0
                                                         </Card.Text>
                                                     </div>
                                                 </div>
@@ -52,7 +52,7 @@ function Dashboard() {
                                                     <div className='content'>
                                                         <Card.Title className='a'>SUPPORT STAFFS</Card.Title>
                                                         <Card.Text className='b'>
-                                                            15
+                                                            0
                                                         </Card.Text>
                                                     </div>
                                                 </div>
@@ -67,9 +67,6 @@ function Dashboard() {
                                                 <ImageManager className='img' style={{ height: '100px', width: '100px' }} src={require('../assets/managericon.jpg')}></ImageManager>
                                                 <div className='content'>
                                                     <Card.Title className='a'>MANAGEMENT</Card.Title>
-                                                    <Card.Text className='b'>
-                                                        5
-                                                    </Card.Text>
                                                 </div>
                                             </div>
                                         </Button>
@@ -79,12 +76,12 @@ function Dashboard() {
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                             <div className='image'>
-                                                <ImageSponsorNew className='img' style={{ height: '100px', width: '120px' }} src={require('../assets/sponsornewicon.png')}></ImageSponsorNew>
+                                                <ImageSponsorNew className='img' style={{ height: '120px', width: '120px' }} src={require('../assets/stadium-icon-24.jpg')}></ImageSponsorNew>
                                                 <div className='content'>
-                                                    <Card.Title className='a'>SPONSORS</Card.Title>
-                                                    <Card.Text className='b'>
+                                                    <Card.Title className='a'>PLAYGROUND</Card.Title>
+                                                    {/* <Card.Text className='b'>
                                                         5
-                                                    </Card.Text>
+                                                    </Card.Text> */}
                                                 </div>
                                             </div>
                                         </Button>
@@ -97,10 +94,7 @@ function Dashboard() {
                                             <div className='image'>
                                                 <ImageSponsor className='img' style={{ height: '105px', width: '200px' }} src={require('../assets/sponsoricon.png')}></ImageSponsor>
                                                 <div className='contentPartners1'>
-                                                    <Card.Title className='a'>PARTNERS</Card.Title>
-                                                    <Card.Text className='b'>
-                                                        5
-                                                    </Card.Text>
+                                                    <Card.Title className='a'>SPONSORS</Card.Title>
                                                 </div>
                                             </div>
                                         </Button>
@@ -113,9 +107,6 @@ function Dashboard() {
                                                 <ImageOrganizor className='img' style={{ height: '105px', width: '120px' }} src={require('../assets/organizoricon.jpg')}></ImageOrganizor>
                                                 <div className='content'>
                                                     <Card.Title className='a'>ORGANIZERS</Card.Title>
-                                                    <Card.Text className='b'>
-                                                        10
-                                                    </Card.Text>
                                                 </div>
                                             </div>
                                         </Button>

@@ -186,9 +186,9 @@ function PlayersAuctionList() {
                             {showData.dateOfBirth ? formattedDate = format(new Date(showData.dateOfBirth),
                               'MMMM dd yyyy') : 'N/A'}
                           </td>
-                          <td>4</td>
-                          <td>5</td>
-                          <td>6</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                           {/* <th>7</th> */}
                         </tr>
                       </tbody>

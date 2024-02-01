@@ -18,6 +18,7 @@ import DashboardCard from './components/DashboardCard';
 import DashboardSupportStaffCard from './components/DashboardSupportStaffCard';
 import ThingsToDoViewCard from './components/offcanvas-body/ThingsToDoViewCard';
 import ThingsToDoAddList from './components/ThingsToDoAddList';
+import PlayerRegistrationViewCard from './components/offcanvas-body/Registration/Player-Registration-Form/PlayerRegistrationViewCard';
 
 
 function App() {
@@ -35,8 +36,14 @@ function App() {
             <Route path='dashboardstaffcard' exact element={<DashboardSupportStaffCard />} />
           </Route>
 
+          <Route path='playerregister'>
+            <Route index element={<PlayerRegistration />} />
+            <Route path='playerdetails' exact element={<PlayerRegistrationViewCard />} />
+          </Route>
+          {/* <Route path='/playerregister' exact element={<PlayerRegistration />} /> */}
 
-          <Route path='/playerregister' exact element={<PlayerRegistration />} />
+
+
           <Route path='/staffregister' exact element={<SupportStaffRegistration />} />
 
           <Route path='/accessories' exact element={<Accessories />} />
@@ -48,23 +55,16 @@ function App() {
             <Route index element={<ThingsTodo />} />
             <Route path='thingstodoviewcard' exact element={<ThingsToDoViewCard />} />
             <Route path='thingstodoaddlist' exact element={<ThingsToDoAddList />} />
-            {/* <Route path='thingstodoviewcard/:id' element={<ThingsToDoViewCard />}/> */}
+
           </Route>
 
           {/* Nested Routes for Accreadiation: */}
           <Route path="accreadiationcards">
-            <Route index element={<Accreditationcard />}/>
+            <Route index element={<Accreditationcard />} />
             <Route path='accreadiationform' exact element={<AccreditionForm />} />
           </Route>
-          
 
-
-          
           <Route path='/thingstodoform' exact element={<ThingsTodoForm />} />
-
-
-
-
 
         </Routes>
       </BrowserRouter>

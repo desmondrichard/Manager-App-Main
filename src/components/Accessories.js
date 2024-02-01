@@ -163,7 +163,6 @@ function Accessories() {
                 <th >S.NO</th>
                 <th>PLAYER NAME</th>
                 <th>JERSEY NO</th>
-                <th>INITIAL PRINT</th>
                 <th>TROWSER LENGTH</th>
                 <th>SHORTS SIZE</th>
                 <th>TRACK SUIT</th>
@@ -190,7 +189,6 @@ function Accessories() {
                         <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
                         <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : 'N/A'}</td>
                         <td>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
-                        <td>{showData.initials ? showData.initials : 'N/A'}</td>
                         <td>{showData.trouserLength ? showData.trouserLength : 'N/A'}</td>
                         <td>{showData.shortsSize ? showData.shortsSize : 'N/A'}</td>
                         <td>{showData.trackSuit ? showData.trackSuit : 'N/A'}</td>

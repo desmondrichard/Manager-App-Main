@@ -89,6 +89,22 @@ function Accreditationcard() {
       console.error("Error fetching or processing data for Excel download", error);
     }
   };
+
+  const handleClick1 = (showData) => {  //this function wont do anything but checks it is an object
+    if (showData) {
+      if (typeof showData === 'object') {
+        console.log("it is object")
+      }
+      else {
+        console.log('not object')
+      }
+      console.log("showData before returning:", showData);
+    } else {
+      console.log("showData is undefined");
+      return null;
+    }
+  }
+
   return (
     <div>
       <Header />
@@ -101,7 +117,7 @@ function Accreditationcard() {
           </NavLink>
         </>
 
-        <Container fluid className='py-2 mt-4 bg-light bgColorAccreadiation' style={{backgroundColor: 'rgb(245, 242, 242) !important'}}>
+        <Container fluid className='py-2 mt-4 bg-light bgColorAccreadiation' style={{ backgroundColor: 'rgb(245, 242, 242) !important' }}>
           <Row>
             <Col xl={{ span: 2, offset: 10 }} lg={{ span: 2, offset: 9 }} md={{ span: 4, offset: 8 }} xs={4}>
               <div >
@@ -162,7 +178,11 @@ function Accreditationcard() {
                                 <td>{showData.playersMobilNo ? showData.playersMobilNo : 'N/A'}</td>
                                 <td>{showData.playersEmailId ? showData.playersEmailId : 'N/A'}</td>
                                 <td>{showData.playersDutyPass ? showData.playersDutyPass : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='' className='navLinks'><Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink to='' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             </tbody>
                           )
@@ -204,7 +224,11 @@ function Accreditationcard() {
                                 <td>{showData.staffDesignation ? showData.staffDesignation : 'N/A'}</td>
                                 <td>{showData.staffMobilNo ? showData.staffMobilNo : 'N/A'}</td>
                                 <td>{showData.staffEmailId ? showData.staffEmailId : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='' className='navLinks'><Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink to='' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             </tbody>
                           )
@@ -244,7 +268,11 @@ function Accreditationcard() {
                                 <td>{showData.ownerDesignation ? showData.ownerDesignation : 'N/A'}</td>
                                 <td>{showData.ownerMobilNo ? showData.ownerMobilNo : 'N/A'}</td>
                                 <td>{showData.ownerEmailId ? showData.ownerEmailId : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='' className='navLinks'><Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink to='' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             </tbody>
                           )
@@ -282,7 +310,11 @@ function Accreditationcard() {
                                 <td>{showData.officialDesignation ? showData.officialDesignation : 'N/A'}</td>
                                 <td>{showData.officialMobilNo ? showData.officialMobilNo : 'N/A'}</td>
                                 <td>{showData.officialEmailId ? showData.officialEmailId : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='' className='navLinks'><Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink to='' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             </tbody>
                           )
@@ -323,7 +355,11 @@ function Accreditationcard() {
                                 <td>{showData.sponsorDesignation ? showData.sponsorDesignation : 'N/A'}</td>
                                 <td>{showData.sponsorMobilNo ? showData.sponsorMobilNo : 'N/A'}</td>
                                 <td>{showData.sponsorEmailId ? showData.sponsorEmailId : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='' className='navLinks'><Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink to='' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             </tbody>
                           )

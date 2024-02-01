@@ -45,9 +45,9 @@ function DashboardSupportStaffCard() {
                                                 showData.map((showData, i) => {
                                                     return (
 
-                                                        <Col xs={12} sm={6} md={6} lg={4} key={i}>
-                                                            <Card style={{ width: '14rem', cursor: 'pointer' }} className='m-4 zoom'>
-                                                                <Card.Img variant="top" src={showData.playerImage ? `data:image;base64,${showData.playerImage.imageData}` : require('./../assets/dummy_profile_img.png')} alt="img" style={{ width: 'auto', height: '300px' }} />
+                                                        <Col xs={12} md={6} xl={4} key={i}>
+                                                            <Card style={{ width: '15rem', cursor: 'pointer' }} className='m-4 zoom'>
+                                                                <Card.Img variant="top" src={showData ? `data:image;base64,${showData.imageData}` : require('./../assets/dummy_profile_img.png')} alt="img" style={{ width: 'auto', height: '300px' }} />
                                                                 <Card.Body style={{ borderTop: '1px solid #DDDDDD' }} >
                                                                     <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Staff ID: {showData.alldataStaffId} </Card.Text>
                                                                     <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Staff Name: {showData.supportStaffName ? showData.supportStaffName : 'N/A'}</Card.Text>

@@ -1,16 +1,23 @@
 .zoom {
-    transition: transform 0.3s;
-    margin: 0 auto;
-    box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
-  }
-  
-  .zoom:hover {
-    -ms-transform: scale(1.1);
-    /* IE 9 */
-    -webkit-transform: scale(1.1);
-    /* Safari 3-8 */
-    transform: scale(1.1);
-    
-  }
+  transition: transform 0.3s;
+  margin: 0 auto;
+  box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.1);
+  /* IE 9 */
+  -webkit-transform: scale(1.1);
+  /* Safari 3-8 */
+  transform: scale(1.1);
+
+}
+
+.image-center {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  padding: 50px 0;
+}

@@ -24,7 +24,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import { NavLink } from 'react-router-dom';
 
 //excel:
 import * as XLSX from 'xlsx';
@@ -244,27 +244,27 @@ function PlayerRegistration(props) {
       </div>
 
       {/* Table Data Binding: */}
-      {
-        (showData) ?
-          (<Table striped hover responsive className='tableHead my-3 table-dark'
-          >
-            <thead>
-              <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                <th >PLAYER ID</th>
-                <th >PLAYER IMAGE</th>
-                <th>PLAYER NAME</th>
-                <th>DISPLAY NAME</th>
-                <th>MOBILE NO</th>
-                <th>EMAIL ID</th>
-                <th>SPECIALIZATION</th>
-                <th>JERSEY NO</th>
-                <th>CLUB</th>
-                <th>ACTION</th>
-                <th>DOWNLOAD AS</th>
-              </tr>
-            </thead>
 
-            <tbody className='table-light'>
+
+      <Table striped hover responsive className='tableHead my-3 table-dark'
+      >
+        <thead>
+          <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+            <th >PLAYER ID</th>
+            <th >PLAYER IMAGE</th>
+            <th>PLAYER NAME</th>
+            <th>DISPLAY NAME</th>
+            <th>MOBILE NO</th>
+            <th>EMAIL ID</th>
+            <th>SPECIALIZATION</th>
+            <th>JERSEY NO</th>
+            <th>CLUB</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        {
+          (showData) ?
+            (<tbody className='table-light'>
               {
                 showData
                   .filter(item =>
@@ -274,26 +274,28 @@ function PlayerRegistration(props) {
                     console.log("ShowData", showData.playerName);
                     return (
                       <tr className='text-center' key={i}>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
+                        <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</span></td>
                         {/* blob to image: */}
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.playerImage ? <img src={`data:image;base64,${showData.playerImage.imageData}`} alt="img" style={{ width: '30px', height: '30px' }} /> : <DImage src={require('./../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '30px', height: '30px' }}></DImage>}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : 'N/A'}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.displayName ? showData.displayName : 'N/A'}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.emailId ? showData.emailId : 'N/A'}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.specialization ? showData.specialization : 'N/A'}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.club ? showData.club : 'N/A'}</td>
-                        <td className='d-flex'><Button variant="primary" className='me-1'><i className="bi bi-binoculars"></i></Button><Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
-                        <td><Button variant="dark" className='me-1'><i className="bi bi-filetype-pdf"></i></Button><Button variant="dark" className='me-1'><i className="bi bi-file-earmark-spreadsheet"></i></Button></td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{showData ? <img src={`data:image;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px' }} /> : <DImage src={require('./../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '37px', height: '37px' }}></DImage>}</td>
+                        <td className='td-parent' style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.playerName ? showData.playerName : 'N/A'}</span></td>
+                        <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.displayName ? showData.displayName : 'N/A'}</span></td>
+                        <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</span></td>
+                        <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.emailId ? showData.emailId : 'N/A'}</span></td>
+                        <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.specialization ? showData.specialization : 'N/A'}</span></td>
+                        <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</span></td>
+                        <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.club ? showData.club : 'N/A'}</span></td>
+                        <td className='d-flex'>
+                          <NavLink state={{ showData }} to='/playerregister/playerdetails' className='navLinks' >
+                            <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
+                          </NavLink>
+                          <Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
                       </tr>
                     )
                   })
               }
-            </tbody>
-
-          </Table>) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
-      }
+            </tbody>) : (<Skeleton variant="rectangular" minWidth={1000} height={240} style={{ marginTop: '22px' }} />)
+        }
+      </Table>
 
     </div>
   )

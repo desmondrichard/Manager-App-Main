@@ -21,13 +21,14 @@ import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
 import html2canvas from 'html2canvas';
+import ThingsToDoViewCard from './offcanvas-body/ThingsToDoViewCard';
 function ThingsTodo() {
   let formattedDate = "";
 
   //Data Binding:
   const [showData, setShowData] = useState(null);
   //
-  const [fetchedData, setFetchedData] = useState({})
+
 
   useEffect(() => {
     fetch('http://192.168.1.192/ManagerApi/register/AllDataThingsToDo')
@@ -39,19 +40,22 @@ function ThingsTodo() {
       })
   }, [])
 
-  //modified
-  const handleClick1 = (showData) => {
-    console.log("showdata1:", showData);
-    //err:
-    setFetchedData("newShowData", fetchedData);
-
+  const handleClick1 = (showData) => {  //this function wont do anything but checks it is an object
+    if (showData) {
+      if (typeof showData === 'object') {
+        console.log("it is object")
+      }
+      else {
+        console.log('not object')
+      }
+      console.log("showData before returning:", showData);
+    } else {
+      console.log("showData is undefined");
+      return null;
+    }
   }
 
 
-
-  const handleClick2 = (id) => {
-    console.log("Representative", id)
-  }
 
   //
   const [age, setAge] = React.useState('');
@@ -188,7 +192,7 @@ function ThingsTodo() {
                                 <td>{showData.busBranding ? showData.busBranding : 'N/A'}</td>
                                 <td>{showData.busBooking ? showData.busBooking : 'N/A'}</td>
                                 <td className='btnPadding' style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink to='/thingstodo/thingstodoviewcard' className='navLinks' >
+                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks' >
                                     <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight'
                                       //cant set data in useState:
                                       onClick={() => handleClick1(showData)}
@@ -234,9 +238,9 @@ function ThingsTodo() {
                                 <td>{showData.teamUniform ? showData.teamUniform : 'N/A'}</td>
                                 <td>{showData.teamTshirt ? showData.teamTshirt : 'N/A'}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                  {/* <NavLink to='/thingstodoviewcard' className='navLinks'> */}
-                                  <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight' onClick={() => handleClick2(showData.alldataThingsId)}><i className="bi bi-eye-fill"></i></Button>
-                                  {/* </NavLink>  */}
+                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                    <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight' onClick={() => handleClick1(showData)}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
                                   <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             )
@@ -275,7 +279,11 @@ function ThingsTodo() {
                                 <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
                                 <td>{showData.name ? showData.name : 'N/A'}</td>
                                 <td>{showData.designation ? showData.designation : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='/thingstodoviewcard' className='navLinks'><Button variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             )
                           })
@@ -317,7 +325,11 @@ function ThingsTodo() {
                                 <td>{showData.groundName ? showData.groundName : 'N/A'}</td>
                                 <td>{showData.teamA ? showData.teamA : 'N/A'}</td>
                                 <td>{showData.teamB ? showData.teamB : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='/thingstodoviewcard' className='navLinks'><Button variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             )
                           })
@@ -367,7 +379,11 @@ function ThingsTodo() {
                                 <td>{showData.checkOut ? showData.checkOut : 'N/A'}</td>
                                 <td>{showData.daysStayed ? showData.daysStayed : 'N/A'}</td>
                                 <td>{showData.noOfPeople ? showData.noOfPeople : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='/thingstodoviewcard' className='navLinks'><Button variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             )
                           })
@@ -407,7 +423,11 @@ function ThingsTodo() {
                                 <td>{showData.name ? showData.name : 'N/A'}</td>
                                 <td>{showData.equipments ? showData.equipments : 'N/A'}</td>
                                 <td>{showData.equipmentsType ? showData.equipmentsType : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='/thingstodoviewcard' className='navLinks'><Button variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             )
 
@@ -462,7 +482,11 @@ function ThingsTodo() {
                                 <td>{showData.timeSlot ? showData.timeSlot : 'N/A'}</td>
                                 <td>{showData.noOfSeatsBooked ? showData.noOfSeatsBooked : 'N/A'}</td>
                                 <td>{showData.seatNumbers ? showData.seatNumbers : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}><NavLink to='/thingstodoviewcard' className='navLinks'><Button variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button></NavLink> <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                                <td style={{ whiteSpace: 'nowrap' }}>
+                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                                  </NavLink>
+                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                               </tr>
                             )
                           })

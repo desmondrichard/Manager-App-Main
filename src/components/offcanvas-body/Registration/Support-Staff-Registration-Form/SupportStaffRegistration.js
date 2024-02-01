@@ -240,55 +240,60 @@ function SupportStaffRegistration(props) {
             </div>
 
             {/* Table Data Binding: */}
-            {
-                showData ?
-                    (<Table striped hover responsive className='tableHead my-3 table-dark'
-                    >
-                        <thead>
-                            <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                                <th>Player Image</th>
-                                <th>Staff Name</th>
-                                <th>Player ID</th>
-                                <th>Designation</th>
-                                <th>Mobile No</th>
-                                <th>Email ID</th>
-                                <th>Specialization</th>
-                                <th>jersey No</th>
-                                <th>Club</th>
-                                <th>Action</th>
-                                <th>Download As</th>
-                            </tr>
-                        </thead>
 
-                        <tbody className='table-light' >
-                            {
-                                showData
-                                    .filter(item =>
-                                        search.length < 2 || search.toLowerCase() === '' ? item : item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2)
-                                    )
-                                    .map((showData, i) => {
-                                        console.log("showData", showData)
-                                        return (
-                                            <tr className='text-center' key={i}>
-                                                <td>{showData.playerImage ? <img src={`data:image;base64,${showData.playerImage.imageData}`} alt="img" style={{ width: '40px', height: '35px' }} /> : <DImage src={require('./../../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '30px', height: '30px' }}></DImage>}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.designation ? showData.designation : 'N/A'}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.emailId ? showData.emailId : 'N/A'}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.specialization ? showData.specialization : 'N/A'}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
-                                                <td style={{ whiteSpace: 'nowrap' }}>{showData.club ? showData.club : 'N/A'}</td>
-                                                <td className='d-flex'><Button variant="primary" className='me-1'><i className="bi bi-binoculars"></i></Button><Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
-                                                <td><Button variant="dark" className='me-1'><i className="bi bi-filetype-pdf"></i></Button><Button variant="dark" className='me-1'><i className="bi bi-file-earmark-spreadsheet"></i></Button></td>
-                                            </tr>
+            <Table striped hover responsive className='tableHead my-3 table-dark'
+            >
+                <thead>
+                    <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+                        <th>Player Image</th>
+                        <th>Staff Name</th>
+                        <th>Player ID</th>
+                        <th>Designation</th>
+                        <th>Mobile No</th>
+                        <th>Email ID</th>
+                        <th>Specialization</th>
+                        <th>jersey No</th>
+                        <th>Club</th>
+                        <th>Action</th>
+                        <th>Download As</th>
+                    </tr>
+                </thead>
+
+                {
+                    showData ?
+                        (
+
+                            <tbody className='table-light' >
+                                {
+                                    showData
+                                        .filter(item =>
+                                            search.length < 2 || search.toLowerCase() === '' ? item : item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2)
                                         )
-                                    })
-                            }
-                        </tbody>
+                                        .map((showData, i) => {
+                                            console.log("showData", showData)
+                                            return (
+                                                <tr className='text-center' key={i}>
+                                                    <td>{showData ? <img src={`data:image;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px' }} /> : <DImage src={require('./../../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '37px', height: '37px' }}></DImage>}</td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</span></td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</span></td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.designation ? showData.designation : 'N/A'}</span></td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</span></td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.emailId ? showData.emailId : 'N/A'}</span></td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.specialization ? showData.specialization : 'N/A'}</span></td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</span></td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.club ? showData.club : 'N/A'}</span></td>
+                                                    <td className='d-flex'><Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button><Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
+                                                    <td><Button variant="dark" className='me-1'><i className="bi bi-filetype-pdf"></i></Button><Button variant="dark" className='me-1'><i className="bi bi-file-earmark-spreadsheet"></i></Button></td>
+                                                </tr>
+                                            )
+                                        })
+                                }
+                            </tbody>) : (
+                            <Skeleton variant="rectangular" height={240} style={{ marginTop: '22px' }} />
+                        )
+                }
+            </Table>
 
-                    </Table>) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
-            }
         </div>
     )
 }
