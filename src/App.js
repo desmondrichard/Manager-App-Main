@@ -19,6 +19,7 @@ import DashboardSupportStaffCard from './components/DashboardSupportStaffCard';
 import ThingsToDoViewCard from './components/offcanvas-body/ThingsToDoViewCard';
 import ThingsToDoAddList from './components/ThingsToDoAddList';
 import PlayerRegistrationViewCard from './components/offcanvas-body/Registration/Player-Registration-Form/PlayerRegistrationViewCard';
+import AccreadiationViewCard from './components/AccreadiationViewCard';
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
           <Route path="accreadiationcards">
             <Route index element={<Accreditationcard />} />
             <Route path='accreadiationform' exact element={<AccreditionForm />} />
+            <Route path='accreadiationViewCard' exact element={<AccreadiationViewCard />} />
           </Route>
 
           <Route path='/thingstodoform' exact element={<ThingsTodoForm />} />

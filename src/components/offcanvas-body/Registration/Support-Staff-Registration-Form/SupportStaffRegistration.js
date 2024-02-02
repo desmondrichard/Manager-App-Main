@@ -18,8 +18,7 @@ import StaffTravelInformation from './Support-Staff-Modal-Forms/StaffTravelInfor
 import StaffPreviousRepresentation from './Support-Staff-Modal-Forms/StaffPreviousRepresentation';
 import StaffEmergencyContact from './Support-Staff-Modal-Forms/StaffEmergencyContact';
 import StaffSocialMediaInfo from './Support-Staff-Modal-Forms/StaffSocialMediaInfo';
-import DImage from 'react-bootstrap/Image';
-import Skeleton from '@mui/material/Skeleton';
+import NoDataImg from 'react-bootstrap/Image';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -255,7 +254,6 @@ function SupportStaffRegistration(props) {
                         <th>jersey No</th>
                         <th>Club</th>
                         <th>Action</th>
-                        <th>Download As</th>
                     </tr>
                 </thead>
 
@@ -273,7 +271,16 @@ function SupportStaffRegistration(props) {
                                             console.log("showData", showData)
                                             return (
                                                 <tr className='text-center' key={i}>
-                                                    <td>{showData ? <img src={`data:image;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px' }} /> : <DImage src={require('./../../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '37px', height: '37px' }}></DImage>}</td>
+                                                    <td>
+                                                        <img
+                                                            src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
+                                                                require('./../../../../assets/dummy_profile_img.png')}   //default img 
+                                                            alt="img" style={{ width: '37px', height: '37px' }}
+                                                            onError={(e) => {
+                                                                e.target.src = require('./../../../../assets/dummy_profile_img.png');
+                                                            }}
+                                                        />
+                                                    </td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.designation ? showData.designation : 'N/A'}</span></td>
@@ -283,17 +290,19 @@ function SupportStaffRegistration(props) {
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.club ? showData.club : 'N/A'}</span></td>
                                                     <td className='d-flex'><Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button><Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
-                                                    <td><Button variant="dark" className='me-1'><i className="bi bi-filetype-pdf"></i></Button><Button variant="dark" className='me-1'><i className="bi bi-file-earmark-spreadsheet"></i></Button></td>
                                                 </tr>
                                             )
                                         })
                                 }
-                            </tbody>) : (
-                            <Skeleton variant="rectangular" height={240} style={{ marginTop: '22px' }} />
-                        )
+                            </tbody>) : ('')
+
                 }
             </Table>
-
+            {
+                showData ? ('') : (<div className='text-center'>
+                    <NoDataImg src={require('./../../../../assets/nodatafound.png')} ></NoDataImg>
+                </div>)
+            }
         </div>
     )
 }

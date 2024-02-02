@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import ExploreOptions from '../ModalComponents/ExploreOptions';
 import format from 'date-fns/format';
 import { useLocation } from 'react-router-dom';
+import Footer from '../Footer';
 //
 // import { useParams } from 'react-router-dom';
 // import axios from 'axios';
@@ -66,7 +67,7 @@ function ThingsToDoViewCard() {
                     <Card style={{ width: '100%' }} className='todoSubCard'>
                         <Card.Header className='todoHeader'>REPRESENTATIVES FORM</Card.Header>
                         <Card.Body>
-                            <Row style={{ fontSize: '14px' }}>
+                            <Row style={{ fontSize: '15px' }}>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataThingsId ? location.state.showData.alldataThingsId : '-'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard' style={{ whiteSpace: 'nowrap' }}>Representatives Name: <span style={{ fontWeight: '400' }}>{location.state.showData.representatives ? location.state.showData.representatives : '-'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Team Name: <span style={{ fontWeight: '400' }}>{location.state.showData.name ? location.state.showData.name : '-'}</span></div></Col>
@@ -80,7 +81,7 @@ function ThingsToDoViewCard() {
                     <Card style={{ width: '100%' }} className='mt-3 todoSubCard'>
                         <Card.Header className='todoHeader'>BRANDING FORM</Card.Header>
                         <Card.Body>
-                            <Row style={{ fontSize: '14px' }}>
+                            <Row style={{ fontSize: '15px' }}>
                                 <Col md={4} className='todoCol'><div className='divCard'>ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataThingsId ? location.state.showData.alldataThingsId : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Team Logo: <span style={{ fontWeight: '400' }}>{location.state.showData.teamLogo ? location.state.showData.teamLogo : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Team Flage: <span style={{ fontWeight: '400' }}>{location.state.showData.teamFlage ? location.state.showData.teamFlage : '-'}</span></div></Col>
@@ -95,7 +96,7 @@ function ThingsToDoViewCard() {
                     <Card style={{ width: '100%' }} className='mt-3 todoSubCard'>
                         <Card.Header className='todoHeader'>COACH THERAPIST FORM</Card.Header>
                         <Card.Body>
-                            <Row style={{ fontSize: '14px' }}>
+                            <Row style={{ fontSize: '15px' }}>
                                 <Col md={4} className='todoCol'><div className='divCard'>ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataThingsId ? location.state.showData.alldataThingsId : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Item Name: <span style={{ fontWeight: '400' }}>{location.state.showData.name ? location.state.showData.name : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Designation: <span style={{ fontWeight: '400' }}>{location.state.showData.designation ? location.state.showData.designation : '-'}</span></div></Col>
@@ -107,7 +108,7 @@ function ThingsToDoViewCard() {
                     <Card style={{ width: '100%' }} className='mt-3 todoSubCard' >
                         <Card.Header className='todoHeader'>FIXTURES FORM</Card.Header>
                         <Card.Body>
-                            <Row style={{ fontSize: '14px' }}>
+                            <Row style={{ fontSize: '15px' }}>
                                 <Col md={4} className='todoCol'><div className='divCard'>ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataThingsId ? location.state.showData.alldataThingsId : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Ground Name: <span style={{ fontWeight: '400' }}>{location.state.showData.groundName ? location.state.showData.groundName : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Team A: <span style={{ fontWeight: '400' }}>{location.state.showData.teamA ? location.state.showData.teamA : '-'}</span></div></Col>
@@ -122,7 +123,7 @@ function ThingsToDoViewCard() {
                     <Card style={{ width: '100%' }} className='mt-3 todoSubCard' >
                         <Card.Header className='todoHeader'>HOTEL ACCOMODATION FORM</Card.Header>
                         <Card.Body>
-                            <Row style={{ fontSize: '14px' }}>
+                            <Row style={{ fontSize: '15px' }}>
                                 <Col md={4} className='todoCol'><div className='divCard'>ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataThingsId ? location.state.showData.alldataThingsId : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>No Of Rooms: <span style={{ fontWeight: '400' }}>{location.state.showData.noOfRooms ? location.state.showData.noOfRooms : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>No Of People: <span style={{ fontWeight: '400' }}>{location.state.showData.noOfPeople ? location.state.showData.noOfPeople : '-'}</span></div></Col>
@@ -140,7 +141,7 @@ function ThingsToDoViewCard() {
                     <Card style={{ width: '100%' }} className='mt-3 todoSubCard'>
                         <Card.Header className='todoHeader'>MATCH EQUIPMENT FORM</Card.Header>
                         <Card.Body>
-                            <Row style={{ fontSize: '14px' }}>
+                            <Row style={{ fontSize: '15px' }}>
                                 <Col md={4} className='todoCol'><div className='divCard'>ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataThingsId ? location.state.showData.alldataThingsId : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Name: <span style={{ fontWeight: '400' }}>{location.state.showData.name ? location.state.showData.name : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Items: <span style={{ fontWeight: '400' }}>-</span></div></Col>
@@ -153,7 +154,7 @@ function ThingsToDoViewCard() {
                     <Card style={{ width: '100%' }} className='mt-3 todoSubCard'>
                         <Card.Header className='todoHeader'>TRANSPORT FORM</Card.Header>
                         <Card.Body>
-                            <Row style={{ fontSize: '14px' }}>
+                            <Row style={{ fontSize: '15px' }}>
                                 <Col md={4} className='todoCol'><div className='divCard'>ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataThingsId ? location.state.showData.alldataThingsId : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Bus Type: <span style={{ fontWeight: '400' }}>{location.state.showData.busType ? location.state.showData.busType : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Date Of Journey: <span style={{ fontWeight: '400' }}>{location.state.showData.dateOfJourney ? location.state.showData.dateOfJourney : '-'}</span></div></Col>
@@ -170,7 +171,7 @@ function ThingsToDoViewCard() {
                     </Card>
                 </Card.Body>
             </Card>
-
+            <Footer />
         </div >
     )
 }

@@ -43,9 +43,16 @@ function DashboardCard() {
                                         {
                                             showData.map((showData, i) => {
                                                 return (
-                                                    <Col xs={12} md={6} xl={4} key={i}>
+                                                    <Col xs={12} md={6} xl={4} key={i} >
                                                         <Card style={{ width: '15rem', cursor: 'pointer' }} className='m-4 zoom'>
-                                                            <Card.Img variant="top" src={showData ? `data:image;base64,${showData.imageData}` : require('./../assets/dummy_profile_img.png')} alt="img" style={{ width: 'auto', height: '300px' }} />
+                                                            <Card.Img variant="top"
+                                                                src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
+                                                                    require('./../assets/dummy_profile_img.png')}   //default img 
+                                                                alt="img" style={{ width: 'auto', height: '300px' }}
+                                                                onError={(e) => {
+                                                                    e.target.src = require('./../assets/dummy_profile_img.png');
+                                                                }}
+                                                            />
                                                             <Card.Body style={{ borderTop: '1px solid #DDDDDD' }}>
                                                                 <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Player ID:
                                                                     {showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}

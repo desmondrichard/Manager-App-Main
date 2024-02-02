@@ -33,6 +33,7 @@
     "react-phone-number-input": "^3.3.7",
     "react-router-dom": "^6.20.0",
     "react-scripts": "5.0.1",
+    "react-scroll-to-top": "^3.0.0",
     "react-select": "^5.8.0",
     "react-slick": "^0.29.0",
     "react-tabs-scrollable": "^2.0.6",

@@ -9,26 +9,19 @@ import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { NavLink } from 'react-router-dom';
 import format from 'date-fns/format';
-import Skeleton from '@mui/material/Skeleton';
-// 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-//excel:
-import * as XLSX from 'xlsx';
-//pdf:
-import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
-import html2canvas from 'html2canvas';
-import ThingsToDoViewCard from './offcanvas-body/ThingsToDoViewCard';
+import NoDataImg from 'react-bootstrap/Image';
+//Filter:
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 function ThingsTodo() {
   let formattedDate = "";
 
   //Data Binding:
   const [showData, setShowData] = useState(null);
   //
-
 
   useEffect(() => {
     fetch('http://192.168.1.192/ManagerApi/register/AllDataThingsToDo')
@@ -55,66 +48,15 @@ function ThingsTodo() {
     }
   }
 
-
-
   //
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  //pdf:
-  const [loader, setLoader] = useState(false);
 
-  const handleDownloadPdf = () => {
-    const capture = document.querySelector('.tableHead');
-    setLoader(true);
-
-    setTimeout(() => {
-      html2canvas(document.body, {
-        allowTaint: true,
-        useCors: true
-      })
-        .then(function (canvas) {
-          const imgData = canvas.toDataURL('img/png');
-          const doc = new jsPDF('p', 'mm', 'a4');
-          doc.addImage(imgData, 'PNG', 0, 0, doc.internal.pageSize.getWidth(), 0, 'FAST', 0);
-          doc.save('data.pdf');
-          setLoader(false);
-        })
-        .catch((error) => {
-          console.error(error);
-          setLoader(false);
-        });
-    }, 1000); // Delay of 1000 milliseconds (1 second)
-  }
-
-
-  //excel:
-  const handleDownloadExcel = async () => {
-    try {
-      const response = await fetch('http://192.168.1.192/ManagerApi/register/AllDataThingsToDo');
-      const data = await response.json();
-      console.log("response", data);
-
-      // Extract playerData from the response and replace empty values(cells) with "n/a":
-      const playerData = data.map(item => {
-        const sanitizedData = {};
-        for (const key in item) {
-          sanitizedData[key] = item[key] || 'n/a';
-        }
-        return sanitizedData;
-      });
-
-      var wb = XLSX.utils.book_new();
-      var ws = XLSX.utils.json_to_sheet(playerData);
-
-      XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
-      XLSX.writeFile(wb, "MyExcel.xlsx");
-    } catch (error) {
-      console.error("Error fetching or processing data for Excel download", error);
-    }
-  };
+  // Filter:
+  const [search, setSearch] = useState('');
 
   return (
     <>
@@ -126,376 +68,422 @@ function ThingsTodo() {
           ADD LIST
         </Button>
         </NavLink>
-
-        <Container fluid className='py-2 mt-4 bg-light' style={{ zIndex: '-100' }}>
-          <Row>
-            <Col xl={{ span: 2, offset: 10 }} lg={{ span: 2, offset: 9 }} md={{ span: 4, offset: 8 }} xs={4}>
-              <div >
-                <FormControl variant="filled" sx={{ width: '26ch' }}>
-                  <InputLabel id="demo-simple-select-filled-label" style={{ zIndex: '0' }}>Download</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    value={age}
-                    onChange={handleChange}
-
-                  >
-                    <MenuItem value={10} onClick={() => handleDownloadExcel()} style={{ whiteSpace: 'nowrap' }}>
-                      Download Excel
-                    </MenuItem>
-                    <MenuItem value={20} onClick={() => handleDownloadPdf()} style={{
-                      whiteSpace: 'nowrap'
-                    }}>
-                      Download PDF
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-            </Col>
-          </Row>
-        </Container>
       </div>
+      <Container fluid className='py-2 mt-4 bg-light' style={{ zIndex: '-100' }}>
+        <Row>
+          <Col xl={2} lg={2} md={2} sm={4} xs={4}>
+            {/* <SearchButton /> */}
+            <Box
+              component="form"
+              sx={{
+                '& .MuiTextField-root': { maxWidth: '28ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+            </Box>
+            <div>
+              <TextField style={{ zIndex: '0' }}
+                id="filled-multiline-flexible"
+                label="Search"
+                multiline
+                maxRows={5}
+                variant="filled"
+                placeholder='Ex:Admin'
+                onChange={(e) => setSearch(e.target.value)}
+                inputProps={{
+                  maxLength: 6,
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
+      </Container>
+
 
       {/* Tabs: start*/}
       <Container fluid className='p-0 m-0'>
         <Row style={{ margin: '0px' }} className=''>
           <Tabs justify variant='pills' defaultkey='tab-1' className='mb-1 p-0 tab'>
             {/* Tab:0 */}
-            <Tab eventKey='tab-0' title='BRANDING'>
-              {
-                showData ?
-                  (
-                    <Table striped hover responsive className='tableHead table-dark'
-                    >
-                      <thead>
-                        <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                          <th className='font'>S.NO</th>
-                          <th className='font'>TEAM LOGO</th>
-                          <th className='font'>TEAM FLAGE</th>
-                          <th className='font'>SIDE FLAGES</th>
-                          <th className='font'>STANDEES</th>
-                          <th className='font'>BUS BRANDING</th>
-                          <th className='font'>BUS BOOKING</th>
-                          <th className='font'>ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody className='table-light' style={{ fontSize: '13px' }}>
-                        {
-                          showData.map((showData, i) => {
-                            return (
-                              <tr className='text-center font' key={i}>
-                                <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                                <td>{showData.teamLogo ? showData.teamLogo : 'N/A'}</td>
-                                <td>{showData.teamFlage ? showData.teamFlage : 'N/A'}</td>
-                                <td>{showData.sideFlages ? showData.sideFlages : 'N/A'}</td>
-                                <td>{showData.standees ? showData.standees : 'N/A'}</td>
-                                <td>{showData.busBranding ? showData.busBranding : 'N/A'}</td>
-                                <td>{showData.busBooking ? showData.busBooking : 'N/A'}</td>
-                                <td className='btnPadding' style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks' >
-                                    <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight'
-                                      //cant set data in useState:
-                                      onClick={() => handleClick1(showData)}
-                                    ><i className="bi bi-eye-fill"></i></Button>
-                                  </NavLink>
-                                  <Button variant="primary" style={{ marginTop: '-7px' }} ><i className="bi bi-trash"></i></Button> </td>
-                              </tr>
-                            )
-                          })
-                        }
-                      </tbody>
+            <Tab eventKey='tab-0' title='REPRESENTATIVE'>
+              <Table striped hover responsive className='tableHead table-dark'
+              >
+                <thead>
+                  <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+                    <th className='font'>S.NO</th>
+                    <th className='font'>REPRESENTATIVES</th>
+                    <th className='font'>TEAM UNIFORM</th>
+                    <th className='font'>TEAM TSHIRT</th>
+                    <th className='font'>ACTION</th>
+                  </tr>
+                </thead>
 
-                    </Table>
-                  ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
-              }
+                <tbody className='table-light' style={{ fontSize: '13px' }}>
+                  {showData &&
+                    showData
+                      .filter(item =>
+                        search.length < 2 || search.toLowerCase() === '' ? item : item.representatives.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                      )
+                      .map((showData, i) => {
+                        return (
+                          <tr className='text-center font' key={i}>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td>{showData.representatives ? showData.representatives : 'N/A'}</td>
+                            <td>{showData.teamUniform ? showData.teamUniform : 'N/A'}</td>
+                            <td>{showData.teamTshirt ? showData.teamTshirt : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight' onClick={() => handleClick1(showData)}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        )
+                      })
+                  }
+                </tbody>
+                {
+                  showData ? ('') : (<div className='text-center'>
+                    <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+                  </div>)
+                }
+
+              </Table>
+
 
             </Tab>
 
             {/* Tab:1 */}
-            <Tab eventKey='tab-1' title='REPRESENTATIVE'>
-              {
-                showData ?
-                  (
-                    <Table striped hover responsive className='tableHead table-dark'
-                    >
-                      <thead>
-                        <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                          <th className='font'>S.NO</th>
-                          <th className='font'>REPRESENTATIVES</th>
-                          <th className='font'>TEAM UNIFORM</th>
-                          <th className='font'>TEAM TSHIRT</th>
-                          <th className='font'>ACTION</th>
+            <Tab eventKey='tab-1' title='BRANDING'>
+              <Table striped hover responsive className='tableHead table-dark'
+              >
+                <thead>
+                  <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+                    <th className='font'>S.NO</th>
+                    <th className='font'>TEAM LOGO</th>
+                    <th className='font'>TEAM FLAGE</th>
+                    <th className='font'>SIDE FLAGES</th>
+                    <th className='font'>STANDEES</th>
+                    <th className='font'>BUS BRANDING</th>
+                    <th className='font'>BUS BOOKING</th>
+                    <th className='font'>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody className='table-light' style={{ fontSize: '13px' }}>
+                  {
+                    showData &&
+                    showData.map((showData, i) => {
+                      return (
+                        <tr className='text-center font' key={i}>
+                          <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                          <td>{showData.teamLogo ? showData.teamLogo : 'N/A'}</td>
+                          <td>{showData.teamFlage ? showData.teamFlage : 'N/A'}</td>
+                          <td>{showData.sideFlages ? showData.sideFlages : 'N/A'}</td>
+                          <td>{showData.standees ? showData.standees : 'N/A'}</td>
+                          <td>{showData.busBranding ? showData.busBranding : 'N/A'}</td>
+                          <td>{showData.busBooking ? showData.busBooking : 'N/A'}</td>
+                          <td className='btnPadding' style={{ whiteSpace: 'nowrap' }}>
+                            <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks' >
+                              <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight'
+                                //cant set data in useState:
+                                onClick={() => handleClick1(showData)}
+                              ><i className="bi bi-eye-fill"></i></Button>
+                            </NavLink>
+                            <Button variant="primary" style={{ marginTop: '-7px' }} ><i className="bi bi-trash"></i></Button> </td>
                         </tr>
-                      </thead>
+                      )
+                    })
+                  }
+                </tbody>
 
-                      <tbody className='table-light' style={{ fontSize: '13px' }}>
-                        {
-                          showData.map((showData, i) => {
-                            return (
-                              <tr className='text-center font' key={i}>
-                                <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                                <td>{showData.representatives ? showData.representatives : 'N/A'}</td>
-                                <td>{showData.teamUniform ? showData.teamUniform : 'N/A'}</td>
-                                <td>{showData.teamTshirt ? showData.teamTshirt : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
-                                    <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight' onClick={() => handleClick1(showData)}><i className="bi bi-eye-fill"></i></Button>
-                                  </NavLink>
-                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                              </tr>
-                            )
-                          })
-                        }
-                      </tbody>
-
-
-                    </Table>
-                  ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
+              </Table>
+              {
+                showData ? ('') : (<div className='text-center'>
+                  <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+                </div>)
               }
 
             </Tab>
-
             {/* Tab:2 */}
             <Tab eventKey='tab-2' title='COACH THERAPIST'>
-              {
-                showData ?
-                  (
-                    <Table striped hover responsive className='tableHead table-dark'
-                    >
-                      <thead>
-                        <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                          <th className='font'>S.NO</th>
-                          <th className='font'>NAME</th>
-                          <th className='font'>DESIGNATION</th>
-                          <th className='font'>ACTION</th>
-                        </tr>
-                      </thead>
 
-                      <tbody className='table-light' style={{ fontSize: '13px' }} >
-                        {
-                          showData.map((showData, i) => {
-                            return (
-                              <tr className='text-center font' key={i}>
-                                <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                                <td>{showData.name ? showData.name : 'N/A'}</td>
-                                <td>{showData.designation ? showData.designation : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
-                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                                  </NavLink>
-                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                              </tr>
-                            )
-                          })
-                        }
-                      </tbody>
-                    </Table>
-                  ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
+              <Table striped hover responsive className='tableHead table-dark'
+              >
+                <thead>
+                  <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+                    <th className='font'>S.NO</th>
+                    <th className='font'>NAME</th>
+                    <th className='font'>DESIGNATION</th>
+                    <th className='font'>ACTION</th>
+                  </tr>
+                </thead>
+
+                <tbody className='table-light' style={{ fontSize: '13px' }} >
+                  {
+                    showData &&
+                    showData
+                      .filter(item =>
+                        search.length === 0
+                          ? item
+                          : search.length < 2 || search.toLowerCase() === ''
+                            ? item
+                            : item.name && item.name.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                      )
+                      .map((showData, i) => {
+                        return (
+                          <tr className='text-center font' key={i}>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td>{showData.name ? showData.name : 'N/A'}</td>
+                            <td>{showData.designation ? showData.designation : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        )
+                      })
+                  }
+                </tbody>
+              </Table>
+              {
+                showData ? ('') : (<div className='text-center'>
+                  <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+                </div>)
               }
             </Tab>
 
             {/* Tab:3 */}
             <Tab eventKey='tab-3' title='FIXTURES'>
+
+              <Table striped hover responsive className='tableHead table-dark'
+              >
+                <thead>
+                  <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+                    <th className='font'>S.NO</th>
+                    <th className='font'>DATE</th>
+                    <th className='font'>GROUND NAME</th>
+                    <th className='font'>TEAM A</th>
+                    <th className='font'>TEAM B</th>
+                    <th className='font'>ACTION</th>
+                  </tr>
+                </thead>
+
+                <tbody className='table-light' style={{ fontSize: '13px' }}>
+                  {
+                    showData &&
+                    showData
+                      .filter(item =>
+                        search.length === 0
+                          ? item
+                          : search.length < 2 || search.toLowerCase() === ''
+                            ? item
+                            : item.groundName && item.groundName.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                      )
+                      .map((showData, i) => {
+                        return (
+                          <tr className='text-center font' key={i}>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td>{showData.dateTime ? formattedDate = format(
+                              new Date(showData.dateTime),
+                              'dd/MM/yyyy'
+                            ) : 'N/A'}</td>
+                            <td>{showData.groundName ? showData.groundName : 'N/A'}</td>
+                            <td>{showData.teamA ? showData.teamA : 'N/A'}</td>
+                            <td>{showData.teamB ? showData.teamB : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        )
+                      })
+                  }
+                </tbody>
+
+
+              </Table>
               {
-                showData ?
-                  (
-                    <Table striped hover responsive className='tableHead table-dark'
-                    >
-                      <thead>
-                        <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                          <th className='font'>S.NO</th>
-                          <th className='font'>DATE</th>
-                          <th className='font'>GROUND NAME</th>
-                          <th className='font'>TEAM A</th>
-                          <th className='font'>TEAM B</th>
-                          <th className='font'>ACTION</th>
-                        </tr>
-                      </thead>
-
-                      <tbody className='table-light' style={{ fontSize: '13px' }}>
-                        {
-                          showData.map((showData, i) => {
-                            return (
-                              <tr className='text-center font' key={i}>
-                                <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                                <td>{showData.dateTime ? formattedDate = format(
-                                  new Date(showData.dateTime),
-                                  'dd/MM/yyyy'
-                                ) : 'N/A'}</td>
-                                <td>{showData.groundName ? showData.groundName : 'N/A'}</td>
-                                <td>{showData.teamA ? showData.teamA : 'N/A'}</td>
-                                <td>{showData.teamB ? showData.teamB : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
-                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                                  </NavLink>
-                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                              </tr>
-                            )
-                          })
-                        }
-                      </tbody>
-
-
-                    </Table>
-                  ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
+                showData ? ('') : (<div className='text-center'>
+                  <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+                </div>)
               }
 
             </Tab>
 
             {/* Tab:4 */}
             <Tab eventKey='tab-4' title='HOTEL ACCOMODATION'>
+
+              <Table striped hover responsive className='tableHead table-dark tableSticky'
+              >
+                <thead>
+                  <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+                    <th className='font'>S.NO</th>
+                    <th className='font'>HOTEL NAME</th>
+                    <th className='font'>CITY NAME</th>
+                    <th className='font'>NO OF ROOMS</th>
+                    <th className='font'>ROOM NO</th>
+                    <th className='font'>CHECK IN</th>
+                    <th className='font'>CHECK OUT</th>
+                    <th className='font'>DAYS STAYED</th>
+                    <th className='font'>NO OF PEOPLE</th>
+                    <th className='font'>ACTION</th>
+                  </tr>
+                </thead>
+
+                <tbody className='table-light' style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
+                  {showData &&
+                    showData
+                      .filter(item =>
+                        search.length === 0
+                          ? item
+                          : search.length < 2 || search.toLowerCase() === ''
+                            ? item
+                            : item.hotelName && item.hotelName.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                      )
+                      .map((showData, i) => {
+                        return (
+                          <tr className='text-center font' key={i}>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td>{showData.hotelName ? showData.hotelName : 'N/A'}</td>
+                            <td>{showData.cityName ? showData.cityName : 'N/A'}</td>
+                            <td>{showData.noOfRooms ? showData.noOfRooms : 'N/A'}</td>
+                            <td>{showData.roomsNo ? showData.roomsNo : 'N/A'}</td>
+                            <td>{showData.checkIn ? showData.checkIn : 'N/A'}</td>
+                            <td>{showData.checkOut ? showData.checkOut : 'N/A'}</td>
+                            <td>{showData.daysStayed ? showData.daysStayed : 'N/A'}</td>
+                            <td>{showData.noOfPeople ? showData.noOfPeople : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        )
+                      })
+                  }
+
+                </tbody>
+
+              </Table>
               {
-                showData ?
-                  (
-                    <Table striped hover responsive className='tableHead table-dark tableSticky'
-                    >
-                      <thead>
-                        <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                          <th className='font'>S.NO</th>
-                          <th className='font'>HOTEL NAME</th>
-                          <th className='font'>CITY NAME</th>
-                          <th className='font'>NO OF ROOMS</th>
-                          <th className='font'>ROOM NO</th>
-                          <th className='font'>CHECK IN</th>
-                          <th className='font'>CHECK OUT</th>
-                          <th className='font'>DAYS STAYED</th>
-                          <th className='font'>NO OF PEOPLE</th>
-                          <th className='font'>ACTION</th>
-                        </tr>
-                      </thead>
-
-                      <tbody className='table-light' style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
-                        {
-                          showData.map((showData, i) => {
-                            return (
-                              <tr className='text-center font' key={i}>
-                                <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                                <td>{showData.hotelName ? showData.hotelName : 'N/A'}</td>
-                                <td>{showData.cityName ? showData.cityName : 'N/A'}</td>
-                                <td>{showData.noOfRooms ? showData.noOfRooms : 'N/A'}</td>
-                                <td>{showData.roomsNo ? showData.roomsNo : 'N/A'}</td>
-                                <td>{showData.checkIn ? showData.checkIn : 'N/A'}</td>
-                                <td>{showData.checkOut ? showData.checkOut : 'N/A'}</td>
-                                <td>{showData.daysStayed ? showData.daysStayed : 'N/A'}</td>
-                                <td>{showData.noOfPeople ? showData.noOfPeople : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
-                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                                  </NavLink>
-                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                              </tr>
-                            )
-                          })
-                        }
-
-                      </tbody>
-
-                    </Table>
-                  ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
+                showData ? ('') : (<div className='text-center'>
+                  <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+                </div>)
               }
 
             </Tab>
 
             {/* Tab:5 */}
             <Tab eventKey='tab-5' title='MATCH EQUIPMENT'>
+
+              <Table striped hover responsive className='tableHead table-dark'
+              >
+                <thead>
+                  <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+                    <th className='font'>S.NO</th>
+                    <th className='font'>NAME</th>
+                    <th className='font'>EQUIPMENTS</th>
+                    <th className='font'>EQUIPMENTS TYPE</th>
+                    <th className='font'>ACTION</th>
+                  </tr>
+                </thead>
+
+                <tbody className='table-light' style={{ fontSize: '13px' }}>
+                  {showData &&
+                    showData
+                      .filter(item =>
+                        search.length === 0
+                          ? item
+                          : search.length < 2 || search.toLowerCase() === ''
+                            ? item
+                            : item.name && item.name.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                      )
+                      .map((showData, i) => {
+                        return (
+                          <tr className='text-center font' key={i}>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td>{showData.name ? showData.name : 'N/A'}</td>
+                            <td>{showData.equipments ? showData.equipments : 'N/A'}</td>
+                            <td>{showData.equipmentsType ? showData.equipmentsType : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        )
+
+                      })
+                  }
+                </tbody>
+
+
+              </Table>
               {
-                showData ?
-                  (
-                    <Table striped hover responsive className='tableHead table-dark'
-                    >
-                      <thead>
-                        <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                          <th className='font'>S.NO</th>
-                          <th className='font'>NAME</th>
-                          <th className='font'>EQUIPMENTS</th>
-                          <th className='font'>EQUIPMENTS TYPE</th>
-                          <th className='font'>ACTION</th>
-                        </tr>
-                      </thead>
-
-                      <tbody className='table-light' style={{ fontSize: '13px' }}>
-                        {
-                          showData.map((showData, i) => {
-                            return (
-                              <tr className='text-center font' key={i}>
-                                <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                                <td>{showData.name ? showData.name : 'N/A'}</td>
-                                <td>{showData.equipments ? showData.equipments : 'N/A'}</td>
-                                <td>{showData.equipmentsType ? showData.equipmentsType : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
-                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                                  </NavLink>
-                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                              </tr>
-                            )
-
-                          })
-                        }
-                      </tbody>
-
-
-                    </Table>
-                  ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
+                showData ? ('') : (<div className='text-center'>
+                  <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+                </div>)
               }
-
             </Tab>
 
             {/* Tab:6 */}
             <Tab eventKey='tab-6' title='TRANSPORT FORM'>
+
+              <Table striped hover responsive className='tableHead table-dark'
+              >
+                <thead>
+                  <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
+                    <th className='font'>S.NO</th>
+                    <th className='font'>LEAVING FROM</th>
+                    <th className='font'>GOING TO</th>
+                    <th className='font'>DATE OF JOURNEY</th>
+                    <th className='font'>RETURN DATE</th>
+                    <th className='font'>BUS TYPE</th>
+                    <th className='font'>TRAVEL TYPE</th>
+                    <th className='font'>TRANSPORT TYPE</th>
+                    <th className='font'>TIME SLOT</th>
+                    <th className='font'>NO OF SEATS BOOKED</th>
+                    <th className='font'>SEAT NO</th>
+                    <th className='font' style={{ whiteSpace: 'nowrap' }}>ACTION</th>
+                  </tr>
+                </thead>
+
+                <tbody className='table-light' style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
+                  {showData &&
+                    showData
+                      .map((showData, i) => {
+                        return (
+                          <tr className='text-center font' key={i}>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td>{showData.leavingFrom ? showData.leavingFrom : 'N/A'}</td>
+                            <td>{showData.goingTo ? showData.goingTo : 'N/A'}</td>
+                            <td>{showData.dateOfJourney ? showData.dateOfJourney : 'N/A'}</td>
+                            <td>{showData.returnDate ? showData.returnDate : 'N/A'}</td>
+                            <td>{showData.busType ? showData.busType : 'N/A'}</td>
+                            <td>{showData.travelType ? showData.travelType : 'N/A'}</td>
+                            <td>{showData.transportType ? showData.transportType : 'N/A'}</td>
+                            <td>{showData.timeSlot ? showData.timeSlot : 'N/A'}</td>
+                            <td>{showData.noOfSeatsBooked ? showData.noOfSeatsBooked : 'N/A'}</td>
+                            <td>{showData.seatNumbers ? showData.seatNumbers : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        )
+                      })
+                  }
+
+                </tbody>
+
+              </Table>
               {
-                showData ?
-                  (
-                    <Table striped hover responsive className='tableHead table-dark'
-                    >
-                      <thead>
-                        <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                          <th className='font'>S.NO</th>
-                          <th className='font'>LEAVING FROM</th>
-                          <th className='font'>GOING TO</th>
-                          <th className='font'>DATE OF JOURNEY</th>
-                          <th className='font'>RETURN DATE</th>
-                          <th className='font'>BUS TYPE</th>
-                          <th className='font'>TRAVEL TYPE</th>
-                          <th className='font'>TRANSPORT TYPE</th>
-                          <th className='font'>TIME SLOT</th>
-                          <th className='font'>NO OF SEATS BOOKED</th>
-                          <th className='font'>SEAT NO</th>
-                          <th className='font' style={{ whiteSpace: 'nowrap' }}>ACTION</th>
-                        </tr>
-                      </thead>
-
-                      <tbody className='table-light' style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
-                        {
-                          showData.map((showData, i) => {
-                            return (
-                              <tr className='text-center font' key={i}>
-                                <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                                <td>{showData.leavingFrom ? showData.leavingFrom : 'N/A'}</td>
-                                <td>{showData.goingTo ? showData.goingTo : 'N/A'}</td>
-                                <td>{showData.dateOfJourney ? showData.dateOfJourney : 'N/A'}</td>
-                                <td>{showData.returnDate ? showData.returnDate : 'N/A'}</td>
-                                <td>{showData.busType ? showData.busType : 'N/A'}</td>
-                                <td>{showData.travelType ? showData.travelType : 'N/A'}</td>
-                                <td>{showData.transportType ? showData.transportType : 'N/A'}</td>
-                                <td>{showData.timeSlot ? showData.timeSlot : 'N/A'}</td>
-                                <td>{showData.noOfSeatsBooked ? showData.noOfSeatsBooked : 'N/A'}</td>
-                                <td>{showData.seatNumbers ? showData.seatNumbers : 'N/A'}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}>
-                                  <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
-                                    <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                                  </NavLink>
-                                  <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                              </tr>
-                            )
-                          })
-                        }
-
-                      </tbody>
-
-                    </Table>
-                  ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
+                showData ? ('') : (<div className='text-center'>
+                  <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+                </div>)
               }
 
             </Tab>

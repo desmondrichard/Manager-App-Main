@@ -17,8 +17,7 @@ import Travelinformation from './Player-Registration-Form/Travelinformation';
 import RepresentationInfo from './Player-Registration-Form/RepresentationInfo';
 import EmergencyContact from './Player-Registration-Form/EmergencyContact';
 import SocialMediaInfo from './Player-Registration-Form/SocialMediaInfo';
-import DImage from 'react-bootstrap/Image';
-import Skeleton from '@mui/material/Skeleton';
+import NoDataImg from 'react-bootstrap/Image';
 import Accordion from 'react-bootstrap/Accordion';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -33,7 +32,6 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
 import html2canvas from 'html2canvas';
 //Filter:
-
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 // import './SearchButton.css';
@@ -276,7 +274,16 @@ function PlayerRegistration(props) {
                       <tr className='text-center' key={i}>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</span></td>
                         {/* blob to image: */}
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData ? <img src={`data:image;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px' }} /> : <DImage src={require('./../../../assets/dummy_profile_img.png')} alt="img" style={{ width: '37px', height: '37px' }}></DImage>}</td>
+                        <td>
+                          <img
+                            src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
+                              require('./../../../assets/dummy_profile_img.png')}   //default img 
+                            alt="img" style={{ width: '37px', height: '37px' }}
+                            onError={(e) => {
+                              e.target.src = require('./../../../assets/dummy_profile_img.png');
+                            }}
+                          />
+                        </td>
                         <td className='td-parent' style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.playerName ? showData.playerName : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.displayName ? showData.displayName : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</span></td>
@@ -293,10 +300,15 @@ function PlayerRegistration(props) {
                     )
                   })
               }
-            </tbody>) : (<Skeleton variant="rectangular" minWidth={1000} height={240} style={{ marginTop: '22px' }} />)
+            </tbody>) : ('')
+          // (<Skeleton variant="rectangular" width={100} height={240} style={{ marginTop: '22px' }} />)
         }
       </Table>
-
+      {
+        showData ? ('') : (<div className='text-center'>
+          <NoDataImg src={require('./../../../assets/nodatafound.png')} ></NoDataImg>
+        </div>)
+      }
     </div>
   )
 }

@@ -36,22 +36,22 @@ function PlayerRegistrationViewCard() {
                         <Card.Header className='todoHeader'>PERSONAL INFORMATION</Card.Header>
                         <Card.Body>
                             <Row style={{ fontSize: '14px' }}>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Player ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataplayerId}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Player Name: <span style={{ fontWeight: '400' }}>{location.state.showData.playerName}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Middle Name: <span style={{ fontWeight: '400' }}>{location.state.showData.middleName}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Last Name: <span style={{ fontWeight: '400' }}>{location.state.showData.lastName}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Initial: <span style={{ fontWeight: '400' }}>{location.state.showData.initials}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Display Name: <span style={{ fontWeight: '400' }}>{location.state.showData.displayName}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Father Name: <span style={{ fontWeight: '400' }}>{location.state.showData.fatherName}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Mother Name: <span style={{ fontWeight: '400' }}>{location.state.showData.motherName}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Blood Group: <span style={{ fontWeight: '400' }}>{location.state.showData.bloodGroup}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Mobile No: <span style={{ fontWeight: '400' }}>{location.state.showData.mobileNo}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Alternate No: <span style={{ fontWeight: '400' }}>{location.state.showData.secondNumber}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Email No: <span style={{ fontWeight: '400' }}>{location.state.showData.emailId}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Date Of Birth: <span style={{ fontWeight: '400' }}>{formattedDate = format(
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Player ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataplayerId ? location.state.showData.alldataplayerId : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Player Name: <span style={{ fontWeight: '400' }}>{location.state.showData.playerName ? location.state.showData.playerName : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Middle Name: <span style={{ fontWeight: '400' }}>{location.state.showData.middleName ? location.state.showData.middleName : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Last Name: <span style={{ fontWeight: '400' }}>{location.state.showData.lastName ? location.state.showData.lastName : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Initial: <span style={{ fontWeight: '400' }}>{location.state.showData.initials ? location.state.showData.initials : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Display Name: <span style={{ fontWeight: '400' }}>{location.state.showData.displayName ? location.state.showData.displayName : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Father Name: <span style={{ fontWeight: '400' }}>{location.state.showData.fatherName ? location.state.showData.fatherName : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Mother Name: <span style={{ fontWeight: '400' }}>{location.state.showData.motherName ? location.state.showData.motherName : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Blood Group: <span style={{ fontWeight: '400' }}>{location.state.showData.bloodGroup ? location.state.showData.bloodGroup : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Mobile No: <span style={{ fontWeight: '400' }}>{location.state.showData.mobileNo ? location.state.showData.mobileNo : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Alternate No: <span style={{ fontWeight: '400' }}>{location.state.showData.secondNumber ? location.state.showData.secondNumber : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Email No: <span style={{ fontWeight: '400' }}>{location.state.showData.emailId ? location.state.showData.emailId : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Date Of Birth: <span style={{ fontWeight: '400' }}>{location.state.showData.dateOfBirth ? formattedDate = format(
                                     new Date(location.state.showData.dateOfBirth),
                                     'dd/MM/yyyy'
-                                )}</span></div></Col>
+                                ) : 'N/A'}</span></div></Col>
                             </Row>
                         </Card.Body>
                     </Card>
@@ -61,13 +61,13 @@ function PlayerRegistrationViewCard() {
                         <Card.Header className='todoHeader'>PROFICIENCY INFORMATION</Card.Header>
                         <Card.Body>
                             <Row style={{ fontSize: '14px' }}>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Specialization: <span style={{ fontWeight: '400' }}>{location.state.showData.specialization}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Batting Style: <span style={{ fontWeight: '400' }}>{location.state.showData.battingStyle}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Batting Order: <span style={{ fontWeight: '400' }}>{location.state.showData.battingOrder}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Wicket Keeper: <span style={{ fontWeight: '400' }}>{location.state.showData.wicketkeeper}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Bowler Type: <span style={{ fontWeight: '400' }}>{location.state.showData.bowlerType}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Bowling Style: <span style={{ fontWeight: '400' }}>{location.state.showData.bowlingType}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Bowling Specification: <span style={{ fontWeight: '400' }}>{location.state.showData.bowlingSpecification}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Specialization: <span style={{ fontWeight: '400' }}>{location.state.showData.specialization ? location.state.showData.specialization : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Batting Style: <span style={{ fontWeight: '400' }}>{location.state.showData.battingStyle ? location.state.showData.battingStyle : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Batting Order: <span style={{ fontWeight: '400' }}>{location.state.showData.battingOrder ? location.state.showData.battingOrder : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Wicket Keeper: <span style={{ fontWeight: '400' }}>{location.state.showData.wicketkeeper ? location.state.showData.wicketkeeper : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Bowler Type: <span style={{ fontWeight: '400' }}>{location.state.showData.bowlerType ? location.state.showData.bowlerType : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Bowling Style: <span style={{ fontWeight: '400' }}>{location.state.showData.bowlingType ? location.state.showData.bowlingType : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Bowling Specification: <span style={{ fontWeight: '400' }}>{location.state.showData.bowlingSpecification ? location.state.showData.bowlingSpecification : 'N/A'}</span></div></Col>
                             </Row>
                         </Card.Body>
                     </Card>
@@ -77,28 +77,28 @@ function PlayerRegistrationViewCard() {
                         <Card.Header className='todoHeader'>KITTING DETAILS</Card.Header>
                         <Card.Body>
                             <Row style={{ fontSize: '14px' }}>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey Name: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseyName}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey No: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseyNo}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey Size: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseySize}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Trowser Length: <span style={{ fontWeight: '400' }}>{location.state.showData.trouserLength}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Trowser Size: <span style={{ fontWeight: '400' }}>{location.state.showData.trouserSize}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Shorts Size: <span style={{ fontWeight: '400' }}>{location.state.showData.shortsSize}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Track Suit: <span style={{ fontWeight: '400' }}>{location.state.showData.trackSuit}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Travel Polo: <span style={{ fontWeight: '400' }}>{location.state.showData.travelPolo}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Helmet: <span style={{ fontWeight: '400' }}>{location.state.showData.helmet}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Batting Pad: <span style={{ fontWeight: '400' }}>{location.state.showData.battingPads}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Batting Gloves: <span style={{ fontWeight: '400' }}>{location.state.showData.battingGloves}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Wicket Gloves: <span style={{ fontWeight: '400' }}>{location.state.showData.wkGloves}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Wicket Pad: <span style={{ fontWeight: '400' }}>{location.state.showData.wkPad}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Shoulder Bag: <span style={{ fontWeight: '400' }}>{location.state.showData.shoulderBag}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Shoe Bag: <span style={{ fontWeight: '400' }}>{location.state.showData.shoeBag}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Playing Kit Bag: <span style={{ fontWeight: '400' }}>{location.state.showData.playingkitBag}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Practice Jersey: <span style={{ fontWeight: '400' }}>{location.state.showData.practicsJersey}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Family Jersey: <span style={{ fontWeight: '400' }}>{location.state.showData.familyJersey}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Family Jersey No: <span style={{ fontWeight: '400' }}>{location.state.showData.familyJerseyNo}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Arm Guard: <span style={{ fontWeight: '400' }}>{location.state.showData.armGuard}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Thigh Guard: <span style={{ fontWeight: '400' }}>{location.state.showData.thighGaurad}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Abnominal Guard: <span style={{ fontWeight: '400' }}>{location.state.showData.abdominalGaurad}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey Name: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseyName ? location.state.showData.jerseyName : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey No: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseyNo ? location.state.showData.jerseyNo : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey Size: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseySize ? location.state.showData.jerseySize : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Trowser Length: <span style={{ fontWeight: '400' }}>{location.state.showData.trouserLength ? location.state.showData.trouserLength : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Trowser Size: <span style={{ fontWeight: '400' }}>{location.state.showData.trouserSize ? location.state.showData.trouserSize : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Shorts Size: <span style={{ fontWeight: '400' }}>{location.state.showData.shortsSize ? location.state.showData.shortsSize : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Track Suit: <span style={{ fontWeight: '400' }}>{location.state.showData.trackSuit ? location.state.showData.trackSuit : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Travel Polo: <span style={{ fontWeight: '400' }}>{location.state.showData.travelPolo ? location.state.showData.travelPolo : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Helmet: <span style={{ fontWeight: '400' }}>{location.state.showData.helmet ? location.state.showData.helmet : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Batting Pad: <span style={{ fontWeight: '400' }}>{location.state.showData.battingPads ? location.state.showData.battingPads : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Batting Gloves: <span style={{ fontWeight: '400' }}>{location.state.showData.battingGloves ? location.state.showData.battingGloves : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Wicket Gloves: <span style={{ fontWeight: '400' }}>{location.state.showData.wkGloves ? location.state.showData.wkGloves : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Wicket Pad: <span style={{ fontWeight: '400' }}>{location.state.showData.wkPad ? location.state.showData.wkPad : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Shoulder Bag: <span style={{ fontWeight: '400' }}>{location.state.showData.shoulderBag ? location.state.showData.shoulderBag : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Shoe Bag: <span style={{ fontWeight: '400' }}>{location.state.showData.shoeBag ? location.state.showData.shoeBag : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Playing Kit Bag: <span style={{ fontWeight: '400' }}>{location.state.showData.playingkitBag ? location.state.showData.playingkitBag : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Practice Jersey: <span style={{ fontWeight: '400' }}>{location.state.showData.practicsJersey ? location.state.showData.practicsJersey : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Family Jersey: <span style={{ fontWeight: '400' }}>{location.state.showData.familyJersey ? location.state.showData.familyJersey : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Family Jersey No: <span style={{ fontWeight: '400' }}>{location.state.showData.familyJerseyNo ? location.state.showData.familyJerseyNo : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Arm Guard: <span style={{ fontWeight: '400' }}>{location.state.showData.armGuard ? location.state.showData.armGuard : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Thigh Guard: <span style={{ fontWeight: '400' }}>{location.state.showData.thighGaurad ? location.state.showData.thighGaurad : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Abnominal Guard: <span style={{ fontWeight: '400' }}>{location.state.showData.abdominalGaurad ? location.state.showData.abdominalGaurad : 'N/A'}</span></div></Col>
                             </Row>
                         </Card.Body>
                     </Card>

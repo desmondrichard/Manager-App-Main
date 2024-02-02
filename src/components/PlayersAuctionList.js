@@ -7,11 +7,12 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import FilterAccessories from './FilterAccessories';
 import format from 'date-fns/format';
-import Skeleton from '@mui/material/Skeleton';
+
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import NoDataImg from 'react-bootstrap/Image';
 //excel:
 import * as XLSX from 'xlsx';
 //pdf:
@@ -153,51 +154,51 @@ function PlayersAuctionList() {
           </Row>
         </Container>
       </div>
+
+      <Table striped hover responsive className='tableHead my-3 table-dark'
+      >
+        <thead>
+
+          <tr className='text-center thead' style={{ whiteSpace: 'nowrap', fontSize: '14px' }}>
+            <th >S.NO</th>
+            <th>PLAYER NAME</th>
+            <th>DOB</th>
+            <th>PRICE</th>
+            <th>CATEGORY</th>
+            <th>ROLE</th>
+
+          </tr>
+        </thead>
+        {showData &&
+          showData
+            .filter(item =>
+              search.length < 2 || search.toLowerCase() === '' ? item : item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2)
+            )
+            .map((showData, i) => {
+              return (
+                <tbody className='table-light' key={i}>
+                  <tr className='text-center'>
+                    <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
+                    <td>{showData.playerName ? showData.playerName : 'N/A'}</td>
+                    <td>
+                      {showData.dateOfBirth ? formattedDate = format(new Date(showData.dateOfBirth),
+                        'MMMM dd yyyy') : 'N/A'}
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    {/* <th>7</th> */}
+                  </tr>
+                </tbody>
+              )
+            })
+        }
+
+      </Table>
       {
-        showData ?
-          (
-            <Table striped hover responsive className='tableHead my-3 table-dark'
-            >
-              <thead>
-
-                <tr className='text-center thead' style={{ whiteSpace: 'nowrap', fontSize: '14px' }}>
-                  <th >S.NO</th>
-                  <th>PLAYER NAME</th>
-                  <th>DOB</th>
-                  <th>PRICE</th>
-                  <th>CATEGORY</th>
-                  <th>ROLE</th>
-                  {/* <th>Year</th> */}
-
-                </tr>
-              </thead>
-              {
-                showData
-                  .filter(item =>
-                    search.length < 2 || search.toLowerCase() === '' ? item : item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2)
-                  )
-                  .map((showData, i) => {
-                    return (
-                      <tbody className='table-light' key={i}>
-                        <tr className='text-center'>
-                          <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
-                          <td>{showData.playerName ? showData.playerName : 'N/A'}</td>
-                          <td>
-                            {showData.dateOfBirth ? formattedDate = format(new Date(showData.dateOfBirth),
-                              'MMMM dd yyyy') : 'N/A'}
-                          </td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          {/* <th>7</th> */}
-                        </tr>
-                      </tbody>
-                    )
-                  })
-              }
-
-            </Table>
-          ) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
+        showData ? ('') : (<div className='text-center'>
+          <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+        </div >)
       }
 
     </div>

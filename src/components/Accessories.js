@@ -6,11 +6,11 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import FilterAccessories from './FilterAccessories';
-import Skeleton from '@mui/material/Skeleton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import NoDataImg from 'react-bootstrap/Image';
 //excel:
 import * as XLSX from 'xlsx';
 //pdf:
@@ -154,59 +154,61 @@ function Accessories() {
           </Row>
         </Container>
       </div>
-      {
-        showData ?
-          (<Table striped hover responsive className='tableHead my-3 table-dark'
-          >
-            <thead>
-              <tr className='text-center thead' style={{ whiteSpace: 'nowrap', fontSize: '14px' }}>
-                <th >S.NO</th>
-                <th>PLAYER NAME</th>
-                <th>JERSEY NO</th>
-                <th>TROWSER LENGTH</th>
-                <th>SHORTS SIZE</th>
-                <th>TRACK SUIT</th>
-                <th>TRAVEL POLO</th>
-                <th>HELMET</th>
-                <th>BATTING PADS</th>
-                <th>BATTING GLOVES</th>
-                <th>WK GLOVES</th>
-                <th>WK PAD</th>
-                <th>SHOULDER BAG</th>
+      <Table striped hover responsive className='tableHead my-3 table-dark'
+      >
+        <thead>
+          <tr className='text-center thead' style={{ whiteSpace: 'nowrap', fontSize: '14px' }}>
+            <th >S.NO</th>
+            <th>PLAYER NAME</th>
+            <th>JERSEY NO</th>
+            <th>TROWSER LENGTH</th>
+            <th>SHORTS SIZE</th>
+            <th>TRACK SUIT</th>
+            <th>TRAVEL POLO</th>
+            <th>HELMET</th>
+            <th>BATTING PADS</th>
+            <th>BATTING GLOVES</th>
+            <th>WK GLOVES</th>
+            <th>WK PAD</th>
+            <th>SHOULDER BAG</th>
 
-              </tr>
-            </thead>
-            {
-              showData
-              .filter(item =>
-                search.length < 2 || search.toLowerCase() === '' ? item : item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2)
+          </tr>
+        </thead>
+        {showData &&
+          showData
+            .filter(item =>
+              search.length < 2 || search.toLowerCase() === '' ? item : item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2)
+            )
+            .map((showData, i) => {
+              console.log("showData", showData)
+              return (
+                < tbody className='table-light' key={i} >
+                  <tr className='text-center'>
+                    <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : 'N/A'}</td>
+                    <td>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
+                    <td>{showData.trouserLength ? showData.trouserLength : 'N/A'}</td>
+                    <td>{showData.shortsSize ? showData.shortsSize : 'N/A'}</td>
+                    <td>{showData.trackSuit ? showData.trackSuit : 'N/A'}</td>
+                    <td>{showData.travelPolo ? showData.travelPolo : 'N/A'}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{showData.helmet ? showData.helmet : 'N/A'}</td>
+                    <td>{showData.battingPads ? showData.battingPads : 'N/A'}</td>
+                    <td>{showData.battingGloves ? showData.battingGloves : 'N/A'}</td>
+                    <td>{showData.wkGloves ? showData.wkGloves : 'N/A'}</td>
+                    <td>{showData.wkPad ? showData.wkPad : 'N/A'}</td>
+                    <td>{showData.shoulderBag ? showData.shoulderBag : 'N/A'}</td>
+
+                  </tr>
+
+                </tbody>
               )
-                .map((showData, i) => {
-                  console.log("showData", showData)
-                  return (
-                    < tbody className='table-light' key={i} >
-                      <tr className='text-center'>
-                        <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : 'N/A'}</td>
-                        <td>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
-                        <td>{showData.trouserLength ? showData.trouserLength : 'N/A'}</td>
-                        <td>{showData.shortsSize ? showData.shortsSize : 'N/A'}</td>
-                        <td>{showData.trackSuit ? showData.trackSuit : 'N/A'}</td>
-                        <td>{showData.travelPolo ? showData.travelPolo : 'N/A'}</td>
-                        <td style={{ whiteSpace: 'nowrap' }}>{showData.helmet ? showData.helmet : 'N/A'}</td>
-                        <td>{showData.battingPads ? showData.battingPads : 'N/A'}</td>
-                        <td>{showData.battingGloves ? showData.battingGloves : 'N/A'}</td>
-                        <td>{showData.wkGloves ? showData.wkGloves : 'N/A'}</td>
-                        <td>{showData.wkPad ? showData.wkPad : 'N/A'}</td>
-                        <td>{showData.shoulderBag ? showData.shoulderBag : 'N/A'}</td>
-
-                      </tr>
-
-                    </tbody>
-                  )
-                })
-            }
-          </Table>) : (<Skeleton variant="rectangular" minWidth={50} height={240} style={{ marginTop: '22px' }} />)
+            })
+        }
+      </Table>
+      {
+        showData ? ('') : (<div className='text-center'>
+          <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+        </div >)
       }
     </div >
   )
