@@ -20,6 +20,7 @@ import ThingsToDoViewCard from './components/offcanvas-body/ThingsToDoViewCard';
 import ThingsToDoAddList from './components/ThingsToDoAddList';
 import PlayerRegistrationViewCard from './components/offcanvas-body/Registration/Player-Registration-Form/PlayerRegistrationViewCard';
 import AccreadiationViewCard from './components/AccreadiationViewCard';
+import DashboardPlayGroundViewCard from './components/DashboardPlayGroundViewCard';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route index element={<App1 />} />
             <Route path='dashboardplayerscard' exact element={<DashboardCard />} />
             <Route path='dashboardstaffcard' exact element={<DashboardSupportStaffCard />} />
+            <Route path='playgroundcard' exact element={<DashboardPlayGroundViewCard />} />
           </Route>
 
           <Route path='playerregister'>

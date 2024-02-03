@@ -11,6 +11,7 @@ import { Container, ListGroup } from 'react-bootstrap';
 
 import Placeholder from 'react-bootstrap/Placeholder';
 function DashboardCard() {
+    
     //Data Binding:
     const [showData, setShowData] = useState(null);
     useEffect(() => {
@@ -48,7 +49,7 @@ function DashboardCard() {
                                                             <Card.Img variant="top"
                                                                 src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
                                                                     require('./../assets/dummy_profile_img.png')}   //default img 
-                                                                alt="img" style={{ width: 'auto', height: '300px' }}
+                                                                alt="img" style={{ width: 'auto', height: '250px' }}
                                                                 onError={(e) => {
                                                                     e.target.src = require('./../assets/dummy_profile_img.png');
                                                                 }}
@@ -66,7 +67,7 @@ function DashboardCard() {
                                         }
 
                                     </Row>) : (
-                                        <Row>
+                                        <Row className='my-3'>
                                             <Col xs={12} sm={12} md={6} lg={4}>
                                                 <Card style={{ width: '16rem' }}>
                                                     <Card.Img variant="top" src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png" />

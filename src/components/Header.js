@@ -23,13 +23,11 @@ function Header() {
                 </Offcanvas>
             </>
 
-            <h2 className='text-white text-center font1'>Manager Application</h2>
+            <h2 className='text-white text-center font1'>MANAGER APPLICATION</h2>
             <span>
                 <Button variant="primary" className='btn1'><i className="bi bi-bell-fill " style={{ fontSize: '20px' }}></i><sup><Badge bg="danger">9</Badge></sup> <span className="visually-hidden">unread messages</span></Button>
                 <NavLink to='/'><Button variant="primary" className='btn2'><i className="bi bi-box-arrow-right" style={{ fontSize: '24px' }}></i></Button></NavLink>
             </span>
-
-
 
         </div >
     )

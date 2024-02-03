@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
-import ExploreOptions from './ModalComponents/ExploreOptions';
 import Button from 'react-bootstrap/Button';
 import { NavLink } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
@@ -9,9 +8,76 @@ import './AccreadiationViewCard.css';
 import Card from 'react-bootstrap/Card';
 import { useLocation } from 'react-router-dom';
 import Footer from './Footer';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+//excel:
+import * as XLSX from 'xlsx';
+//pdf:
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable'; // Import the autotable plugin for table support
+import html2canvas from 'html2canvas';
 function AccreadiationViewCard() {
     const location = useLocation();
     console.log("location", location);
+
+    //excel download:
+    const handleDownloadExcel1 = () => {
+
+        try {
+            const data = location.state.showData;
+
+            // Iterate through object properties and replace empty values with 'n/a'
+            Object.keys(data).forEach(key => {
+                if (data[key] === '' || data[key] === null || data[key] === undefined) {
+                    data[key] = 'n/a';
+                }
+            });
+
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.json_to_sheet([data]); //convert it into array else wont work
+
+            XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
+            XLSX.writeFile(wb, "MyExcelAccreadiation.xlsx");
+        } catch (error) {
+            console.error("Error fetching or processing data for Excel download", error);
+        }
+
+    };
+
+    const [age, setAge] = React.useState('');
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
+
+    //pdf:
+    const [loader, setLoader] = useState(false);
+
+    const handleDownloadPdf1 = () => {
+        // const capture = document.querySelector('.tableHead');
+        setLoader(true);
+
+        setTimeout(() => {
+            html2canvas(document.body, {
+                allowTaint: true,
+                useCors: true
+            })
+                .then(function (canvas) {
+                    const imgData = canvas.toDataURL('img/png');
+                    const doc = new jsPDF('p', 'mm', 'a4');
+                    doc.addImage(imgData, 'PNG', 0, 0, doc.internal.pageSize.getWidth(), 0, 'FAST', 0);
+                    doc.save('data.pdf');
+                    setLoader(false);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    setLoader(false);
+                });
+        }, 1000); // Delay of 1000 milliseconds (1 second)
+    }
+
     return (
         <div>
             <Header />
@@ -23,7 +89,31 @@ function AccreadiationViewCard() {
                     <Col lg={3} className='mb-2'>
                         <NavLink to='/accreadiationcards' className='navLinks'><Button variant="primary" style={{ fontWeight: 'bold' }}>Go Back</Button></NavLink>
                     </Col>
-                    <Col lg={{ span: 3, offset: 6 }} ><ExploreOptions /></Col>
+                    <Col xl={{ span: 2, offset: 9 }} lg={{ span: 2, offset: 6 }} md={{ span: 2, offset: 8 }} sm={{ span: 4, offset: 7 }} xs={4}>
+                        <div >
+                            <FormControl variant="filled" sx={{ width: '26ch' }}>
+                                <InputLabel id="demo-simple-select-filled-label" style={{ zIndex: '0' }}>Download</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-filled-label"
+                                    id="demo-simple-select-filled"
+                                    value={age}
+                                    onChange={handleChange}
+
+                                >
+                                    <MenuItem value={10} onClick={() => handleDownloadExcel1()} style={{ whiteSpace: 'nowrap' }}>
+                                        Download Excel
+                                    </MenuItem>
+                                    <MenuItem value={20}
+                                         onClick={() => handleDownloadPdf1()} 
+                                        style={{
+                                            whiteSpace: 'nowrap'
+                                        }}>
+                                        Download PDF
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                    </Col>
                 </Row>
 
                 <Card className='my-3 m-auto' style={{ width: '90%', border: '2px outset #2E83D8' }}>

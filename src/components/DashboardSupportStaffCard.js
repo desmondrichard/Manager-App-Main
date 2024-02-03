@@ -49,15 +49,15 @@ function DashboardSupportStaffCard() {
                                                             <Card style={{ width: '15rem', cursor: 'pointer' }} className='m-4 zoom'>
                                                                 <Card.Img variant="top" src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
                                                                     require('./../assets/dummy_profile_img.png')}   //default img 
-                                                                    alt="img" style={{ width: 'auto', height: '330px' }}
+                                                                    alt="img" style={{ width: 'auto', height: '250px' }}
                                                                     onError={(e) => {
                                                                         e.target.src = require('./../assets/dummy_profile_img.png');
                                                                     }} />
                                                                 <Card.Body style={{ borderTop: '1px solid #DDDDDD' }} >
-                                                                    <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Staff ID: {showData.alldataStaffId} </Card.Text>
-                                                                    <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Staff Name: {showData.supportStaffName ? showData.supportStaffName : 'N/A'}</Card.Text>
-                                                                    <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Designation: {showData.designation ? showData.designation : 'N/A'}</Card.Text>
-                                                                    <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Specialization: {showData.specialization ? showData.specialization : 'N/A'}</Card.Text>
+                                                                    <Card.Text style={{ fontSize: '14px', fontWeight: '500', marginTop: '-16px' }}>Staff ID: {showData.alldataStaffId} </Card.Text>
+                                                                    <Card.Text style={{ fontSize: '14px', fontWeight: '500', marginTop: '-13px' }}>Staff Name: {showData.supportStaffName ? showData.supportStaffName : 'N/A'}</Card.Text>
+                                                                    <Card.Text style={{ fontSize: '14px', fontWeight: '500', marginTop: '-13px' }}>Designation: {showData.designation ? showData.designation : 'N/A'}</Card.Text>
+                                                                    <Card.Text style={{ fontSize: '14px', fontWeight: '500', marginTop: '-13px' }}>Specialization: {showData.specialization ? showData.specialization : 'N/A'}</Card.Text>
                                                                 </Card.Body>
 
                                                             </Card>
@@ -67,7 +67,7 @@ function DashboardSupportStaffCard() {
                                             }
                                         </Row>
                                     ) : (
-                                        <Row>
+                                        <Row className='my-3'>
                                             <Col xs={12} sm={12} md={6} lg={4}>
                                                 <Card style={{ width: '18rem' }}>
                                                     <Card.Img variant="top" src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png" />

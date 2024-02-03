@@ -95,6 +95,11 @@ function PlayersAuctionList() {
   };
   //search:
   const [search, setSearch] = useState('');
+
+  //invalid dateOfBirth check:
+  function isValidDate(date) {
+    return new Date(date) !== "Invalid Date";
+  }
   return (
     <div>
       <Header />
@@ -169,7 +174,8 @@ function PlayersAuctionList() {
 
           </tr>
         </thead>
-        {showData &&
+        {showData
+          &&
           showData
             .filter(item =>
               search.length < 2 || search.toLowerCase() === '' ? item : item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2)
@@ -181,8 +187,9 @@ function PlayersAuctionList() {
                     <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
                     <td>{showData.playerName ? showData.playerName : 'N/A'}</td>
                     <td>
-                      {showData.dateOfBirth ? formattedDate = format(new Date(showData.dateOfBirth),
-                        'MMMM dd yyyy') : 'N/A'}
+                      {/* {showData.dateOfBirth ? formattedDate = format(new Date(showData.dateOfBirth),
+                        'MMMM dd yyyy') : 'N/A'} */}
+                      {formattedDate = showData.dateOfirth ? format(new Date(showData.dateOfirth), 'MMMM dd yyyy') : (isValidDate(showData.OfBirth) ? 'N/A' : '-')}
                     </td>
                     <td>-</td>
                     <td>-</td>
