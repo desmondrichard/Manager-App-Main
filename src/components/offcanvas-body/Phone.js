@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './Phone.css';
-import Col from 'react-bootstrap/Col';
+// import Col from 'react-bootstrap/Col';
 function Phone({ isClear, onActivateProgressBar }) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [valid, setValid] = useState(true);
@@ -15,8 +15,8 @@ function Phone({ isClear, onActivateProgressBar }) {
         setPhoneNumber(value);
         setValid(validatePhoneNumber(value));
         onActivateProgressBar(fieldValue);
-        console.log("fieldValue", fieldValue);
     };
+
 
     const validatePhoneNumber = (phoneNumber) => {
         const phoneNumberPattern = /^\+?[1-9]\d{1,14}$/;
@@ -34,7 +34,7 @@ function Phone({ isClear, onActivateProgressBar }) {
 
     return (
         <div>
-            {fieldValue}
+            {/* {fieldValue} */}
             <PhoneInput className='phone'
                 country={'in'}
                 value={isClear ? "" : phoneNumber}

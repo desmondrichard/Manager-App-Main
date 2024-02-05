@@ -93,6 +93,7 @@ const validate = values => {
 
 function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const [mobileValue, setMobileValue] = useState(false);
+
     const [imageValue, setImageValue] = useState(false);
 
     const [childNextKey, setChildNextKey] = useState("1");
@@ -103,6 +104,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         setErrors(validationErrors);
     };
     const [count, setCount] = useState(0);
+
 
     // reset form start: 
     const firstName = useRef("");
@@ -121,6 +123,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const spec = useRef("");
 
     // progressbar:
+    const [progress, setProgress] = useState(0);
 
     function handleReset() {
         firstName.current.value = "";
@@ -169,8 +172,23 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         }
     });
 
+    //Dynamic Image upload progress Bar:
+    const [imgProgress, setImageProgress] = useState(0);
+
+    function handleImageUploadProgress(value) {
+        console.log("childtoparentImage", value);
+        setImageProgress(value);
+        setImageValue(false);  //to avoid image preview view issue after clicking reset btn
+    }
+
+    //Dynamic phone progress Bar:
+    function ActivateProgressBar(val) {
+        console.log("childtoparentval: ", val);
+        setPhoneProgress(val);
+    }
+
     //Progress Bar:
-    const [progress, setProgress] = useState(0);
+    const [phoneProgress, setPhoneProgress] = useState(0);
 
     function handleProgress() {
         //check form values or formik values:
@@ -179,8 +197,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         //get no of form vals filled by adding it inside a object:
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
         console.log(result);  //returned count is stored in result variable
+        console.log("phoneprogress", phoneProgress);
+        //adding dynamic fields:
+        const totalFilledFields = result + phoneProgress + imgProgress;
+
         //calc formula
-        let newProgress = ((result / 15) * 100).toFixed();
+        let newProgress = ((totalFilledFields / 15) * 100).toFixed();
         console.log("Progress", newProgress)
         //store result progress value
         setProgress(newProgress);
@@ -205,10 +227,11 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     //useEffect will be trigerred whenever formik.values has value
     useEffect(() => {
         handleProgress();
-    }, [formik.values]); // Ensure that the effect is triggered when form values change
+    }, [formik.values, phoneProgress, imgProgress]); // Ensure that the effect is triggered when form values change
 
     const Sample = (a) => {
         console.log("a", a);
+        setImageValue(false)  //solves after reset image cannot upload issue
     }
 
 
@@ -427,7 +450,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                             </Col>
 
                             <Col className='col' lg={4}>
-                                <Phone isClear={mobileValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} />
+                                <Phone isClear={mobileValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} />
                             </Col>
 
                             <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
@@ -457,7 +480,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                 ))}
                             </Col>
                             <Col xs={5} lg={2} className='col'>
-                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={(a) => Sample(a)} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
@@ -467,7 +490,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                     </Form>
                 </Container>
             </Accordion.Body>
-
         </Accordion.Item>
 
     )

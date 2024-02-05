@@ -16,14 +16,15 @@ function ImageUpload({ isClearImage, onActivateProgressBar }) {
         const file = e.target.files[0];
         console.log(file);
         setImage(e.target.files[0]);
-        onActivateProgressBar();
+        onActivateProgressBar(1); //sets progress bar value to 1 from 0 if image is uploaded
+        console.log("sampl", e.target.files[0])
     }
 
     return (
         // 
         <>
             <label htmlFor='image-upload-input' className='image-upload-label h5 text-muted' style={{ fontWeight: '400', whiteSpace: 'nowrap' }}>
-                {image ? image.name : "choose an image"}
+                {image ? image.name : "Upload JPG/PNG"}
             </label>
 
             <div onClick={() => handleImageClick()}>
