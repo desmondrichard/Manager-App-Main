@@ -31,11 +31,9 @@ const validate = values => {
     return errors;
 }
 
-function Sample(){
-    console.log("samp")
-}
+
 function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
-    const [mobileValue, setMobileValue] = useState(false);
+    const [mobileValueClear, setMobileValueClear] = useState(false);
     const [childNextKey, setChildNextKey] = useState("8");
 
     // reset form start: 
@@ -46,7 +44,8 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
     function handleReset() {
         emgcontactperson1.current.value = "";
         emgcontactrel1.current.value = "";
-        setMobileValue(true);
+        setMobileValueClear(true);
+        setmobileProgress("");
         formik.resetForm();
         setProgress(0);
     }
@@ -66,6 +65,15 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         onPreviousActivationKey("6")
     }
 
+    //mobile Progress Bar:
+    const [mobileProgress, setmobileProgress] = useState(0);
+
+    function handleMobileProgress(val) {
+        console.log("val", val);
+        setmobileProgress(val);
+        setMobileValueClear(false);
+    }
+
     //Progress Bar:
     const [progress, setProgress] = useState(0);
 
@@ -76,8 +84,9 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         //get no of form vals filled by adding it inside a object:
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
         console.log(result);  //returned count is stored in result variable
+        let totalFilledFields = result + mobileProgress;
         //calc formula
-        let newProgress = ((result / 3) * 100).toFixed();
+        let newProgress = ((totalFilledFields / 3) * 100).toFixed();
         console.log("Progress", newProgress)
         //store result progress value
         setProgress(newProgress);
@@ -102,11 +111,11 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
     //useEffect will be trigerred whenever formik.values has value
     useEffect(() => {
         handleProgress();
-    }, [formik.values]); // Ensure that the effect is triggered when form values change
+    }, [formik.values,handleMobileProgress]); // Ensure that the effect is triggered when form values change
 
-    function onActivateProgressBar() {
-        handleProgress();
-    }
+
+
+    // 
 
     return (
 
@@ -158,7 +167,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValue} onActivateProgressBar={Sample()} />
+                                <Phone isClear={mobileValueClear} onActivateProgressBar={handleMobileProgress} />
                             </Col>
                         </Row>
 

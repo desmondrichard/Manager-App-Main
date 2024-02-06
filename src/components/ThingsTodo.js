@@ -123,7 +123,7 @@ function ThingsTodo() {
                   {showData &&
                     showData
                       .filter(item =>
-                        search.length < 2 || search.toLowerCase() === '' ? item : item.representatives.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                        search.length < 2 || (item.representatives && item.representatives.slice(0, 2).toLowerCase() === search.slice(0, 2))
                       )
                       .map((showData, i) => {
                         return (

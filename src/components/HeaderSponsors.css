@@ -1,0 +1,35 @@
+.mainBody {
+    align-items: center;
+    justify-content: center;
+}
+
+.slider {
+    height: 70px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: auto;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0)
+    }
+
+    100% {
+        /*animation speed*/
+        transform: translateX(calc(-250px * 7));
+    }
+}
+
+.slider .slide-track {
+    animation: scroll 40s linear infinite;
+    display: flex;
+    width: calc(250px * 16);
+    /* [total images = 8*2 =16] */
+}
+
+.slider .slide {
+    height: 20px;
+    width: 250px;
+}

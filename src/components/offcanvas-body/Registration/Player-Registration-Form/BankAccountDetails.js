@@ -222,7 +222,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                                 name="AccType"
                                                 type={type}
                                                 id={`inline-${type}-savings`}
-                                                defaultChecked={true}
+                                                // defaultChecked={true}
                                                 ref={savings1}
                                             />
                                             <Form.Check

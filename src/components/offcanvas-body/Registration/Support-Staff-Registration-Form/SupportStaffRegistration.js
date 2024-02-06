@@ -110,7 +110,6 @@ function SupportStaffRegistration(props) {
         }, 1000); // Delay of 1000 milliseconds (1 second)
     }
 
-
     function getDataFromChild(k) {
         setKey(k);
     }
@@ -150,7 +149,7 @@ function SupportStaffRegistration(props) {
                         </Modal.Header>
                         <Modal.Body>
                             <p>{key}</p>
-                            <Accordion activeKey={key}>
+                            <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
                                 <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} />
                                 {/* Accordion:2 */}
@@ -258,17 +257,20 @@ function SupportStaffRegistration(props) {
                 </thead>
 
                 {
-                    showData ?
+                    (showData) ?
                         (
-
                             <tbody className='table-light' >
                                 {
+                                    // showData
+                                    //     .filter(item =>
+                                    //         search.length < 2 || search.toLowerCase() === '' ? item : item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                                    //     )
                                     showData
                                         .filter(item =>
-                                            search.length < 2 || search.toLowerCase() === '' ? item : item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                                            search.length < 2 || (item.supportStaffName && item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2))
                                         )
                                         .map((showData, i) => {
-                                            console.log("showData", showData)
+                                            console.log("showData", showData.supportStaffName)
                                             return (
                                                 <tr className='text-center' key={i}>
                                                     <td>
@@ -295,7 +297,6 @@ function SupportStaffRegistration(props) {
                                         })
                                 }
                             </tbody>) : ('')
-
                 }
             </Table>
             {

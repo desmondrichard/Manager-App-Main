@@ -41,7 +41,7 @@ function Dashboard() {
             })
     }, [])
     return (
-        <div >
+        <div style={{ marginTop: '-24px' }}>
             <Container fluid className="my-3 py-3">
                 <Row className='row1'>
                     <Col lg={8} >
@@ -99,7 +99,7 @@ function Dashboard() {
                                         <NavLink to='/dashboard/playgroundcard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
-                                                    <ImageSponsorNew className='img' style={{ height: '120px', width: '120px' }} src={require('../assets/stadium-icon-24.jpg')}></ImageSponsorNew>
+                                                    <ImageSponsorNew className='img' style={{ height: '105px', width: '120px' }} src={require('../assets/stadium-icon-24.jpg')}></ImageSponsorNew>
                                                     <div className='content'>
                                                         <Card.Title className='a'>PLAYGROUND</Card.Title>
                                                         <Card.Text className='b'>

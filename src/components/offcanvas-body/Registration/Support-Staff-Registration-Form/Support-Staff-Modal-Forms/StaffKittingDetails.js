@@ -39,12 +39,12 @@ const validate = values => {
 
 
     if (!/^[0-9]{0,2}$/.test(values.staffTrowserlength)) {
-        errors.staffTrowserlength = "only two Digits allowed";
+        errors.staffTrowserlength = "upto two Digits allowed";
     }
 
 
     if (!/^[0-9]{0,3}$/.test(values.staffFamilyjerseyno)) {
-        errors.staffFamilyjerseyno = "upto 3 Digits allowed";
+        errors.staffFamilyjerseyno = "upto three Digits allowed";
     }
 
 

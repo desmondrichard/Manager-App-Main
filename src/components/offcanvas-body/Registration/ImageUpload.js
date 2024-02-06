@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-function ImageUpload({ isClearImage, onActivateProgressBar }) {
-    const inputRef = useRef(null);
+function ImageUpload({ isClearImage, onActivateProgressBar }) { //isClearImage 1st comes with value false-no clear
+    const inputRef = useRef(null);   //initialized with null for resetting purpose, and since formik is used we use useRef
     const [image, setImage] = useState("");
 
 
@@ -12,18 +12,18 @@ function ImageUpload({ isClearImage, onActivateProgressBar }) {
     }
 
     function handleImageChange(e) {
-        // const file=e; console.log(file);
         const file = e.target.files[0];
         console.log(file);
-        setImage(e.target.files[0]);
-        onActivateProgressBar(1); //sets progress bar value to 1 from 0 if image is uploaded
-        console.log("sampl", e.target.files[0])
+        setImage(e.target.files[0]);//used to set img present in target.files[0]
+        onActivateProgressBar(1); //sets value to 1 from 0 if image is uploaded
+        console.log("after file", file)
     }
 
     return (
         // 
         <>
             <label htmlFor='image-upload-input' className='image-upload-label h5 text-muted' style={{ fontWeight: '400', whiteSpace: 'nowrap' }}>
+                {/* like placeholder: */}
                 {image ? image.name : "Upload JPG/PNG"}
             </label>
 

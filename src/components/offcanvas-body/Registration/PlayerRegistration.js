@@ -41,7 +41,7 @@ function PlayerRegistration(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("0");
+  const [parentkey, setParentKey] = useState("2");
 
   //Data Binding:
   const [showData, setShowData] = useState(null);
@@ -266,7 +266,7 @@ function PlayerRegistration(props) {
               {
                 showData
                   .filter(item =>
-                    search.length < 2 || search.toLowerCase() === '' ? item : item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2)
+                    search.length < 2 || (item.playerName && item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2))
                   )
                   .map((showData, i) => {
                     console.log("ShowData", showData.playerName);

@@ -1,12 +1,14 @@
 import React from 'react'
 import Header from './Header'
 import Dashboard from './Dashboard'
+import HeaderSponsors from './HeaderSponsors'
 
 function App1() {
   return (
     <>
-        <Header />
-        <Dashboard />
+      <Header />
+      <HeaderSponsors />
+      <Dashboard />
     </>
   )
 }

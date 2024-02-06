@@ -215,7 +215,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                             name="visa"
                                             type={type}
                                             id={`inline-${type}-notprovided`}
-                                            defaultChecked={true}
+                                            // defaultChecked={true}
                                             ref={visaNo}
                                         />
                                     </div>

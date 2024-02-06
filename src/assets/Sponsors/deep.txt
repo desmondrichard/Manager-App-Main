@@ -72,9 +72,6 @@ const validate = values => {
     if (!values.staffDob) {
         errors.staffDob = "*Required";
     }
-    // else if (!/^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\\d\\d$/.test(values.staffDob)) {
-    //     errors.staffDob = "Father Name should be maximum 10 characters long or only letters allowed";
-    // }
 
     if (!values.staffBloodGroup) {
         errors.staffBloodGroup = "*Required";
@@ -95,10 +92,9 @@ const validate = values => {
 }
 
 function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
-    const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
+    const [mobileValue, setMobileValue] = useState(false);
 
-    //true-clear,false-not clear:
-    const [imageValue, setImageValue] = useState(false);  //for clearing image after reset is clicked,false-no clear
+    const [imageValue, setImageValue] = useState(false);
 
     const [childNextKey, setChildNextKey] = useState("1");
     //
@@ -139,15 +135,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         mothersName.current.value = "";
         dob.current.value = "";
         bloodgrp.current.value = "none"; //since default or initial value in html code below is none
+        setMobileValue(true);
         email.current.value = "";
         genderMale.current.checked = false;
         genderFemale.current.checked = false;
         desig.current.value = "none";
         spec.current.value = "none";
-        setImageValue(true);//means clears the image
-        setImageProgress("");
-        setMobileValueClear(true);//means after reset clear field(clear-true)
-        setPhoneProgress("");
+        setImageValue(true);
+        setImageProgress("");//made it as null deep
         // console.log("Ref",genderMale);
         formik.resetForm();
         //after clicking reset btn progress bar should be 0:
@@ -169,19 +164,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             staffDob: '',
             staffBloodGroup: '',
             staffEmail: '',
-
+            // mobNo:''
         },
         validate,
         onSubmit: values => {
-            // window.scrollTo({ top: 0, behavior: 'smooth' })
             alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
-            // const element = document.getElementById("playerPersonalInfo");
-            // element.scrollTop = 20;
             onActivationKeyChild(childNextKey)
-
         }
     });
-
 
     //Dynamic Image upload progress Bar:
     const [imgProgress, setImageProgress] = useState(0);
@@ -189,14 +179,13 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     function handleImageUploadProgress(value) {
         console.log("childtoparentImage", value);
         setImageProgress(value);
-        setImageValue(false);  //to avoid image view issue after clicking reset btn  i.e after clicking reset button we setted imageValue as true (clear image) ,so now to reupload we set it back to false
+        setImageValue(false);  //to avoid image preview view issue after clicking reset btn
     }
 
     //Dynamic phone progress Bar:
     function ActivateProgressBar(val) {
         console.log("childtoparentval: ", val);
-        setPhoneProgress(val);//checking if value present or not
-        setMobileValueClear(false);//if value is present  then clear the field  only after reset it clicked so made false-no clear again else it will be true always hence field cannot be cleared
+        setPhoneProgress(val);
     }
 
     //Progress Bar:
@@ -241,8 +230,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         handleProgress();
     }, [formik.values, phoneProgress, imgProgress]); // Ensure that the effect is triggered when form values change
 
+    const Sample = (a) => {
+        console.log("a", a);
+        setImageValue(false)  //solves after reset image cannot upload issue
+    }
+
 
     return (
+
         <Accordion.Item eventKey="0">
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span><ProgressBarWithLabel progressValue={progress} /> </Accordion.Header>
             <Accordion.Body>
@@ -405,7 +400,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         placeholder="dob"
                                         name="staffDob"
                                         ref={dob}
-                                        max="2008-12-31"
+                                        max={new Date().toISOString().split('T')[0]}
                                         value={formik.values.staffDob} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
@@ -456,7 +451,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                             </Col>
 
                             <Col className='col' lg={4}>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} />
+                                <Phone isClear={mobileValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} />
                             </Col>
 
                             <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
@@ -490,7 +485,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                <Button variant="success" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>
+                                <Button variant="success" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }} >Save and Next</Button>
                             </Col>
                         </Row>
                     </Form>

@@ -149,3 +149,11 @@ function App() {
 }
 
 export default App;
+
+------------------------------------------
+same for all:
+delete:
+ deletePlayer(alldataplayerId: number): Observable<any> {
+    return this._http.delete(`https://localhost:7097/Delete-Alldataplayers/${alldataplayerId}`);
+  }
+  

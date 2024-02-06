@@ -127,7 +127,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                             name="BatHand"
                                             type={type}
                                             id={`inline-${type}-right`}
-                                            defaultChecked={true}
+                                            // defaultChecked={true}
                                             ref={batRight}
                                         />
                                     </div>
@@ -171,7 +171,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 name="Arm"
                                                 type={type}
                                                 id={`inline-${type}-rightarm`}
-                                                defaultChecked={true}
+                                                // defaultChecked={true}
                                                 ref={armRight}
                                             />
                                         </span>

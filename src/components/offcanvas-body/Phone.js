@@ -4,12 +4,13 @@ import 'react-phone-input-2/lib/style.css';
 import './Phone.css';
 // import Col from 'react-bootstrap/Col';
 function Phone({ isClear, onActivateProgressBar }) {
-    const [phoneNumber, setPhoneNumber] = useState('');
+
+    const [phoneNumber, setPhoneNumber] = useState('');//to fetch 0 or 1
     const [valid, setValid] = useState(true);
     //
     const [fieldValue, setFieldValue] = useState(0);
 
-    console.log("isClear", isClear)
+    console.log("isClear", isClear) //1st comes with value false-no clear
 
     const handleChange = (value) => {
         setPhoneNumber(value);
@@ -45,10 +46,6 @@ function Phone({ isClear, onActivateProgressBar }) {
 
                 }}
             />
-
-            {/* {!valid && (
-                    <p style={{color:'red'}}>enter a valid phone number</p>
-                )} */}
 
         </div>
     )

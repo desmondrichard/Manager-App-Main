@@ -49,7 +49,7 @@ const validate = values => {
     if (!values.staffVisaNo) {
         errors.staffVisaNo = "*Required"
     }
-    else if (!/^4[0-9]{12}(?:[0-9]{3})?$/.test(values.staffVisaNo)) {
+    else if (!/^[0-9]{16}?$/.test(values.staffVisaNo)) {
         errors.staffVisaNo = "Enter Valid Visa Number"
     }
 

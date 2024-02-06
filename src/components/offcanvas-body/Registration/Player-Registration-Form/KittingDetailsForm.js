@@ -371,7 +371,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         ref={qty}
                                         style={{ width: '80px' }}
                                         min="0"
-                                        max="5"
+                                        max="2"
                                         onChange={(e) => {
                                             if (e.target.value > 0) {
                                                 bowlerA.current.checked = true;

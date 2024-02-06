@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import './DynamicFields.css';
+import React, { useState, useRef } from 'react'
+import { Button, Form } from 'react-bootstrap'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import './DynamicFields.css'
 
 const DynamicFields = () => {
-    const [fields, setFields] = useState([]);
-    const [optionsLabel, setOptionsLabel] = useState('');
+    const [fields, setFields] = useState([])
+    const [optionsLabel, setOptionsLabel] = useState('')
+    const bowlerA = useRef(null)
+    const bowlerB = useRef(null)
 
     const addFields = () => {
         const newFieldSet = {
@@ -17,30 +19,30 @@ const DynamicFields = () => {
                 { id: `radioB-${fields.length}`, label: 'No' },
             ],
             text: { id: `text-${fields.length}`, placeholder: 'Enter text' },
-
-        };
-        setFields([...fields, newFieldSet]);
-        setOptionsLabel(''); // Clear input after adding fields
-    };
+        }
+        setFields([...fields, newFieldSet])
+        setOptionsLabel('') // Clear input after adding fields
+    }
 
     return (
         <div>
-
             <Form className='dynamicMargin'>
-                {fields.map((field) => (
+                {fields.map((field, index) => (
                     <div key={field.id} style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column' }}>
                         <div style={{ marginBottom: '10px' }}>
                             <Row>
                                 <Col sm={5} md={6} lg={4} className='dynamicRadioField'>
                                     <Form.Label>{field.radioLabel}</Form.Label>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                        {field.radios.map((radio) => (
+                                        {field.radios.map((radio, radioIndex) => (
                                             <div key={radio.id} style={{ marginRight: '10px', paddingRight: '30px' }}>
                                                 <Form.Check
                                                     type="radio"
                                                     id={radio.id}
                                                     label={radio.label}
                                                     name={`radioGroup-${field.id}`}
+                                                    ref={radioIndex === 0 ? field.radios[0] : field.radios[1]}
+                                                // ref={radio.ref}
                                                 />
                                             </div>
                                         ))}
@@ -53,18 +55,17 @@ const DynamicFields = () => {
                                         id={field.text.id}
                                         style={{ width: '80px' }}
                                         min="0"
-                                        max="5"
-                                        // onChange={(e) => {
-                                        //     if (e.target.value > 0) {
-                                        //         bowlerA.current.checked = true;
-                                        //     } else {
-                                        //         bowlerB.current.checked = true;
-                                        //     }
-                                        // }}
+                                        max="2"
+                                        onChange={(e) => {
+                                            if (e.target.value > 0) {
+                                                field.radios[0].current.checked = true
+                                            } else {
+                                                field.radios[1].current.checked = true
+                                            }
+                                        }}
                                     />
                                 </Col>
                             </Row>
-
                         </div>
                     </div>
                 ))}
@@ -81,7 +82,7 @@ const DynamicFields = () => {
                 <Button onClick={addFields}><i className="bi bi-plus fa-8x" style={{ fontSize: '20px', borderRadius: '30px' }}></i></Button>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default DynamicFields;
+export default DynamicFields
