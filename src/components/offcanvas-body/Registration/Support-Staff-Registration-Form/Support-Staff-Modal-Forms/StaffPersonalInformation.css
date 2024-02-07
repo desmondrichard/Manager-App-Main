@@ -12,9 +12,48 @@ select:focus {
   box-shadow: none !important;
 }
 
-/* @media only screen and (min-width: 1300px) {
-  .react-tel-input .form-control {
-    width:317px;
-  }
-} */
 
+.react-tel-input .form-control {
+  width: 100%;
+}
+
+@media (max-width: 361px) {
+  .react-tel-input .form-control {
+    width: 212px;
+  }
+}
+
+@media (min-width:362px) and (max-width: 376px) {
+  .react-tel-input .form-control {
+    width: 227px;
+  }
+}
+
+@media (min-width:377px) and (max-width: 391px) {
+  .react-tel-input .form-control {
+    width: 242px;
+  }
+}
+
+@media (min-width:392px) and (max-width: 415px) {
+  .react-tel-input .form-control {
+    width: 262px;
+  }
+}
+
+@media (min-width:416px) and (max-width: 431px) {
+  .react-tel-input .form-control {
+    width: 282px;
+  }
+}
+
+@media (min-width:432px) and (max-width: 541px) {
+  .react-tel-input .form-control {
+    width: 392px !important;
+  }
+}
+
+/* dynamic dropdown: */
+option[disabled] {
+  display: none;
+}

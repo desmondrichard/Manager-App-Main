@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    
+
 }
 
 .bg {
@@ -10,12 +10,13 @@
     background: linear-gradient(264deg, rgba(2, 0, 36, 1) 0%, rgba(116, 105, 217, 1) 0%, rgba(37, 134, 215, 1) 53%, rgba(18, 57, 57, 1) 99%);
 }
 
-.fixed{
-    position:sticky;
-    top:0;
-    z-index:1;
-    width:100%;
+.fixed {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 100%;
 }
+
 .btn1 {
     --bs-btn-color: none;
     --bs-btn-bg: none;
@@ -38,13 +39,13 @@
     background-color: black;
 }
 
-.font1{
+.font1 {
     padding-top: 12px;
     font-weight: 700;
     font-size: 19px !important;
 }
 
-.btn2{
+.btn2 {
     --bs-btn-color: none;
     --bs-btn-bg: none;
     --bs-btn-border-color: none;
@@ -74,5 +75,11 @@
 @media only screen and (max-width: 576px) {
     .offcanvas {
         width: 85% !important;
+    }
+}
+
+@media (max-width: 361px) {
+    .font1 {
+        font-size: 14px !important;
     }
 }

@@ -36,7 +36,7 @@ function Phone({ isClear, onActivateProgressBar }) {
     return (
         <div>
             {/* {fieldValue} */}
-            <PhoneInput className='phone'
+            <PhoneInput className='phone' name="mobNo" id="mobNo"
                 country={'in'}
                 value={isClear ? "" : phoneNumber}
                 onChange={handleChange}

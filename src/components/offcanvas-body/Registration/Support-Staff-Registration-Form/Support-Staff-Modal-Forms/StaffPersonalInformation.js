@@ -87,9 +87,6 @@ const validate = values => {
         errors.staffEmail = "*Invalid email address";
     }
 
-    // if (!values.mobNo) {
-    //     errors.mobNo = "*Required"
-    // }
 
     return errors;
 }
@@ -181,7 +178,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
 
         }
     });
-
 
     //Dynamic Image upload progress Bar:
     const [imgProgress, setImageProgress] = useState(0);
@@ -299,17 +295,25 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                     <label htmlFor="staffLName" className='text-muted'>Staff Last Name*</label>
                                 </Form.Floating>
                             </Col>
+
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="staffDesignation"
                                     label="Designation*"
                                     name="staffDesignation"
-                                    value={formik.values.staffDesignation} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
-                                >
+                                    value={formik.values.staffDesignation} onBlur={formik.handleBlur} onChange={(e) => {
+                                        formik.handleChange(e)
+                                    }}>
 
-                                    <Form.Select aria-label="staffDesignation" ref={desig} >
+                                    <Form.Select aria-label="staffDesignation" ref={desig} onChange={(e) => formik.setFieldValue('staffDesignation', e.target.value)}>
                                         <option value="none">Select Type</option>
                                         <option value="management">Management</option>
+                                        <option value="coach">Coaching</option>
+                                        <option value="analyst">Analyst</option>
+                                        <option value="fitness">Fitness/Nutrition</option>
+                                        <option value="medical">Medical</option>
+                                        <option value="media">Media/PR</option>
+                                        <option value="others">Others</option>
                                     </Form.Select>
                                     {
                                         formik.touched.staffDesignation && formik.errors.staffDesignation ? <span className='span'>{formik.errors.staffDesignation}</span> : null
@@ -324,9 +328,38 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                     value={formik.values.staffSpecialization} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                 >
 
-                                    <Form.Select aria-label="staffSpecialization" ref={spec}>
+                                    <Form.Select aria-label="staffSpecialization" ref={spec} disabled={formik.values.staffDesignation === 'none'}>
                                         <option value="none">Select Type</option>
-                                        <option value="management">Management</option>
+
+                                        <option value="ceo" disabled={formik.values.staffDesignation !== 'management'}>CEO</option>
+                                        <option value="manager" disabled={formik.values.staffDesignation !== 'management'}>Manager</option>
+                                        <option value="headofoperations" disabled={formik.values.staffDesignation !== 'management'}>Head Of Operations</option>
+
+                                        <option value="headcoach" disabled={formik.values.staffDesignation !== 'coach'}>Head Coach</option>
+                                        <option value="battingcoach" disabled={formik.values.staffDesignation !== 'coach'}>Batting Coach</option>
+                                        <option value="bowlingcoach" disabled={formik.values.staffDesignation !== 'coach'}>Bowling Coach</option>
+                                        <option value="fieldingcoach" disabled={formik.values.staffDesignation !== 'coach'}>Fielding Coach</option>
+                                        <option value="assistantcoach" disabled={formik.values.staffDesignation !== 'coach'}>Assistant Coach</option>
+
+                                        <option value="videoanalyst" disabled={formik.values.staffDesignation !== 'analyst'}>Video Ananlyst</option>
+                                        <option value="performanceanalyst" disabled={formik.values.staffDesignation !== 'analyst'}>Performance Analyst</option>
+                                        <option value="dataanalyst" disabled={formik.values.staffDesignation !== 'analyst'}>Data Analyst</option>
+
+                                        <option value="physio" disabled={formik.values.staffDesignation !== 'fitness'}>Physio</option>
+                                        <option value="strength" disabled={formik.values.staffDesignation !== 'fitness'}>Strength & Conditioning</option>
+                                        <option value="nutritionist" disabled={formik.values.staffDesignation !== 'fitness'}>Nutritionist</option>
+                                        <option value="masseur" disabled={formik.values.staffDesignation !== 'fitness'}>Masseur</option>
+
+                                        <option value="teamdoctor" disabled={formik.values.staffDesignation !== 'medical'}>Team Doctor</option>
+                                        <option value="mentalcoach" disabled={formik.values.staffDesignation !== 'medical'}>Mental & Conditioning Coach</option>
+
+                                        <option value="media" disabled={formik.values.staffDesignation !== 'media'}>Media Manager</option>
+                                        <option value="pr" disabled={formik.values.staffDesignation !== 'media'}>PR Manager</option>
+
+                                        <option value="others" disabled={formik.values.staffDesignation !== 'others'}>Others</option>
+
+                                        {/* <option value="Fast" disabled={formik.values.bowlingstyle !== 'Fast'}>Fast</option> */}
+
                                     </Form.Select>
                                     {
                                         formik.touched.staffSpecialization && formik.errors.staffSpecialization ? <span className='span'>{formik.errors.staffSpecialization}</span> : null

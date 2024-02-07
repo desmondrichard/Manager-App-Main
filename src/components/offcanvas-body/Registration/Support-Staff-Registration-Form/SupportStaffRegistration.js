@@ -301,7 +301,7 @@ function SupportStaffRegistration(props) {
             </Table>
             {
                 showData ? ('') : (<div className='text-center'>
-                    <NoDataImg src={require('./../../../../assets/nodatafound.png')} ></NoDataImg>
+                    <NoDataImg src={require('./../../../../assets/nodatafound.png')} className='noDataStaffImg'></NoDataImg>
                 </div>)
             }
         </div>

@@ -61,7 +61,7 @@ function Login() {
                                     </div>
                                 </Form>
                                 <div className='text-center py-2'>
-                                    <p style={{fontWeight:'500'}}>Not Registered ? <span className='text-danger signUp' style={{fontSize:'19px'}}><Link to='/signup'>Sign Up</Link>  </span></p>
+                                    <p style={{fontWeight:'500'}}>Not Registered ? <span className='text-danger signUp' style={{fontSize:'19px',fontWeight:'500'}}><Link to='/signup'>Sign Up</Link>  </span></p>
                                 </div>
                                 <div className='text-center'>
                                     <Image3 className='logo' src={require('../assets/login-pow-logo.png')} ></Image3>

@@ -1,0 +1,55 @@
+.cardBodyMain1 {
+    margin-top: 40px;
+    /* background: linear-gradient(45deg, #061de3, #e306ca); */
+    font-family: Helvetica, sans-serif;
+    color: rgb(211, 211, 211);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerFlip {
+    width: 350px;
+    height: 200px;
+    perspective: 800px;
+}
+
+.containerFlip:hover>.cardFlip {
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+.cardFlip {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: transform 1500ms;
+    transform-style: preserve-3d;
+    border: none;
+}
+
+.front,
+.back {
+    height: 100%;
+    width: 100%;
+    border-radius: 2rem;
+    box-shadow: 0 0 5px 2px rgba(50, 50, 50, 0.25);
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.front {
+    background-image: url('./../assets/Sponsors/plain-white-background.jpg');
+
+}
+
+.back {
+    /* background-color: #3a3a3a; */
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-image: url('./../assets/Sponsors/backbgimage.jpg');
+}

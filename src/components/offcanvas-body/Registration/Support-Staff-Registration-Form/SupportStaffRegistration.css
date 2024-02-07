@@ -12,3 +12,14 @@ select:focus {
   box-shadow: none !important;
 }
 
+.noDataStaffImg {
+  width: 50%;
+}
+
+@media (max-width:450px) {
+
+  img,
+  svg {
+    width: 300px;
+  }
+}

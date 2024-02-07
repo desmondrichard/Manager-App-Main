@@ -7,7 +7,7 @@ function App1() {
   return (
     <>
       <Header />
-      <HeaderSponsors />
+      {/* <HeaderSponsors /> */}
       <Dashboard />
     </>
   )

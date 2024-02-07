@@ -114,14 +114,16 @@ function Dashboard() {
 
                                 <Col lg={4} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className=' mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
-                                            <div className='image'>
-                                                <ImageSponsor className='img' style={{ height: '105px', width: '200px' }} src={require('../assets/sponsoricon.png')}></ImageSponsor>
-                                                <div className='contentPartners1'>
-                                                    <Card.Title className='a'>SPONSORS</Card.Title>
+                                        <NavLink to='/dashboard/sponsorscard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSponsor className='img' style={{ height: '105px', width: '200px' }} src={require('../assets/sponsoricon.png')}></ImageSponsor>
+                                                    <div className='contentPartners1'>
+                                                        <Card.Title className='a'>SPONSORS</Card.Title>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Button>
+                                            </Button>
+                                        </NavLink>
                                     </Card.Body>
                                 </Col>
                                 <Col lg={4} sm={6} xs={12} className='col'>

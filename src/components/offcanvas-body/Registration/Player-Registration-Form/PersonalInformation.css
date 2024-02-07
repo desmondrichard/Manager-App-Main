@@ -1,24 +1,25 @@
-.span{
-    color:red;
-    font-size: 15px;
-  }
+.span {
+  color: red;
+  font-size: 15px;
+}
 
-  .form-control:focus{
-    box-shadow:none !important;
-    border:2px solid black !important;
-  }
+.form-control:focus {
+  box-shadow: none !important;
+  border: 2px solid black !important;
+}
 
-  select:focus{
-    border:2px solid black !important;
-    box-shadow: none !important;
-  }
+select:focus {
+  border: 2px solid black !important;
+  box-shadow: none !important;
+}
 
-  .form-control:focus{
-    box-shadow:none !important;
-    border:2px solid black !important;
-  }
+.form-control:focus {
+  box-shadow: none !important;
+  border: 2px solid black !important;
+}
 
-  select:focus{
-    border:2px solid black !important;
-    box-shadow: none !important;
-  }
+select:focus {
+  border: 2px solid black !important;
+  box-shadow: none !important;
+}
+

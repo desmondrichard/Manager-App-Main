@@ -179,6 +179,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                 ))}
 
                             </Col>
+
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="bowlingstyle"
@@ -186,14 +187,20 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     name="bowlingstyle"
                                     value={formik.values.bowlingstyle} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="bowlingstyle" ref={bowlStyle}>
+                                    <Form.Select aria-label="bowlingstyle" ref={bowlStyle} onChange={(e) => {
+                                        formik.setFieldValue('bowlingstyle', e.target.value);
+                                        //Giving options for parent select:
+                                        // if (e.target.value === 'Fast') {
+                                        //     formik.setFieldValue('bowlingspecification', 'Fast');
+                                        // } else if (e.target.value === 'Spin') {
+                                        //     formik.setFieldValue('bowlingspecification', 'Spin');
+                                        // }
+                                    }}>
                                         <option value="none">Select Type</option>
-                                        <option value="fast">FAST</option>
-                                        <option value="spin">SPIN</option>
+                                        <option value="Fast">FAST</option>
+                                        <option value="Spin">SPIN</option>
                                     </Form.Select>
-                                    {
-                                        formik.touched.bowlingstyle && formik.errors.bowlingstyle ? <span className='span'>{formik.errors.bowlingstyle}</span> : null
-                                    }
+                                    {formik.touched.bowlingstyle && formik.errors.bowlingstyle ? <span className='span'>{formik.errors.bowlingstyle}</span> : null}
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -203,14 +210,17 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     name="bowlingspecification"
                                     value={formik.values.bowlingspecification} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="bowlingspecification" ref={bowlSpecs}>
+                                    <Form.Select aria-label="bowlingspecification" ref={bowlSpecs} disabled={formik.values.bowlingstyle === 'none'}>
                                         <option value="none">Select Type</option>
-                                        <option value="sample1">sample1</option>
-                                        <option value="sample2">sample2</option>
+                                        <option value="Fast" disabled={formik.values.bowlingstyle !== 'Fast'}>Fast</option>
+                                        <option value="Medium Fast" disabled={formik.values.bowlingstyle !== 'Fast'}>Medium Fast</option>
+                                        <option value="Fast Medium" disabled={formik.values.bowlingstyle !== 'Fast'}>Fast Medium</option>
+                                        <option value="Off Spin" disabled={formik.values.bowlingstyle !== 'Spin'}>Off Spin</option>
+                                        <option value="Orthodox" disabled={formik.values.bowlingstyle !== 'Spin'}>Orthodox</option>
+                                        <option value="Chinaman" disabled={formik.values.bowlingstyle !== 'Spin'}>Chinaman</option>
+                                        <option value="Leg Spin" disabled={formik.values.bowlingstyle !== 'Spin'}>Leg Spin</option>
                                     </Form.Select>
-                                    {
-                                        formik.touched.bowlingspecification && formik.errors.bowlingspecification ? <span className='span'>{formik.errors.bowlingspecification}</span> : null
-                                    }
+                                    {formik.touched.bowlingspecification && formik.errors.bowlingspecification ? <span className='span'>{formik.errors.bowlingspecification}</span> : null}
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={12} className='my-4 col'>

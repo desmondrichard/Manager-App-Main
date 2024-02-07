@@ -135,7 +135,7 @@ function Register() {
                                 {/* DOB Field: */}
                                 <Form.Group className="mb-3" controlId="DOB">
                                     <Form.Label className='fontRegister'>D.O.B</Form.Label>
-                                    <Form.Control size="sm" className='shadow-none' type="date" placeholder="Enter Date of Birth" name='dob' value={formik.values.dob} onBlur={formik.handleBlur} onChange={formik.handleChange} max={new Date(Date.now() - 24*60*60*1000).toISOString().split("T")[0]}/>
+                                    <Form.Control size="sm" className='shadow-none' type="date" placeholder="Enter Date of Birth" name='dob' value={formik.values.dob} onBlur={formik.handleBlur} onChange={formik.handleChange} max={new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split("T")[0]} />
                                     {
                                         formik.touched.dob && formik.errors.dob ? <span className='span'>{formik.errors.dob}</span> : null
                                     }
@@ -196,7 +196,7 @@ function Register() {
                                 </div>
                             </Form>
                             <div className='text-center py-2'>
-                                <p style={{fontWeight:'500'}}>Already Have an Account ? <span className='text-danger signUp' style={{fontSize:'19px'}}><Link to='/'>Login</Link> </span></p>
+                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/'>Login</Link> </span></p>
                             </div>
 
                         </Container>
