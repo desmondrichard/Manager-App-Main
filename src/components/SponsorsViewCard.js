@@ -24,9 +24,9 @@ function SponsorsViewCard() {
             </div>
 
             <div className='cardBodyMain1'>
-                <Row style={{ paddingBottom: '50px' }}>
+                <Row style={{ paddingBottom: '50px' }} className='container '>
                     {/* Card:1 */}
-                    <Col lg={3} md={4} sm={6} className='mb-4'>
+                    <Col md={4} sm={6} className='mb-4 allCards'>
                         <div className='containerFlip'>
                             <div style={{ width: '14rem' }} className='cardFlip'>
                                 <Card className='front' style={{ paddingTop: '30px' }}>
@@ -43,7 +43,7 @@ function SponsorsViewCard() {
                     </Col>
 
                     {/* Card:2 */}
-                    <Col lg={3} md={4} sm={6} className='mb-4'>
+                    <Col md={4} sm={6} className='mb-4'>
                         <div className='containerFlip'>
                             <div style={{ width: '14rem' }} className='cardFlip'>
                                 <Card className='front px-3' style={{ paddingTop: '35px' }}>
@@ -60,7 +60,7 @@ function SponsorsViewCard() {
                     </Col>
 
                     {/* Card:3 */}
-                    <Col lg={3} md={4} sm={6} className='mb-4'>
+                    <Col md={4} sm={6} className='mb-4'>
                         <div className='containerFlip'>
                             <div style={{ width: '14rem' }} className='cardFlip'>
                                 <Card className='front px-3' style={{ paddingTop: '65px' }}>
@@ -77,7 +77,7 @@ function SponsorsViewCard() {
                     </Col>
 
                     {/* Card:4 */}
-                    <Col lg={3} md={4} sm={6} className='mb-4'>
+                    <Col md={4} sm={6} className='mb-4'>
                         <div className='containerFlip'>
                             <div style={{ width: '14rem' }} className='cardFlip'>
                                 <Card className='front px-2' style={{ paddingTop: '37px' }}>
@@ -94,7 +94,7 @@ function SponsorsViewCard() {
                     </Col>
 
                     {/* Card:5 */}
-                    <Col lg={3} md={4} sm={6} className='mb-4'>
+                    <Col md={4} sm={6} className='mb-4'>
                         <div className='containerFlip'>
                             <div style={{ width: '14rem' }} className='cardFlip'>
                                 <Card className='front px-3' style={{ paddingTop: '70px' }}>
@@ -111,7 +111,7 @@ function SponsorsViewCard() {
                     </Col>
 
                     {/* Card:6 */}
-                    <Col lg={3} md={4} sm={6} className='mb-4'>
+                    <Col md={4} sm={6} className='mb-4'>
                         <div className='containerFlip'>
                             <div style={{ width: '14rem' }} className='cardFlip'>
                                 <Card className='front px-3' style={{ paddingTop: '34px' }}>
@@ -128,7 +128,7 @@ function SponsorsViewCard() {
                     </Col>
 
                     {/* Card:7 */}
-                    <Col lg={3} md={4} sm={6} className='mb-4'>
+                    <Col md={4} sm={6} className='mb-4'>
                         <div className='containerFlip'>
                             <div style={{ width: '14rem' }} className='cardFlip'>
                                 <Card className='front px-4' style={{ paddingTop: '20px' }}>
@@ -145,7 +145,7 @@ function SponsorsViewCard() {
                     </Col>
 
                     {/* Card:8 */}
-                    <Col lg={3} md={4} sm={6} className='mb-4'>
+                    <Col md={4} sm={6} className='mb-4'>
                         <div className='containerFlip'>
                             <div style={{ width: '14rem' }} className='cardFlip'>
                                 <Card className='front px-2' style={{ paddingTop: '38px' }}>

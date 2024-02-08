@@ -60,15 +60,6 @@ function Register() {
     const [visible, setVisible] = useState(true);
     const [visible1, setVisible1] = useState(true);
 
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     alert('signup success');
-    //     // navigate("/");
-    //     console.log("error",formik.errors);
-    //     if(!Object.keys(formik.errors).length){
-    //         // navigate("/");
-    //     }
-    // }
 
     // Formik:
     const formik = useFormik({
@@ -187,6 +178,17 @@ function Register() {
                                         formik.touched.confirmpassword && formik.errors.confirmpassword ? <span className='span'>{formik.errors.confirmpassword}</span> : null
                                     }
                                 </Form.Group>
+
+                                <label htmlFor="usertype" className='mt-1 fontRegister'>User Type</label>
+                                <Form.Select aria-label="user type" size='sm' className='mt-1'>
+                                    <option value="admin">Admin</option>
+                                    <option value="supportstaff">Support Staff</option>
+                                    <option value="player">Player</option>
+                                    <option value="partner">Partner</option>
+                                    <option value="sponsor">Sponsor</option>
+                                    <option value="organizor">Organizor</option>
+                                </Form.Select>
+
                                 {/* Submit Button: */}
                                 <div className="d-grid gap-2 my-2">
                                     <Button type='submit' value='submit' variant="outline-success" className='mt-2 w-100 fw-bold fs-4' size="sm">

@@ -103,7 +103,7 @@ function Dashboard() {
                                                     <div className='content'>
                                                         <Card.Title className='a'>PLAYGROUND</Card.Title>
                                                         <Card.Text className='b'>
-                                                            5
+                                                            8
                                                         </Card.Text>
                                                     </div>
                                                 </div>
@@ -120,6 +120,9 @@ function Dashboard() {
                                                     <ImageSponsor className='img' style={{ height: '105px', width: '200px' }} src={require('../assets/sponsoricon.png')}></ImageSponsor>
                                                     <div className='contentPartners1'>
                                                         <Card.Title className='a'>SPONSORS</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            8
+                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
