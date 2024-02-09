@@ -26,12 +26,12 @@ const validate = values => {
     errors.goingTo = "enter a valid name";
   }
 
-  if (!/^\d{0,3}$/.test(values.seatBooked)) {
-    errors.seatBooked = "enter a valid number";
+  if (!/^\d{0,3}$/.test(values.noOfSeatsBooked)) {
+    errors.noOfSeatsBooked = "enter a valid number";
   }
 
-  if (!/^\d{0,3}$/.test(values.seatNo)) {
-    errors.seatNo = "enter a valid number";
+  if (!/^\d{0,3}$/.test(values.seatNumbers)) {
+    errors.seatNumbers = "enter a valid number";
   }
 
 
@@ -47,7 +47,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
   const returnDate = useRef("");
   const seatBooked = useRef("");
   const seatNo = useRef("");
-  const transportType = useRef("");
+  const transportTypeReset = useRef("");
   const travelType = useRef("");
   const busType = useRef("");
 
@@ -58,7 +58,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
     returnDate.current.value = "";
     seatBooked.current.value = "";
     seatNo.current.value = "";
-    transportType.current.value = "none";
+    transportTypeReset.current.value = "none";
     travelType.current.value = "none";
     busType.current.value = "none";
     formik.resetForm();
@@ -71,6 +71,9 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
       alert('Checkout date must be after checkin date.');
       returnDate.current.value = ''; // clear the checkout date
     }
+    else {
+      formik.setFieldValue("checkOut", checkoutDate);
+  }
   }
 
 
@@ -78,13 +81,19 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
     initialValues: {
       leavingFrom: '',
       goingTo: '',
-      seatBooked: '',
-      seatNo: ''
+      noOfSeatsBooked: '',
+      seatNumbers: '',
+      transportType:'',
+      travelType: '',
+      busType: '',
+      dateOfJourney:'',
+      returnDate:''
     },
     validate,
     onSubmit: values => {
       // alert(`Hello! ,${values.groundName} you have successfully signed up`);
       notify()
+      console.log("values", values)
     }
   });
 
@@ -137,101 +146,113 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
           <Col md={3} className='my-3'>
             <Form.Floating className="mb-2">
               <Form.Control
-                id="checkin"
+                id="dateOfJourney"
                 type="date"
                 min={new Date().toISOString().split('T')[0]}
                 placeholder='DD-MM-YYYY'
-                name="journeyDate"
+                name="dateOfJourney"
                 ref={journeyDate}
+                value={formik.values.dateOfJourney}
+                onChange={formik.handleChange}
               />
 
-              <label htmlFor="journeyDate" className='text-muted'>Check In</label>
+              <label htmlFor="dateOfJourney" className='text-muted'>Date Of Journey</label>
             </Form.Floating>
           </Col>
           <Col md={3} className='my-3'>
             <Form.Floating className="mb-2">
               <Form.Control
-                id="checkout"
+                id="returndate"
                 type="date"
                 min={new Date().toISOString().split('T')[0]}
                 placeholder='DD-MM-YYYY'
                 name="returndate"
                 ref={returnDate}
+                value={formik.values.returndate}
                 onChange={(e) => checkIfCheckoutAfterCheckin(journeyDate.current.value, e.target.value)}
               />
 
-              <label htmlFor="returnDate" className='text-muted'>Check Out</label>
+              <label htmlFor="returnDate" className='text-muted'>Return Date</label>
             </Form.Floating>
           </Col>
           <Col md={3}>
             <FloatingLabel className='mb-2 c1'
-              controlId="transporttype"
+              controlId="transportType"
               label="Transport Type"
+              name="transportType"
+              value={formik.values.transportType}
+              onChange={formik.handleChange}
             >
-              <Form.Select aria-label="transporttype" ref={transportType}>
+              <Form.Select aria-label="transportType" ref={transportTypeReset}>
                 <option value="none">Select Type</option>
-                <option value="year1">Roadways</option>
-                <option value="year1">Railways</option>
-                <option value="year1">Airways</option>
+                <option value="Roadways">Roadways</option>
+                <option value="Railways">Railways</option>
+                <option value="Airways">Airways</option>
               </Form.Select>
             </FloatingLabel>
           </Col>
           <Col md={3}>
             <FloatingLabel className='mb-2 c1'
-              controlId="traveltype"
+              controlId="travelType"
               label="Travel Type"
+              name="travelType"
+              value={formik.values.travelType}
+              onChange={formik.handleChange}
             >
-              <Form.Select aria-label="traveltype" ref={travelType}>
+              <Form.Select aria-label="travelType" ref={travelType}>
                 <option value="none">Select Type</option>
-                <option value="year1">Roadways</option>
-                <option value="year1">Railways</option>
-                <option value="year1">Airways</option>
+                <option value="Roadways">Roadways</option>
+                <option value="Railways">Railways</option>
+                <option value="Airways">Airways</option>
               </Form.Select>
             </FloatingLabel>
           </Col>
           <Col md={3}>
             <FloatingLabel className='mb-2 c1'
-              controlId="bustype"
+              controlId="busType"
               label="Bus Type"
+              name='busType'
+              value={formik.values.busType}
+              onChange={formik.handleChange}
             >
-              <Form.Select aria-label="bustype" ref={busType}>
+              <Form.Select aria-label="busType" ref={busType}>
                 <option value="none">Select Type</option>
-                <option value="year1">Roadways</option>
-                <option value="year1">Railways</option>
-                <option value="year1">Airways</option>
+                <option value="Roadways">Roadways</option>
+                <option value="Railways">Railways</option>
+                <option value="Airways">Airways</option>
               </Form.Select>
             </FloatingLabel>
           </Col>
           <Col md={3}>
             <Form.Floating className="mb-2">
               <Form.Control
-                id="seatBooked"
+                id="noOfSeatsBooked"
                 type="text"
                 placeholder="seatBooked"
-                name="seatBooked"
+                name="noOfSeatsBooked"
                 ref={seatBooked}
-                value={formik.values.seatBooked} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                value={formik.values.noOfSeatsBooked} onBlur={formik.handleBlur} onChange={formik.handleChange}
               />
               {
-                formik.touched.seatBooked && formik.errors.seatBooked ? <span className='span'>{formik.errors.seatBooked}</span> : null
+                formik.touched.noOfSeatsBooked && formik.errors.noOfSeatsBooked ? <span className='span'>{formik.errors.noOfSeatsBooked}</span> : null
               }
-              <label htmlFor="seatBooked" className='text-muted'>No Of Seats Booked</label>
+              <label htmlFor="noOfSeatsBooked" className='text-muted'>No Of Seats Booked</label>
             </Form.Floating>
           </Col>
           <Col md={3}>
             <Form.Floating className="mb-2">
               <Form.Control
-                id="seatNo"
+                id="seatNumbers"
                 type="text"
                 placeholder="seatnos"
-                name="seatNo"
+                name="seatNumbers"
                 ref={seatNo}
-                value={formik.values.seatNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                value={formik.values.seatNumbers} onBlur={formik.handleBlur} onChange={formik.handleChange}
               />
               {
-                formik.touched.seatNo && formik.errors.seatNo ? <span className='span'>{formik.errors.seatNo}</span> : null
+                formik.touched.seatNumbers && formik.errors.seatNumbers ? <span className='span'>{formik.errors.seatNumbers}</span> : null
               }
-              <label htmlFor="seatNo" className='text-muted'>Seat No</label>
+              <label htmlFor="seatNumbers" className='text-muted'>Seat No</label>
             </Form.Floating>
           </Col>
         </Row>

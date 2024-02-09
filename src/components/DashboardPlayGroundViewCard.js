@@ -37,68 +37,68 @@ function DashboardPlayGroundViewCard() {
                     <Carousel.Item interval={1000}>
                         <ChinnaswamyStadium src={require('./../assets/chinnaswamy_stadium.jpg')} text="First slide" className='d-block' style={{ width: '80vw', height: '80vh' }} />
                         <Carousel.Caption>
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            <h3>M.Chinnaswamy Stadium</h3>
+                            <p style={{ fontWeight: '500' }}>Seating Capacity:30,000</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item interval={1000}>
                         <DharamshalaStadium src={require('./../assets/Dharamshala.jpg')} text="Second slide" className='d-block' style={{ width: '80vw', height: '80vh' }} />
                         <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <h3>Dharamshala Stadium</h3>
+                            <p style={{ fontWeight: '500' }}>Seating Capacity:45,000</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item interval={1000}>
                         <Eden src={require('./../assets/eden.jpg')} text="Third slide" className='d-block' style={{ width: '80vw', height: '80vh' }} />
                         <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>
-                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                            <h3>Eden Gardens</h3>
+                            <p style={{ fontWeight: '500' }}>
+                                Seating Capacity:33,500
                             </p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item interval={1000}>
                         <GreenPark src={require('./../assets/Green_Park.jpg')} text="Fourth slide" className='d-block' style={{ width: '80vw', height: '80vh' }} />
                         <Carousel.Caption>
-                            <h3>Four slide label</h3>
-                            <p>
-                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                            <h3>Greenfield International Stadium</h3>
+                            <p style={{ fontWeight: '500' }}>
+                                Seating Capacity:49,000
                             </p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item interval={1000}>
                         <Gujarat src={require('./../assets/gujarat.jpg')} text="Fiveth slide" className='d-block' style={{ width: '80vw', height: '80vh' }} />
                         <Carousel.Caption>
-                            <h3>Five slide label</h3>
-                            <p>
-                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                            <h3>Narendra Modi Stadium</h3>
+                            <p style={{ fontWeight: '500' }}>
+                                Seating Capacity:58,200
                             </p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item interval={1000}>
                         <Lucknow src={require('./../assets/lucknow.jpg')} text="Sixth slide" className='d-block' style={{ width: '80vw', height: '80vh' }} />
                         <Carousel.Caption>
-                            <h3>6 slide label</h3>
-                            <p>
-                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                            <h3>Ekana Cricket Stadium</h3>
+                            <p style={{ fontWeight: '500' }}>
+                                Seating Capacity:46,000
                             </p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item interval={1000}>
                         <Wankede src={require('./../assets/wankede.jpg')} text="Seventh slide" className='d-block' style={{ width: '80vw', height: '80vh' }} />
                         <Carousel.Caption>
-                            <h3>7 slide label</h3>
-                            <p>
-                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                            <h3>Wankhede Stadium</h3>
+                            <p style={{ fontWeight: '500' }}>
+                                Seating Capacity:70,000
                             </p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item interval={1000}>
                         <ChepaukStadium src={require('./../assets/Chepauk-Stadium-Chennai.jpg')} text="Eighth slide" className='d-block' style={{ width: '80vw', height: '80vh' }} />
                         <Carousel.Caption>
-                            <h3>8 slide label</h3>
-                            <p>
-                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                            <h3>MA Chidambaram stadium</h3>
+                            <p style={{ fontWeight: '500' }}>
+                                Seating Capacity:61,000
                             </p>
                         </Carousel.Caption>
                     </Carousel.Item>

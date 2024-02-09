@@ -16,8 +16,8 @@ const validate = values => {
         errors.travelFrom = "should be between 3 to 15 characters long or only letters allowed";
     }
 
-    if (!/^[a-zA-Z]{0,15}$/.test(values.destn)) {
-        errors.destn = "should be between 3 to 15 characters long or only letters allowed";
+    if (!/^[a-zA-Z]{0,15}$/.test(values.returnDestination)) {
+        errors.returnDestination = "should be between 3 to 15 characters long or only letters allowed";
     }
     return errors;
 }
@@ -32,19 +32,19 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert(`clicked next`);
             onActivationKeyChild(childNextKey)
         }
     });
 
     // reset form start: 
-    const from = useRef("");
-    const to = useRef("");
+    const fromReset = useRef("");
+    const toReset = useRef("");
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        from.current.value = "";
-        to.current.value = "";
+        fromReset.current.value = "";
+        toReset.current.value = "";
         formik.resetForm();
     }
 
@@ -62,34 +62,34 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="travelfrom"
+                                        id="travelFrom"
                                         type="text"
                                         placeholder="travelfrom"
                                         name="travelFrom"
-                                        ref={from}
+                                        ref={fromReset}
                                         value={formik.values.travelFrom} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
                                         formik.touched.travelFrom && formik.errors.travelFrom ? <span className='span'>{formik.errors.travelFrom}</span> : null
                                     }
-                                    <label htmlFor="travelfrom" className='text-muted'>Travel From</label>
+                                    <label htmlFor="travelFrom" className='text-muted'>Travel From</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="destn"
+                                        id="returnDestination"
                                         type="text"
                                         placeholder="destn"
-                                        name="destn"
-                                        ref={to}
+                                        name="returnDestination"
+                                        ref={toReset}
 
-                                        value={formik.values.destn} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.returnDestination} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.destn && formik.errors.destn ? <span className='span'>{formik.errors.destn}</span> : null
+                                        formik.touched.returnDestination && formik.errors.returnDestination ? <span className='span'>{formik.errors.returnDestination}</span> : null
                                     }
-                                    <label htmlFor="destn" className='text-muted'>Destination</label>
+                                    <label htmlFor="returnDestination" className='text-muted'>Destination</label>
                                 </Form.Floating>
                             </Col>
 

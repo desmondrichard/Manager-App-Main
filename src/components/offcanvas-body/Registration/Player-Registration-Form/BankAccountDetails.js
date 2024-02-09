@@ -15,50 +15,50 @@ const validate = values => {
 
     const errors = {};
 
-    if (!values.beneficiaryname) {
-        errors.beneficiaryname = "*Required";
+    if (!values.beneficiaryName) {
+        errors.beneficiaryName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,20}$/.test(values.beneficiaryname)) {
-        errors.beneficiaryname = "Beneficiary Name should be between 3 to 20 characters long or only letters allowed";
-    }
-
-    if (!values.bankname) {
-        errors.bankname = "*Required";
-    }
-    else if (!/^[a-zA-Z]{2,15}$/.test(values.bankname)) {
-        errors.bankname = "Bank Name should be between 2 to 15 characters long or only letters allowed";
+    else if (!/^[a-zA-Z]{3,20}$/.test(values.beneficiaryName)) {
+        errors.beneficiaryName = "Beneficiary Name should be between 3 to 20 characters long or only letters allowed";
     }
 
-    if(!values.accountno){
-        errors.accountno="*Required"
+    if (!values.bankName) {
+        errors.bankName = "*Required";
     }
-    else if (!/^\d{9,18}$/.test(values.accountno)) {
-        errors.accountno = "enter valid Account number";
+    else if (!/^[a-zA-Z]{2,15}$/.test(values.bankName)) {
+        errors.bankName = "Bank Name should be between 2 to 15 characters long or only letters allowed";
     }
 
-
-    if (!values.ifsc) {
-        errors.ifsc = "*Required";
+    if(!values.bankAccountNo){
+        errors.bankAccountNo="*Required"
     }
-    else if (!/^[A-Za-z]{4}\d{7}$/.test(values.ifsc)) {
-        errors.ifsc = "enter valid Ifsc code";
+    else if (!/^\d{9,18}$/.test(values.bankAccountNo)) {
+        errors.bankAccountNo = "enter valid Account number";
     }
 
 
-    if (!/^[0-9]{0,9}$/.test(values.micr)) {
-        errors.micr = "enter valid micr code";
+    if (!values.ifscCode) {
+        errors.ifscCode = "*Required";
+    }
+    else if (!/^[A-Za-z]{4}\d{7}$/.test(values.ifscCode)) {
+        errors.ifscCode = "enter valid Ifsc code";
     }
 
-    if (!/^[0-9a-zA-Z]{0,15}$/.test(values.gst)) {
-        errors.gst = "enter valid GST number";
+
+    if (!/^[0-9]{0,9}$/.test(values.micrCode)) {
+        errors.micrCode = "enter valid micr code";
+    }
+
+    if (!/^[0-9a-zA-Z]{0,15}$/.test(values.gstNumber)) {
+        errors.gstNumber = "enter valid GST number";
     }
 
     if (!/^[0-9]{0,10}$/.test(values.bankcontact)) {
         errors.bankcontact = "enter valid contact number";
     }
 
-    if (!/^[a-zA-Z]{0,25}$/.test(values.bankcountry)) {
-        errors.bankcountry = "Country Name should be between 3 to 25 characters long or only letters allowed";
+    if (!/^[a-zA-Z]{0,25}$/.test(values.bankCity)) {
+        errors.bankCity = "Country Name should be between 3 to 25 characters long or only letters allowed";
     }
 
     return errors;
@@ -67,39 +67,39 @@ const validate = values => {
 function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
 
     // reset form start: 
-    const beneficiaryname1 = useRef("");
-    const bankname1 = useRef("");
-    const currencytype1 = useRef("");
-    const accountno1 = useRef("");
-    const savings1 = useRef("");
-    const current1 = useRef("");
-    const ifsc1 = useRef("");
-    const swiftbic1 = useRef("");
-    const micr1 = useRef("");
-    const iban1 = useRef("");
-    const gst1 = useRef("");
+    const beneficiarynameReset = useRef("");
+    const banknameReset = useRef("");
+    const currencytypeReset = useRef("");
+    const accountnoReset = useRef("");
+    const savingsReset = useRef("");
+    const currentReset = useRef("");
+    const ifscReset = useRef("");
+    const swiftbicReset = useRef("");
+    const micrReset = useRef("");
+    const ibanReset = useRef("");
+    const gstReset = useRef("");
     const bankcontact1 = useRef("");
-    const bankaddress1 = useRef("");
-    const bankcountry1 = useRef("");
+    const bankaddressReset = useRef("");
+    const bankcountryReset = useRef("");
 
 
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        beneficiaryname1.current.value = "";
-        bankname1.current.value = "";
-        currencytype1.current.value = "";
-        accountno1.current.value = "";
-        savings1.current.checked = false;
-        current1.current.checked = false;
-        ifsc1.current.value = "";
-        swiftbic1.current.value = "";
-        micr1.current.value = "";
-        iban1.current.value = "";
-        gst1.current.checked = "";
+        beneficiarynameReset.current.value = "";
+        banknameReset.current.value = "";
+        currencytypeReset.current.value = "";
+        accountnoReset.current.value = "";
+        savingsReset.current.checked = false;
+        currentReset.current.checked = false;
+        ifscReset.current.value = "";
+        swiftbicReset.current.value = "";
+        micrReset.current.value = "";
+        ibanReset.current.value = "";
+        gstReset.current.checked = "";
         bankcontact1.current.value = "";
-        bankaddress1.current.value = "";
-        bankcountry1.current.value = "";
+        bankaddressReset.current.value = "";
+        bankcountryReset.current.value = "";
 
         // console.log("Ref",genderMale);
         formik.resetForm();
@@ -108,22 +108,22 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
     const formik = useFormik({
         initialValues: {
-            beneficiaryname: '',
-            bankname: '',
-            currencytype: '',
-            accountno: '',
-            ifsc: '',
-            swiftbic: '',
-            micr: '',
-            iban: '',
-            gst: '',
+            beneficiaryName: '',
+            bankName: '',
+            CurrencyType: '',
+            bankAccountNo: '',
+            ifscCode: '',
+            switchbicNumber: '',
+            micrCode: '',
+            ibanCode: '',
+            gstNumber: '',
             bankcontact: '',
-            bankcountry: ''
+            bankCity: ''
 
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert(`clicked next`);
             onActivationKeyChild(childNextKey);
 
         }
@@ -147,67 +147,67 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="beneficiaryname"
+                                        id="beneficiaryName"
                                         type="text"
                                         placeholder="beneficiaryname"
-                                        name="beneficiaryname"
-                                        ref={beneficiaryname1}
+                                        name="beneficiaryName"
+                                        ref={beneficiarynameReset}
                                         style={{ zIndex: -1 }}
-                                        value={formik.values.beneficiaryname} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.beneficiaryName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.beneficiaryname && formik.errors.beneficiaryname ? <span className='span'>{formik.errors.beneficiaryname}</span> : null
+                                        formik.touched.beneficiaryName && formik.errors.beneficiaryName ? <span className='span'>{formik.errors.beneficiaryName}</span> : null
                                     }
-                                    <label htmlFor="beneficiaryname" className='text-muted'>Beneficiary Name*</label>
+                                    <label htmlFor="beneficiaryName" className='text-muted'>Beneficiary Name*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="bankname"
+                                        id="bankName"
                                         type="text"
                                         placeholder="bankname"
-                                        name="bankname"
-                                        ref={bankname1}
-                                        value={formik.values.bankname} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="bankName"
+                                        ref={banknameReset}
+                                        value={formik.values.bankName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.bankname && formik.errors.bankname ? <span className='span'>{formik.errors.bankname}</span> : null
+                                        formik.touched.bankName && formik.errors.bankName ? <span className='span'>{formik.errors.bankName}</span> : null
                                     }
 
-                                    <label htmlFor="bankname" className='text-muted'>Bank Name*</label>
+                                    <label htmlFor="bankName" className='text-muted'>Bank Name*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4}>
                                 <Form.Floating className="mb-2 col">
                                     <Form.Control
-                                        id="currencytype"
+                                        id="CurrencyType"
                                         type="text"
                                         placeholder="currencytype"
-                                        name="currencytype"
-                                        ref={currencytype1}
-                                        value={formik.values.currencytype} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="CurrencyType"
+                                        ref={currencytypeReset}
+                                        value={formik.values.CurrencyType} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.currencytype && formik.errors.currencytype ? <span className='span'>{formik.errors.currencytype}</span> : null
+                                        formik.touched.CurrencyType && formik.errors.CurrencyType ? <span className='span'>{formik.errors.CurrencyType}</span> : null
                                     }
-                                    <label htmlFor="currencytype" className='text-muted'>Currency Type</label>
+                                    <label htmlFor="CurrencyType" className='text-muted'>Currency Type</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="accountno"
+                                        id="bankAccountNo"
                                         type="text"
                                         placeholder="accountno"
-                                        name="accountno"
-                                        ref={accountno1}
-                                        value={formik.values.accountno} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="bankAccountNo"
+                                        ref={accountnoReset}
+                                        value={formik.values.bankAccountNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.accountno && formik.errors.accountno ? <span className='span'>{formik.errors.accountno}</span> : null
+                                        formik.touched.bankAccountNo && formik.errors.bankAccountNo ? <span className='span'>{formik.errors.bankAccountNo}</span> : null
                                     }
-                                    <label htmlFor="accountno" className='text-muted'>Account No*</label>
+                                    <label htmlFor="bankAccountNo" className='text-muted'>Account No*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col colAccount'>
@@ -219,19 +219,19 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                             <Form.Check
                                                 inline
                                                 label="Savings"
-                                                name="AccType"
+                                                name="acType"
                                                 type={type}
                                                 id={`inline-${type}-savings`}
                                                 // defaultChecked={true}
-                                                ref={savings1}
+                                                ref={savingsReset}
                                             />
                                             <Form.Check
                                                 inline
                                                 label="Current"
-                                                name="AccType"
+                                                name="acType"
                                                 type={type}
                                                 id={`inline-${type}-current`}
-                                                ref={current1}
+                                                ref={currentReset}
                                             />
                                         </span>
                                     </div>
@@ -240,75 +240,75 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="ifsc"
+                                        id="ifscCode"
                                         type="text"
                                         placeholder="ifsc"
-                                        name="ifsc"
-                                        ref={ifsc1}
-                                        value={formik.values.ifsc} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="ifscCode"
+                                        ref={ifscReset}
+                                        value={formik.values.ifscCode} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.ifsc && formik.errors.ifsc ? <span className='span'>{formik.errors.ifsc}</span> : null
+                                        formik.touched.ifscCode && formik.errors.ifscCode ? <span className='span'>{formik.errors.ifscCode}</span> : null
                                     }
-                                    <label htmlFor="ifsc" className='text-muted'>IFSC Code*</label>
+                                    <label htmlFor="ifscCode" className='text-muted'>IFSC Code*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="swiftbic"
+                                        id="switchbicNumber"
                                         type="text"
                                         placeholder="swiftbic"
-                                        name="swiftbic"
-                                        ref={swiftbic1}
+                                        name="switchbicNumber"
+                                        ref={swiftbicReset}
                                     />
                                     {/*  */}
-                                    <label htmlFor="swiftbic" className='text-muted '>Swift/Bic No Type</label>
+                                    <label htmlFor="switchbicNumber" className='text-muted '>Swift/Bic No Type</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="micr"
+                                        id="micrCode"
                                         type="text"
                                         placeholder="micr"
-                                        name="micr"
-                                        ref={micr1}
+                                        name="micrCode"
+                                        ref={micrReset}
                                         value={formik.values.micr} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.micr && formik.errors.micr ? <span className='span'>{formik.errors.micr}</span> : null
+                                        formik.touched.micrCode && formik.errors.micrCode ? <span className='span'>{formik.errors.micrCode}</span> : null
                                     }
-                                    <label htmlFor="micr" className='text-muted'>MICR Code</label>
+                                    <label htmlFor="micrCode" className='text-muted'>MICR Code</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="iban"
+                                        id="ibanCode"
                                         type="text"
                                         placeholder="iban"
-                                        name="iban"
-                                        ref={iban1}
+                                        name="ibanCode"
+                                        ref={ibanReset}
                                     />
 
-                                    <label htmlFor="iban" className='text-muted'>IBAN Code</label>
+                                    <label htmlFor="ibanCode" className='text-muted'>IBAN Code</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="gst"
+                                        id="gstNumber"
                                         type="text"
                                         placeholder="gst"
-                                        name="gst"
-                                        ref={gst1}
-                                        value={formik.values.gst} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="gstNumber"
+                                        ref={gstReset}
+                                        value={formik.values.gstNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.gst && formik.errors.gst ? <span className='span'>{formik.errors.gst}</span> : null
+                                        formik.touched.gstNumber && formik.errors.gstNumber ? <span className='span'>{formik.errors.gstNumber}</span> : null
                                     }
-                                    <label htmlFor="gst" className='text-muted'>GST Number</label>
+                                    <label htmlFor="gstNumber" className='text-muted'>GST Number</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -331,30 +331,30 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="bankaddress"
+                                        id="bankAddress"
                                         type="text"
                                         placeholder="bankaddress"
-                                        name="bankaddress"
-                                        ref={bankaddress1}
+                                        name="bankAddress"
+                                        ref={bankaddressReset}
                                     />
-                                    <label htmlFor="bankaddress" className='text-muted'>Bank Address</label>
+                                    <label htmlFor="bankAddress" className='text-muted'>Bank Address</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="bankcountry"
+                                        id="bankCity"
                                         type="text"
                                         placeholder="bankcountry"
-                                        name="bankcountry"
-                                        ref={bankcountry1}
-                                        value={formik.values.bankcountry} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="bankCity"
+                                        ref={bankcountryReset}
+                                        value={formik.values.bankCity} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.bankcountry && formik.errors.bankcountry ? <span className='span'>{formik.errors.bankcountry}</span> : null
+                                        formik.touched.bankCity && formik.errors.bankCity ? <span className='span'>{formik.errors.bankCity}</span> : null
                                     }
 
-                                    <label htmlFor="bankcountry" className='text-muted'>Bank Country</label>
+                                    <label htmlFor="bankCity" className='text-muted'>Bank Country</label>
                                 </Form.Floating>
                             </Col>
                             <Col lg={12} className='my-4 col'>

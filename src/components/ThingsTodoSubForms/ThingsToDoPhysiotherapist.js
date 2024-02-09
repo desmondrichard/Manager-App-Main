@@ -14,7 +14,6 @@ const validate = values => {
   if (!values.name) {
     errors.name = "*Required";
   }
-
   else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.name)) {
     errors.name = "enter a valid name";
   }
@@ -29,18 +28,19 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
 
   function handleReset() {
     name1.current.value = "";
-    desig.current.value = "none";
+    desig.current.value = "";
     formik.resetForm();
   }
   const formik = useFormik({
     initialValues: {
       name: '',
+      designation:''
     },
     validate,
     onSubmit: values => {
       alert(`Hello! ,${values.name} you have successfully signed up`);
       onChildNextActivationKey(childNextKey)
-
+      console.log("values",values);
     }
   });
 
@@ -58,7 +58,7 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
             <Col xs={12} md={4} className='py-3'>
               <Form.Floating className="mb-2">
                 <Form.Control
-                  id="coachname"
+                  id="name"
                   type="text"
                   placeholder="coachname"
                   ref={name1}
@@ -75,18 +75,20 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
               <FloatingLabel className='mb-2 c1'
                 controlId="coach"
                 label="Designation"
+                id="designation"
+                name="designation"
+                value={formik.values.designation}
+                onChange={formik.handleChange}
               >
                 <Form.Select aria-label="designation" ref={desig}>
                   <option value="none">Select Type</option>
-                  <option value="year1">Coach Physiotherapist</option>
+                  <option value="coach physiotherapist">Coach Physiotherapist</option>
                 </Form.Select>
               </FloatingLabel>
             </Col>
             <Col xs={12} md={2} className='col1'>
-
             </Col>
             <Col xs={12} md={2} className='col1'>
-
             </Col>
           </Row>
           <Row>

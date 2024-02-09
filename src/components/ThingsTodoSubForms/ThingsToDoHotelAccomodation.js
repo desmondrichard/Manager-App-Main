@@ -23,11 +23,11 @@ const validate = values => {
         errors.cityName = "enter a valid name";
     }
 
-    if (!/^\d{0,3}?$/.test(values.noOfRoom)) {
+    if (!/^\d{0,3}?$/.test(values.noOfRooms)) {
         errors.noOfRoom = "enter a valid number";
     }
 
-    if (!/^\d{0,3}?$/.test(values.roomNo)) {
+    if (!/^\d{0,3}?$/.test(values.roomsNo)) {
         errors.roomNo = "enter a valid number";
     }
 
@@ -68,26 +68,33 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
         initialValues: {
             hotelName: '',
             cityName: '',
-            teamB: '',
-            noOfRoom: '',
-            roomNo: '',
+            noOfRooms: '',
+            roomsNo: '',
             daysStayed: '',
-            noOfPeople: ''
+            noOfPeople: '',
+            checkIn:'',
+            checkOut:''
         },
         validate,
         onSubmit: values => {
             alert(`Hello! ,${values.groundName} you have successfully signed up`);
             onChildNextActivationKey(childNextKey)
-
+            console.log("values",values)
+            // console.log("checkOutValue", checkOutValue)
         }
     });
 
-    function checkIfCheckoutAfterCheckin(checkinDate, checkoutDate) {
+    // const [checkOutValue, setCheckOutValue] = useState("");
+
+    function checkIfCheckoutAfterCheckin(checkinDate,checkoutDate) {
         const checkin = new Date(checkinDate);
         const checkout = new Date(checkoutDate);
         if (checkout < checkin) {
             alert('Checkout date must be after checkin date.');
             checkOut.current.value = ''; // clear the checkout date
+        }
+        else {
+            formik.setFieldValue("checkOut", checkoutDate);
         }
     }
 
@@ -136,15 +143,15 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                     <Col md={3} className='my-3'>
                         <Form.Floating className="mb-2">
                             <Form.Control
-                                id="noofrroms"
+                                id="noofrooms"
                                 type="text"
-                                placeholder="noofrroms"
+                                placeholder="noofrooms"
                                 ref={noOfRoom}
-                                name="noOfRoom"
-                                value={formik.values.noOfRoom} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                name="noOfRooms"
+                                value={formik.values.noOfRooms} onBlur={formik.handleBlur} onChange={formik.handleChange}
                             />
                             {
-                                formik.touched.noOfRoom && formik.errors.noOfRoom ? <span className='span'>{formik.errors.noOfRoom}</span> : null
+                                formik.touched.noOfRooms && formik.errors.noOfRooms ? <span className='span'>{formik.errors.noOfRooms}</span> : null
                             }
                             <label htmlFor="noOfRoom" className='text-muted'>No Of Rooms</label>
                         </Form.Floating>
@@ -156,11 +163,11 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                                 type="text"
                                 placeholder="roomno"
                                 ref={roomNo}
-                                name="roomNo"
-                                value={formik.values.roomNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                name="roomsNo"
+                                value={formik.values.roomsNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                             />
                             {
-                                formik.touched.roomNo && formik.errors.roomNo ? <span className='span'>{formik.errors.roomNo}</span> : null
+                                formik.touched.roomsNo && formik.errors.roomsNo ? <span className='span'>{formik.errors.roomsNo}</span> : null
                             }
                             <label htmlFor="roomNo" className='text-muted'>Room Number</label>
                         </Form.Floating>
@@ -172,8 +179,10 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                                 type="date"
                                 min={new Date().toISOString().split('T')[0]}
                                 placeholder='DD-MM-YYYY'
-                                name="checkin"
+                                name="checkIn"
                                 ref={checkIn}
+                                value={formik.values.checkIn}
+                                onChange={formik.handleChange}
                             />
 
                             <label htmlFor="checkin" className='text-muted'>Check In</label>
@@ -182,16 +191,17 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                     <Col md={3} className='my-3'>
                         <Form.Floating className="mb-2">
                             <Form.Control
-                                id="checkout"
+                                id="checkOut"
                                 type="date"
                                 min={new Date().toISOString().split('T')[0]}
                                 placeholder='DD-MM-YYYY'
-                                name="checkout"
+                                name="checkOut"
                                 ref={checkOut}
-                                onChange={(e) => checkIfCheckoutAfterCheckin(checkIn.current.value, e.target.value)}
+                                value={formik.values.checkOut}
+                                onChange={(e) => checkIfCheckoutAfterCheckin(checkIn.current.value,e.target.value)}
                             />
 
-                            <label htmlFor="checkout" className='text-muted'>Check Out</label>
+                            <label htmlFor="checkOut" className='text-muted'>Check Out</label>
                         </Form.Floating>
                     </Col>
                     <Col md={3} className='my-3'>
@@ -217,6 +227,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                                 type="text"
                                 placeholder="noOfPeople"
                                 ref={noOfPeople}
+                                name='noOfPeople'
                                 value={formik.values.noOfPeople} onBlur={formik.handleBlur} onChange={formik.handleChange}
                             />
                             {

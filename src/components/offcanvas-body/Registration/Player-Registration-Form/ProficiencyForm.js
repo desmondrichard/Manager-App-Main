@@ -18,16 +18,16 @@ const validate = values => {
         errors.specialization = "*Required";
     }
 
-    if (!values.battingorder) {
-        errors.battingorder = "*Required";
+    if (!values.battingOrder) {
+        errors.battingOrder = "*Required";
     }
 
-    if (!values.bowlingstyle) {
-        errors.bowlingstyle = "*Required";
+    if (!values.bowlingType) {
+        errors.bowlingType = "*Required";
     }
 
-    if (!values.bowlingspecification) {
-        errors.bowlingspecification = "*Required";
+    if (!values.bowlingSpecification) {
+        errors.bowlingSpecification = "*Required";
     }
 
     return errors
@@ -37,38 +37,38 @@ const validate = values => {
 function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
 
     // reset form start: 
-    const specs = useRef("");
-    const batLeft = useRef(false);
-    const batRight = useRef(false);
-    const batOrder = useRef("");
-    const armLeft = useRef(false);
-    const armRight = useRef(false);
-    const bowlStyle = useRef("");
-    const bowlSpecs = useRef("");
+    const specsReset = useRef("");
+    const batLeftReset = useRef(false);
+    const batRightReset = useRef(false);
+    const batOrderReset = useRef("");
+    const armLeftReset = useRef(false);
+    const armRightReset = useRef(false);
+    const bowlStyleReset = useRef("");
+    const bowlSpecsReset = useRef("");
 
     function handleReset() {
-        specs.current.value = "none";
-        batLeft.current.checked = false;
-        batRight.current.checked = false;
-        batOrder.current.value = "none";
-        armLeft.current.checked = false;
-        armRight.current.checked = false;
-        bowlStyle.current.value = "none";
-        bowlSpecs.current.value = "none";
+        specsReset.current.value = "none";
+        batLeftReset.current.checked = false;
+        batRightReset.current.checked = false;
+        batOrderReset.current.value = "none";
+        armLeftReset.current.checked = false;
+        armRightReset.current.checked = false;
+        bowlStyleReset.current.value = "none";
+        bowlSpecsReset.current.value = "none";
         formik.resetForm();
     }
 
     const formik = useFormik({
         initialValues: {
             specialization: '',
-            battingorder: '',
-            bowlingstyle: '',
-            bowlingspecification: ''
+            battingOrder: '',
+            bowlingType: '',
+            bowlingSpecification: ''
 
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert('clicked next');
             onActivationKeyChild(childNextKey);
         }
     })
@@ -96,7 +96,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     name="specialization"
                                     value={formik.values.specialization} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="specialization" ref={specs}>
+                                    <Form.Select aria-label="specialization" ref={specsReset}>
                                         <option>Select Type</option>
                                         <option value="batsman">BATSMAN</option>
                                         <option value="bowler">BOWLER</option>
@@ -116,31 +116,31 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                         <Form.Check
                                             inline
                                             label="Left Hand"
-                                            name="BatHand"
+                                            name="battingStyle"
                                             type={type}
-                                            ref={batLeft}
+                                            ref={batLeftReset}
                                             id={`inline-${type}-left`}
                                         />
                                         <Form.Check
                                             inline
                                             label="Right Hand"
-                                            name="BatHand"
+                                            name="battingStyle"
                                             type={type}
                                             id={`inline-${type}-right`}
                                             // defaultChecked={true}
-                                            ref={batRight}
+                                            ref={batRightReset}
                                         />
                                     </div>
                                 ))}
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="battingorder"
+                                    controlId="battingOrder"
                                     label="Batting order*"
-                                    name="battingorder"
-                                    value={formik.values.battingorder} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="battingOrder"
+                                    value={formik.values.battingOrder} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="battingorder" ref={batOrder}>
+                                    <Form.Select aria-label="battingOrder" ref={batOrderReset}>
                                         <option value="none">Select Type</option>
                                         <option value="top">TOP ORDER</option>
                                         <option value="middle">MIDDLE ORDER</option>
@@ -148,31 +148,31 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                         <option value="tail">TAIL ENDER</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.battingorder && formik.errors.battingorder ? <span className='span'>{formik.errors.battingorder}</span> : null
+                                        formik.touched.battingOrder && formik.errors.battingOrder ? <span className='span'>{formik.errors.battingOrder}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
-                                <label className='text-muted me-2' htmlFor="bowlertype">BOWLER TYPE</label>
+                                <label className='text-muted me-2' htmlFor="bowlerType">BOWLER TYPE</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} className="mb-3">
                                         <span style={{ whiteSpace: 'nowrap' }}>
                                             <Form.Check
                                                 inline
                                                 label="Left Arm"
-                                                name="Arm"
+                                                name="bowlerType"
                                                 type={type}
                                                 id={`inline-${type}-leftarm`}
-                                                ref={armLeft}
+                                                ref={armLeftReset}
                                             />
                                             <Form.Check
                                                 inline
                                                 label="Right Arm"
-                                                name="Arm"
+                                                name="bowlerType"
                                                 type={type}
                                                 id={`inline-${type}-rightarm`}
                                                 // defaultChecked={true}
-                                                ref={armRight}
+                                                ref={armRightReset}
                                             />
                                         </span>
                                     </div>
@@ -182,45 +182,40 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="bowlingstyle"
+                                    controlId="bowlingType"
                                     label="Bowling Style*"
-                                    name="bowlingstyle"
-                                    value={formik.values.bowlingstyle} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="bowlingType"
+                                    value={formik.values.bowlingType} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="bowlingstyle" ref={bowlStyle} onChange={(e) => {
-                                        formik.setFieldValue('bowlingstyle', e.target.value);
-                                        //Giving options for parent select:
-                                        // if (e.target.value === 'Fast') {
-                                        //     formik.setFieldValue('bowlingspecification', 'Fast');
-                                        // } else if (e.target.value === 'Spin') {
-                                        //     formik.setFieldValue('bowlingspecification', 'Spin');
-                                        // }
+                                    <Form.Select aria-label="bowlingType" ref={bowlStyleReset} onChange={(e) => {
+                                        formik.setFieldValue('bowlingType', e.target.value);
+
                                     }}>
                                         <option value="none">Select Type</option>
                                         <option value="Fast">FAST</option>
                                         <option value="Spin">SPIN</option>
                                     </Form.Select>
-                                    {formik.touched.bowlingstyle && formik.errors.bowlingstyle ? <span className='span'>{formik.errors.bowlingstyle}</span> : null}
+                                    {formik.touched.bowlingType && formik.errors.bowlingType ? <span className='span'>{formik.errors.bowlingType}</span> : null}
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="bowlingspecification"
+                                    controlId="bowlingSpecification"
                                     label="Bowling Specification*"
-                                    name="bowlingspecification"
-                                    value={formik.values.bowlingspecification} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="bowlingSpecification"
+                                    value={formik.values.bowlingSpecification} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="bowlingspecification" ref={bowlSpecs} disabled={formik.values.bowlingstyle === 'none'}>
+                                    <Form.Select aria-label="bowlingSpecification" ref={bowlSpecsReset} disabled={formik.values.bowlingType === 'none'}>
                                         <option value="none">Select Type</option>
-                                        <option value="Fast" disabled={formik.values.bowlingstyle !== 'Fast'}>Fast</option>
-                                        <option value="Medium Fast" disabled={formik.values.bowlingstyle !== 'Fast'}>Medium Fast</option>
-                                        <option value="Fast Medium" disabled={formik.values.bowlingstyle !== 'Fast'}>Fast Medium</option>
-                                        <option value="Off Spin" disabled={formik.values.bowlingstyle !== 'Spin'}>Off Spin</option>
-                                        <option value="Orthodox" disabled={formik.values.bowlingstyle !== 'Spin'}>Orthodox</option>
-                                        <option value="Chinaman" disabled={formik.values.bowlingstyle !== 'Spin'}>Chinaman</option>
-                                        <option value="Leg Spin" disabled={formik.values.bowlingstyle !== 'Spin'}>Leg Spin</option>
+                                        <option value="Fast" disabled={formik.values.bowlingType !== 'Fast'}>Fast</option>
+                                        <option value="Medium Fast" disabled={formik.values.bowlingType !== 'Fast'}>Medium Fast</option>
+                                        <option value="Fast Medium" disabled={formik.values.bowlingType !== 'Fast'}>Fast Medium</option>
+                                        <option value="Off Spin" disabled={formik.values.bowlingType !== 'Spin'}>Off Spin</option>
+                                        <option value="Orthodox" disabled={formik.values.bowlingType !== 'Spin'}>Orthodox</option>
+                                        <option value="Chinaman" disabled={formik.values.bowlingType !== 'Spin'}>Chinaman</option>
+                                        <option value="Leg Spin" disabled={formik.values.bowlingType !== 'Spin'}>Leg Spin</option>
                                     </Form.Select>
-                                    {formik.touched.bowlingspecification && formik.errors.bowlingspecification ? <span className='span'>{formik.errors.bowlingspecification}</span> : null}
+                                    {formik.touched.bowlingSpecification && formik.errors.bowlingSpecification ? <span className='span'>{formik.errors.bowlingSpecification}</span> : null}
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={12} className='my-4 col'>

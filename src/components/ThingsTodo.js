@@ -144,8 +144,8 @@ function ThingsTodo() {
                 </tbody>
                 {
                   showData ? ('') : (<div className='text-center'>
-                    <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
-                  </div>)
+                  <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
+                </div>)
                 }
 
               </Table>

@@ -16,22 +16,22 @@ import { useNavigate } from "react-router-dom";
 const validate = values => {
     const errors = {};
 
-    if (!values.fName) {
-        errors.fName = "*Required";
+    if (!values.playerName) {
+        errors.playerName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.fName)) {
-        errors.fName = "First name should be between 3 to 10 characters long or only letters allowed";
-    }
-
-    if (!/^[a-zA-Z]{0,10}$/.test(values.mName)) {
-        errors.mName = "Middle name should be maximum 10 characters long or only letters allowed";
+    else if (!/^[a-zA-Z]{3,10}$/.test(values.playerName)) {
+        errors.playerName = "First name should be between 3 to 10 characters long or only letters allowed";
     }
 
-    if (!values.lName) {
-        errors.lName = "*Required";
+    if (!/^[a-zA-Z]{0,10}$/.test(values.middleName)) {
+        errors.middleName = "Middle name should be maximum 10 characters long or only letters allowed";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.lName)) {
-        errors.lName = "Last Name should be between 3 to 10 characters long or only letters allowed";
+
+    if (!values.lastName) {
+        errors.lastName = "*Required";
+    }
+    else if (!/^[a-zA-Z]{3,10}$/.test(values.lastName)) {
+        errors.lastName = "Last Name should be between 3 to 10 characters long or only letters allowed";
     }
 
     if (!values.bloodGroup) {
@@ -45,11 +45,11 @@ const validate = values => {
         errors.initials = "Initial can only contain one letter"
     }
 
-    if (!values.dName) {
-        errors.dName = "*Required";
+    if (!values.displayName) {
+        errors.displayName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.dName)) {
-        errors.dName = 'Display Name must be alphanumeric and have length between 3 to 10 or only letters allowed'
+    else if (!/^[a-zA-Z]{3,10}$/.test(values.displayName)) {
+        errors.displayName = 'Display Name must be alphanumeric and have length between 3 to 10 or only letters allowed'
     }
 
     if (!values.fatherName) {
@@ -63,26 +63,26 @@ const validate = values => {
         errors.motherName = "Mother Name should be maximum 10 characters long or only letters allowed"
     }
 
-    if (!values.dob) {
-        errors.dob = "*Required";
+    if (!values.dateOfBirth) {
+        errors.dateOfBirth = "*Required";
     }
 
     if (!values.bloodGroup) {
         errors.bloodGroup = "*Required";
     }
 
-    if (!values.email) {
-        errors.email = "*Required";
+    if (!values.emailId) {
+        errors.emailId = "*Required";
     }
-    else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
-        errors.email = "*Invalid email address";
+    else if (!/^\S+@\S+\.\S+$/.test(values.emailId)) {
+        errors.emailId = "*Invalid email address";
     }
 
     return errors;
 }
 
 
-function PersonalInformation({ activationKey,onActivationKeyChild }) {
+function PersonalInformation({ activationKey, onActivationKeyChild }) {
 
     const navigate = useNavigate();
     const [mobileValue, setMobileValue] = useState(false);
@@ -93,35 +93,35 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
     const [childNextKey, setChildNextKey] = useState("1");
 
     // reset form start: 
-    const firstName = useRef("");
-    const middleName = useRef("");
-    const lastName = useRef("");
-    const initials = useRef("");
-    const displayName = useRef("");
-    const fathersName = useRef("");
-    const mothersName = useRef("");
-    const dob = useRef("");
-    const bloodgrp = useRef("");
-    const email = useRef("");
-    const genderMale = useRef(false);
-    const genderFemale = useRef(false);
+    const firstNameReset = useRef("");
+    const middleNameReset = useRef("");
+    const lastNameReset = useRef("");
+    const initialsReset = useRef("");
+    const displayNameReset = useRef("");
+    const fathersNameReset = useRef("");
+    const mothersNameReset = useRef("");
+    const dobReset = useRef("");
+    const bloodgrpReset = useRef("");
+    const emailReset = useRef("");
+    const genderMaleReset = useRef(false);
+    const genderFemaleReset = useRef(false);
 
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        firstName.current.value = "";
-        middleName.current.value = "";
-        lastName.current.value = "";
-        initials.current.value = "";
-        displayName.current.value = "";
-        fathersName.current.value = "";
-        mothersName.current.value = "";
-        dob.current.value = "";
-        bloodgrp.current.value = "none"; //since default or initial value in html code below is none
+        firstNameReset.current.value = "";
+        middleNameReset.current.value = "";
+        lastNameReset.current.value = "";
+        initialsReset.current.value = "";
+        displayNameReset.current.value = "";
+        fathersNameReset.current.value = "";
+        mothersNameReset.current.value = "";
+        dobReset.current.value = "";
+        bloodgrpReset.current.value = "none"; //since default or initial value in html code below is none
         setMobileValue(true);
-        email.current.value = "";
-        genderMale.current.checked = false;
-        genderFemale.current.checked = false;
+        emailReset.current.value = "";
+        genderMaleReset.current.checked = false;
+        genderFemaleReset.current.checked = false;
         setImageValue(true);
         // console.log("Ref",genderMale);
         formik.resetForm();
@@ -130,20 +130,20 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
 
     const formik = useFormik({
         initialValues: {
-            fName: '',
-            mName: '',
-            lName: '',
+            playerName: '',
+            middleName: '',
+            lastName: '',
             initials: '',
-            dName: '',
+            displayName: '',
             fatherName: '',
             motherName: '',
-            dob: '',
+            dateOfBirth: '',
             bloodGroup: '',
-            email: ''
+            emailId: ''
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert('Clicked Next');
             onActivationKeyChild(childNextKey)
         }
     });
@@ -151,7 +151,7 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
 
 
     return (
-     
+
         <Accordion.Item eventKey="0">
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION</span></Accordion.Header>
             <Accordion.Body>
@@ -162,50 +162,50 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="fName"
+                                        id="playerName"
                                         type="text"
                                         placeholder="first name"
-                                        // value={fName}
-                                        ref={firstName}
-                                        name="fName"
-                                        value={formik.values.fName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        // value={playerName}
+                                        ref={firstNameReset}
+                                        name="playerName"
+                                        value={formik.values.playerName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.fName && formik.errors.fName ? <span className='span'>{formik.errors.fName}</span> : null
+                                        formik.touched.playerName && formik.errors.playerName ? <span className='span'>{formik.errors.playerName}</span> : null
                                     }
-                                    <label htmlFor="fName" className='text-muted'>Player First Name*</label>
+                                    <label htmlFor="playerName" className='text-muted'>Player First Name*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="mName"
+                                        id="middleName"
                                         type="text"
                                         placeholder="middle name"
-                                        ref={middleName}
-                                        name="mName"
-                                        value={formik.values.mName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        ref={middleNameReset}
+                                        name="middleName"
+                                        value={formik.values.middleName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.mName && formik.errors.mName ? <span className='span'>{formik.errors.mName}</span> : null
+                                        formik.touched.middleName && formik.errors.middleName ? <span className='span'>{formik.errors.middleName}</span> : null
                                     }
-                                    <label htmlFor="mName" className='text-muted'>Player Middle Name</label>
+                                    <label htmlFor="middleName" className='text-muted'>Player Middle Name</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="lName"
+                                        id="lastName"
                                         type="text"
                                         placeholder="last name"
-                                        ref={lastName}
-                                        name="lName"
-                                        value={formik.values.lName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        ref={lastNameReset}
+                                        name="lastName"
+                                        value={formik.values.lastName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.lName && formik.errors.lName ? <span className='span'>{formik.errors.lName}</span> : null
+                                        formik.touched.lastName && formik.errors.lastName ? <span className='span'>{formik.errors.lastName}</span> : null
                                     }
-                                    <label htmlFor="lName" className='text-muted'>Player Last Name*</label>
+                                    <label htmlFor="lastName" className='text-muted'>Player Last Name*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -214,7 +214,7 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                                         id="initials"
                                         type="text"
                                         placeholder="initials"
-                                        ref={initials}
+                                        ref={initialsReset}
                                         name="initials"
                                         value={formik.values.initials} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
@@ -227,17 +227,17 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="dName"
+                                        id="displayName"
                                         type="text"
                                         placeholder="display name"
-                                        ref={displayName}
-                                        name="dName"
-                                        value={formik.values.dName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        ref={displayNameReset}
+                                        name="displayName"
+                                        value={formik.values.displayName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.dName && formik.errors.dName ? <span className='span'>{formik.errors.dName}</span> : null
+                                        formik.touched.displayName && formik.errors.displayName ? <span className='span'>{formik.errors.displayName}</span> : null
                                     }
-                                    <label htmlFor="dName" className='text-muted'>Display Name*</label>
+                                    <label htmlFor="displayName" className='text-muted'>Display Name*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -246,7 +246,7 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                                         id="fatherName"
                                         type="text"
                                         placeholder="father name"
-                                        ref={fathersName}
+                                        ref={fathersNameReset}
                                         name="fatherName"
                                         value={formik.values.fatherName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
@@ -262,7 +262,7 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                                         id="motherName"
                                         type="text"
                                         placeholder="mother name"
-                                        ref={mothersName}
+                                        ref={mothersNameReset}
                                         name="motherName"
                                         value={formik.values.motherName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
@@ -276,18 +276,18 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                                 {/*  */}
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="dob1"
+                                        id="dateOfBirth"
                                         type="date"
-                                        ref={dob}
+                                        ref={dobReset}
                                         placeholder='DD-MM-YYYY'
                                         min="1960-01-01" max="2008-12-31"
-                                        name="dob"
-                                        value={formik.values.dob} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="dateOfBirth"
+                                        value={formik.values.dateOfBirth} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.dob && formik.errors.dob ? <span className='span'>{formik.errors.dob}</span> : null
+                                        formik.touched.dateOfBirth && formik.errors.dateOfBirth ? <span className='span'>{formik.errors.dateOfBirth}</span> : null
                                     }
-                                    <label htmlFor="dob1" className='text-muted'>Date of Birth*</label>
+                                    <label htmlFor="dateOfBirth" className='text-muted'>Date of Birth*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -298,7 +298,7 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                                     value={formik.values.bloodGroup} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="bloodGroup" className='' ref={bloodgrp}>
+                                    <Form.Select aria-label="bloodGroup" className='' ref={bloodgrpReset}>
                                         <option value="none">Select Type</option>
                                         <option value="O+">O+</option>
                                         <option value="O-">O-</option>
@@ -320,17 +320,17 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="email"
+                                        id="emailId"
                                         type="email"
                                         placeholder="email"
-                                        ref={email}
-                                        name="email"
-                                        value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        ref={emailReset}
+                                        name="emailId"
+                                        value={formik.values.emailId} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.email && formik.errors.email ? <span className='span'>{formik.errors.email}</span> : null
+                                        formik.touched.emailId && formik.errors.emailId ? <span className='span'>{formik.errors.emailId}</span> : null
                                     }
-                                    <label htmlFor="email" className='text-muted'>Email Address*</label>
+                                    <label htmlFor="emailId" className='text-muted'>Email Address*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
@@ -340,20 +340,20 @@ function PersonalInformation({ activationKey,onActivationKeyChild }) {
                                         <Form.Check
                                             inline
                                             label="Male"
-                                            name="group1"
+                                            name="Male"
                                             type={type}
-                                            id={`inline-${type}-male`}
-                                            defaultChecked={true}
-                                            ref={genderMale}
+                                            id={`inline-${type}-Male`}
+                                            // defaultChecked={true}
+                                            ref={genderMaleReset}
                                         />
                                         <Form.Check
                                             inline
                                             label="Female"
-                                            name="group1"
+                                            name="Male"
                                             type={type}
-                                            id={`inline-${type}-female`}
-                                            defaultChecked={false}
-                                            ref={genderFemale}
+                                            id={`inline-${type}-Female`}
+                                            // defaultChecked={false}
+                                            ref={genderFemaleReset}
                                         />
                                     </div>
                                 ))}

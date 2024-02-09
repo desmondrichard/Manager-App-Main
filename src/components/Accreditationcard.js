@@ -4,21 +4,21 @@ import Header from './Header';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+// import Col from 'react-bootstrap/Col';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { NavLink } from 'react-router-dom';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+// import InputLabel from '@mui/material/InputLabel';
+// import MenuItem from '@mui/material/MenuItem';
+// import FormControl from '@mui/material/FormControl';
+// import Select from '@mui/material/Select';
 import NoDataImg from 'react-bootstrap/Image';
 //excel:
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 //pdf:
-import { jsPDF } from 'jspdf';
+// import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 function Accreditationcard() {
   const [age, setAge] = React.useState('');
 

@@ -15,18 +15,18 @@ import { useRef } from 'react';
 const validate = values => {
     const errors = {};
 
-    if (!values.emgcontactperson) {
-        errors.emgcontactperson = "*Required";
+    if (!values.emergencyContactPerson) {
+        errors.emergencyContactPerson = "*Required";
     }
-    else if (!/^[a-zA-Z ]{3,25}$/.test(values.emgcontactperson)) {
-        errors.emgcontactperson = "Name should be between 3 to 25 characters long or only letters allowed";
+    else if (!/^[a-zA-Z ]{3,25}$/.test(values.emergencyContactPerson)) {
+        errors.emergencyContactPerson = "Name should be between 3 to 25 characters long or only letters allowed";
     }
 
-    if (!values.emgcontactrel) {
-        errors.emgcontactrel = "*Required";
+    if (!values.emergContactPersonRelationship) {
+        errors.emergContactPersonRelationship = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.emgcontactrel)) {
-        errors.emgcontactrel = "Name should be between 3 to 15 characters long or only letters allowed";
+    else if (!/^[a-zA-Z]{3,15}$/.test(values.emergContactPersonRelationship)) {
+        errors.emergContactPersonRelationship = "Name should be between 3 to 15 characters long or only letters allowed";
     }
 
     return errors;
@@ -38,24 +38,24 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
 
     const formik = useFormik({
         initialValues: {
-            emgcontactperson: '',
-            emgcontactrel: '',
+            emergencyContactPerson: '',
+            emergContactPersonRelationship: '',
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert(`clicked next`);
             onActivationKeyChild(childNextKey)
         }
     });
 
     // reset form start: 
-    const emgcontactperson1 = useRef("");
-    const emgcontactrel1 = useRef("");
+    const emgcontactpersonReset = useRef("");
+    const emgcontactrelReset = useRef("");
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        emgcontactperson1.current.value = "";
-        emgcontactrel1.current.value = "";
+        emgcontactpersonReset.current.value = "";
+        emgcontactrelReset.current.value = "";
         setMobileValue(true);
         formik.resetForm();
     }
@@ -74,28 +74,28 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="emgcontactperson"
+                                        id="emergencyContactPerson"
                                         type="text"
                                         placeholder="emgcontactperson"
-                                        name="emgcontactperson"
-                                        ref={emgcontactperson1}
-                                        value={formik.values.emgcontactperson} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="emergencyContactPerson"
+                                        ref={emgcontactpersonReset}
+                                        value={formik.values.emergencyContactPerson} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.emgcontactperson && formik.errors.emgcontactperson ? <span className='span'>{formik.errors.emgcontactperson}</span> : null
+                                        formik.touched.emergencyContactPerson && formik.errors.emergencyContactPerson ? <span className='span'>{formik.errors.emergencyContactPerson}</span> : null
                                     }
-                                    <label htmlFor="emgcontactperson" className='text-muted fontSize'>Emg.Contact Name*</label>
+                                    <label htmlFor="emergencyContactPerson" className='text-muted fontSize'>Emg.Contact Name*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="emgcontactrel"
+                                    controlId="emergContactPersonRelationship"
                                     label="Emg.Contact Relation*"
-                                    name="emgcontactrel"
-                                    value={formik.values.emgcontactrel} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="emergContactPersonRelationship"
+                                    value={formik.values.emergContactPersonRelationship} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="Emg.Contact Relation*" ref={emgcontactrel1}>
+                                    <Form.Select aria-label="Emg.Contact Relation*" ref={emgcontactrelReset}>
                                         <option>Select Type</option>
                                         <option value="batsman">PARENTS</option>
                                         <option value="bowler">GUARDIAN</option>
@@ -106,7 +106,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                                     </Form.Select>
                                 </FloatingLabel>
                                 {
-                                    formik.touched.emgcontactrel && formik.errors.emgcontactrel ? <span className='span'>{formik.errors.emgcontactrel}</span> : null
+                                    formik.touched.emergContactPersonRelationship && formik.errors.emergContactPersonRelationship ? <span className='span'>{formik.errors.emergContactPersonRelationship}</span> : null
                                 }
                             </Col>
                             <Col xs={12} lg={4} className='col '>

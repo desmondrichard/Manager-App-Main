@@ -45,13 +45,15 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
   const formik = useFormik({
     initialValues: {
       groundName: '',
+      dateTime:'',
       teamA: '',
       teamB: ''
     },
     validate,
     onSubmit: values => {
-      alert(`Hello! ,${values.groundName} you have successfully signed up`);
+      alert(`clicked next`);
       onChildNextActivationKey(childNextKey)
+      console.log("values",values)
     }
   });
 
@@ -84,15 +86,16 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
             {/*  */}
             <Form.Floating className="mb-2">
               <Form.Control
-                id="dob1"
+                id="dateTime"
                 type="date"
                 placeholder='DD-MM-YYYY'
-                name="dob"
+                name="dateTime"
                 ref={date}
                 max={new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
+                value={formik.values.dateTime} onChange={formik.handleChange}
               />
 
-              <label htmlFor="dob" className='text-muted'>Date of Birth</label>
+              <label htmlFor="dateTime" className='text-muted'>Date of Birth</label>
             </Form.Floating>
           </Col>
          

@@ -14,36 +14,36 @@ import PlayerDynamicTextFields from './PlayerDynamicTextFields';
 const validate = values => {
     const errors = {};
 
-    if (!values.aadharno) {
-        errors.aadharno = "*Required";
+    if (!values.aadharNo) {
+        errors.aadharNo = "*Required";
     }
-    else if (!/^[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}$/.test(values.aadharno)) {
-        errors.aadharno = "Enter Valid Aadhar Number"
-    }
-
-    if (!values.panno) {
-        errors.panno = "*Required";
-    }
-    else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(values.panno)) {
-        errors.panno = "Enter Valid Pan Card Number"
+    else if (!/^[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}$/.test(values.aadharNo)) {
+        errors.aadharNo = "Enter Valid Aadhar Number"
     }
 
-    if (!values.passno) {
-        errors.passno = "*Required";
+    if (!values.panCardNo) {
+        errors.panCardNo = "*Required";
     }
-    else if (!/^[a-zA-Z0-9]{10}$/.test(values.passno)) {
-        errors.passno = "Enter Valid Passport Number"
-    }
-
-    if (!values.passexp) {
-        errors.passexp = "*Required";
+    else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(values.panCardNo)) {
+        errors.panCardNo = "Enter Valid Pan Card Number"
     }
 
-    if (!values.birth) {
-        errors.birth = "*Required";
+    if (!values.passportNo) {
+        errors.passportNo = "*Required";
     }
-    else if (!/^[0-9]{6,14}$/.test(values.birth)) {
-        errors.birth = "Enter Valid Birth Certificate Number"
+    else if (!/^[a-zA-Z0-9]{10}$/.test(values.passportNo)) {
+        errors.passportNo = "Enter Valid Passport Number"
+    }
+
+    if (!values.passportExpDate) {
+        errors.passportExpDate = "*Required";
+    }
+
+    if (!values.birthCertificate) {
+        errors.birthCertificate = "*Required";
+    }
+    else if (!/^[0-9]{6,14}$/.test(values.birthCertificate)) {
+        errors.birthCertificate = "Enter Valid Birth Certificate Number"
     }
 
     // if (!values.address) {
@@ -59,24 +59,24 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
     const [clearValue, setClearValue] = useState(false);
 
     // reset form start: 
-    const aadharno1 = useRef("");
-    const panno1 = useRef("");
-    const passno1 = useRef("");
-    const passexp1 = useRef("");
-    const birth1 = useRef("");
-    const visaYes = useRef(false);
-    const visaNo = useRef(false);
+    const aadharnoReset = useRef("");
+    const pannoReset = useRef("");
+    const passnoReset = useRef("");
+    const passexpReset = useRef("");
+    const birthReset = useRef("");
+    const visaYesReset = useRef(false);
+    const visaNoReset = useRef(false);
     // const addressRef0 = useRef("");
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        aadharno1.current.value = "";
-        panno1.current.value = "";
-        passno1.current.value = "";
-        passexp1.current.value = "";
-        birth1.current.value = "";
-        visaYes.current.checked = false;
-        visaNo.current.checked = false;
+        aadharnoReset.current.value = "";
+        pannoReset.current.value = "";
+        passnoReset.current.value = "";
+        passexpReset.current.value = "";
+        birthReset.current.value = "";
+        visaYesReset.current.checked = false;
+        visaNoReset.current.checked = false;
         setClearValue(true);
         // addressRef0.current.value = "";
         formik.resetForm();
@@ -85,16 +85,16 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
 
     const formik = useFormik({
         initialValues: {
-            aadharno: '',
-            panno: '',
-            passno: '',
-            passexp: '',
-            birth: '',
+            aadharNo: '',
+            panCardNo: '',
+            passportNpassportNo: '',
+            passportExpDate: '',
+            birthCertificate: '',
             address: '',
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.aadharno}you have successfully signed up`);
+            alert('clicked next');
             onActivationKeyChild(childNextKey);
             console.log("childNextKey4", childNextKey)
         }
@@ -116,87 +116,87 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="aadharno"
+                                        id="aadharNo"
                                         type="text"
-                                        placeholder="aadharno"
-                                        name="aadharno"
-                                        ref={aadharno1}
-                                        value={formik.values.aadharno} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        placeholder="aadharNo"
+                                        name="aadharNo"
+                                        ref={aadharnoReset}
+                                        value={formik.values.aadharNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.aadharno && formik.errors.aadharno ? <span className='span'>{formik.errors.aadharno}</span> : null
+                                        formik.touched.aadharNo && formik.errors.aadharNo ? <span className='span'>{formik.errors.aadharNo}</span> : null
                                     }
-                                    <label htmlFor="aadharno" className='text-muted'>AADHAR NO*</label>
+                                    <label htmlFor="aadharNo" className='text-muted'>AADHAR NO*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="panno"
+                                        id="panCardNo"
                                         type="text"
                                         placeholder="panno"
-                                        name="panno"
-                                        ref={panno1}
-                                        value={formik.values.panno} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="panCardNo"
+                                        ref={pannoReset}
+                                        value={formik.values.panCardNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.panno && formik.errors.panno ? <span className='span'>{formik.errors.panno}</span> : null
+                                        formik.touched.panCardNo && formik.errors.panCardNo ? <span className='span'>{formik.errors.panCardNo}</span> : null
                                     }
-                                    <label htmlFor="panno" className='text-muted'>PANCARD NO*</label>
+                                    <label htmlFor="panCardNo" className='text-muted'>PANCARD NO*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="passno"
+                                        id="passportNo"
                                         type="text"
-                                        placeholder="passno"
-                                        name="passno"
-                                        ref={passno1}
-                                        value={formik.values.passno} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        placeholder="passportNo"
+                                        name="passportNo"
+                                        ref={passnoReset}
+                                        value={formik.values.passportNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.passno && formik.errors.passno ? <span className='span'>{formik.errors.passno}</span> : null
+                                        formik.touched.passportNo && formik.errors.passportNo ? <span className='span'>{formik.errors.passportNo}</span> : null
                                     }
-                                    <label htmlFor="passno" className='text-muted'>PASSPORT NO*</label>
+                                    <label htmlFor="passportNo" className='text-muted'>PASSPORT NO*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="passexp"
+                                        id="passportExpDate"
                                         type="date"
                                         placeholder="passexp"
-                                        name="passexp"
-                                        ref={passexp1}
-                                        value={formik.values.passexp} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="passportExpDate"
+                                        ref={passexpReset}
+                                        value={formik.values.passportExpDate} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                         min={new Date().toISOString().split('T')[0]}
                                     />
                                     {
-                                        formik.touched.passexp && formik.errors.passexp ? <span className='span'>{formik.errors.passexp}</span> : null
+                                        formik.touched.passportExpDate && formik.errors.passportExpDate ? <span className='span'>{formik.errors.passportExpDate}</span> : null
                                     }
-                                    <label htmlFor="passexp" className='text-muted'>PASSPORT EXP DATE*</label>
+                                    <label htmlFor="passportExpDate" className='text-muted'>PASSPORT EXP DATE*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="birth"
+                                        id="birthCertificate"
                                         type="text"
                                         placeholder="birth"
-                                        name="birth"
-                                        ref={birth1}
-                                        value={formik.values.birth} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="birthCertificate"
+                                        ref={birthReset}
+                                        value={formik.values.birthCertificate} onBlur={formik.handleBlur} onChange={formik.handleChange}
 
                                     />
                                     {
-                                        formik.touched.birth && formik.errors.birth ? <span className='span'>{formik.errors.birth}</span> : null
+                                        formik.touched.birthCertificate && formik.errors.birthCertificate ? <span className='span'>{formik.errors.birthCertificate}</span> : null
                                     }
-                                    <label htmlFor="birth" className='text-muted' style={{ fontSize: '13px' }}>BIRTH CERTIFICATE NO*</label>
+                                    <label htmlFor="birthCertificate" className='text-muted' style={{ fontSize: '13px' }}>BIRTH CERTIFICATE NO*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
-                                <label className='text-muted' htmlFor="battingpads">DO YOU HAVE VISA</label>
+                                <label className='text-muted' htmlFor="visacheck">DO YOU HAVE VISA</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} >
                                         <Form.Check style={{
@@ -204,19 +204,19 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         }}
                                             inline
                                             label="Yes"
-                                            name="visa"
+                                            name="visacheck"
                                             type={type}
                                             id={`inline-${type}-provided`}
-                                            ref={visaYes}
+                                            ref={visaYesReset}
                                         />
                                         <Form.Check
                                             inline
                                             label="No"
-                                            name="visa"
+                                            name="visacheck"
                                             type={type}
                                             id={`inline-${type}-notprovided`}
                                             // defaultChecked={true}
-                                            ref={visaNo}
+                                            ref={visaNoReset}
                                         />
                                     </div>
                                 ))}

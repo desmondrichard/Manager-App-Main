@@ -12,11 +12,11 @@ import { useRef } from 'react';
 const validate = values => {
     const errors = {};
 
-    if (!values.city) {
-        errors.city = "*Required";
+    if (!values.cityDistrict) {
+        errors.cityDistrict = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.city)) {
-        errors.city = "City name should be between 3 to 15 characters long or only letters allowed";
+    else if (!/^[a-zA-Z]{3,15}$/.test(values.cityDistrict)) {
+        errors.cityDistrict = "City name should be between 3 to 15 characters long or only letters allowed";
     }
 
     if (!values.club) {
@@ -39,29 +39,29 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
 
     const formik = useFormik({
         initialValues: {
-            city: '',
+            cityDistrict: '',
             club: '',
             division: '',
 
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert(`clicked next`);
             onActivationKeyChild(childNextKey)
         }
     });
 
     // reset form start: 
-    const city1 = useRef("");
-    const club1 = useRef("");
-    const division1 = useRef("");
+    const cityReset = useRef("");
+    const clubReset = useRef("");
+    const divisionReset = useRef("");
 
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        city1.current.value = "";
-        club1.current.value = "";
-        division1.current.value = "";
+        cityReset.current.value = "";
+        clubReset.current.value = "";
+        divisionReset.current.value = "";
         formik.resetForm();
     }
 
@@ -79,17 +79,17 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="city"
+                                        id="cityDistrict"
                                         type="text"
                                         placeholder="city"
-                                        name="city"
-                                        ref={city1}
-                                        value={formik.values.city} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="cityDistrict"
+                                        ref={cityReset}
+                                        value={formik.values.cityDistrict} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.city && formik.errors.city ? <span className='span'>{formik.errors.city}</span> : null
+                                        formik.touched.cityDistrict && formik.errors.cityDistrict ? <span className='span'>{formik.errors.cityDistrict}</span> : null
                                     }
-                                    <label htmlFor="city" className='text-muted'>City/District*</label>
+                                    <label htmlFor="cityDistrict" className='text-muted'>City/District*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -99,7 +99,7 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
                                         type="text"
                                         placeholder="club"
                                         name="club"
-                                        ref={club1}
+                                        ref={clubReset}
                                         value={formik.values.club} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
@@ -115,7 +115,7 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
                                         type="text"
                                         placeholder="division"
                                         name="division"
-                                        ref={division1}
+                                        ref={divisionReset}
                                         value={formik.values.division} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {

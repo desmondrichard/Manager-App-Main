@@ -82,7 +82,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                     <Form style={{ paddingRight: '60px' }}>
                         <Row>
                             <Col md={6} style={{ whiteSpace: 'nowrap' }}>
-                                <label className='text-muted me-2' htmlFor="foodtype">Allergy if any</label>
+                                <label className='text-muted me-2' htmlFor="allergyIfAny">Allergy if any</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} >
                                         <Form.Check style={{
@@ -90,7 +90,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                         }}
                                             inline
                                             label="Yes"
-                                            name="allergy"
+                                            name="allergyIfAny"
                                             type={type}
                                             id={`inline-${type}-yes`}
                                             ref={allergyYes}
@@ -100,7 +100,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                         <Form.Check
                                             inline
                                             label="No"
-                                            name="allergy"
+                                            name="allergyIfAny"
                                             type={type}
                                             id={`inline-${type}-no`}
                                             ref={allergyNo}
@@ -117,6 +117,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                                                 type="text"
                                                                 placeholder="allergy"
                                                                 ref={allergy1}
+                                                                name='allergy'
                                                             />
                                                             <label htmlFor="allergy" className='text-muted'>Allergy</label>
 
@@ -157,7 +158,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                             <div>
                                                 <Row>
                                                     <Col xs={12} lg={3} className='col col2' style={{ marginRight: '100px' }}>
-                                                        <label className='text-muted' htmlFor="foodtype">Sea Food</label>
+                                                        <label className='text-muted' htmlFor="seafood">Sea Food</label>
                                                         {['radio'].map((type) => (
                                                             <div key={`inline-${type}`} >
                                                                 <Form.Check style={{
@@ -184,7 +185,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                                     </Col>
 
                                                     <Col xs={12} lg={3} className='col col2'>
-                                                        <label className='text-muted' htmlFor="foodtype">Red Meat</label>
+                                                        <label className='text-muted' htmlFor="redMeat">Red Meat</label>
                                                         {['radio'].map((type) => (
                                                             <div key={`inline-${type}`} >
                                                                 <Form.Check style={{
@@ -192,7 +193,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                                                 }}
                                                                     inline
                                                                     label="Yes"
-                                                                    name="redmeat"
+                                                                    name="redMeat"
                                                                     type={type}
                                                                     id={`inline-${type}-yes`}
                                                                     defaultChecked={true}
@@ -201,7 +202,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                                                 <Form.Check
                                                                     inline
                                                                     label="No"
-                                                                    name="redmeat"
+                                                                    name="redMeat"
                                                                     type={type}
                                                                     id={`inline-${type}-no`}
                                                                     ref={eggNo}
@@ -215,7 +216,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                         ) : (
                                             <div>
                                                 <Col xs={12} lg={4} className='col'>
-                                                    <label className='text-muted ' htmlFor="foodtype">Eggiterian</label>
+                                                    <label className='text-muted ' htmlFor="eggiterian">Eggiterian</label>
                                                     {['radio'].map((type) => (
                                                         <div key={`inline-${type}`} style={{ whiteSpace: 'nowrap' }}>
                                                             <Form.Check style={{
@@ -223,7 +224,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                                             }}
                                                                 inline
                                                                 label="Yes"
-                                                                name="eggit"
+                                                                name="eggiterian"
                                                                 type={type}
                                                                 id={`inline-${type}-yes`}
                                                                 ref={eggYes}
@@ -232,7 +233,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                                             <Form.Check style={{ marginLeft: '10px' }}
                                                                 inline
                                                                 label="No"
-                                                                name="eggit"
+                                                                name="eggiterian"
                                                                 type={type}
                                                                 id={`inline-${type}-no`}
                                                                 defaultChecked={true}

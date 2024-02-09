@@ -11,11 +11,11 @@ import { useFormik } from 'formik';
 const validate = values => {
   const errors = {};
 
-  if (!values.name) {
-    errors.name = "*Required";
+  if (!values.representatives) {
+    errors.representatives = "*Required";
   }
-  else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.name)) {
-    errors.name = "enter a valid name";
+  else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.representatives)) {
+    errors.representatives = "enter a valid name";
   }
 
   return errors;
@@ -28,22 +28,34 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
   const name1 = useRef("");
   const uniformChecked = useRef(false);
   const tshirtChecked = useRef(false);
+  // if (uniformChecked.current.checked) {
+  //   console.log("Team Uniform checked");
+  // }
+  // if (tshirtChecked.current.checked) {
+  //   console.log("Team Tshirt checked");
+  // }
 
   function handleReset() {
     name1.current.value = "";
     uniformChecked.current.checked = false;
     tshirtChecked.current.checked = false;
+    formik.setFieldValue('representatives', '');
+    formik.setFieldValue('teamUniform', false);
     formik.resetForm();
+
   }
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      representatives: '',
+      teamUniform: '',
+      teamTshirt:''
     },
     validate,
     onSubmit: values => {
-      alert(`Hello! ,${values.name} you have successfully signed up`);
+      alert(`clicked next tab`);
       onChildNextActivationKey(childNextKey)
+      console.log("values", values)
     }
   });
 
@@ -56,24 +68,25 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
             <Col xs={12} md={4} className='py-3'>
               <Form.Floating className="mb-2">
                 <Form.Control
-                  id="name"
+                  id="representatives"
                   type="text"
                   placeholder="name"
                   ref={name1}
-                  name="name"
-                  value={formik.values.name} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                  name="representatives"
+                  value={formik.values.representatives} onBlur={formik.handleBlur} onChange={formik.handleChange}
                 />
                 {
-                  formik.touched.name && formik.errors.name ? <span className='span'>{formik.errors.name}</span> : null
+                  formik.touched.representatives && formik.errors.representatives ? <span className='span'>{formik.errors.representatives}</span> : null
                 }
-                <label htmlFor="name" className='text-muted'>Representatives Name*</label>
+                <label htmlFor="representatives" className='text-muted'>Representatives Name*</label>
               </Form.Floating>
             </Col>
             <Col xs={12} md={4} className='col1'>
-              <Form.Check label="Team Uniform" ref={uniformChecked} />
+              {/* <Form.Check label="Team Uniform" ref={uniformChecked} name='teamUniform' /> */}
+              <Form.Check label="Team Uniform" name='teamUniform' value={true} checked={formik.values.teamUniform} onChange={formik.handleChange} />
             </Col>
             <Col xs={12} md={4} className='col1'>
-              <Form.Check label="Team Tshirt" ref={tshirtChecked} />
+              <Form.Check label="Team Tshirt" name='teamTshirt' value={true} checked={formik.values.teamTshirt} onChange={formik.handleChange} />
             </Col>
           </Row>
           <Row>

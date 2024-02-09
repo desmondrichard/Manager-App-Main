@@ -16,12 +16,12 @@ const validate = values => {
     errors.name = "enter a valid name";
   }
 
-  if (!/^[a-zA-Z ]*$/.test(values.equipment)) {
-    errors.equipment = "enter a valid name";
+  if (!/^[a-zA-Z ]*$/.test(values.equipments)) {
+    errors.equipments = "enter a valid name";
   }
 
-  if (!/^[a-zA-Z ]*$/.test(values.equipmentType)) {
-    errors.equipmentType = "enter a valid name";
+  if (!/^[a-zA-Z ]*$/.test(values.equipmentsType)) {
+    errors.equipmentsType = "enter a valid name";
   }
 
 
@@ -44,13 +44,14 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
   const formik = useFormik({
     initialValues: {
       name: '',
-      equipment: '',
-      equipmentType: ''
+      equipments: '',
+      equipmentsType: ''
     },
     validate,
     onSubmit: values => {
       alert(`Hello! ,${values.groundName} you have successfully signed up`);
       onChildNextActivationKey(childNextKey)
+      console.log("values", values);
     }
   });
 
@@ -83,15 +84,15 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
           <Col md={4} className='my-3'>
             <Form.Floating className="mb-2">
               <Form.Control
-                id="equipment"
+                id="equipments"
                 type="text"
                 placeholder="equipment"
-                name="equipment"
+                name="equipments"
                 ref={equip1}
-                value={formik.values.equipment} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                value={formik.values.equipments} onBlur={formik.handleBlur} onChange={formik.handleChange}
               />
               {
-                formik.touched.equipment && formik.errors.equipment ? <span className='span'>{formik.errors.equipment}</span> : null
+                formik.touched.equipments && formik.errors.equipments ? <span className='span'>{formik.errors.equipments}</span> : null
               }
               <label htmlFor="equip" className='text-muted'>Equipment</label>
             </Form.Floating>
@@ -99,17 +100,17 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
           <Col md={4} className='my-3'>
             <Form.Floating className="mb-2">
               <Form.Control
-                id="equipmentType"
+                id="equipmentsType"
                 type="text"
                 placeholder="equiptype"
-                name="equipmentType"
+                name="equipmentsType"
                 ref={equipType}
-                value={formik.values.equipmentType} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                value={formik.values.equipmentsType} onBlur={formik.handleBlur} onChange={formik.handleChange}
               />
               {
-                formik.touched.equipmentType && formik.errors.equipmentType ? <span className='span'>{formik.errors.equipmentType}</span> : null
+                formik.touched.equipmentsType && formik.errors.equipmentsType ? <span className='span'>{formik.errors.equipmentsType}</span> : null
               }
-              <label htmlFor="equipmentType" className='text-muted'>Equipment Type</label>
+              <label htmlFor="equipmentsType" className='text-muted'>Equipment Type</label>
             </Form.Floating>
           </Col>
         </Row>

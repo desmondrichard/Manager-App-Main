@@ -14,22 +14,22 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
     //close modal:
     const [modalClose, setModalClose] = useState(false)
     // reset form start: 
-    const fbid1 = useRef("");
-    const fblink1 = useRef("");
-    const instagramid1 = useRef("");
-    const instagramlink1 = useRef("");
-    const twitterid1 = useRef("");
-    const twitterlink1 = useRef("");
+    const fbidReset = useRef("");
+    const fblinkReset = useRef("");
+    const instagramidReset = useRef("");
+    const instagramlinkReset = useRef("");
+    const twitteridReset = useRef("");
+    const twitterlinkReset = useRef("");
 
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        fbid1.current.value = "";
-        fblink1.current.value = "";
-        instagramid1.current.value = "";
-        instagramlink1.current.value = "";
-        twitterid1.current.value = "";
-        twitterlink1.current.value = "";
+        fbidReset.current.value = "";
+        fblinkReset.current.value = "";
+        instagramidReset.current.value = "";
+        instagramlinkReset.current.value = "";
+        twitteridReset.current.value = "";
+        twitterlinkReset.current.value = "";
 
     }
 
@@ -62,72 +62,76 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="fbid"
+                                        id="facebookId"
                                         type="text"
                                         placeholder="fbid"
-                                        ref={fbid1}
+                                        ref={fbidReset}
+                                        name='facebookId'
                                     />
-                                    <label htmlFor="fbid" className='text-muted'>Facebook ID</label>
+                                    <label htmlFor="facebookId" className='text-muted'>Facebook ID</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="fblink"
+                                        id="facebookLink"
                                         type="text"
                                         placeholder="fblink"
-                                        ref={fblink1}
+                                        ref={fblinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
+                                        name='facebookLink'
                                     />
-                                    <label htmlFor="fblink" className='text-muted'>Facebook Link</label>
+                                    <label htmlFor="facebookLink" className='text-muted'>Facebook Link</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="instagramid"
+                                        id="instagramId"
                                         type="text"
                                         placeholder="instagramid"
-                                        ref={instagramid1}
-
+                                        ref={instagramidReset}
+                                        name='instagramId'
                                     />
-                                    <label htmlFor="instagramid" className='text-muted'>Instagram ID</label>
+                                    <label htmlFor="instagramId" className='text-muted'>Instagram ID</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="instagramlink"
+                                        id="instagramLink"
                                         type="text"
                                         placeholder="instagramlink"
-                                        ref={instagramlink1}
+                                        ref={instagramlinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
+                                        name='instagramLink'
                                     />
-                                    <label htmlFor="instagramlink" className='text-muted'>Instagram Link</label>
+                                    <label htmlFor="instagramLink" className='text-muted'>Instagram Link</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="twitterid"
+                                        id="twitterId"
                                         type="text"
                                         placeholder="twitterid"
-                                        ref={twitterid1}
-
+                                        ref={twitteridReset}
+                                        name='twitterId'
                                     />
-                                    <label htmlFor="twitterid" className='text-muted'>Twitter ID</label>
+                                    <label htmlFor="twitterId" className='text-muted'>Twitter ID</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="twitterlink"
+                                        id="twitterLink"
                                         type="text"
                                         placeholder="twitterlink"
-                                        ref={twitterlink1}
+                                        ref={twitterlinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
+                                        name='twitterLink'
                                     />
-                                    <label htmlFor="twitterlink" className='text-muted'>Twitter Link</label>
+                                    <label htmlFor="twitterLink" className='text-muted'>Twitter Link</label>
                                 </Form.Floating>
                             </Col>
                         </Row>

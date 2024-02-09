@@ -27,35 +27,35 @@ const validate = values => {
     }
 
 
-    if (!values.jerseysize) {
-        errors.jerseysize = "*Required";
+    if (!values.jerseySize) {
+        errors.jerseySize = "*Required";
     }
 
-    if (!values.trowsersize) {
-        errors.trowsersize = "*Required";
+    if (!values.trouserSize) {
+        errors.trouserSize = "*Required";
     }
 
-    if (!values.trowserlength) {
-        errors.trowserlength = "*Required";
-    } else if (!/^\d{1,3}([.,]{0,2})?$/.test(values.trowserlength)) {
-        errors.trowserlength = "enter a valid length";
+    if (!values.trouserLength) {
+        errors.trouserLength = "*Required";
+    } else if (!/^\d{1,3}([.,]{0,2})?$/.test(values.trouserLength)) {
+        errors.trouserLength = "enter a valid length";
     }
 
 
-    if (!values.shortssize) {
-        errors.shortssize = "*Required";
+    if (!values.shortsSize) {
+        errors.shortsSize = "*Required";
     }
 
-    if (!values.tracksuit) {
-        errors.tracksuit = "*Required";
+    if (!values.trackSuit) {
+        errors.trackSuit = "*Required";
     }
 
-    if (!values.circkethelmet) {
-        errors.circkethelmet = "*Required";
+    if (!values.helmet) {
+        errors.helmet = "*Required";
     }
 
-    if (!values.travelpolo) {
-        errors.travelpolo = "*Required";
+    if (!values.travelPolo) {
+        errors.travelPolo = "*Required";
     }
 
 
@@ -70,16 +70,16 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
     //next btn:
     const [childNextKey, setChildNextKey] = useState("3")
     // reset form start: 
-    const JerseyName1 = useRef("");
-    const JerseyNo1 = useRef("");
-    const jerseysize1 = useRef("");
-    const trowsersize1 = useRef("");
-    const trowserlength1 = useRef("");
-    const shortssize1 = useRef("");
-    const tracksuit1 = useRef("");
-    const circkethelmet1 = useRef("");
-    const travelpolo1 = useRef("");
-    const familyjerseyno1 = useRef("");
+    const JerseyNameReset = useRef("");
+    const JerseyNoReset = useRef("");
+    const jerseysizeReset = useRef("");
+    const trowsersizeReset = useRef("");
+    const trowserlengthReset = useRef("");
+    const shortssizeReset = useRef("");
+    const tracksuitReset = useRef("");
+    const circkethelmetReset = useRef("");
+    const travelpoloReset = useRef("");
+    const familyjerseynoReset = useRef("");
     const bowlerA = useRef(false);
     const bowlerB = useRef(false);
     const qty = useRef("");
@@ -87,16 +87,16 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        JerseyName1.current.value = "";
-        JerseyNo1.current.value = "";
-        jerseysize1.current.value = "none";
-        trowsersize1.current.value = "none";
-        trowserlength1.current.value = "";
-        shortssize1.current.value = "none";
-        tracksuit1.current.value = "none";
-        circkethelmet1.current.value = "none";
-        travelpolo1.current.value = "none";
-        familyjerseyno1.current.value = "";
+        JerseyNameReset.current.value = "";
+        JerseyNoReset.current.value = "";
+        jerseysizeReset.current.value = "none";
+        trowsersizeReset.current.value = "none";
+        trowserlengthReset.current.value = "";
+        shortssizeReset.current.value = "none";
+        tracksuitReset.current.value = "none";
+        circkethelmetReset.current.value = "none";
+        travelpoloReset.current.value = "none";
+        familyjerseynoReset.current.value = "";
         bowlerA.current.checked = false;
         bowlerB.current.checked = false;
         qty.current.value = "";
@@ -107,19 +107,19 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         initialValues: {
             JerseyName: '',
             JerseyNo: '',
-            jerseysize: '',
-            trowsersize: '',
-            trowserlength: '',
-            shortssize: '',
-            tracksuit: '',
-            circkethelmet: '',
-            travelpolo: '',
+            jerseySize: '',
+            trouserSize: '',
+            trouserLength: '',
+            shortsSize: '',
+            trackSuit: '',
+            helmet: '',
+            travelPolo: '',
             familyJerseyNo: ''
 
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert('clicked next');
             onActivationKeyChild(childNextKey);
         }
     });
@@ -142,7 +142,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         type="text"
                                         placeholder="JerseyName"
                                         name="JerseyName"
-                                        ref={JerseyName1}
+                                        ref={JerseyNameReset}
                                         value={formik.values.JerseyName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
@@ -159,7 +159,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         // min="0" max="999"
                                         placeholder="JerseyNo"
                                         name="JerseyNo"
-                                        ref={JerseyNo1}
+                                        ref={JerseyNoReset}
                                         value={formik.values.JerseyNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
@@ -170,13 +170,13 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="jerseysize"
+                                    controlId="jerseySize"
                                     label="Jersey Size*"
-                                    name="jerseysize"
-                                    value={formik.values.jerseysize} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="jerseySize"
+                                    value={formik.values.jerseySize} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="jerseysize" ref={jerseysize1}>
+                                    <Form.Select aria-label="jerseySize" ref={jerseysizeReset}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -187,19 +187,19 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         <option value="4XL">4XL</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.jerseysize && formik.errors.jerseysize ? <span className='span'>{formik.errors.jerseysize}</span> : null
+                                        formik.touched.jerseySize && formik.errors.jerseySize ? <span className='span'>{formik.errors.jerseySize}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="trowsersize"
+                                    controlId="trouserSize"
                                     label="Trowser Size*"
-                                    name="trowsersize"
+                                    name="trouserSize"
                                     min="0" max="999"
-                                    value={formik.values.trowsersize} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    value={formik.values.trouserSize} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="trowsersize" ref={trowsersize1}>
+                                    <Form.Select aria-label="trouserSize" ref={trowsersizeReset}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -210,35 +210,35 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         <option value="4XL">4XL</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.trowsersize && formik.errors.trowsersize ? <span className='span'>{formik.errors.trowsersize}</span> : null
+                                        formik.touched.trouserSize && formik.errors.trouserSize ? <span className='span'>{formik.errors.trouserSize}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="trowserlength"
+                                        id="trouserLength"
                                         type="text"
                                         placeholder="Trowser Length"
-                                        name="trowserlength"
+                                        name="trouserLength"
                                         // min="0" max="999"
-                                        ref={trowserlength1}
-                                        value={formik.values.trowserlength} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        ref={trowserlengthReset}
+                                        value={formik.values.trouserLength} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.trowserlength && formik.errors.trowserlength ? <span className='span'>{formik.errors.trowserlength}</span> : null
+                                        formik.touched.trouserLength && formik.errors.trouserLength ? <span className='span'>{formik.errors.trouserLength}</span> : null
                                     }
-                                    <label htmlFor="trowserlength" className='text-muted'>Trowser Length</label>
+                                    <label htmlFor="trouserLength" className='text-muted'>Trowser Length</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="shortssize"
+                                    controlId="shortsSize"
                                     label="Shorts Size*"
-                                    name="shortssize"
-                                    value={formik.values.trowserlength} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="shortsSize"
+                                    value={formik.values.shortsSize} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="shortssize" ref={shortssize1}>
+                                    <Form.Select aria-label="shortsSize" ref={shortssizeReset}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -249,18 +249,18 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         <option value="4XL">4XL</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.shortssize && formik.errors.shortssize ? <span className='span'>{formik.errors.shortssize}</span> : null
+                                        formik.touched.shortsSize && formik.errors.shortsSize ? <span className='span'>{formik.errors.shortsSize}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="tracksuit"
+                                    controlId="trackSuit"
                                     label="Track suit*"
-                                    name="tracksuit"
-                                    value={formik.values.tracksuit} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="trackSuit"
+                                    value={formik.values.trackSuit} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="tracksuit" ref={tracksuit1}>
+                                    <Form.Select aria-label="trackSuit" ref={tracksuitReset}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -271,18 +271,18 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         <option value="4XL">4XL</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.tracksuit && formik.errors.tracksuit ? <span className='span'>{formik.errors.tracksuit}</span> : null
+                                        formik.touched.trackSuit && formik.errors.trackSuit ? <span className='span'>{formik.errors.trackSuit}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="circkethelmet"
+                                    controlId="helmet"
                                     label="Cricket Helmet*"
-                                    name="circkethelmet"
-                                    value={formik.values.circkethelmet} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="helmet"
+                                    value={formik.values.helmet} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="circkethelmet" ref={circkethelmet1}>
+                                    <Form.Select aria-label="helmet" ref={circkethelmetReset}>
                                         <option value="none">Select Type</option>
                                         <option value="Junior">Junior (52-54 cm)</option>
                                         <option value="Youth">Youth (54-57 cm)</option>
@@ -291,18 +291,18 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         <option value="Large">Large (60-63 cm)</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.circkethelmet && formik.errors.circkethelmet ? <span className='span'>{formik.errors.circkethelmet}</span> : null
+                                        formik.touched.helmet && formik.errors.helmet ? <span className='span'>{formik.errors.helmet}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="travelpolo"
+                                    controlId="travelPolo"
                                     label="Travel Polo"
-                                    name="travelpolo"
-                                    value={formik.values.travelpolo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="travelPolo"
+                                    value={formik.values.travelPolo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="travelpolo" ref={travelpolo1}>
+                                    <Form.Select aria-label="travelPolo" ref={travelpoloReset}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -313,7 +313,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         <option value="4XL">4XL</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.travelpolo && formik.errors.travelpolo ? <span className='span'>{formik.errors.travelpolo}</span> : null
+                                        formik.touched.travelPolo && formik.errors.travelPolo ? <span className='span'>{formik.errors.travelPolo}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
@@ -325,7 +325,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="familyJerseyNo"
                                         name="familyJerseyNo"
                                         value={formik.values.familyJerseyNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                        ref={familyjerseyno1}
+                                        ref={familyjerseynoReset}
                                     />
                                     {
                                         formik.touched.familyJerseyNo && formik.errors.familyJerseyNo ? <span className='span'>{formik.errors.familyJerseyNo}</span> : null
