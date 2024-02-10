@@ -73,9 +73,8 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
             </Col>
             <Col xs={12} md={4} className='py-3'>
               <FloatingLabel className='mb-2 c1'
-                controlId="coach"
+                controlId="designation"
                 label="Designation"
-                id="designation"
                 name="designation"
                 value={formik.values.designation}
                 onChange={formik.handleChange}

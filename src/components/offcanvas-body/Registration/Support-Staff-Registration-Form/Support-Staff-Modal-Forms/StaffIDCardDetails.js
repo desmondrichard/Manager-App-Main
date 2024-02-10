@@ -112,14 +112,15 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
         address0.current.value = "";
         address1.current.value = "";
         address2.current.value = "";
+        setSelectedCountry(null);
+        setSelectedState(null);
+        setSelectedCity(null);
         //reset address:
         setClearValue(true);
         formik.resetForm();
         setProgress(0);
         //reset npm country-state-city
-        setSelectedCountry(null);
-        setSelectedState(null);
-        setSelectedCity(null);
+       
     }
 
 

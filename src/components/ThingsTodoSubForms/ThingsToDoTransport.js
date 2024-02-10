@@ -64,15 +64,16 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
     formik.resetForm();
   }
 
-  function checkIfCheckoutAfterCheckin(checkinDate, checkoutDate) {
+  function checkIfCheckReturnDateAfterJourneyDate(checkinDate, checkoutDate) {
     const checkin = new Date(checkinDate);
     const checkout = new Date(checkoutDate);
     if (checkout < checkin) {
       alert('Checkout date must be after checkin date.');
       returnDate.current.value = ''; // clear the checkout date
+      formik.setFieldValue('returnDate', '');
     }
     else {
-      formik.setFieldValue("checkOut", checkoutDate);
+      formik.setFieldValue('returnDate',checkoutDate);
   }
   }
 
@@ -92,6 +93,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
     validate,
     onSubmit: values => {
       // alert(`Hello! ,${values.groundName} you have successfully signed up`);
+      // values.returnDate = formik.values.checkOut;
       notify()
       console.log("values", values)
     }
@@ -169,7 +171,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
                 name="returndate"
                 ref={returnDate}
                 value={formik.values.returndate}
-                onChange={(e) => checkIfCheckoutAfterCheckin(journeyDate.current.value, e.target.value)}
+                onChange={(e) => checkIfCheckReturnDateAfterJourneyDate(journeyDate.current.value, e.target.value)}
               />
 
               <label htmlFor="returnDate" className='text-muted'>Return Date</label>

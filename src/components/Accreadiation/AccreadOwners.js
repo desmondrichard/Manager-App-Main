@@ -13,15 +13,15 @@ import { useFormik } from 'formik';
 const validate = values => {
     const errors = {};
 
-    if (!values.name) {
-        errors.name = "*Required";
+    if (!values.OwnerName) {
+        errors.OwnerName = "*Required";
     }
-    else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.name)) {
-        errors.name = "enter a valid name";
+    else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.OwnerName)) {
+        errors.OwnerName = "enter a valid name";
     }
 
-    if (!/^^$|^.*@.*\..*$/.test(values.email)) {
-        errors.email = "Invalid email address";
+    if (!/^^$|^.*@.*\..*$/.test(values.OwnerEmailId)) {
+        errors.OwnerEmailId = "Invalid email address";
     }
 
 
@@ -49,14 +49,14 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            email: ''
+            OwnerName: '',
+            OwnerEmailId: ''
         },
         validate,
         onSubmit: values => {
             alert(`Hello! ,${values.name} you have successfully signed up`);
             onChildNextActivationKey(childNextKey)
-
+            console.log("values",values)
         }
     });
 
@@ -71,26 +71,29 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                         <Col xs={12} md={{ span: 4 }} className='py-3 c1'>
                             <Form.Floating className="mb-2">
                                 <Form.Control
-                                    id="name"
+                                    id="OwnerName"
                                     type="text"
                                     placeholder="name"
                                     ref={name1}
-                                    name="name"
-                                    value={formik.values.name} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="OwnerName"
+                                    value={formik.values.OwnerName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 />
                                 {
-                                    formik.touched.name && formik.errors.name ? <span className='span'>{formik.errors.name}</span> : null
+                                    formik.touched.OwnerName && formik.errors.OwnerName ? <span className='span'>{formik.errors.OwnerName}</span> : null
                                 }
-                                <label htmlFor="name" className='text-muted'>Name*</label>
+                                <label htmlFor="OwnerName" className='text-muted'>Name*</label>
                             </Form.Floating>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <FloatingLabel className='mb-2 c1'
-                                controlId="designation"
+                                controlId="OwnerDesignation"
                                 label="Designation"
+                                name="OwnerDesignation"
+                                value={formik.values.OwnerDesignation} onChange={formik.handleChange}
+
                             >
-                                <Form.Select aria-label="designation" ref={desig1}>
-                                    <option>Select Type</option>
+                                <Form.Select aria-label="OwnerDesignation" ref={desig1}>
+                                    <option value='none'>Select Type</option>
                                     <option value="year1">Player</option>
                                 </Form.Select>
                             </FloatingLabel>
@@ -101,17 +104,17 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">
                                 <Form.Control
-                                    id="email"
+                                    id="OwnerEmailId"
                                     type="email"
                                     placeholder="email"
                                     ref={email1}
-                                    name="email"
-                                    value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="OwnerEmailId"
+                                    value={formik.values.OwnerEmailId} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 />
                                 {
-                                    formik.touched.email && formik.errors.email ? <span className='span'>{formik.errors.email}</span> : null
+                                    formik.touched.OwnerEmailId && formik.errors.OwnerEmailId ? <span className='span'>{formik.errors.OwnerEmailId}</span> : null
                                 }
-                                <label htmlFor="email" className='text-muted'>Email ID</label>
+                                <label htmlFor="OwnerEmailId" className='text-muted'>Email ID</label>
                             </Form.Floating>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>

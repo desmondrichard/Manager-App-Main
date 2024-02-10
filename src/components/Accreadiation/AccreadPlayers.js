@@ -16,15 +16,15 @@ import { useFormik } from 'formik';
 const validate = values => {
     const errors = {};
 
-    if (!values.name) {
-        errors.name = "*Required";
+    if (!values.PlayersName) {
+        errors.PlayersName = "*Required";
     }
-    else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.name)) {
-        errors.name = "enter a valid name";
+    else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.PlayersName)) {
+        errors.PlayersName = "enter a valid name";
     }
 
-    if (!/^^$|^.*@.*\..*$/.test(values.email)) {
-        errors.email = "Invalid email address";
+    if (!/^^$|^.*@.*\..*$/.test(values.PlayersEmailId)) {
+        errors.PlayersEmailId = "Invalid email address";
     }
 
 
@@ -56,13 +56,14 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            email: ''
+            PlayersName: '',
+            PlayersEmailId: '',
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.name} you have successfully signed up`);
+            alert(`clicked next`);
             onChildNextActivationKey(childNextKey)
+            console.log("values",values)
         }
     });
 
@@ -74,27 +75,30 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                     <Col xs={12} md={4} className='py-3 c1'>
                         <Form.Floating className="mb-2">
                             <Form.Control
-                                id="name"
+                                id="PlayersName"
                                 type="text"
                                 placeholder="name"
                                 ref={name1}
-                                name="name"
-                                value={formik.values.name} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                name="PlayersName"
+                                value={formik.values.PlayersName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                             />
                             {
-                                formik.touched.name && formik.errors.name ? <span className='span'>{formik.errors.name}</span> : null
+                                formik.touched.PlayersName && formik.errors.PlayersName ? <span className='span'>{formik.errors.PlayersName}</span> : null
                             }
-                            <label htmlFor="name" className='text-muted'>Name*</label>
+                            <label htmlFor="PlayersName" className='text-muted'>Name*</label>
                         </Form.Floating>
                     </Col>
                     <Col xs={12} md={4} className='py-3 c1'>
                         <FloatingLabel className='mb-2 c1'
-                            controlId="designation"
+                            controlId="PlayersDesignation"
                             label="Designation"
+                            name='PlayersDesignation'
+                            value={formik.values.PlayersDesignation} onChange={formik.handleChange}
+
                         >
-                            <Form.Select aria-label="designation" ref={desig1}>
-                                <option>Select Type</option>
-                                <option value="year1">Player</option>
+                            <Form.Select aria-label="PlayersDesignation" ref={desig1}>
+                                <option value='none'>Select Type</option>
+                                <option value="playerdesig">Player</option>
                             </Form.Select>
                         </FloatingLabel>
                     </Col>
@@ -104,28 +108,30 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                     <Col xs={12} md={4} className='py-3 c1'>
                         <Form.Floating className="mb-2">
                             <Form.Control
-                                id="email"
+                                id="PlayersEmailId"
                                 type="email"
                                 placeholder="email"
                                 ref={email1}
-                                name="email"
-                                value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                name="PlayersEmailId"
+                                value={formik.values.PlayersEmailId} onBlur={formik.handleBlur} onChange={formik.handleChange}
                             />
                             {
-                                formik.touched.email && formik.errors.email ? <span className='span'>{formik.errors.email}</span> : null
+                                formik.touched.PlayersEmailId && formik.errors.PlayersEmailId ? <span className='span'>{formik.errors.PlayersEmailId}</span> : null
                             }
-                            <label htmlFor="email" className='text-muted'>Email ID</label>
+                            <label htmlFor="PlayersEmailId" className='text-muted'>Email ID</label>
                         </Form.Floating>
                     </Col>
                     <Col xs={12} md={4} className='py-3 c1'>
                         <FloatingLabel className='mb-2 c1'
-                            controlId="dutypass"
+                            controlId="PlayersDutyPass"
                             label="Duty Pass"
+                            name='PlayersDutyPass'
+                            value={formik.values.PlayersDutyPass} onChange={formik.handleChange}
                         >
-                            <Form.Select aria-label="dutypass" ref={dutypass1}>
-                                <option>Select Type</option>
-                                <option value="year1">Yes</option>
-                                <option value="year2">No</option>
+                            <Form.Select aria-label="PlayersDutyPass" ref={dutypass1}>
+                                <option value='none'>Select Type</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
                             </Form.Select>
                         </FloatingLabel>
                     </Col>

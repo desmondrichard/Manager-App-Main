@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,7 +9,9 @@ import Container from 'react-bootstrap/Container';
 import './Iddetails.css';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
-import PlayerDynamicTextFields from './PlayerDynamicTextFields';
+// import PlayerDynamicTextFields from './PlayerDynamicTextFields';
+import { Country, State, City } from 'country-state-city';
+import Select from "react-select";
 // validation:
 const validate = values => {
     const errors = {};
@@ -49,6 +51,25 @@ const validate = values => {
     // if (!values.address) {
     //     errors.address = "*Required";
     // }
+    if (!values.address) {
+        errors.address = "Required"
+    }
+
+    // if (!values.addressLine1) {
+    //     errors.addressLine1 = "Required"
+    // }
+
+    if (!values.selectedCountry) {
+        errors.selectedCountry = "Required";
+    }
+
+    if (!values.selectedState) {
+        errors.selectedState = "Required";
+    }
+
+    if (!values.selectedCity) {
+        errors.selectedCity = "Required";
+    }
 
     return errors;
 }
@@ -66,6 +87,9 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
     const birthReset = useRef("");
     const visaYesReset = useRef(false);
     const visaNoReset = useRef(false);
+    const address0 = useRef("");
+    const address1 = useRef("");
+    const address2 = useRef("");
     // const addressRef0 = useRef("");
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
@@ -78,6 +102,12 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         visaYesReset.current.checked = false;
         visaNoReset.current.checked = false;
         setClearValue(true);
+        address0.current.value = "";
+        address1.current.value = "";
+        address2.current.value = "";
+        setSelectedCountry(null);
+        setSelectedState(null);
+        setSelectedCity(null);
         // addressRef0.current.value = "";
         formik.resetForm();
     }
@@ -87,23 +117,43 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         initialValues: {
             aadharNo: '',
             panCardNo: '',
-            passportNpassportNo: '',
             passportExpDate: '',
             birthCertificate: '',
+            visacheck:'',
             address: '',
+            addressLine1: '',
+            addressLine2: '',
+            selectedCountry: null,
+            selectedState: null,
+            selectedCity: null,
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values) => {
             alert('clicked next');
             onActivationKeyChild(childNextKey);
-            console.log("childNextKey4", childNextKey)
+            console.log("values",values)
+            // console.log('visacheck value: ', values.visacheck);
+            console.log(values.visacheck === 'inline-radio-provided' ? 'Yes' : 'No');
         }
     });
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("2")
     }
+    // country-state-city:
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [selectedState, setSelectedState] = useState(null);
+    const [selectedCity, setSelectedCity] = useState(null);
+    useEffect(() => {
+        console.log(selectedCountry);
+        console.log(selectedCountry?.isoCode);
+        console.log(State?.getStatesOfCountry(selectedCountry?.isoCode));
+    }, [selectedCountry]);
     // console.log("Focus",address);
+
+    useEffect(() => {
+        // handleProgress();    uncomment while adding progress bar
+    }, [formik.values, selectedCountry, selectedState, selectedCity]);
     return (
 
         <Accordion.Item eventKey="3">
@@ -208,6 +258,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                             type={type}
                                             id={`inline-${type}-provided`}
                                             ref={visaYesReset}
+                                            value="yes"
                                         />
                                         <Form.Check
                                             inline
@@ -217,12 +268,139 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                             id={`inline-${type}-notprovided`}
                                             // defaultChecked={true}
                                             ref={visaNoReset}
+                                            value="no"
                                         />
                                     </div>
                                 ))}
                             </Col>
-                            <Col xs={12}>
+                            {/* <Col xs={12}>
                                 <PlayerDynamicTextFields isClearAddress0={clearValue} isClearAddress1={clearValue} isClearAddress2={clearValue} isClearCountry={clearValue} isClearState={clearValue} isClearCity={clearValue} />
+                            </Col> */}
+
+                            {/* <Row className='row1'> */}
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="address"
+                                        type="text"
+                                        placeholder="address"
+                                        name="address"
+                                        ref={address0}
+                                        value={formik.values.address} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.address && formik.errors.address ? <span className='span'>{formik.errors.address}</span> : null
+                                    }
+                                    <label htmlFor="address" className='text-muted'>ADDRESS*</label>
+                                </Form.Floating>
+                            </Col>
+                            {/* {isFocused && ( */}
+
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="addressLine1"
+                                        type="text"
+                                        placeholder="address1"
+                                        name="addressLine1"
+                                        ref={address1}
+                                        // value={
+                                        //     isClearAddress1 ? "" : value1
+                                        // }
+                                        // onChange={e => setValue1(e.target.value)}
+                                        value={formik.values.addressLine1} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.addressLine1 && formik.errors.addressLine1 ? <span className='span'>{formik.errors.addressLine1}</span> : null
+                                    }
+
+                                    <label htmlFor="addressLine1" className='text-muted'>ADDRESS LINE 1*</label>
+                                </Form.Floating>
+                            </Col>
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="addressLine2"
+                                        type="text"
+                                        placeholder="address2"
+                                        name="addressLine2"
+                                        ref={address2}
+                                        // value={
+                                        //     isClearAddress2 ? "" : value2
+                                        // }
+                                        // onChange={e => setValue2(e.target.value)}
+                                        value={formik.values.addressLine2} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.addressLine2 && formik.errors.addressLine2 ? <span className='span'>{formik.errors.addressLine2}</span> : null
+                                    }
+                                    <label htmlFor="addressLine2" className='text-muted'>ADDRESS LINE 2</label>
+                                </Form.Floating>
+                            </Col>
+
+                            {/* country-state-city: */}
+                            <Col xs={12} lg={4} className='col'>
+                                {/* <label htmlFor="country">Country:</label> */}
+                                <Select placeholder='country*' id='country' name='selectedCountry'
+                                    className="dynamicSelect" style={{ zIndex: 100, outline: 'none', border: 'none' }}
+                                    options={Country.getAllCountries()}
+                                    getOptionLabel={(options) => {
+                                        return options["name"];
+                                    }}
+                                    getOptionValue={(options) => {
+                                        return options["name"];
+                                    }}
+                                    value={selectedCountry}
+                                    // onChange={(item) => {
+                                    //     setSelectedCountry(item);
+                                    // }}
+                                    onChange={(item) => {
+                                        formik.setFieldValue('selectedCountry', item);
+                                        setSelectedCountry(item);
+                                    }}
+
+                                />
+                                {formik.touched.selectedCountry && formik.errors.selectedCountry ? <span className='span'>{formik.errors.selectedCountry}</span> : null}
+
+                            </Col>
+                            <Col xs={12} lg={4} className='col'>
+                                {/* <label htmlFor="state">State:</label> */}
+                                <Select placeholder='State*' style={{ zIndex: 100 }} id='state' name='selectedState'
+                                    options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
+                                    getOptionLabel={(options) => {
+                                        return options["name"];
+                                    }}
+                                    getOptionValue={(options) => {
+                                        return options["name"];
+                                    }}
+                                    value={selectedState}
+                                    onChange={(item) => {
+                                        formik.setFieldValue('selectedState', item);
+                                        setSelectedState(item);
+                                    }}
+                                />
+                                {formik.touched.selectedState && formik.errors.selectedState ? <span className='span'>{formik.errors.selectedState}</span> : null}
+                            </Col>
+                            <Col xs={12} lg={4} className='col '>
+                                {/* <label htmlFor="city">City:</label> */}
+                                <Select id='city' name='city' placeholder='City*' className="dynamicSelect" style={{ zIndex: 100 }}
+                                    options={City.getCitiesOfState(
+                                        selectedState?.countryCode,
+                                        selectedState?.isoCode
+                                    )}
+                                    getOptionLabel={(options) => {
+                                        return options["name"];
+                                    }}
+                                    getOptionValue={(options) => {
+                                        return options["name"];
+                                    }}
+                                    value={selectedCity}
+                                    onChange={(item) => {
+                                        formik.setFieldValue('selectedCity', item);
+                                        setSelectedCity(item);
+                                    }}
+                                />
+                                {formik.touched.selectedCity && formik.errors.selectedCity ? <span className='span'>{formik.errors.selectedCity}</span> : null}
                             </Col>
 
                             <Col xs={12} lg={12} className='my-4 col'>

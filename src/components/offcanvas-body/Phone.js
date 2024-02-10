@@ -3,7 +3,8 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './Phone.css';
 // import Col from 'react-bootstrap/Col';
-function Phone({ isClear, onActivateProgressBar }) {
+function Phone({ isClear, onActivateProgressBar, onGetPhoneValue }) {
+    const [phoneValue, setPhoneValue] = useState('');
 
     const [phoneNumber, setPhoneNumber] = useState('');//to fetch 0 or 1
     const [valid, setValid] = useState(true);
@@ -16,8 +17,11 @@ function Phone({ isClear, onActivateProgressBar }) {
         setPhoneNumber(value);
         setValid(validatePhoneNumber(value));
         onActivateProgressBar(fieldValue);
+        setPhoneValue(value);
+        // onGetPhoneValue(phoneValue);
+        console.log("phonevalue11", phoneValue)
     };
-
+    
 
     const validatePhoneNumber = (phoneNumber) => {
         const phoneNumberPattern = /^\+?[1-9]\d{1,14}$/;
@@ -30,9 +34,12 @@ function Phone({ isClear, onActivateProgressBar }) {
         } else {
             setFieldValue(0)
         }
-    }, [phoneNumber])
+        
+    }, [phoneValue])
 
-
+    // useEffect(() => {
+    //     onGetPhoneValue(phoneValue);
+    // }, [phoneNumber])
     return (
         <div>
             {/* {fieldValue} */}

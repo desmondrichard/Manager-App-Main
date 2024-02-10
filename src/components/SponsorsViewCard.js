@@ -23,7 +23,7 @@ function SponsorsViewCard() {
                 </Row>
             </div>
 
-            <div className='cardBodyMain1'>
+            <div className='cardBodyMain1 container'>
                 <Row style={{ paddingBottom: '50px' }} className='container '>
                     {/* Card:1 */}
                     <Col md={4} sm={6} className='mb-4 allCards'>

@@ -95,7 +95,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
                 value={formik.values.dateTime} onChange={formik.handleChange}
               />
 
-              <label htmlFor="dateTime" className='text-muted'>Date of Birth</label>
+              <label htmlFor="dateTime" className='text-muted'>Date</label>
             </Form.Floating>
           </Col>
          

@@ -14,15 +14,15 @@ import { useFormik } from 'formik';
 const validate = values => {
     const errors = {};
 
-    if (!values.name) {
-        errors.name = "*Required";
+    if (!values.OfficialName) {
+        errors.OfficialName = "*Required";
     }
-    else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.name)) {
-        errors.name = "enter a valid name";
+    else if (!/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(values.OfficialName)) {
+        errors.OfficialName = "enter a valid name";
     }
 
-    if (!/^^$|^.*@.*\..*$/.test(values.email)) {
-        errors.email = "Invalid email address";
+    if (!/^^$|^.*@.*\..*$/.test(values.OfficialEmailId)) {
+        errors.OfficialEmailId = "Invalid email address";
     }
 
     return errors;
@@ -49,13 +49,14 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            email: ''
+            OfficialName: '',
+            OfficialEmailId: ''
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.name} you have successfully signed up`);
+            alert(`clecked next`);
             onChildNextActivationKey(childNextKey)
+            console.log("values",values)
         }
     });
 
@@ -70,26 +71,29 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                         <Col xs={12} md={{ span: 4 }} className='py-3 c1'>
                             <Form.Floating className="mb-2">
                                 <Form.Control
-                                    id="name"
+                                    id="OfficialName"
                                     type="text"
                                     placeholder="name"
                                     ref={name1}
-                                    name="name"
-                                    value={formik.values.name} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="OfficialName"
+                                    value={formik.values.OfficialName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 />
                                 {
-                                    formik.touched.name && formik.errors.name ? <span className='span'>{formik.errors.name}</span> : null
+                                    formik.touched.OfficialName && formik.errors.OfficialName ? <span className='span'>{formik.errors.OfficialName}</span> : null
                                 }
 
-                                <label htmlFor="name" className='text-muted'>Name*</label>
+                                <label htmlFor="OfficialName" className='text-muted'>Name*</label>
                             </Form.Floating>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <FloatingLabel className='mb-2 c1'
-                                controlId="designation"
+                                controlId="OfficialDesignation"
                                 label="Designation"
+                                name="OfficialDesignation"
+                                value={formik.values.OfficialDesignation} onChange={formik.handleChange}
+
                             >
-                                <Form.Select aria-label="designation" ref={desig1}>
+                                <Form.Select aria-label="OfficialDesignation" ref={desig1}>
                                     <option>Select Type</option>
                                     <option value="year1">Player</option>
                                 </Form.Select>
@@ -101,17 +105,17 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">
                                 <Form.Control
-                                    id="email"
+                                    id="OfficialEmailId"
                                     type="email"
                                     placeholder="email"
                                     ref={email1}
-                                    name="email"
-                                    value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="OfficialEmailId"
+                                    value={formik.values.OfficialEmailId} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 />
                                 {
-                                    formik.touched.email && formik.errors.email ? <span className='span'>{formik.errors.email}</span> : null
+                                    formik.touched.OfficialEmailId && formik.errors.OfficialEmailId ? <span className='span'>{formik.errors.OfficialEmailId}</span> : null
                                 }
-                                <label htmlFor="email" className='text-muted'>Email ID</label>
+                                <label htmlFor="OfficialEmailId" className='text-muted'>Email ID</label>
                             </Form.Floating>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
@@ -120,7 +124,7 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                                 label="Duty Pass"
                             >
                                 <Form.Select aria-label="dutypass" ref={dutypass1}>
-                                    <option>Select Type</option>
+                                    <option value='none'>Select Type</option>
                                     <option value="year1">Yes</option>
                                     <option value="year2">No</option>
                                 </Form.Select>
