@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -12,6 +12,7 @@ import { useRef } from 'react';
 import Phone from '../../Phone';
 import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
+import ProgressBarWithLabel from '../ProgressBarWithLabel';
 // validation:
 const validate = values => {
     const errors = {};
@@ -83,14 +84,21 @@ const validate = values => {
 
 
 function PersonalInformation({ activationKey, onActivationKeyChild }) {
+    const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
 
     const navigate = useNavigate();
-    const [mobileValue, setMobileValue] = useState(false);
+    // const [mobileValue, setMobileValue] = useState(false);
     const [imageValue, setImageValue] = useState(false);
     // const [imageValue,setImageValue]=useState(false);
 
     // next btn:
     const [childNextKey, setChildNextKey] = useState("1");
+
+    //
+    const [errors, setErrors] = useState({});
+    const validateForm = (validationErrors) => {
+        setErrors(validationErrors);
+    };
 
     // reset form start: 
     const firstNameReset = useRef("");
@@ -117,14 +125,16 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         fathersNameReset.current.value = "";
         mothersNameReset.current.value = "";
         dobReset.current.value = "";
-        bloodgrpReset.current.value = "none"; //since default or initial value in html code below is none
-        setMobileValue(true);
+        bloodgrpReset.current.value = "none"; //since default or initial value in html code below is none   
         emailReset.current.value = "";
         genderMaleReset.current.checked = false;
         genderFemaleReset.current.checked = false;
+        setImageProgress("");
         setImageValue(true);
-        // console.log("Ref",genderMale);
+        setMobileValueClear(true);
+        setPhoneProgress("");
         formik.resetForm();
+        setProgress(0);
     }
     // reset form end: 
 
@@ -139,21 +149,84 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             motherName: '',
             dateOfBirth: '',
             bloodGroup: '',
-            emailId: ''
+            emailId: '',
+            gender: '',
+            ImageData: '',
+            mobileNo: ''
         },
         validate,
         onSubmit: values => {
             alert('Clicked Next');
             onActivationKeyChild(childNextKey)
+            console.log('values', values)
         }
     });
 
+    //Dynamic Image upload progress Bar:
+    const [imgProgress, setImageProgress] = useState(0);
 
+    function handleImageUploadProgress(value) {
+        console.log("childtoparentImage", value);
+        setImageProgress(value);
+        setImageValue(false);  //to avoid image view issue after clicking reset btn  i.e after clicking reset button we setted imageValue as true (clear image) ,so now to reupload we set it back to false
+    }
 
+    //Dynamic phone progress Bar:
+    const [phoneProgress, setPhoneProgress] = useState(0);
+    function ActivateProgressBar(val) {
+        console.log("childtoparentval: ", val);
+        setPhoneProgress(val);//checking if value present or not
+        setMobileValueClear(false);//if value is present  then clear the field  only after reset it clicked so made false-no clear again else it will be true always hence field cannot be cleared
+    }
+
+    // progress Bar for static fields:
+    const [progress, setProgress] = useState(0);
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+        const result = countKeysWithNonEmptyValues(formik.values);
+        console.log("result for formik values:", result)
+        const totalFilledFields = result + phoneProgress + imgProgress;
+
+        //calc formula
+        let newProgress = ((totalFilledFields / 13) * 100).toFixed();
+        console.log("Progress", newProgress)
+        setProgress(newProgress);
+    }
+
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    // 
+    const [imageDataValue,setImageDataValue]=useState("");
+    const dynamicImageNameFn = (val) => {
+        console.log("val", val)
+        setImageDataValue(val);
+        
+    }
+
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values, phoneProgress, imgProgress])
+
+    // handleProgress();
     return (
 
         <Accordion.Item eventKey="0">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container>
                     <p>{activationKey}</p>
@@ -315,7 +388,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValue} />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} />
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
@@ -336,30 +409,32 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                             <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
                                 <label className='text-muted me-2' htmlFor="gender">Gender:</label>
                                 {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }}>
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
                                         <Form.Check
                                             inline
                                             label="Male"
-                                            name="Male"
+                                            name="gender"
                                             type={type}
                                             id={`inline-${type}-Male`}
                                             // defaultChecked={true}
                                             ref={genderMaleReset}
+                                            value="Male"
                                         />
                                         <Form.Check
                                             inline
                                             label="Female"
-                                            name="Male"
+                                            name="gender"
                                             type={type}
                                             id={`inline-${type}-Female`}
                                             // defaultChecked={false}
                                             ref={genderFemaleReset}
+                                            value="Female"
                                         />
                                     </div>
                                 ))}
                             </Col>
                             <Col xs={5} lg={2} className='col'>
-                                <ImageUpload isClearImage={imageValue} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>

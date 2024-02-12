@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import './ProficiencyForm.css';
 import Row from 'react-bootstrap/Row';
@@ -10,6 +10,7 @@ import './ProficiencyForm.css';
 import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
+import ProgressBarWithLabel from '../ProgressBarWithLabel';
 // validation:
 const validate = values => {
     const errors = {};
@@ -56,6 +57,8 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         bowlStyleReset.current.value = "none";
         bowlSpecsReset.current.value = "none";
         formik.resetForm();
+        setProgress(0);
+
     }
 
     const formik = useFormik({
@@ -70,6 +73,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         onSubmit: values => {
             alert('clicked next');
             onActivationKeyChild(childNextKey);
+            console.log("values",values)
         }
     })
 
@@ -79,11 +83,47 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
     const handlePreviousButton = () => {
         onPreviousActivationKey("0")
     }
+
+    // progress Bar for static fields:
+    const [progress, setProgress] = useState(0);
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+        const result = countKeysWithNonEmptyValues(formik.values);
+        console.log("result for formik values:", result)
+        const totalFilledFields = result;
+
+        //calc formula
+        let newProgress = ((totalFilledFields / 6) * 100).toFixed();
+        console.log("Progress", newProgress)
+        setProgress(newProgress);
+    }
+
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values])
+
     return (
 
 
         <Accordion.Item eventKey="1">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PROFICIENCY INFORMATION</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PROFICIENCY INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container>
                     <p>{activationKey}</p>
@@ -112,7 +152,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                             <Col xs={12} lg={4} className=' col'>
                                 <label className='text-muted me-2' htmlFor="gender">BATTING STYLE</label>
                                 {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }}>
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
                                         <Form.Check
                                             inline
                                             label="Left Hand"
@@ -120,6 +160,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                             type={type}
                                             ref={batLeftReset}
                                             id={`inline-${type}-left`}
+                                            value='leftHanded'
                                         />
                                         <Form.Check
                                             inline
@@ -129,6 +170,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                             id={`inline-${type}-right`}
                                             // defaultChecked={true}
                                             ref={batRightReset}
+                                            value="rightHanded"
                                         />
                                     </div>
                                 ))}
@@ -156,7 +198,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                 <label className='text-muted me-2' htmlFor="bowlerType">BOWLER TYPE</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} className="mb-3">
-                                        <span style={{ whiteSpace: 'nowrap' }}>
+                                        <span style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
                                             <Form.Check
                                                 inline
                                                 label="Left Arm"

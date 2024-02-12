@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import DynamicFields from './DynamicFields';
 import { useRef } from 'react';
+import ProgressBarWithLabel from '../ProgressBarWithLabel';
 const validate = values => {
     const errors = {};
 
@@ -101,6 +102,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         bowlerB.current.checked = false;
         qty.current.value = "";
         formik.resetForm();
+        setProgress(0);
+
     }
     // reset form end: 
     const formik = useFormik({
@@ -127,10 +130,46 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
     const handlePreviousButton = () => {
         onPreviousActivationKey("1")
     }
+
+    // progress Bar for static fields:
+    const [progress, setProgress] = useState(0);
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+        const result = countKeysWithNonEmptyValues(formik.values);
+        console.log("result for formik values:", result)
+        const totalFilledFields = result;
+
+        //calc formula
+        let newProgress = ((totalFilledFields / 10) * 100).toFixed();
+        console.log("Progress", newProgress)
+        setProgress(newProgress);
+    }
+
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values])
+
     return (
 
         <Accordion.Item eventKey="2">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>KITTING DETAILS</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>KITTING DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>

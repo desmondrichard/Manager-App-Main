@@ -175,7 +175,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             // const element = document.getElementById("playerPersonalInfo");
             // element.scrollTop = 20;
             onActivationKeyChild(childNextKey)
-
+            console.log("values:", values)
         }
     });
 
@@ -189,6 +189,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     }
 
     //Dynamic phone progress Bar:
+    const [phoneProgress, setPhoneProgress] = useState(0);
     function ActivateProgressBar(val) {
         console.log("childtoparentval: ", val);
         setPhoneProgress(val);//checking if value present or not
@@ -196,14 +197,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     }
 
     //Progress Bar:
-    const [phoneProgress, setPhoneProgress] = useState(0);
+    
 
     function handleProgress() {
         //check form values or formik values:
         console.log("formik vals PersonalInfo:", formik.values);
         //set progress as 1 if current form field is filled else 0:  
         //get no of form vals filled by adding it inside a object:
-        const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
+        const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all filled form fields count
         console.log(result);  //returned count is stored in result variable
         console.log("phoneprogress", phoneProgress);
         //adding dynamic fields:

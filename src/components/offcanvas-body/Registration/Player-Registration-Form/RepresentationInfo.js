@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './RepresentationInfo.css';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
+import ProgressBarWithLabel from '../ProgressBarWithLabel';
 // validation:
 const validate = values => {
     const errors = {};
@@ -63,15 +64,53 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
         clubReset.current.value = "";
         divisionReset.current.value = "";
         formik.resetForm();
+        setProgress(0);
+
     }
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("6")
     }
+
+
+    // progress Bar for static fields:
+    const [progress, setProgress] = useState(0);
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+        const result = countKeysWithNonEmptyValues(formik.values);
+        console.log("result for formik values:", result)
+        const totalFilledFields = result;
+
+        //calc formula
+        let newProgress = ((totalFilledFields / 3) * 100).toFixed();
+        console.log("Progress", newProgress)
+        setProgress(newProgress);
+    }
+
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values])
     return (
 
         <Accordion.Item eventKey="7">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>REPRESENTATION INFORMATION</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>REPRESENTATION INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>

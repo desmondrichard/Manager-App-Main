@@ -1,5 +1,5 @@
 import './BankAccountDetails.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
+import ProgressBarWithLabel from '../ProgressBarWithLabel';
 
 // validation:
 const validate = values => {
@@ -29,8 +30,8 @@ const validate = values => {
         errors.bankName = "Bank Name should be between 2 to 15 characters long or only letters allowed";
     }
 
-    if(!values.bankAccountNo){
-        errors.bankAccountNo="*Required"
+    if (!values.bankAccountNo) {
+        errors.bankAccountNo = "*Required"
     }
     else if (!/^\d{9,18}$/.test(values.bankAccountNo)) {
         errors.bankAccountNo = "enter valid Account number";
@@ -100,9 +101,10 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         bankcontact1.current.value = "";
         bankaddressReset.current.value = "";
         bankcountryReset.current.value = "";
-
         // console.log("Ref",genderMale);
         formik.resetForm();
+        setProgress(0);
+
     }
     // reset form end: 
 
@@ -125,7 +127,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         onSubmit: values => {
             alert(`clicked next`);
             onActivationKeyChild(childNextKey);
-
+            console.log("values",values)
         }
     });
     //next btn:
@@ -135,10 +137,46 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         onPreviousActivationKey("3")
     }
 
+    // progress Bar for static fields:
+    const [progress, setProgress] = useState(0);
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+        const result = countKeysWithNonEmptyValues(formik.values);
+        console.log("result for formik values:", result)
+        const totalFilledFields = result;
+
+        //calc formula
+        let newProgress = ((totalFilledFields / 13) * 100).toFixed();
+        console.log("Progress", newProgress)
+        setProgress(newProgress);
+    }
+
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values])
+
+
     return (
 
         <Accordion.Item eventKey="4">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>BANK ACCOUNT DETAILS</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>BANK ACCOUNT DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
                     <p>{activationKey}</p>
@@ -215,7 +253,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 {['radio'].map((type) => (
 
                                     <div key={`inline-${type}`} >
-                                        <span style={{ whiteSpace: 'nowrap' }}>
+                                        <span style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
                                             <Form.Check
                                                 inline
                                                 label="Savings"
@@ -261,6 +299,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="swiftbic"
                                         name="switchbicNumber"
                                         ref={swiftbicReset}
+                                        onChange={formik.handleChange}
                                     />
                                     {/*  */}
                                     <label htmlFor="switchbicNumber" className='text-muted '>Swift/Bic No Type</label>
@@ -290,6 +329,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="iban"
                                         name="ibanCode"
                                         ref={ibanReset}
+                                        onChange={formik.handleChange}
                                     />
 
                                     <label htmlFor="ibanCode" className='text-muted'>IBAN Code</label>
@@ -336,6 +376,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="bankaddress"
                                         name="bankAddress"
                                         ref={bankaddressReset}
+                                        onChange={formik.handleChange}
                                     />
                                     <label htmlFor="bankAddress" className='text-muted'>Bank Address</label>
                                 </Form.Floating>

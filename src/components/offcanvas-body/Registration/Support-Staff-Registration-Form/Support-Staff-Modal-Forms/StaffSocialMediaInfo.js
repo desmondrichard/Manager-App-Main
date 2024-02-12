@@ -86,8 +86,8 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
 
         },
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
-
+            alert(`clicked next`);
+            console.log("values",values)
         }
     });
 

@@ -12,6 +12,7 @@ import { useRef } from 'react';
 // import PlayerDynamicTextFields from './PlayerDynamicTextFields';
 import { Country, State, City } from 'country-state-city';
 import Select from "react-select";
+import ProgressBarWithLabel from '../ProgressBarWithLabel';
 // validation:
 const validate = values => {
     const errors = {};
@@ -59,17 +60,17 @@ const validate = values => {
     //     errors.addressLine1 = "Required"
     // }
 
-    if (!values.selectedCountry) {
-        errors.selectedCountry = "Required";
-    }
+    // if (!values.country) {
+    //     errors.country = "Required";
+    // }
 
-    if (!values.selectedState) {
-        errors.selectedState = "Required";
-    }
+    // if (!values.state) {
+    //     errors.state = "Required";
+    // }
 
-    if (!values.selectedCity) {
-        errors.selectedCity = "Required";
-    }
+    // if (!values.city) {
+    //     errors.city = "Required";
+    // }
 
     return errors;
 }
@@ -110,30 +111,33 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         setSelectedCity(null);
         // addressRef0.current.value = "";
         formik.resetForm();
+        setProgress(0);
+
     }
 
-
+    const [visaChecked, setVisaChecked] = useState(null);
     const formik = useFormik({
         initialValues: {
             aadharNo: '',
             panCardNo: '',
             passportExpDate: '',
             birthCertificate: '',
-            visacheck:'',
+            visacheck: visaChecked || '',
             address: '',
             addressLine1: '',
             addressLine2: '',
-            selectedCountry: null,
-            selectedState: null,
-            selectedCity: null,
+            // country: null,    //right approach
+            // state: null,
+            // city: null,
+
         },
         validate,
         onSubmit: (values) => {
             alert('clicked next');
             onActivationKeyChild(childNextKey);
-            console.log("values",values)
-            // console.log('visacheck value: ', values.visacheck);
-            console.log(values.visacheck === 'inline-radio-provided' ? 'Yes' : 'No');
+            console.log("values", values)
+            // console.log(values.visacheck === 'inline-radio-provided' ? 'Yes' : 'No');
+            // setSubmitting(false);
         }
     });
 
@@ -151,13 +155,45 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
     }, [selectedCountry]);
     // console.log("Focus",address);
 
+    // progress Bar for static fields:
+    const [progress, setProgress] = useState(0);
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+        const result = countKeysWithNonEmptyValues(formik.values);
+        console.log("result for formik values:", result)
+        const totalFilledFields = result;
+
+        //calc formula
+        let newProgress = ((totalFilledFields / 12) * 100).toFixed();
+        console.log("Progress", newProgress)
+        setProgress(newProgress);
+    }
+
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+
     useEffect(() => {
-        // handleProgress();    uncomment while adding progress bar
+        handleProgress();   // uncomment while adding progress bar
     }, [formik.values, selectedCountry, selectedState, selectedCity]);
     return (
 
         <Accordion.Item eventKey="3">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>ID CARD DETAILS</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>ID CARD DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
                     <p>{activationKey}</p>
@@ -248,7 +284,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                             <Col xs={12} lg={4} className='col'>
                                 <label className='text-muted' htmlFor="visacheck">DO YOU HAVE VISA</label>
                                 {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} >
+                                    <div key={`inline-${type}`} onChange={(e) => { formik.handleChange(e) }}>
                                         <Form.Check style={{
 
                                         }}
@@ -259,6 +295,10 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                             id={`inline-${type}-provided`}
                                             ref={visaYesReset}
                                             value="yes"
+                                        // onChange={(e) => {
+                                        //     setVisaChecked(e.target.value);
+                                        //     formik.setFieldValue('visacheck', e.target.value);
+                                        // }}
                                         />
                                         <Form.Check
                                             inline
@@ -269,6 +309,10 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                             // defaultChecked={true}
                                             ref={visaNoReset}
                                             value="no"
+                                            onChange={(e) => {
+                                                setVisaChecked(e.target.value);
+                                                formik.setFieldValue('visacheck', e.target.value);
+                                            }}
                                         />
                                     </div>
                                 ))}
@@ -341,7 +385,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                             {/* country-state-city: */}
                             <Col xs={12} lg={4} className='col'>
                                 {/* <label htmlFor="country">Country:</label> */}
-                                <Select placeholder='country*' id='country' name='selectedCountry'
+                                <Select placeholder='country*' id='country' name='country'
                                     className="dynamicSelect" style={{ zIndex: 100, outline: 'none', border: 'none' }}
                                     options={Country.getAllCountries()}
                                     getOptionLabel={(options) => {
@@ -355,17 +399,17 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                     //     setSelectedCountry(item);
                                     // }}
                                     onChange={(item) => {
-                                        formik.setFieldValue('selectedCountry', item);
+                                        formik.setFieldValue("country", item.name);
                                         setSelectedCountry(item);
                                     }}
 
                                 />
-                                {formik.touched.selectedCountry && formik.errors.selectedCountry ? <span className='span'>{formik.errors.selectedCountry}</span> : null}
+                                {formik.touched.country && formik.errors.country ? <span className='span'>{formik.errors.country}</span> : null}
 
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 {/* <label htmlFor="state">State:</label> */}
-                                <Select placeholder='State*' style={{ zIndex: 100 }} id='state' name='selectedState'
+                                <Select placeholder='State*' style={{ zIndex: 100 }} id='state' name='state'
                                     options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
                                     getOptionLabel={(options) => {
                                         return options["name"];
@@ -375,11 +419,11 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                     }}
                                     value={selectedState}
                                     onChange={(item) => {
-                                        formik.setFieldValue('selectedState', item);
+                                        formik.setFieldValue("state", item.name);
                                         setSelectedState(item);
                                     }}
                                 />
-                                {formik.touched.selectedState && formik.errors.selectedState ? <span className='span'>{formik.errors.selectedState}</span> : null}
+                                {formik.touched.state && formik.errors.state ? <span className='span'>{formik.errors.state}</span> : null}
                             </Col>
                             <Col xs={12} lg={4} className='col '>
                                 {/* <label htmlFor="city">City:</label> */}
@@ -396,11 +440,11 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                     }}
                                     value={selectedCity}
                                     onChange={(item) => {
-                                        formik.setFieldValue('selectedCity', item);
+                                        formik.setFieldValue("city", item.name);
                                         setSelectedCity(item);
                                     }}
                                 />
-                                {formik.touched.selectedCity && formik.errors.selectedCity ? <span className='span'>{formik.errors.selectedCity}</span> : null}
+                                {formik.touched.city && formik.errors.city ? <span className='span'>{formik.errors.city}</span> : null}
                             </Col>
 
                             <Col xs={12} lg={12} className='my-4 col'>

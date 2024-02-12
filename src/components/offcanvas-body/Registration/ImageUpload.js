@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-function ImageUpload({ isClearImage, onActivateProgressBar }) { //isClearImage 1st comes with value false-no clear
+function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName }) { //isClearImage 1st comes with value false-no clear
     const inputRef = useRef(null);   //initialized with null for resetting purpose, and since formik is used we use useRef
     const [image, setImage] = useState("");
 
@@ -22,6 +22,7 @@ function ImageUpload({ isClearImage, onActivateProgressBar }) { //isClearImage 1
     return (
         // 
         <>
+            {/* {console.log("dynamicImageName", dynamicImageName)} */}
             <label htmlFor='image-upload-input' className='image-upload-label h5 text-muted' style={{ fontWeight: '400', whiteSpace: 'nowrap' }}>
                 {/* like placeholder: */}
                 {image ? image.name : "Upload JPG/PNG"}
@@ -35,7 +36,7 @@ function ImageUpload({ isClearImage, onActivateProgressBar }) { //isClearImage 1
                         (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={require('../../../assets/dummy_profile_img.png')}></Image>)
                 }
 
-                <input type="file" ref={inputRef} onChange={(e) => handleImageChange(e)} style={{ display: 'none' }} /><br />
+                <input type="file" ref={inputRef} onChange={(e) => handleImageChange(e)} style={{ display: 'none' }} name='dynamicImageName' /><br />
                 <Button variant="success" className='uploadImageBtn' style={{ whiteSpace: 'nowrap' }}>Select to Upload</Button>
             </div>
         </>
