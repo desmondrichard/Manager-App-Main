@@ -60,14 +60,23 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
             PlayersEmailId: '',
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
             alert(`clicked next`);
+            const newValues = { ...values, PlayersMobilNo }
             onChildNextActivationKey(childNextKey)
-            console.log("values",values)
+            console.log("newvalues", newValues)
+            setSubmitting(false);
         }
     });
-
-
+    const [PlayersMobilNo, setPlayersMobilNo] = useState("");
+    const Samp = (s) => {
+        console.log("sample1", s)
+        setPlayersMobilNo(s);
+        console.log("PlayersMobilNo", PlayersMobilNo)
+    }
+    function Sample() {
+        console.log("hi")
+    }
     return (
         <Card className='bg-light p-4'>
             <Form onSubmit={formik.handleSubmit}>
@@ -103,7 +112,7 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                         </FloatingLabel>
                     </Col>
                     <Col xs={12} md={4} className='py-3 c1'>
-                        <Phone isClear={mobValue} />
+                        <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="PlayersMobilNo" onActivateProgressBar={Sample} />
                     </Col>
                     <Col xs={12} md={4} className='py-3 c1'>
                         <Form.Floating className="mb-2">

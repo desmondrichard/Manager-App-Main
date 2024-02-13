@@ -49,6 +49,7 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
         onSubmit: values => {
             alert(`clicked next`);
             onActivationKeyChild(childNextKey)
+            console.log('values',values)
         }
     });
 

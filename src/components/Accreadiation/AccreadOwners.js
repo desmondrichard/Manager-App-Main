@@ -53,15 +53,27 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
             OwnerEmailId: ''
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
             alert(`Hello! ,${values.name} you have successfully signed up`);
+            const newValues = { ...values, OwnerMobilNo }
             onChildNextActivationKey(childNextKey)
-            console.log("values",values)
+            console.log("newvalues", newValues)
+            setSubmitting(false);
         }
     });
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("1")
+    }
+
+    const [OwnerMobilNo, setOwnerMobilNo] = useState("");
+    const Samp = (s) => {
+        console.log("sample1", s)
+        setOwnerMobilNo(s);
+        console.log("PlayersMobilNo", OwnerMobilNo)
+    }
+    function Sample() {
+        console.log("hi")
     }
     return (
         <div>
@@ -99,7 +111,7 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                             </FloatingLabel>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} />
+                            <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="OwnerMobilNo" onActivateProgressBar={Sample} />
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">

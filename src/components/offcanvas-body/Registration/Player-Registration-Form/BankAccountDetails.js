@@ -54,12 +54,12 @@ const validate = values => {
         errors.gstNumber = "enter valid GST number";
     }
 
-    if (!/^[0-9]{0,10}$/.test(values.bankcontact)) {
-        errors.bankcontact = "enter valid contact number";
+    if (!/^[0-9]{0,10}$/.test(values.bankContactNo)) {
+        errors.bankContactNo = "enter valid contact number";
     }
 
-    if (!/^[a-zA-Z]{0,25}$/.test(values.bankCity)) {
-        errors.bankCity = "Country Name should be between 3 to 25 characters long or only letters allowed";
+    if (!/^[a-zA-Z]{0,25}$/.test(values.bankCountry)) {
+        errors.bankCountry = "Country Name should be between 3 to 25 characters long or only letters allowed";
     }
 
     return errors;
@@ -119,15 +119,15 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
             micrCode: '',
             ibanCode: '',
             gstNumber: '',
-            bankcontact: '',
-            bankCity: ''
+            bankContactNo: '',
+            bankCountry: ''
 
         },
         validate,
         onSubmit: values => {
             alert(`clicked next`);
             onActivationKeyChild(childNextKey);
-            console.log("values",values)
+            console.log("values", values)
         }
     });
     //next btn:
@@ -260,7 +260,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                                 name="acType"
                                                 type={type}
                                                 id={`inline-${type}-savings`}
-                                                // defaultChecked={true}
+                                                value='savings'
                                                 ref={savingsReset}
                                             />
                                             <Form.Check
@@ -269,6 +269,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                                 name="acType"
                                                 type={type}
                                                 id={`inline-${type}-current`}
+                                                value='current'
                                                 ref={currentReset}
                                             />
                                         </span>
@@ -354,18 +355,18 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="bankcontact"
+                                        id="bankContactNo"
                                         type="text"
                                         placeholder="bankcontact"
-                                        name="bankcontact"
+                                        name="bankContactNo"
                                         ref={bankcontact1}
-                                        value={formik.values.bankcontact} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.bankContactNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.bankcontact && formik.errors.bankcontact ? <span className='span'>{formik.errors.bankcontact}</span> : null
+                                        formik.touched.bankContactNo && formik.errors.bankContactNo ? <span className='span'>{formik.errors.bankContactNo}</span> : null
                                     }
                                     {/*  */}
-                                    <label htmlFor="bankcontact" className='text-muted '>Bank Contact No</label>
+                                    <label htmlFor="bankContactNo" className='text-muted '>Bank Contact No</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -384,18 +385,18 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="bankCity"
+                                        id="bankCountry"
                                         type="text"
                                         placeholder="bankcountry"
-                                        name="bankCity"
+                                        name="bankCountry"
                                         ref={bankcountryReset}
-                                        value={formik.values.bankCity} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.bankCountry} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.bankCity && formik.errors.bankCity ? <span className='span'>{formik.errors.bankCity}</span> : null
+                                        formik.touched.bankCountry && formik.errors.bankCountry ? <span className='span'>{formik.errors.bankCountry}</span> : null
                                     }
 
-                                    <label htmlFor="bankCity" className='text-muted'>Bank Country</label>
+                                    <label htmlFor="bankCountry" className='text-muted'>Bank Country</label>
                                 </Form.Floating>
                             </Col>
                             <Col lg={12} className='my-4 col'>

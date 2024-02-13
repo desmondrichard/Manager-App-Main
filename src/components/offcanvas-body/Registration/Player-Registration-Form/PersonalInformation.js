@@ -79,6 +79,11 @@ const validate = values => {
         errors.emailId = "*Invalid email address";
     }
 
+    if (!values.mobileNo) {
+        errors.mobileNo = "*Required";
+    }
+
+
     return errors;
 }
 
@@ -151,14 +156,16 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             bloodGroup: '',
             emailId: '',
             gender: '',
-            ImageData: '',
-            mobileNo: ''
+            mobileNo: '',
+
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
+            const newValues = { ...values, mobileNo, ImageData }
             alert('Clicked Next');
             onActivationKeyChild(childNextKey)
-            console.log('values', values)
+            console.log('newvalues', newValues)
+            setSubmitting(false);
         }
     });
 
@@ -210,14 +217,24 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         return count;
     }
 
-    // 
-    const [imageDataValue,setImageDataValue]=useState("");
+    // Image base 64 value:
+    const [ImageData, setImageData] = useState("");
     const dynamicImageNameFn = (val) => {
-        console.log("val", val)
-        setImageDataValue(val);
+        // console.log("valll", val)
+        val = val.slice(23)  //sliced  to remove data:image/png;base64 and to display from /9j.....
+        console.log('sliced Val', val)
+        setImageData(val)
+    }
+
+    //phone value:
+    const [mobileNo, setMobileNo] = useState("");
+    const Samp = (value) => {
+        setMobileNo(value);
+        console.log("phonevalue", mobileNo)
         
     }
 
+   
     useEffect(() => {
         handleProgress();
     }, [formik.values, phoneProgress, imgProgress])
@@ -238,7 +255,6 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="playerName"
                                         type="text"
                                         placeholder="first name"
-                                        // value={playerName}
                                         ref={firstNameReset}
                                         name="playerName"
                                         value={formik.values.playerName} onBlur={formik.handleBlur} onChange={formik.handleChange}
@@ -388,7 +404,12 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
+
+                                />
+                                {formik.touched.mobileNo && formik.errors.mobileNo ? (
+                                    <span className="span">{formik.errors.mobileNo}</span>
+                                ) : null}
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">

@@ -56,9 +56,11 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
             SponsorEmailId: ''
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
             // alert(`Hello! ,${values.name} you have successfully signed up`);
-            console.log("values", values)
+            const newValues = { ...values, SponsorMobilNo }
+            console.log("newvalues", newValues)
+            setSubmitting(false);
             notify();
 
         }
@@ -75,6 +77,15 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
         });
     }
 
+    const [SponsorMobilNo, setSponsorMobilNo] = useState("");
+    const Samp = (s) => {
+        console.log("sample1", s)
+        setSponsorMobilNo(s);
+        console.log("PlayersMobilNo", SponsorMobilNo)
+    }
+    function Sample() {
+        console.log("hi")
+    }
     return (
         <div>
             <Card className='bg-light p-4'>
@@ -111,7 +122,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
                             </FloatingLabel>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} />
+                            <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="SponsorMobilNo" onActivateProgressBar={Sample} />
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">

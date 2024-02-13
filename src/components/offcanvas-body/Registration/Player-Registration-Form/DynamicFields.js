@@ -20,8 +20,14 @@ const DynamicFields = () => {
             ],
             text: { id: `text-${fields.length}`, placeholder: 'Enter text' },
         }
+        //
+
         setFields([...fields, newFieldSet])
         setOptionsLabel('') // Clear input after adding fields
+
+        //to find selected option:
+        // const selectedOption = document.querySelector(`#optionsLabel select option:checked`);
+        // const fieldName = selectedOption ? selectedOption.dataset.fieldName : '';
     }
 
     return (
@@ -34,7 +40,7 @@ const DynamicFields = () => {
                                 <Col sm={5} md={6} lg={4} className='dynamicRadioField'>
                                     <Form.Label>{field.radioLabel}</Form.Label>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                        {field.radios.map((radio, radioIndex) => (
+                                        {/* {field.radios.map((radio, radioIndex) => (
                                             <div key={radio.id} style={{ marginRight: '10px', paddingRight: '30px' }}>
                                                 <Form.Check
                                                     type="radio"
@@ -45,7 +51,9 @@ const DynamicFields = () => {
                                                 // ref={radio.ref}
                                                 />
                                             </div>
-                                        ))}
+                                        ))} */}
+                                        <div style={{ Right: '10px' }}> <Form.Check type="radio" id={field.radios[0].id} label={field.radios[0].label} name={`radioGroup-${field.id}`} ref={field.radios[0]} value='provided' /> </div>
+                                        <div> <Form.Check type="radio" id={field.radios[1].id} label={field.radios[1].label} name={`radioGroup-${field.id}`} ref={field.radios[1]} value='notprovided' /> </div>
                                     </div>
                                 </Col>
                                 <Col xs={12} sm={6} md={6} lg={6} className='dynamicQtyField'>
@@ -68,20 +76,47 @@ const DynamicFields = () => {
                             </Row>
                         </div>
                     </div>
-                ))}
-            </Form>
+                ))
+                }
+            </Form >
             <Form.Group controlId="optionsLabel">
-                <Form.Label>Enter Label for Options:[enter text in uppercase]</Form.Label>
+                {/* <Form.Label>SELECT KIT AND QUANTITY</Form.Label> */}
                 <Form.Control
-                    type="text"
+                    as="select"
                     value={optionsLabel}
                     onChange={(e) => setOptionsLabel(e.target.value)}
-                />
+                >
+                    <option value="none">Select Kit</option>
+                    <option value="BATTING PADS" data-field-name="battingPads" style={{ whiteSpace: 'nowrap' }}>BATTING PADS</option>
+                    <option value="BATTING GLOVES" data-field-name="battingGloves" style={{ whiteSpace: 'nowrap' }}>BATTING GLOVES</option>
+                    <option value="WK GLOVES" data-field-name="wkGloves" style={{ whiteSpace: 'nowrap' }}>WK GLOVES</option>
+                    <option value="WK PAD" data-field-name="wkPad" style={{ whiteSpace: 'nowrap' }}>WK PAD</option>
+                    <option value="SHOULDER BAG" data-field-name="shoulderBag" style={{ whiteSpace: 'nowrap' }}>SHOULDER BAG</option>
+                    <option value="SHOE BAG" data-field-name="shoeBag" style={{ whiteSpace: 'nowrap' }}>SHOE BAG</option>
+                    <option value="PLAYING KIT BAG" data-field-name="playingkitBag" style={{ whiteSpace: 'nowrap' }}>PLAYING KIT BAG</option>
+                    <option value="PRACTICS JERSEY" data-field-name="practicsJersey" style={{ whiteSpace: 'nowrap' }}>PRACTICS JERSEY</option>
+                    <option value="FAMILY JERSEY" data-field-name="familyJersey" style={{ whiteSpace: 'nowrap' }}>FAMILY JERSEY</option>
+                    <option value="ARM GUARD" data-field-name="armGuard" style={{ whiteSpace: 'nowrap' }}>ARM GUARD</option>
+                    <option value="THIGH GUARD" data-field-name="thighGaurad" style={{ whiteSpace: 'nowrap' }}>THIGH GUARD</option>
+                    <option value="ABDOMINAL GUARD" data-field-name="abdominalGaurad" style={{ whiteSpace: 'nowrap' }}>ABDOMINAL GUARD</option>
+                    <option value="BATTING PAD" data-field-name="battinpadqty" style={{ whiteSpace: 'nowrap' }}>BATTING PAD</option>
+                    <option value="BATTING GLOVE" data-field-name="battinggloveqty" style={{ whiteSpace: 'nowrap' }}>BATTING GLOVE</option>
+                    <option value="WK GLOVES" data-field-name="wkGlovesqty" style={{ whiteSpace: 'nowrap' }}>WK GLOVES</option>
+                    <option value="WK PAD" data-field-name="wkpadqty" style={{ whiteSpace: 'nowrap' }}>WK PAD</option>
+                    <option value="SHOULDER BAG" data-field-name="shoulderbagqty" style={{ whiteSpace: 'nowrap' }}>SHOULDER BAG</option>
+                    <option value="SHOE BAG" data-field-name="shoebagqty" style={{ whiteSpace: 'nowrap' }}>SHOE BAG</option>
+                    <option value="PLAYER BAG" data-field-name="playerbagqty" style={{ whiteSpace: 'nowrap' }}>PLAYER BAG</option>
+                    <option value="PRACTICE JERSEY" data-field-name="practisejerseyqty" style={{ whiteSpace: 'nowrap' }}>PRACTICE JERSEY</option>
+                    <option value="FAMILY JERSEY" data-field-name="familyjerseyqty" style={{ whiteSpace: 'nowrap' }}>FAMILY JERSEY</option>
+                    <option value="ARM GUARD" data-field-name="armguardyqty" style={{ whiteSpace: 'nowrap' }}>ARM GUARD</option>
+                    <option value="THIGH GUARD" data-field-name="thighguardyqty" style={{ whiteSpace: 'nowrap' }}>THIGH GUARD</option>
+                    <option value="ABDOMINAL GUARD" data-field-name="abdominalguardyqty" style={{ whiteSpace: 'nowrap' }}>ABDOMINAL GUARD</option>
+                </Form.Control>
             </Form.Group>
             <div className='text-center my-2' >
-                <Button onClick={addFields}><i className="bi bi-plus fa-8x" style={{ fontSize: '20px', borderRadius: '30px' }}></i></Button>
+                <Button onClick={addFields}>ADD</Button>
             </div>
-        </div>
+        </div >
     )
 }
 

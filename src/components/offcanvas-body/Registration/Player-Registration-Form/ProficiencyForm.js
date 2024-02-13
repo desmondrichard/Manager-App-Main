@@ -205,6 +205,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 name="bowlerType"
                                                 type={type}
                                                 id={`inline-${type}-leftarm`}
+                                                value='LeftArm'
                                                 ref={armLeftReset}
                                             />
                                             <Form.Check
@@ -213,7 +214,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 name="bowlerType"
                                                 type={type}
                                                 id={`inline-${type}-rightarm`}
-                                                // defaultChecked={true}
+                                                value='RightArm'
                                                 ref={armRightReset}
                                             />
                                         </span>

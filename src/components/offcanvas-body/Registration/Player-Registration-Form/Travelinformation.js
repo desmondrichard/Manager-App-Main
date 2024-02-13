@@ -28,7 +28,7 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
     const formik = useFormik({
         initialValues: {
             travelFrom: '',
-            destn: '',
+          
 
         },
         validate,

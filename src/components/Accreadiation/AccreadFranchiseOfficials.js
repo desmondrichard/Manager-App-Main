@@ -53,15 +53,28 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
             OfficialEmailId: ''
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
             alert(`clecked next`);
+            const newValues = { ...values, OfficialMobilNo }
             onChildNextActivationKey(childNextKey)
-            console.log("values",values)
+            console.log("newvalues",newValues)
+            setSubmitting(false);
         }
     });
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("2")
+    }
+    //
+
+    const [OfficialMobilNo, setOfficialMobilNo] = useState("");
+    const Samp = (s) => {
+        console.log("sample1", s)
+        setOfficialMobilNo(s);
+        console.log("PlayersMobilNo", OfficialMobilNo)
+    }
+    function Sample() {
+        console.log("hi")
     }
     return (
         <div>
@@ -100,7 +113,7 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                             </FloatingLabel>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} />
+                            <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="OfficialMobilNo" onActivateProgressBar={Sample}/>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">

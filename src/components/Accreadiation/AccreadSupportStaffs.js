@@ -47,11 +47,8 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
     }
 
     // 
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const handlePhoneNumberChange=(val)=>{
-        setPhoneNumber("PhoneNumberval",val);
-        console.log("phone number",phoneNumber)
-    }
+
+
 
     const formik = useFormik({
         initialValues: {
@@ -59,20 +56,29 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
             StaffEmailId: ''
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
             alert(`clicked next`);
+            const newValues = { ...values,StaffMobilNo }
             onChildNextActivationKey(childNextKey)
-            console.log("values", values)
+            console.log("newvalues", newValues)
+            setSubmitting(false);
         }
     });
+
+    const [StaffMobilNo, setStaffMobilNo] = useState("");
+    const Samp = (s) => {
+        console.log("sample1", s)
+        setStaffMobilNo(s);
+        console.log("PlayersMobilNo", StaffMobilNo)
+    }
+    function Sample() {
+        console.log("hi")
+    }
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("0")
     }
 
-    function Sample(){
-        console.log("hi")
-    }
     return (
         <div>
             <Card className='bg-light p-4'>
@@ -110,7 +116,7 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
                             </FloatingLabel>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} onGetPhoneValue={handlePhoneNumberChange} onActivateProgressBar={Sample}/>
+                            <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="StaffMobilNo" onActivateProgressBar={Sample} />
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">
@@ -134,7 +140,7 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
                                 label="Duty Pass"
                             >
                                 <Form.Select aria-label="dutypass" ref={dutypass1}>
-                                    <option>Select Type</option>
+                                    <option value='none'>Select Type</option>
                                     <option value="year1">Yes</option>
                                     <option value="year2">No</option>
                                 </Form.Select>

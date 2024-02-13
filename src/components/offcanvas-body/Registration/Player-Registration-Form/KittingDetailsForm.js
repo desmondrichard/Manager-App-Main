@@ -14,17 +14,17 @@ import ProgressBarWithLabel from '../ProgressBarWithLabel';
 const validate = values => {
     const errors = {};
 
-    if (!values.JerseyName) {
-        errors.JerseyName = "*Required";
+    if (!values.jerseyName) {
+        errors.jerseyName = "*Required";
     }
-    else if (!/^[a-zA-Z]{2,10}$/.test(values.JerseyName)) {
-        errors.JerseyName = "Jersey Name should be between 2 to 10 characters long or only letters allowed";
+    else if (!/^[a-zA-Z]{2,10}$/.test(values.jerseyName)) {
+        errors.jerseyName = "Jersey Name should be between 2 to 10 characters long or only letters allowed";
     }
 
-    if (!values.JerseyNo) {
-        errors.JerseyNo = "*Required";
-    } else if (!/^\d{1,3}([.,]{0,2})?$/.test(values.JerseyNo)) {
-        errors.JerseyNo = "enter a valid jersey number";
+    if (!values.jerseyNo) {
+        errors.jerseyNo = "*Required";
+    } else if (!/^\d{1,3}([.,]{0,2})?$/.test(values.jerseyNo)) {
+        errors.jerseyNo = "enter a valid jersey number";
     }
 
 
@@ -60,9 +60,9 @@ const validate = values => {
     }
 
 
-    if (!/^\d{0,3}([.,]{0,2})?$/.test(values.familyJerseyNo)) {
-        errors.familyJerseyNo = "enter a valid jersey number";
-    }
+    // if (!/^\d{0,3}([.,]{0,2})?$/.test(values.familyJerseyNo)) {
+    //     errors.familyJerseyNo = "enter a valid jersey number";
+    // }
     return errors
 }
 
@@ -108,8 +108,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
     // reset form end: 
     const formik = useFormik({
         initialValues: {
-            JerseyName: '',
-            JerseyNo: '',
+            jerseyName: '',
+            jerseyNo: '',
             jerseySize: '',
             trouserSize: '',
             trouserLength: '',
@@ -124,6 +124,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         onSubmit: values => {
             alert('clicked next');
             onActivationKeyChild(childNextKey);
+            console.log('values',values)
         }
     });
 
@@ -177,34 +178,34 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="JerseyName"
+                                        id="jerseyName"
                                         type="text"
                                         placeholder="JerseyName"
-                                        name="JerseyName"
+                                        name="jerseyName"
                                         ref={JerseyNameReset}
-                                        value={formik.values.JerseyName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.jerseyName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.JerseyName && formik.errors.JerseyName ? <span className='span'>{formik.errors.JerseyName}</span> : null
+                                        formik.touched.jerseyName && formik.errors.jerseyName ? <span className='span'>{formik.errors.jerseyName}</span> : null
                                     }
-                                    <label htmlFor="JerseyName" className='text-muted'>Name on Jersey*</label>
+                                    <label htmlFor="jerseyName" className='text-muted'>Name on Jersey*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="JerseyNo"
+                                        id="jerseyNo"
                                         type="text"
                                         // min="0" max="999"
                                         placeholder="JerseyNo"
-                                        name="JerseyNo"
+                                        name="jerseyNo"
                                         ref={JerseyNoReset}
-                                        value={formik.values.JerseyNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.jerseyNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.JerseyNo && formik.errors.JerseyNo ? <span className='span'>{formik.errors.JerseyNo}</span> : null
+                                        formik.touched.jerseyNo && formik.errors.jerseyNo ? <span className='span'>{formik.errors.jerseyNo}</span> : null
                                     }
-                                    <label htmlFor="JerseyNo" className='text-muted'>Jersey No*</label>
+                                    <label htmlFor="jerseyNo" className='text-muted'>Jersey No*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -375,7 +376,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                         </Row>
 
                         <Row>
-                            <Col className='col radioFields'>
+                            {/* <Col className='col radioFields'>
                                 <label className='text-muted' htmlFor="battingpads" style={{ whiteSpace: 'nowrap' }}>BATTING PADS</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} style={{ whiteSpace: 'nowrap' }}>
@@ -400,8 +401,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         />
                                     </div>
                                 ))}
-                            </Col>
-                            <Col className='col QtyMainMargin'>
+                            </Col> */}
+                            {/* <Col className='col QtyMainMargin'>
                                 <div>
                                     <Form.Label htmlFor="qty" style={{ color: '#7C7F81' }}>QUANTITY</Form.Label>
                                     <Form.Control size="md"
@@ -420,7 +421,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         }}
                                     />
                                 </div>
-                            </Col>
+                            </Col> */}
                             {/* Dynamic Form: */}
                             <Col xs={12} lg={{ span: 12 }} className='col'>
                                 <DynamicFields />

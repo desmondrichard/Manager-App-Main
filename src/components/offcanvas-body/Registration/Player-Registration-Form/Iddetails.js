@@ -31,12 +31,15 @@ const validate = values => {
         errors.panCardNo = "Enter Valid Pan Card Number"
     }
 
+    //
+
     if (!values.passportNo) {
         errors.passportNo = "*Required";
     }
     else if (!/^[a-zA-Z0-9]{10}$/.test(values.passportNo)) {
         errors.passportNo = "Enter Valid Passport Number"
     }
+    //
 
     if (!values.passportExpDate) {
         errors.passportExpDate = "*Required";
@@ -53,24 +56,24 @@ const validate = values => {
     //     errors.address = "*Required";
     // }
     if (!values.address) {
-        errors.address = "Required"
+        errors.address = "*Required"
     }
 
-    // if (!values.addressLine1) {
-    //     errors.addressLine1 = "Required"
-    // }
+    if (!values.addressLine1) {
+        errors.addressLine1 = "*Required"
+    }
 
-    // if (!values.country) {
-    //     errors.country = "Required";
-    // }
+    if (!values.country) {
+        errors.country = "Required";
+    }
 
-    // if (!values.state) {
-    //     errors.state = "Required";
-    // }
+    if (!values.state) {
+        errors.state = "Required";
+    }
 
-    // if (!values.city) {
-    //     errors.city = "Required";
-    // }
+    if (!values.city) {
+        errors.city = "Required";
+    }
 
     return errors;
 }
@@ -91,6 +94,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
     const address0 = useRef("");
     const address1 = useRef("");
     const address2 = useRef("");
+
     // const addressRef0 = useRef("");
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
@@ -126,9 +130,10 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             address: '',
             addressLine1: '',
             addressLine2: '',
-            // country: null,    //right approach
-            // state: null,
-            // city: null,
+            passportNo: '',
+            country: '',    //right approach
+            state: '',
+            city: '',
 
         },
         validate,
