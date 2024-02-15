@@ -22,6 +22,7 @@ import PlayerRegistrationViewCard from './components/offcanvas-body/Registration
 import AccreadiationViewCard from './components/AccreadiationViewCard';
 import DashboardPlayGroundViewCard from './components/DashboardPlayGroundViewCard';
 import SponsorsViewCard from './components/SponsorsViewCard';
+import PageNotFound from './components/Error404Page/PageNotFound';
 
 
 function App() {
@@ -71,7 +72,8 @@ function App() {
           </Route>
 
           <Route path='/thingstodoform' exact element={<ThingsTodoForm />} />
-
+          {/* Page Not Found: */}
+          <Route path='*'  element= {<PageNotFound />}/>
         </Routes>
       </BrowserRouter>
     </div>

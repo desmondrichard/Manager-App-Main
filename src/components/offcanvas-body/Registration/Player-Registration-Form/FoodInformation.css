@@ -19,3 +19,15 @@ select:focus {
     margin-left: -20px;
   }
 }
+
+@media (max-width: 992px) {
+  .inlineText {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 767px) {
+  .allergyMargin {
+    margin-top:30px;
+  }
+}

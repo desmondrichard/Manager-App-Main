@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,241 +6,260 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import './StaffFoodInformation.css';
+import { useFormik } from 'formik';
+import ProgressBarWithLabel from '../../ProgressBarWithLabel';
+
 function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
-    const [childNextKey, setChildNextKey] = useState("5");
-    //Dynamic Radio btns:
-    const [isFocused, setIsFocused] = useState(false);
-    const [allergyFocused, setAllergyIsFocused] = useState(true);
-    // const inputRef = useRef(null);
+    const [childNextKey, setChildNextKey] = useState("0");
 
-    const handleFocusVeg = () => {
-        setIsFocused(false);
+    //state for food type:
+    const [foodType, setFoodType] = useState(null);
+
+    const handleFoodTypeChange = (e) => {
+        setFoodType(e.target.value);
     };
 
-    const handleFocusNonVeg = () => {
-        setIsFocused(true);
+    //state for allergy field visibility
+    const [showAllergyField, setShowAllergyField] = useState(false)
 
-    };
-
-    const allergyYes1 = () => {
-        setAllergyIsFocused(true);
+    const handleAllergyIfAnyChange = (e) => {
+        setShowAllergyField(e.target.value === 'Yes')
     }
 
-    const allergyNo1 = () => {
-        setAllergyIsFocused(false);
-    }
+    //ref hook:
+    const foodTypeRef = useRef(null);
+    const seaFoodRef = useRef(null);
+    const redMeatRef = useRef(null);
+    const eggiterianRef = useRef(null);
+    const allergyRef = useRef(null);
 
-    // reset form start: 
-    const vegYes = useRef(false);
-    const vegNo = useRef(false);
-    const eggYes = useRef(false);
-    const eggNo = useRef(false);
-    const seaFoodYes = useRef(false);
-    const seaFoodNo = useRef(false);
-    const allergyYes = useRef(false);
-    const allergyNo = useRef(false);
-    const allergy1 = useRef("");
-
-    // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
-        vegYes.current.checked = false;
-        vegNo.current.checked = false;
-        eggYes.current.checked = false;
-        eggNo.current.checked = false;
-        seaFoodYes.current.checked = false;
-        seaFoodNo.current.checked = false;
-        allergyYes.current.checked = false;
-        allergyNo.current.checked = false;
-        allergy1.current.value = "";
-        // setProgress(0);
+        const foodTypeRadios = document.getElementsByName('foodtype');  //getElementsByName:must be same as db name else null error
+        const seaFoodRadios = document.getElementsByName('seafood');
+        const redMeatRadios = document.getElementsByName('redMeat');
+        const eggiterianRadios = document.getElementsByName('eggiterian');
+        const allergyRadios = document.getElementsByName('allergyIfAny');
+
+        for (let i = 0; i < foodTypeRadios.length; i++) {
+            foodTypeRadios[i].checked = false;
+        }
+
+        for (let i = 0; i < seaFoodRadios.length; i++) {
+            seaFoodRadios[i].checked = false;
+        }
+
+        for (let i = 0; i < redMeatRadios.length; i++) {
+            redMeatRadios[i].checked = false;
+        }
+
+        for (let i = 0; i < eggiterianRadios.length; i++) {
+            eggiterianRadios[i].checked = false;
+        }
+
+        for (let i = 0; i < allergyRadios.length; i++) {
+            allergyRadios[i].checked = false;
+        }
+
+        //
+        setFoodType(null);
+        setShowAllergyField(false);
+        formik.resetForm();
+        setProgress(0);
     }
 
-    const handleSubmit = () => {
-        alert("form submitted");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        alert('submitted');
         onActivationKeyChild(childNextKey)
     }
 
     const handlePreviousButton = () => {
-        onPreviousActivationKey("3")
+        onPreviousActivationKey("4")
     }
 
-    
+    //Formik:
+    const formik = useFormik({
+        initialValues: {
+            foodtype: '',
+            eggiterian: '',
+            seafood: '',
+            redMeat: '',
+            allergyIfAny: '',
+            allergy: '',
+
+        },
+        onSubmit: values => {
+            alert('clicked next');
+            const newVal = {
+                'Food Type': values.foodtype,
+                'Eggiterian': values.eggiterian,
+                'Sea Food': values.seafood,
+                'Red Meat': values.redMeat,
+                'Allergy If Any': values.allergyIfAny,
+                'Allergy': values.allergy
+            };
+
+            // Log the values variable
+            console.log('Values11:', newVal);
+            onActivationKeyChild(childNextKey);
+
+        }
+    })
+
+    // progress Bar for static fields:
+    const [progress, setProgress] = useState(0);
+
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+        const result = countKeysWithNonEmptyValues(formik.values);
+        console.log("result for formik values:", result)
+        const totalFilledFields = result;
+
+        //calc formula
+        let newProgress = ((totalFilledFields / 5) * 100).toFixed();
+        console.log("Progress", newProgress)
+        setProgress(newProgress);
+    }
+
+    function countKeysWithNonEmptyValues(obj) {
+        let count = 0;
+
+        for (const key in obj) {
+            if (
+                obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
+                obj[key] !== null &&
+                obj[key] !== undefined &&
+                obj[key] !== ''
+            ) {
+                count++;
+            }
+        }
+        console.log("count", count)
+        return count;
+    }
+
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values])
+
+
+
     return (
 
         <Accordion.Item eventKey="4">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>FOOD INFORMATION</span></Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>FOOD INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
-                    <Form style={{ paddingRight: '60px' }}>
+                    <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>
-                            <Col md={6} style={{ whiteSpace: 'nowrap' }}>
-                                <label className='text-muted me-2' htmlFor="foodtype">Allergy if any</label>
-                                {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} >
-                                        <Form.Check style={{
-                                            padding: '20px'
-                                        }}
-                                            inline
-                                            label="Yes"
-                                            name="allergy"
-                                            type={type}
-                                            id={`inline-${type}-yes`}
-                                            ref={allergyYes}
-                                            onFocus={allergyYes1}
-                                            defaultChecked={true}
-                                        />
-                                        <Form.Check
-                                            inline
-                                            label="No"
-                                            name="allergy"
-                                            type={type}
-                                            id={`inline-${type}-no`}
-                                            ref={allergyNo}
-                                            onFocus={allergyNo1}
-                                        />
+                            <Col xs={12} md={6} style={{ marginRight: '50px' }}>
 
-                                        {
-                                            allergyFocused && (
-                                                <div>
-                                                    <Col >
-                                                        <Form.Floating className="mb-2">
-                                                            <Form.Control
-                                                                id="allergy"
-                                                                type="text"
-                                                                placeholder="allergy"
-                                                                ref={allergy1}
-                                                            />
-                                                            <label htmlFor="allergy" className='text-muted'>Allergy</label>
+                                <Col xs={12} className='inlineText'>
 
-                                                        </Form.Floating>
-                                                    </Col>
+                                    <label htmlFor='foodType'>Food Type<br /><br />
+                                        <div onChange={(e) => { formik.handleChange(e) }}>
+                                            <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
+                                            <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
+                                        </div>
+                                    </label>
+
+                                </Col>
+
+                                {foodType === 'veg' && (
+                                    <>
+
+                                        <Col xs={12} className='inlineText mt-4'>
+                                            <label htmlFor='eggiterian'>Eggiterian<br /><br />
+                                                <div onChange={(e) => { formik.handleChange(e) }}>
+                                                    <Form.Check type='radio' id={`eggiterianYes`} name='eggiterian' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={eggiterianRef} />
+                                                    <Form.Check type='radio' id={`eggiterianNo`} name='eggiterian' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={eggiterianRef} />
                                                 </div>
-                                            )
-                                        }
-                                    </div>
-                                ))}
-                            </Col>
-                            <Col md={{ span: 5, offset: 1 }}>
-                                <label className='text-muted' htmlFor="foodtype">Food Type</label>
-                                {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} style={{ whiteSpace: 'nowrap' }}>
-                                        <Form.Check style={{
-                                            padding: '20px'
-                                        }}
-                                            inline
-                                            label="Veg"
-                                            name="foodtype"
-                                            type={type}
-                                            id={`inline-${type}-veg`}
-                                            ref={vegYes}
-                                            onFocus={handleFocusVeg}
-                                            defaultChecked={true}
-                                        />
-                                        <Form.Check
-                                            inline
-                                            label="Non-Veg"
-                                            name="foodtype"
-                                            type={type}
-                                            id={`inline-${type}-nonveg`}
-                                            ref={vegNo}
-                                            onFocus={handleFocusNonVeg}
-                                        />
-                                        {isFocused ? (
-                                            <div>
-                                                <Row>
-                                                    <Col xs={12} lg={3} className='col col2' style={{ marginRight: '100px' }}>
-                                                        <label className='text-muted' htmlFor="foodtype">Sea Food</label>
-                                                        {['radio'].map((type) => (
-                                                            <div key={`inline-${type}`} >
-                                                                <Form.Check style={{
-                                                                    padding: '20px'
-                                                                }}
-                                                                    inline
-                                                                    label="Yes"
-                                                                    name="seafood"
-                                                                    type={type}
-                                                                    id={`inline-${type}-yes`}
-                                                                    ref={seaFoodYes}
-                                                                />
-                                                                <Form.Check
-                                                                    inline
-                                                                    label="No"
-                                                                    name="seafood"
-                                                                    type={type}
-                                                                    id={`inline-${type}-no`}
-                                                                    defaultChecked={true}
-                                                                    ref={seaFoodNo}
-                                                                />
-                                                            </div>
-                                                        ))}
-                                                    </Col>
-                                                    <Col xs={12} lg={3} className='col col2'>
-                                                        <label className='text-muted' htmlFor="foodtype">Red Meat</label>
-                                                        {['radio'].map((type) => (
-                                                            <div key={`inline-${type}`} >
-                                                                <Form.Check style={{
-                                                                    padding: '20px'
-                                                                }}
-                                                                    inline
-                                                                    label="Yes"
-                                                                    name="redmeat"
-                                                                    type={type}
-                                                                    id={`inline-${type}-yes`}
-                                                                    defaultChecked={true}
-                                                                    ref={eggYes}
-                                                                />
-                                                                <Form.Check
-                                                                    inline
-                                                                    label="No"
-                                                                    name="redmeat"
-                                                                    type={type}
-                                                                    id={`inline-${type}-no`}
-                                                                    ref={eggNo}
-                                                                />
-                                                            </div>
-                                                        ))}
-                                                    </Col>
+                                            </label>
+                                        </Col>
 
-                                                </Row>
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                <Col xs={12} lg={4} className='col'>
-                                                    <label className='text-muted ' htmlFor="foodtype">Eggiterian</label>
-                                                    {['radio'].map((type) => (
-                                                        <div key={`inline-${type}`} style={{ whiteSpace: 'nowrap' }}>
-                                                            <Form.Check style={{
-                                                                padding: '20px'
-                                                            }}
-                                                                inline
-                                                                label="Yes"
-                                                                name="eggit"
-                                                                type={type}
-                                                                id={`inline-${type}-yes`}
-                                                                ref={eggYes}
 
-                                                            />
-                                                            <Form.Check style={{ marginLeft: '10px' }}
-                                                                inline
-                                                                label="No"
-                                                                name="eggit"
-                                                                type={type}
-                                                                id={`inline-${type}-no`}
-                                                                defaultChecked={true}
-                                                                ref={eggNo}
-                                                            />
-                                                        </div>
-                                                    ))}
-                                                </Col>
-                                            </div>
-                                        )}
-                                    </div>
-                                ))}
+                                        <Col xs={12} className='inlineText mt-4 d-none'>
+                                            <label htmlFor='seaFood'>Sea Food<br /><br />
+                                                <div onChange={(e) => { formik.handleChange(e) }}>
+                                                    <Form.Check type='radio' id={`seaFoodVeg`} name='seafood' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={seaFoodRef} />
+                                                    <Form.Check type='radio' id={`seaFoodNonVeg`} name='seafood' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={seaFoodRef} />
+                                                </div>
+                                            </label>
+                                        </Col>
+
+
+                                        <Col xs={12} className='inlineText mt-4 d-none'>
+                                            <label htmlFor='redMeat'>Red Meat<br /><br />
+                                                <div onChange={(e) => { formik.handleChange(e) }}>
+                                                    <Form.Check type='radio' id={`redMeatYes`} name='redMeat' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={redMeatRef} />
+                                                    <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={redMeatRef} />
+                                                </div>
+                                            </label>
+                                        </Col>
+
+                                    </>
+                                )}
+                                {foodType === 'nonveg' && (
+                                    <>
+
+                                        <Col xs={12} className='inlineText mt-4'>
+                                            <label htmlFor='seaFood'>Sea Food<br /><br />
+                                                <div onChange={(e) => { formik.handleChange(e) }}>
+                                                    <Form.Check type='radio' id={`seaFoodVeg`} name='seafood' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={seaFoodRef} />
+                                                    <Form.Check type='radio' id={`seaFoodNonVeg`} name='seafood' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={seaFoodRef} />
+                                                </div>
+                                            </label>
+                                        </Col>
+
+
+                                        <Col xs={12} className='inlineText mt-4'>
+                                            <label htmlFor='redMeat'>Red Meat<br /><br />
+                                                <div onChange={(e) => { formik.handleChange(e) }}>
+                                                    <Form.Check type='radio' id={`redMeatYes`} name='redMeat' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={redMeatRef} />
+                                                    <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={redMeatRef} />
+                                                </div>
+                                            </label>
+                                        </Col>
+
+
+                                        <Col xs={12} className='inlineText mt-4 d-none'>
+                                            <label htmlFor='eggiterian'>Eggiterian<br /><br />
+                                                <div onChange={(e) => { formik.handleChange(e) }}>
+                                                    <Form.Check type='radio' id={`eggiterianYes`} name='eggiterian' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={eggiterianRef} />
+                                                    <Form.Check type='radio' id={`eggiterianNo`} name='eggiterian' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={eggiterianRef} />
+                                                </div>
+                                            </label>
+                                        </Col>
+
+                                    </>
+                                )}
                             </Col>
+                            {/*Column Splitting: */}
+                            <Col xs={12} md={4}>
+                                <Col xs={12} className='inlineText allergyMargin'>
+                                    <label htmlFor='allergyIfany'>Allergy If Any<br /><br />
+                                        <div onChange={(e) => { formik.handleChange(e) }}>
+                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} />
+                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} />
+                                        </div>
+                                    </label>
+                                </Col>
+
+                                {showAllergyField && (
+                                    <Col xs={12} className='inlineText'>
+                                        <Form.Group as={Col} controlId="formText" >
+                                            <Form.Control type="text" placeholder="Allergy" name="allergy" onChange={(e) => { formik.handleChange(e) }} />
+                                        </Form.Group>
+                                    </Col>
+                                )}
+                            </Col>
+                        </Row>
+                        <Row>
                             <Col lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleSubmit()}>Save and Next</Button>
-                                <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                                <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>
+                                <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>
                             </Col>
                         </Row>
 

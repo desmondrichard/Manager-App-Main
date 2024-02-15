@@ -97,7 +97,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     //true-clear,false-not clear:
     const [imageValue, setImageValue] = useState(false);  //for clearing image after reset is clicked,false-no clear
 
-    const [childNextKey, setChildNextKey] = useState("1");
+    const [childNextKey, setChildNextKey] = useState("4");
     //
     const [errors, setErrors] = useState({});
 
