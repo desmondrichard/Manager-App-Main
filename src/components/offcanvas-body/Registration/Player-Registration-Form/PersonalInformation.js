@@ -96,6 +96,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
     const [imageValue, setImageValue] = useState(false);
     // const [imageValue,setImageValue]=useState(false);
 
+
     // next btn:
     const [childNextKey, setChildNextKey] = useState("1");
 
@@ -140,6 +141,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         setPhoneProgress("");
         formik.resetForm();
         setProgress(0);
+
     }
     // reset form end: 
 
@@ -156,7 +158,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             bloodGroup: '',
             emailId: '',
             gender: '',
-            mobileNo: '',
+            mobileNo: null,
 
         },
         validate,
@@ -227,14 +229,13 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
     }
 
     //phone value:
-    const [mobileNo, setMobileNo] = useState("");
+    const [mobileNo, setMobileNo] = useState(null);
     const Samp = (value) => {
         setMobileNo(value);
         console.log("phonevalue", mobileNo)
-        
+
     }
 
-   
     useEffect(() => {
         handleProgress();
     }, [formik.values, phoneProgress, imgProgress])
@@ -440,6 +441,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                             // defaultChecked={true}
                                             ref={genderMaleReset}
                                             value="Male"
+                                            style={{ marginRight: '-25px' }}
                                         />
                                         <Form.Check
                                             inline
@@ -450,6 +452,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                             // defaultChecked={false}
                                             ref={genderFemaleReset}
                                             value="Female"
+                                            style={{ marginRight: '-40px' }}
                                         />
                                     </div>
                                 ))}

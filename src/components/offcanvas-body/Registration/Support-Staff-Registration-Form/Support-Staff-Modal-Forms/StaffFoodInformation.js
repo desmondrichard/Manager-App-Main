@@ -68,14 +68,14 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     }
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert('submitted');
-        onActivationKeyChild(childNextKey)
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     alert('submitted');
+    //     onActivationKeyChild(childNextKey)
+    // }
 
     const handlePreviousButton = () => {
-        onPreviousActivationKey("4")
+        onPreviousActivationKey("3")
     }
 
     //Formik:

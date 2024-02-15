@@ -70,11 +70,11 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
     }
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert('submitted');
-        onActivationKeyChild(childNextKey)
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     alert('submitted');
+    //     onActivationKeyChild(childNextKey)
+    // }
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("4")
