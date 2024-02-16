@@ -3,3 +3,9 @@
         text-align: center !important;
     }
 }
+
+@media (max-width: 992px) {
+    .acTypeAlign{
+      text-align: center;
+    }
+  }

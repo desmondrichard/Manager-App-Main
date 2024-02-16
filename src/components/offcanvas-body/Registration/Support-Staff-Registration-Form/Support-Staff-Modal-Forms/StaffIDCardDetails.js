@@ -14,65 +14,65 @@ import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 const validate = values => {
     const errors = {};
 
-    if (!values.staffAadharNo) {
-        errors.staffAadharNo = "*Required";
+    if (!values.aadharNo) {
+        errors.aadharNo = "*Required";
     }
-    else if (!/^[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}$/.test(values.staffAadharNo)) {
-        errors.staffAadharNo = "Enter Valid Aadhar Number"
-    }
-
-    if (!values.staffPanNo) {
-        errors.staffPanNo = "*Required";
-    }
-    else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(values.staffPanNo)) {
-        errors.staffPanNo = "Enter Valid Pan Card Number"
+    else if (!/^[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}$/.test(values.aadharNo)) {
+        errors.aadharNo = "Enter Valid Aadhar Number"
     }
 
-    if (!values.staffPassNo) {
-        errors.staffPassNo = "*Required";
+    if (!values.panCardNo) {
+        errors.panCardNo = "*Required";
     }
-    else if (!/^[a-zA-Z0-9]{10}$/.test(values.staffPassNo)) {
-        errors.staffPassNo = "Enter Valid Passport Number"
-    }
-
-    if (!values.staffPassExp) {
-        errors.staffPassExp = "*Required";
+    else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(values.panCardNo)) {
+        errors.panCardNo = "Enter Valid Pan Card Number"
     }
 
-    if (!values.staffBirth) {
-        errors.staffBirth = "*Required"
+    if (!values.passportNo) {
+        errors.passportNo = "*Required";
     }
-    else if (!/^[0-9]{6,14}$/.test(values.staffBirth)) {
-        errors.staffBirth = "Enter Valid Birth Certificate Number"
-    }
-
-    if (!values.staffVisaNo) {
-        errors.staffVisaNo = "*Required"
-    }
-    else if (!/^[0-9]{16}?$/.test(values.staffVisaNo)) {
-        errors.staffVisaNo = "Enter Valid Visa Number"
+    else if (!/^[a-zA-Z0-9]{10}$/.test(values.passportNo)) {
+        errors.passportNo = "Enter Valid Passport Number"
     }
 
-    if (!values.staffAddress0) {
-        errors.staffAddress0 = "Required"
+    if (!values.passportExpDate) {
+        errors.passportExpDate = "*Required";
     }
 
-    if (!values.staffAddress1) {
-        errors.staffAddress1 = "Required"
+    if (!values.birthCertificate) {
+        errors.birthCertificate = "*Required"
+    }
+    else if (!/^[0-9]{6,14}$/.test(values.birthCertificate)) {
+        errors.birthCertificate = "Enter Valid Birth Certificate Number"
     }
 
-    if (!values.selectedCountry) {
-        errors.selectedCountry = "Required";
+    if (!values.visaNumber) {
+        errors.visaNumber = "*Required"
+    }
+    else if (!/^[0-9]{16}?$/.test(values.visaNumber)) {
+        errors.visaNumber = "Enter Valid Visa Number"
     }
 
-    if (!values.selectedState) {
-        errors.selectedState = "Required";
+    if (!values.address) {
+        errors.address = "Required"
     }
 
-    if (!values.selectedCity) {
-        errors.selectedCity = "Required";
+    if (!values.addressLine1) {
+        errors.addressLine1 = "Required"
     }
 
+
+    if (!values.country) {
+        errors.country = "Required";
+    }
+
+    if (!values.state) {
+        errors.state = "Required";
+    }
+
+    if (!values.city) {
+        errors.city = "Required";
+    }
     return errors;
 }
 
@@ -120,30 +120,32 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
         formik.resetForm();
         setProgress(0);
         //reset npm country-state-city
-       
+
     }
 
 
     const formik = useFormik({
         initialValues: {
-            staffAadharNo: '',
-            staffPanNo: '',
-            staffPassNo: '',
-            staffPassExp: '',
-            staffBirth: '',
-            staffVisaNo: '',
-            staffAddress0: '',
-            staffAddress1: '',
-            staffAddress2: '',
-            selectedCountry: null,
-            selectedState: null,
-            selectedCity: null,
+            aadharNo: '',
+            panCardNo: '',
+            passportNo: '',
+            passportExpDate: '',
+            birthCertificate: '',
+            visaNumber: '',
+            visacheck: '',
+            visaValidity: '',
+            address: '',
+            addressLine1: '',
+            addressLine2: '',
+            country: '',    //right approach
+            state: '',
+            city: '',
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert(`Clicked Next`);
             onActivationKeyChild(childNextKey)
-
+            console.log("values", values)
         }
     });
 
@@ -236,87 +238,87 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
             <Accordion.Body>
                 <Container >
                     <p>{activationKey}</p>
-                    <Form style={{ paddingRight: '60px' }} >
+                    <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit} >
                         <Row>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffAadharNo"
+                                        id="aadharNo"
                                         type="text"
                                         placeholder="aadharno"
-                                        name="staffAadharNo"
+                                        name="aadharNo"
                                         ref={aadharno1}
-                                        value={formik.values.staffAadharNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.aadharNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffAadharNo && formik.errors.staffAadharNo ? <span className='span'>{formik.errors.staffAadharNo}</span> : null
+                                        formik.touched.aadharNo && formik.errors.aadharNo ? <span className='span'>{formik.errors.aadharNo}</span> : null
                                     }
-                                    <label htmlFor="staffAadharNo" className='text-muted'>AADHAR NO*</label>
+                                    <label htmlFor="aadharNo" className='text-muted'>AADHAR NO*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffPanNo"
+                                        id="panCardNo"
                                         type="text"
                                         placeholder="panno"
-                                        name="staffPanNo"
+                                        name="panCardNo"
                                         ref={panno1}
-                                        value={formik.values.staffPanNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.panCardNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffPanNo && formik.errors.staffPanNo ? <span className='span'>{formik.errors.staffPanNo}</span> : null
+                                        formik.touched.panCardNo && formik.errors.panCardNo ? <span className='span'>{formik.errors.panCardNo}</span> : null
                                     }
-                                    <label htmlFor="staffPanNo" className='text-muted'>PANCARD NO*</label>
+                                    <label htmlFor="panCardNo" className='text-muted'>PANCARD NO*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffPassNo"
+                                        id="passportNo"
                                         type="text"
                                         placeholder="passno"
-                                        name="staffPassNo"
+                                        name="passportNo"
                                         ref={passno1}
-                                        value={formik.values.staffPassNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.passportNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffPassNo && formik.errors.staffPassNo ? <span className='span'>{formik.errors.staffPassNo}</span> : null
+                                        formik.touched.passportNo && formik.errors.passportNo ? <span className='span'>{formik.errors.passportNo}</span> : null
                                     }
-                                    <label htmlFor="staffPassNo" className='text-muted'>PASSPORT NO*</label>
+                                    <label htmlFor="passportNo" className='text-muted'>PASSPORT NO*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffPassExp"
+                                        id="passportExpDate"
                                         type="date"
                                         placeholder="passexp"
-                                        name="staffPassExp"
+                                        name="passportExpDate"
                                         ref={passexp1}
-                                        value={formik.values.staffPassExp} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.passportExpDate} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                         min={new Date().toISOString().split('T')[0]}
                                     />
                                     {
-                                        formik.touched.staffPassExp && formik.errors.staffPassExp ? <span className='span'>{formik.errors.staffPassExp}</span> : null
+                                        formik.touched.passportExpDate && formik.errors.passportExpDate ? <span className='span'>{formik.errors.passportExpDate}</span> : null
                                     }
-                                    <label htmlFor="staffPassExp" className='text-muted'>PASSPORT EXP DATE*</label>
+                                    <label htmlFor="passportExpDate" className='text-muted'>PASSPORT EXP DATE*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffBirth"
+                                        id="birthCertificate"
                                         type="text"
                                         placeholder="birth"
-                                        name="staffBirth"
+                                        name="birthCertificate"
                                         ref={birth1}
-                                        value={formik.values.staffBirth} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.birthCertificate} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffBirth && formik.errors.staffBirth ? <span className='span'>{formik.errors.staffBirth}</span> : null
+                                        formik.touched.birthCertificate && formik.errors.birthCertificate ? <span className='span'>{formik.errors.birthCertificate}</span> : null
                                     }
-                                    <label htmlFor="staffBirth" className='text-muted' style={{ fontSize: '13px' }}>BIRTH CERTIFICATE NO*</label>
+                                    <label htmlFor="birthCertificate" className='text-muted' style={{ fontSize: '13px' }}>BIRTH CERTIFICATE NO*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col' style={{ textAlign: 'center' }}>
@@ -328,21 +330,21 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         }}
                                             inline
                                             label="Yes"
-                                            name="visa"
+                                            name="visacheck"
                                             type={type}
                                             id={`inline-${type}-provided`}
                                             ref={visaYes}
-                                            value="visaYes"
+                                            value="Yes"
                                         />
                                         <Form.Check
                                             inline
                                             label="No"
-                                            name="visa"
+                                            name="visacheck"
                                             type={type}
                                             id={`inline-${type}-notprovided`}
                                             // defaultChecked={true}
                                             ref={visaNo}
-                                            value="visaNo"
+                                            value="No"
                                         />
                                     </div>
                                 ))}
@@ -353,12 +355,12 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         id="staffVisaNo"
                                         type="text"
                                         placeholder="visano"
-                                        name="staffVisaNo"
+                                        name="visaNumber"
                                         ref={visaNumber}
-                                        value={formik.values.staffVisaNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.visaNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffVisaNo && formik.errors.staffVisaNo ? <span className='span'>{formik.errors.staffVisaNo}</span> : null
+                                        formik.touched.visaNumber && formik.errors.visaNumber ? <span className='span'>{formik.errors.visaNumber}</span> : null
                                     }
                                     <label htmlFor="staffVisaNo" className='text-muted' style={{ fontSize: '13px' }}>VISA NO</label>
                                 </Form.Floating>
@@ -366,15 +368,15 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffVisaValidity"
+                                        id="visaValidity"
                                         type="date"
                                         placeholder="visavalidity"
-                                        name="staffVisaValidity"
+                                        name="visaValidity"
                                         ref={visaValid}
                                         min={new Date().toISOString().split('T')[0]}
                                         onChange={(e) => { formik.handleChange(e) }}
                                     />
-                                    <label htmlFor="staffVisaValidity" className='text-muted' style={{ fontSize: '13px' }}>VISA VALIDITY</label>
+                                    <label htmlFor="visaValidity" className='text-muted' style={{ fontSize: '13px' }}>VISA VALIDITY</label>
                                 </Form.Floating>
                             </Col>
 
@@ -382,17 +384,17 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffAddress0"
+                                        id="address"
                                         type="text"
                                         placeholder="address"
-                                        name="staffAddress0"
+                                        name="address"
                                         ref={address0}
-                                        value={formik.values.staffAddress0} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.address} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffAddress0 && formik.errors.staffAddress0 ? <span className='span'>{formik.errors.staffAddress0}</span> : null
+                                        formik.touched.address && formik.errors.address ? <span className='span'>{formik.errors.address}</span> : null
                                     }
-                                    <label htmlFor="staffAddress" className='text-muted'>ADDRESS*</label>
+                                    <label htmlFor="address" className='text-muted'>ADDRESS*</label>
                                 </Form.Floating>
                             </Col>
                             {/* {isFocused && ( */}
@@ -400,116 +402,111 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 <Col xs={12} lg={4} className='col'>
                                     <Form.Floating className="mb-2">
                                         <Form.Control
-                                            id="staffAddress1"
+                                            id="addressLine1"
                                             type="text"
                                             placeholder="address1"
-                                            name="staffAddress1"
+                                            name="addressLine1"
                                             ref={address1}
                                             // value={
                                             //     isClearAddress1 ? "" : value1
                                             // }
                                             // onChange={e => setValue1(e.target.value)}
-                                            value={formik.values.staffAddress1} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            value={formik.values.addressLine1} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                         />
                                         {
-                                            formik.touched.staffAddress1 && formik.errors.staffAddress1 ? <span className='span'>{formik.errors.staffAddress1}</span> : null
+                                            formik.touched.addressLine1 && formik.errors.addressLine1 ? <span className='span'>{formik.errors.addressLine1}</span> : null
                                         }
 
-                                        <label htmlFor="address1" className='text-muted'>ADDRESS LINE 1*</label>
+                                        <label htmlFor="addressLine1" className='text-muted'>ADDRESS LINE 1*</label>
                                     </Form.Floating>
                                 </Col>
                                 <Col xs={12} lg={4} className='col'>
                                     <Form.Floating className="mb-2">
                                         <Form.Control
-                                            id="staffAddress2"
+                                            id="addressLine2"
                                             type="text"
                                             placeholder="address2"
-                                            name="staffAddress2"
+                                            name="addressLine2"
                                             ref={address2}
-                                            // value={
-                                            //     isClearAddress2 ? "" : value2
-                                            // }
-                                            // onChange={e => setValue2(e.target.value)}
-                                            value={formik.values.staffAddress2} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            value={formik.values.addressLine2} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                         />
                                         {
-                                            formik.touched.staffAddress2 && formik.errors.staffAddress2 ? <span className='span'>{formik.errors.staffAddress2}</span> : null
+                                            formik.touched.addressLine2 && formik.errors.addressLine2 ? <span className='span'>{formik.errors.addressLine2}</span> : null
                                         }
-                                        <label htmlFor="address2" className='text-muted'>ADDRESS LINE 2</label>
+                                        <label htmlFor="addressLine2" className='text-muted'>ADDRESS LINE 2</label>
                                     </Form.Floating>
                                 </Col>
 
                                 {/* country-state-city: */}
-                                <Col xs={12} lg={4} className='col'>
-                                    {/* <label htmlFor="country">Country:</label> */}
-                                    <Select placeholder='country*' id='country' name='selectedCountry'
-                                        className="dynamicSelect" style={{ zIndex: 100, outline: 'none', border: 'none' }}
-                                        options={Country.getAllCountries()}
-                                        getOptionLabel={(options) => {
-                                            return options["name"];
-                                        }}
-                                        getOptionValue={(options) => {
-                                            return options["name"];
-                                        }}
-                                        value={selectedCountry}
-                                        // onChange={(item) => {
-                                        //     setSelectedCountry(item);
-                                        // }}
-                                        onChange={(item) => {
-                                            formik.setFieldValue('selectedCountry', item);
-                                            setSelectedCountry(item);
-                                        }}
+                            <Col xs={12} lg={4} className='col'>
+                                {/* <label htmlFor="country">Country:</label> */}
+                                <Select placeholder='country*' id='country' name='country'
+                                    className="dynamicSelect" style={{ zIndex: 100, outline: 'none', border: 'none' }}
+                                    options={Country.getAllCountries()}
+                                    getOptionLabel={(options) => {
+                                        return options["name"];
+                                    }}
+                                    getOptionValue={(options) => {
+                                        return options["name"];
+                                    }}
+                                    value={selectedCountry}
+                                    // onChange={(item) => {
+                                    //     setSelectedCountry(item);
+                                    // }}
+                                    onChange={(item) => {
+                                        formik.setFieldValue("country", item.name);
+                                        setSelectedCountry(item);
+                                    }}
 
-                                    />
-                                    {formik.touched.selectedCountry && formik.errors.selectedCountry ? <span className='span'>{formik.errors.selectedCountry}</span> : null}
+                                />
+                                {formik.touched.country && formik.errors.country ? <span className='span'>{formik.errors.country}</span> : null}
 
-                                </Col>
-                                <Col xs={12} lg={4} className='col'>
-                                    {/* <label htmlFor="state">State:</label> */}
-                                    <Select placeholder='State*' style={{ zIndex: 100 }} id='state' name='selectedState'
-                                        options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
-                                        getOptionLabel={(options) => {
-                                            return options["name"];
-                                        }}
-                                        getOptionValue={(options) => {
-                                            return options["name"];
-                                        }}
-                                        value={selectedState}
-                                        onChange={(item) => {
-                                            formik.setFieldValue('selectedState', item);
-                                            setSelectedState(item);
-                                        }}
-                                    />
-                                    {formik.touched.selectedState && formik.errors.selectedState ? <span className='span'>{formik.errors.selectedState}</span> : null}
-                                </Col>
-                                <Col xs={12} lg={4} className='col '>
-                                    {/* <label htmlFor="city">City:</label> */}
-                                    <Select id='city' name='city' placeholder='City*' className="dynamicSelect" style={{ zIndex: 100 }}
-                                        options={City.getCitiesOfState(
-                                            selectedState?.countryCode,
-                                            selectedState?.isoCode
-                                        )}
-                                        getOptionLabel={(options) => {
-                                            return options["name"];
-                                        }}
-                                        getOptionValue={(options) => {
-                                            return options["name"];
-                                        }}
-                                        value={selectedCity}
-                                        onChange={(item) => {
-                                            formik.setFieldValue('selectedCity', item);
-                                            setSelectedCity(item);
-                                        }}
-                                    />
-                                    {formik.touched.selectedCity && formik.errors.selectedCity ? <span className='span'>{formik.errors.selectedCity}</span> : null}
-                                </Col>
-
+                            </Col>
+                            <Col xs={12} lg={4} className='col'>
+                                {/* <label htmlFor="state">State:</label> */}
+                                <Select placeholder='State*' style={{ zIndex: 100 }} id='state' name='state'
+                                    options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
+                                    getOptionLabel={(options) => {
+                                        return options["name"];
+                                    }}
+                                    getOptionValue={(options) => {
+                                        return options["name"];
+                                    }}
+                                    value={selectedState}
+                                    onChange={(item) => {
+                                        formik.setFieldValue("state", item.name);
+                                        setSelectedState(item);
+                                    }}
+                                />
+                                {formik.touched.state && formik.errors.state ? <span className='span'>{formik.errors.state}</span> : null}
+                            </Col>
+                            <Col xs={12} lg={4} className='col '>
+                                {/* <label htmlFor="city">City:</label> */}
+                                <Select id='city' name='city' placeholder='City*' className="dynamicSelect" style={{ zIndex: 100 }}
+                                    options={City.getCitiesOfState(
+                                        selectedState?.countryCode,
+                                        selectedState?.isoCode
+                                    )}
+                                    getOptionLabel={(options) => {
+                                        return options["name"];
+                                    }}
+                                    getOptionValue={(options) => {
+                                        return options["name"];
+                                    }}
+                                    value={selectedCity}
+                                    onChange={(item) => {
+                                        formik.setFieldValue("city", item.name);
+                                        setSelectedCity(item);
+                                    }}
+                                />
+                                {formik.touched.city && formik.errors.city ? <span className='span'>{formik.errors.city}</span> : null}
+                            </Col>
                             </>
 
 
                             <Col xs={12} lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                <Button variant="success" onClick={formik.handleSubmit} className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                                <Button variant="success" type='submit' className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                             </Col>
                         </Row>

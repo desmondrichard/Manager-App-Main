@@ -13,12 +13,12 @@ import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 const validate = values => {
     const errors = {};
 
-    if (!/^[a-zA-Z]{0,15}$/.test(values.staffTravelfrom)) {
-        errors.staffTravelfrom = "should be between 3 to 15 characters long or only letters allowed";
+    if (!/^[a-zA-Z]{0,15}$/.test(values.travelFrom)) {
+        errors.travelFrom = "should be between 3 to 15 characters long or only letters allowed";
     }
 
-    if (!/^[a-zA-Z]{0,15}$/.test(values.staffDestn)) {
-        errors.staffDestn = "should be between 3 to 15 characters long or only letters allowed";
+    if (!/^[a-zA-Z]{0,15}$/.test(values.returnDestination)) {
+        errors.returnDestination = "should be between 3 to 15 characters long or only letters allowed";
     }
     return errors;
 }
@@ -26,13 +26,14 @@ function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviou
     const [childNextKey, setChildNextKey] = useState("6");
     const formik = useFormik({
         initialValues: {
-            staffTravelfrom: '',
-            staffDestn: '',
+            travelFrom: '',
+            returnDestination: '',
         },
         validate,
         onSubmit: values => {
             alert("you have successfully signed up");
             onActivationKeyChild(childNextKey)
+            console.log("values",values)
         }
     });
 
@@ -103,34 +104,34 @@ function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviou
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffTravelfrom"
+                                        id="travelFrom"
                                         type="text"
                                         placeholder="travelfrom"
-                                        name="staffTravelfrom"
+                                        name="travelFrom"
                                         ref={from}
-                                        value={formik.values.staffTravelfrom} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.travelFrom} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffTravelfrom && formik.errors.staffTravelfrom ? <span className='span'>{formik.errors.staffTravelfrom}</span> : null
+                                        formik.touched.travelFrom && formik.errors.travelFrom ? <span className='span'>{formik.errors.travelFrom}</span> : null
                                     }
 
-                                    <label htmlFor="staffTravelfrom" className='text-muted'>Travel From</label>
+                                    <label htmlFor="travelFrom" className='text-muted'>Travel From</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="staffDestn"
+                                        id="returnDestination"
                                         type="text"
                                         placeholder="destn"
-                                        name="staffDestn"
+                                        name="returnDestination"
                                         ref={to}
-                                        value={formik.values.staffDestn} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.returnDestination} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffDestn && formik.errors.staffDestn ? <span className='span'>{formik.errors.staffDestn}</span> : null
+                                        formik.touched.returnDestination && formik.errors.returnDestination ? <span className='span'>{formik.errors.returnDestination}</span> : null
                                     }
-                                    <label htmlFor="staffDestn" className='text-muted'>Destination</label>
+                                    <label htmlFor="returnDestination" className='text-muted'>Destination</label>
                                 </Form.Floating>
                             </Col>
                         </Row>

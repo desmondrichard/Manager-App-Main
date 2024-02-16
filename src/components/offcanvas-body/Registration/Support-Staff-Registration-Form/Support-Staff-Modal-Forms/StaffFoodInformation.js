@@ -10,13 +10,14 @@ import { useFormik } from 'formik';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 
 function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
-    const [childNextKey, setChildNextKey] = useState("0");
+    const [childNextKey, setChildNextKey] = useState("5");
 
     //state for food type:
     const [foodType, setFoodType] = useState(null);
 
     const handleFoodTypeChange = (e) => {
         setFoodType(e.target.value);
+
     };
 
     //state for allergy field visibility
@@ -25,6 +26,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     const handleAllergyIfAnyChange = (e) => {
         setShowAllergyField(e.target.value === 'Yes')
     }
+
+
 
     //ref hook:
     const foodTypeRef = useRef(null);
@@ -68,12 +71,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     }
 
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     alert('submitted');
-    //     onActivationKeyChild(childNextKey)
-    // }
-
     const handlePreviousButton = () => {
         onPreviousActivationKey("3")
     }
@@ -92,12 +89,12 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         onSubmit: values => {
             alert('clicked next');
             const newVal = {
-                'Food Type': values.foodtype,
-                'Eggiterian': values.eggiterian,
-                'Sea Food': values.seafood,
-                'Red Meat': values.redMeat,
-                'Allergy If Any': values.allergyIfAny,
-                'Allergy': values.allergy
+                'foodType': values.foodtype,
+                'eggiterian': values.eggiterian,
+                'seafood': values.seafood,
+                'redMeat': values.redMeat,
+                'allergyIfAny': values.allergyIfAny,
+                'allergy': values.allergy
             };
 
             // Log the values variable

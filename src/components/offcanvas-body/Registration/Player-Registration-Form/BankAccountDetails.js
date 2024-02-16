@@ -248,7 +248,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                     <label htmlFor="bankAccountNo" className='text-muted'>Account No*</label>
                                 </Form.Floating>
                             </Col>
-                            <Col xs={12} lg={4} className='col colAccount'>
+                            <Col xs={12} lg={4} className='col colAccount acTypeAlign'>
                                 <label className='text-muted' htmlFor="battingpads">Account Type*</label>
                                 {['radio'].map((type) => (
 
@@ -262,6 +262,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                                 id={`inline-${type}-savings`}
                                                 value='savings'
                                                 ref={savingsReset}
+                                                style={{ marginRight: '-5px' }}
                                             />
                                             <Form.Check
                                                 inline
@@ -271,6 +272,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                                 id={`inline-${type}-current`}
                                                 value='current'
                                                 ref={currentReset}
+                                                style={{ marginRight: '-30px' }}
                                             />
                                         </span>
                                     </div>

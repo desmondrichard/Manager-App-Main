@@ -8,9 +8,10 @@ import Container from 'react-bootstrap/Container';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 import { useFormik } from 'formik';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
-    const [modalShow, setModalShow] = useState(false);
+    const [modalClose, setModalClose] = useState(false)
     // reset form start: 
     const fbid1 = useRef("");
     const fblink1 = useRef("");
@@ -32,16 +33,16 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
         setProgress(0);
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert('final form submitted');
-        onCloseModal(modalShow)
-    }
-
     const handlePreviousButton = () => {
         onPreviousActivationKey("7")
     }
 
+    //Toast msg:
+    const notify = () => {
+        toast.success("Form Successfully Submitted!", {
+            position: toast.POSITION.TOP_CENTER // or 'BOTTOM_CENTER'
+        });
+    }
     //Progress Bar:
     const [progress, setProgress] = useState(0);
 
@@ -77,17 +78,19 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
 
     const formik = useFormik({
         initialValues: {
-            fbid: '',
-            fblink: '',
-            instagramid: '',
-            instagramlink: '',
-            twitterid: '',
-            twitterlink: ''
+            facebookId: '',
+            facebookLink: '',
+            instagramId: '',
+            instagramLink: '',
+            twitterId: '',
+            twitterLink: ''
 
         },
         onSubmit: values => {
-            alert(`clicked next`);
-            console.log("values",values)
+            alert(`clicked submit`);
+            notify();
+            console.log("values", values)
+            onCloseModal(modalClose);
         }
     });
 
@@ -98,6 +101,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
     return (
 
         <Accordion.Item eventKey="8">
+             <ToastContainer />
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>SOCIAL MEDIA INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
@@ -106,89 +110,89 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        name="fbid"
-                                        id="fbid"
+                                        name="facebookId"
+                                        id="facebookId"
                                         type="text"
                                         placeholder="fbid"
                                         ref={fbid1}
                                         onChange={(e) => { formik.handleChange(e) }}
                                     />
-                                    <label htmlFor="fbid" className='text-muted'>Facebook ID</label>
+                                    <label htmlFor="facebookId" className='text-muted'>Facebook ID</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        name="fblink"
-                                        id="fblink"
+                                        name="facebookLink"
+                                        id="facebookLink"
                                         type="text"
                                         placeholder="fblink"
                                         ref={fblink1}
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         onChange={(e) => { formik.handleChange(e) }}
                                     />
-                                    <label htmlFor="fblink" className='text-muted'>Facebook Link</label>
+                                    <label htmlFor="facebookLink" className='text-muted'>Facebook Link</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        name="instagramid"
-                                        id="instagramid"
+                                        name="instagramId"
+                                        id="instagramId"
                                         type="text"
                                         placeholder="instagramid"
                                         ref={instagramid1}
                                         onChange={(e) => { formik.handleChange(e) }}
                                     />
-                                    <label htmlFor="instagramid" className='text-muted'>Instagram ID</label>
+                                    <label htmlFor="instagramId" className='text-muted'>Instagram ID</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        name="instagramlink"
-                                        id="instagramlink"
+                                        name="instagramLink"
+                                        id="instagramLink"
                                         type="text"
                                         placeholder="instagramlink"
                                         ref={instagramlink1}
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         onChange={(e) => { formik.handleChange(e) }}
                                     />
-                                    <label htmlFor="instagramlink" className='text-muted'>Instagram Link</label>
+                                    <label htmlFor="instagramLink" className='text-muted'>Instagram Link</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        name="twitterid"
-                                        id="twitterid"
+                                        name="twitterId"
+                                        id="twitterId"
                                         type="text"
                                         placeholder="twitterid"
                                         ref={twitterid1}
                                         onChange={(e) => { formik.handleChange(e) }}
                                     />
-                                    <label htmlFor="twitterid" className='text-muted'>Twitter ID</label>
+                                    <label htmlFor="twitterId" className='text-muted'>Twitter ID</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={6} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        name="twitterlink"
-                                        id="twitterlink"
+                                        name="twitterLink"
+                                        id="twitterLink"
                                         type="text"
                                         placeholder="twitterlink"
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         ref={twitterlink1}
                                         onChange={(e) => { formik.handleChange(e) }}
                                     />
-                                    <label htmlFor="twitterlink" className='text-muted'>Twitter Link</label>
+                                    <label htmlFor="twitterLink" className='text-muted'>Twitter Link</label>
                                 </Form.Floating>
                             </Col>
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" type="button" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={(e) => handleSubmit(e)}>Save and Next</Button>
+                            <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                         </Col>
                     </Form>

@@ -18,73 +18,71 @@ import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 const validate = values => {
     const errors = {};
 
-    if (!values.staffFName) {
-        errors.staffFName = "*Required";
+    if (!values.supportStaffName) {
+        errors.supportStaffName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.staffFName)) {
-        errors.staffFName = "First name should be between 3 to 10 characters long or only letters allowed";
-    }
-
-    if (!/^[a-zA-Z]{0,10}$/.test(values.staffSName)) {
-        errors.staffSName = "Middle name should be maximum 10 characters long or only letters allowed";
+    else if (!/^[a-zA-Z]{3,10}$/.test(values.supportStaffName)) {
+        errors.supportStaffName = "First name should be between 3 to 10 characters long or only letters allowed";
     }
 
-    if (!values.staffDesignation) {
-        errors.staffDesignation = "*Required";
+    if (!/^[a-zA-Z]{0,10}$/.test(values.middleName)) {
+        errors.middleName = "Middle name should be maximum 10 characters long or only letters allowed";
     }
 
-    if (!values.staffSpecialization) {
-        errors.staffSpecialization = "*Required";
+    if (!values.designation) {
+        errors.designation = "*Required";
     }
 
-    if (!values.staffLName) {
-        errors.staffLName = "*Required";
-    }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.staffLName)) {
-        errors.staffLName = "Last Name should be between 3 to 10 characters long or only letters allowed";
+    if (!values.specialization) {
+        errors.specialization = "*Required";
     }
 
-    if (!values.staffintials) {
-        errors.staffintials = "*Required";
+    if (!values.lastName) {
+        errors.lastName = "*Required";
     }
-    else if (!/^[a-zA-Z]{0,1}$/.test(values.staffintials)) {
-        errors.staffintials = "Initial can only contain one letter"
-    }
-
-    if (!values.staffDisplayName) {
-        errors.staffDisplayName = "*Required";
-    }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.staffDisplayName)) {
-        errors.staffDisplayName = 'Display Name must be alphanumeric and have length between 3 to 10 or only letters allowed'
+    else if (!/^[a-zA-Z]{3,10}$/.test(values.lastName)) {
+        errors.lastName = "Last Name should be between 3 to 10 characters long or only letters allowed";
     }
 
-    if (!values.staffFatherName) {
-        errors.staffFatherName = "*Required";
+    if (!values.initials) {
+        errors.initials = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.staffFatherName)) {
-        errors.staffFatherName = "Father Name should be maximum 10 characters long or only letters allowed";
-    }
-
-    if (!/^[a-zA-Z]{0,10}$/.test(values.staffMotherName)) {
-        errors.staffMotherName = "Mother Name should be maximum 10 characters long or only letters allowed"
+    else if (!/^[a-zA-Z]{0,1}$/.test(values.initials)) {
+        errors.initials = "Initial can only contain one letter"
     }
 
-    if (!values.staffDob) {
-        errors.staffDob = "*Required";
+    if (!values.displayName) {
+        errors.displayName = "*Required";
     }
-    // else if (!/^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\\d\\d$/.test(values.staffDob)) {
-    //     errors.staffDob = "Father Name should be maximum 10 characters long or only letters allowed";
-    // }
-
-    if (!values.staffBloodGroup) {
-        errors.staffBloodGroup = "*Required";
+    else if (!/^[a-zA-Z]{3,10}$/.test(values.displayName)) {
+        errors.displayName = 'Display Name must be alphanumeric and have length between 3 to 10 or only letters allowed'
     }
 
-    if (!values.staffEmail) {
-        errors.staffEmail = "*Required";
+    if (!values.fatherName) {
+        errors.fatherName = "*Required";
     }
-    else if (!/^\S+@\S+\.\S+$/.test(values.staffEmail)) {
-        errors.staffEmail = "*Invalid email address";
+    else if (!/^[a-zA-Z]{3,10}$/.test(values.fatherName)) {
+        errors.fatherName = "Father Name should be maximum 10 characters long or only letters allowed";
+    }
+
+    if (!/^[a-zA-Z]{0,10}$/.test(values.motherName)) {
+        errors.motherName = "Mother Name should be maximum 10 characters long or only letters allowed"
+    }
+
+    if (!values.dateOfBirth) {
+        errors.dateOfBirth = "*Required";
+    }
+
+
+    if (!values.bloodGroup) {
+        errors.bloodGroup = "*Required";
+    }
+
+    if (!values.emailId) {
+        errors.emailId = "*Required";
+    }
+    else if (!/^\S+@\S+\.\S+$/.test(values.emailId)) {
+        errors.emailId = "*Invalid email address";
     }
 
 
@@ -97,7 +95,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     //true-clear,false-not clear:
     const [imageValue, setImageValue] = useState(false);  //for clearing image after reset is clicked,false-no clear
 
-    const [childNextKey, setChildNextKey] = useState("4");
+    const [childNextKey, setChildNextKey] = useState("1");
     //
     const [errors, setErrors] = useState({});
 
@@ -154,30 +152,47 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
 
     const formik = useFormik({
         initialValues: {
-            staffFName: '',
-            staffSName: '',
-            staffLName: '',
-            staffDesignation: '',
-            staffSpecialization: '',
-            staffintials: '',
-            staffDisplayName: '',
-            staffFatherName: '',
-            staffMotherName: '',
-            staffDob: '',
-            staffBloodGroup: '',
-            staffEmail: '',
+            supportStaffName: '',
+            middleName: '',
+            lastName: '',
+            designation: '',
+            specialization: '',
+            initials: '',
+            displayName: '',
+            fatherName: '',
+            motherName: '',
+            dateOfBirth: '',
+            bloodGroup: '',
+            emailId: '',
 
         },
         validate,
-        onSubmit: values => {
-            // window.scrollTo({ top: 0, behavior: 'smooth' })
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
-            // const element = document.getElementById("playerPersonalInfo");
-            // element.scrollTop = 20;
+        onSubmit: (values, { setSubmitting }) => {
+            const newValues = { ...values, mobileNo, ImageData }
+            alert(`Clicked next`);
             onActivationKeyChild(childNextKey)
-            console.log("values:", values)
+            // console.log("values:", values)
+            console.log('newvalues', newValues)
+            setSubmitting(false);
         }
     });
+
+    // Image base 64 value:
+    const [ImageData, setImageData] = useState("");
+    const dynamicImageNameFn = (val) => {
+        // console.log("valll", val)
+        val = val.slice(23)  //sliced  to remove data:image/png;base64 and to display from /9j.....
+        console.log('sliced Val', val)
+        setImageData(val)
+    }
+
+    //phone value:
+    const [mobileNo, setMobileNo] = useState(null);
+    const Samp = (value) => {
+        setMobileNo(value);
+        console.log("phonevalue", mobileNo)
+
+    }
 
     //Dynamic Image upload progress Bar:
     const [imgProgress, setImageProgress] = useState(0);
@@ -197,7 +212,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     }
 
     //Progress Bar:
-    
+
 
     function handleProgress() {
         //check form values or formik values:
@@ -254,12 +269,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffFName"
                                         type="text"
                                         placeholder="first name"
-                                        name="staffFName"
+                                        name="supportStaffName"
                                         ref={firstName}
-                                        value={formik.values.staffFName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.supportStaffName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffFName && formik.errors.staffFName ? <span className='span'>{formik.errors.staffFName}</span> : null
+                                        formik.touched.supportStaffName && formik.errors.supportStaffName ? <span className='span'>{formik.errors.supportStaffName}</span> : null
                                     }
                                     <label htmlFor="staffFName" className='text-muted'>Staff First Name*</label>
                                 </Form.Floating>
@@ -270,12 +285,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffSName"
                                         type="text"
                                         placeholder="second name"
-                                        name="staffSName"
+                                        name="middleName"
                                         ref={middleName}
-                                        value={formik.values.staffSName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.middleName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffSName && formik.errors.staffSName ? <span className='span'>{formik.errors.staffSName}</span> : null
+                                        formik.touched.middleName && formik.errors.middleName ? <span className='span'>{formik.errors.middleName}</span> : null
                                     }
                                     <label htmlFor="staffSName" className='text-muted'>Staff Middle Name</label>
                                 </Form.Floating>
@@ -286,12 +301,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffLName"
                                         type="text"
                                         placeholder="last name"
-                                        name="staffLName"
+                                        name="lastName"
                                         ref={lastName}
-                                        value={formik.values.staffLName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.lastName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffLName && formik.errors.staffLName ? <span className='span'>{formik.errors.staffLName}</span> : null
+                                        formik.touched.lastName && formik.errors.lastName ? <span className='span'>{formik.errors.lastName}</span> : null
                                     }
                                     <label htmlFor="staffLName" className='text-muted'>Staff Last Name*</label>
                                 </Form.Floating>
@@ -299,14 +314,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
 
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="staffDesignation"
+                                    controlId="designation"
                                     label="Designation*"
-                                    name="staffDesignation"
-                                    value={formik.values.staffDesignation} onBlur={formik.handleBlur} onChange={(e) => {
+                                    name="designation"
+                                    value={formik.values.designation} onBlur={formik.handleBlur} onChange={(e) => {
                                         formik.handleChange(e)
                                     }}>
 
-                                    <Form.Select aria-label="staffDesignation" ref={desig} onChange={(e) => formik.setFieldValue('staffDesignation', e.target.value)}>
+                                    <Form.Select aria-label="designation" ref={desig} onChange={(e) => formik.setFieldValue('designation', e.target.value)}>
                                         <option value="none">Select Type</option>
                                         <option value="management">Management</option>
                                         <option value="coach">Coaching</option>
@@ -317,53 +332,53 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         <option value="others">Others</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.staffDesignation && formik.errors.staffDesignation ? <span className='span'>{formik.errors.staffDesignation}</span> : null
+                                        formik.touched.designation && formik.errors.designation ? <span className='span'>{formik.errors.designation}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="staffSpecialization"
-                                    label="Specialization*"
-                                    name="staffSpecialization"
-                                    value={formik.values.staffSpecialization} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                    controlId="specialization"
+                                    label="specialization*"
+                                    name="specialization"
+                                    value={formik.values.specialization} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                 >
 
-                                    <Form.Select aria-label="staffSpecialization" ref={spec} disabled={formik.values.staffDesignation === 'none'}>
+                                    <Form.Select aria-label="specialization" ref={spec} disabled={formik.values.designation === 'none'}>
                                         <option value="none">Select Type</option>
 
-                                        <option value="ceo" disabled={formik.values.staffDesignation !== 'management'}>CEO</option>
-                                        <option value="manager" disabled={formik.values.staffDesignation !== 'management'}>Manager</option>
-                                        <option value="headofoperations" disabled={formik.values.staffDesignation !== 'management'}>Head Of Operations</option>
+                                        <option value="ceo" disabled={formik.values.designation !== 'management'}>CEO</option>
+                                        <option value="manager" disabled={formik.values.designation !== 'management'}>Manager</option>
+                                        <option value="headofoperations" disabled={formik.values.designation !== 'management'}>Head Of Operations</option>
 
-                                        <option value="headcoach" disabled={formik.values.staffDesignation !== 'coach'}>Head Coach</option>
-                                        <option value="battingcoach" disabled={formik.values.staffDesignation !== 'coach'}>Batting Coach</option>
-                                        <option value="bowlingcoach" disabled={formik.values.staffDesignation !== 'coach'}>Bowling Coach</option>
-                                        <option value="fieldingcoach" disabled={formik.values.staffDesignation !== 'coach'}>Fielding Coach</option>
-                                        <option value="assistantcoach" disabled={formik.values.staffDesignation !== 'coach'}>Assistant Coach</option>
+                                        <option value="headcoach" disabled={formik.values.designation !== 'coach'}>Head Coach</option>
+                                        <option value="battingcoach" disabled={formik.values.designation !== 'coach'}>Batting Coach</option>
+                                        <option value="bowlingcoach" disabled={formik.values.designation !== 'coach'}>Bowling Coach</option>
+                                        <option value="fieldingcoach" disabled={formik.values.designation !== 'coach'}>Fielding Coach</option>
+                                        <option value="assistantcoach" disabled={formik.values.designation !== 'coach'}>Assistant Coach</option>
 
-                                        <option value="videoanalyst" disabled={formik.values.staffDesignation !== 'analyst'}>Video Ananlyst</option>
-                                        <option value="performanceanalyst" disabled={formik.values.staffDesignation !== 'analyst'}>Performance Analyst</option>
-                                        <option value="dataanalyst" disabled={formik.values.staffDesignation !== 'analyst'}>Data Analyst</option>
+                                        <option value="videoanalyst" disabled={formik.values.designation !== 'analyst'}>Video Ananlyst</option>
+                                        <option value="performanceanalyst" disabled={formik.values.designation !== 'analyst'}>Performance Analyst</option>
+                                        <option value="dataanalyst" disabled={formik.values.designation !== 'analyst'}>Data Analyst</option>
 
-                                        <option value="physio" disabled={formik.values.staffDesignation !== 'fitness'}>Physio</option>
-                                        <option value="strength" disabled={formik.values.staffDesignation !== 'fitness'}>Strength & Conditioning</option>
-                                        <option value="nutritionist" disabled={formik.values.staffDesignation !== 'fitness'}>Nutritionist</option>
-                                        <option value="masseur" disabled={formik.values.staffDesignation !== 'fitness'}>Masseur</option>
+                                        <option value="physio" disabled={formik.values.designation !== 'fitness'}>Physio</option>
+                                        <option value="strength" disabled={formik.values.designation !== 'fitness'}>Strength & Conditioning</option>
+                                        <option value="nutritionist" disabled={formik.values.designation !== 'fitness'}>Nutritionist</option>
+                                        <option value="masseur" disabled={formik.values.designation !== 'fitness'}>Masseur</option>
 
-                                        <option value="teamdoctor" disabled={formik.values.staffDesignation !== 'medical'}>Team Doctor</option>
-                                        <option value="mentalcoach" disabled={formik.values.staffDesignation !== 'medical'}>Mental & Conditioning Coach</option>
+                                        <option value="teamdoctor" disabled={formik.values.designation !== 'medical'}>Team Doctor</option>
+                                        <option value="mentalcoach" disabled={formik.values.designation !== 'medical'}>Mental & Conditioning Coach</option>
 
-                                        <option value="media" disabled={formik.values.staffDesignation !== 'media'}>Media Manager</option>
-                                        <option value="pr" disabled={formik.values.staffDesignation !== 'media'}>PR Manager</option>
+                                        <option value="media" disabled={formik.values.designation !== 'media'}>Media Manager</option>
+                                        <option value="pr" disabled={formik.values.designation !== 'media'}>PR Manager</option>
 
-                                        <option value="others" disabled={formik.values.staffDesignation !== 'others'}>Others</option>
+                                        <option value="others" disabled={formik.values.designation !== 'others'}>Others</option>
 
                                         {/* <option value="Fast" disabled={formik.values.bowlingstyle !== 'Fast'}>Fast</option> */}
 
                                     </Form.Select>
                                     {
-                                        formik.touched.staffSpecialization && formik.errors.staffSpecialization ? <span className='span'>{formik.errors.staffSpecialization}</span> : null
+                                        formik.touched.specialization && formik.errors.specialization ? <span className='span'>{formik.errors.specialization}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
@@ -373,14 +388,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffintials"
                                         type="text"
                                         placeholder="initials"
-                                        name="staffintials"
+                                        name="initials"
                                         ref={initials}
-                                        value={formik.values.staffintials} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.initials} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffintials && formik.errors.staffintials ? <span className='span'>{formik.errors.staffintials}</span> : null
+                                        formik.touched.initials && formik.errors.initials ? <span className='span'>{formik.errors.initials}</span> : null
                                     }
-                                    <label htmlFor="staffintials" className='text-muted'>Initials</label>
+                                    <label htmlFor="staffintials" className='text-muted'>Initials*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -389,12 +404,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffDisplayName"
                                         type="text"
                                         placeholder="display name"
-                                        name="staffDisplayName"
+                                        name="displayName"
                                         ref={displayName}
-                                        value={formik.values.staffDisplayName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.displayName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffDisplayName && formik.errors.staffDisplayName ? <span className='span'>{formik.errors.staffDisplayName}</span> : null
+                                        formik.touched.displayName && formik.errors.displayName ? <span className='span'>{formik.errors.displayName}</span> : null
                                     }
                                     <label htmlFor="staffDisplayName" className='text-muted'>Display Name*</label>
                                 </Form.Floating>
@@ -405,12 +420,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffFatherName"
                                         type="text"
                                         placeholder="father name"
-                                        name="staffFatherName"
+                                        name="fatherName"
                                         ref={fathersName}
-                                        value={formik.values.staffFatherName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.fatherName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffFatherName && formik.errors.staffFatherName ? <span className='span'>{formik.errors.staffFatherName}</span> : null
+                                        formik.touched.fatherName && formik.errors.fatherName ? <span className='span'>{formik.errors.fatherName}</span> : null
                                     }
                                     <label htmlFor="staffFatherName" className='text-muted'>Father's Name*</label>
                                 </Form.Floating>
@@ -421,12 +436,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffMotherName"
                                         type="text"
                                         placeholder="mother name"
-                                        name="staffMotherName"
+                                        name="motherName"
                                         ref={mothersName}
-                                        value={formik.values.staffMotherName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.motherName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffMotherName && formik.errors.staffMotherName ? <span className='span'>{formik.errors.staffMotherName}</span> : null
+                                        formik.touched.motherName && formik.errors.motherName ? <span className='span'>{formik.errors.motherName}</span> : null
                                     }
                                     <label htmlFor="staffMotherName" className='text-muted'>Mother's Name</label>
                                 </Form.Floating>
@@ -437,26 +452,26 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffDob"
                                         type="date"
                                         placeholder="dob"
-                                        name="staffDob"
+                                        name="dateOfBirth"
                                         ref={dob}
                                         max="2008-12-31"
-                                        value={formik.values.staffDob} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.dateOfBirth} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffDob && formik.errors.staffDob ? <span className='span'>{formik.errors.staffDob}</span> : null
+                                        formik.touched.dateOfBirth && formik.errors.dateOfBirth ? <span className='span'>{formik.errors.dateOfBirth}</span> : null
                                     }
                                     <label htmlFor="staffDob" className='text-muted'>Date of Birth*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="staffBloodGroup"
+                                    controlId="bloodGroup"
                                     label="BloodGroup*"
-                                    name="staffBloodGroup"
-                                    value={formik.values.staffBloodGroup} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                    name="bloodGroup"
+                                    value={formik.values.bloodGroup} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                 >
 
-                                    <Form.Select aria-label="staffBloodGroup" ref={bloodgrp}>
+                                    <Form.Select aria-label="bloodGroup" ref={bloodgrp}>
                                         <option value="none">Select Type</option>
                                         <option value="O+">O+</option>
                                         <option value="O-">O-</option>
@@ -468,7 +483,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         <option value="AB-">AB-</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.staffBloodGroup && formik.errors.staffBloodGroup ? <span className='span'>{formik.errors.staffBloodGroup}</span> : null
+                                        formik.touched.bloodGroup && formik.errors.bloodGroup ? <span className='span'>{formik.errors.bloodGroup}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
@@ -478,19 +493,19 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="staffEmail"
                                         type="staffEmail"
                                         placeholder="email"
-                                        name="staffEmail"
+                                        name="emailId"
                                         ref={email}
-                                        value={formik.values.staffEmail} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.emailId} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
-                                        formik.touched.staffEmail && formik.errors.staffEmail ? <span className='span'>{formik.errors.staffEmail}</span> : null
+                                        formik.touched.emailId && formik.errors.emailId ? <span className='span'>{formik.errors.emailId}</span> : null
                                     }
                                     <label htmlFor="staffEmail" className='text-muted'>Email Address*</label>
                                 </Form.Floating>
                             </Col>
 
                             <Col className='col' lg={4}>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" />
                             </Col>
 
                             <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
@@ -500,27 +515,30 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                         <Form.Check
                                             inline
                                             label="Male"
-                                            name="staffGender"
+                                            name="gender"
                                             type={type}
                                             id={`inline-${type}-male`}
                                             // defaultChecked={true}
                                             ref={genderMale}
                                             value="Male"
+                                            style={{ marginRight: '-15px' }}
                                         />
                                         <Form.Check
                                             inline
                                             label="Female"
-                                            name="staffGender"
+                                            name="gender"
                                             type={type}
                                             id={`inline-${type}-female`}
                                             ref={genderFemale}
                                             value="Female"
+                                            style={{ marginRight: '-30px' }}
+
                                         />
                                     </div>
                                 ))}
                             </Col>
                             <Col xs={5} lg={2} className='col'>
-                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>

@@ -41,7 +41,7 @@ function PlayerRegistration(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("5");
+  const [parentkey, setParentKey] = useState("4");
 
   //Data Binding:
   const [showData, setShowData] = useState(null);

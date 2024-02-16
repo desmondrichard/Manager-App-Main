@@ -14,18 +14,18 @@ import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 const validate = values => {
     const errors = {};
 
-    if (!values.staffEmgcontactperson) {
-        errors.staffEmgcontactperson = "*Required";
+    if (!values.emergencyContactPerson) {
+        errors.emergencyContactPerson = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.staffEmgcontactperson)) {
-        errors.staffEmgcontactperson = "Name should be between 3 to 15 characters long or only letters allowed";
+    else if (!/^[a-zA-Z]{3,15}$/.test(values.emergencyContactPerson)) {
+        errors.emergencyContactPerson = "Name should be between 3 to 15 characters long or only letters allowed";
     }
 
-    if (!values.StaffEmgContactRel) {
-        errors.StaffEmgContactRel = "*Required";
+    if (!values.emergContactPersonRelationship) {
+        errors.emergContactPersonRelationship = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.StaffEmgContactRel)) {
-        errors.StaffEmgContactRel = "Name should be between 3 to 15 characters long or only letters allowed";
+    else if (!/^[a-zA-Z]{3,15}$/.test(values.emergContactPersonRelationship)) {
+        errors.emergContactPersonRelationship = "Name should be between 3 to 15 characters long or only letters allowed";
     }
 
     return errors;
@@ -35,7 +35,7 @@ const validate = values => {
 function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);
     const [childNextKey, setChildNextKey] = useState("8");
-
+    const [emergencyContactPersonNo, setEmergencyContactNo] = useState("");
     // reset form start: 
     const emgcontactperson1 = useRef("");
     const emgcontactrel1 = useRef("");
@@ -52,13 +52,16 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
     const formik = useFormik({
         initialValues: {
-            staffEmgcontactperson: '',
-            StaffEmgContactRel: ''
+            emergencyContactPerson: '',
+            emergContactPersonRelationship: ''
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
             alert("you have successfully signed up");
+            const newValues = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
             onActivationKeyChild(childNextKey)
+            console.log("newValues", newValues)
+            setSubmitting(false);
         }
     });
     const handlePreviousButton = () => {
@@ -108,10 +111,16 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         return count;
     }
 
+    const Samp = (s) => {
+        console.log("sample1", s)
+        setEmergencyContactNo(s);
+        console.log("emergencyContactPersonNo", emergencyContactPersonNo)
+    }
+
     //useEffect will be trigerred whenever formik.values has value
     useEffect(() => {
         handleProgress();
-    }, [formik.values,handleMobileProgress]); // Ensure that the effect is triggered when form values change
+    }, [formik.values, handleMobileProgress]); // Ensure that the effect is triggered when form values change
 
 
 
@@ -128,29 +137,29 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="emgcontactperson"
+                                        id="emergencyContactPerson"
                                         type="text"
                                         placeholder="emgcontactperson"
-                                        name="staffEmgcontactperson"
+                                        name="emergencyContactPerson"
                                         ref={emgcontactperson1}
-                                        value={formik.values.staffEmgcontactperson} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.emergencyContactPerson} onBlur={formik.handleBlur} onChange={formik.handleChange}
 
                                     />
                                     {
-                                        formik.touched.staffEmgcontactperson && formik.errors.staffEmgcontactperson ? <span className='span'>{formik.errors.staffEmgcontactperson}</span> : null
+                                        formik.touched.emergencyContactPerson && formik.errors.emergencyContactPerson ? <span className='span'>{formik.errors.emergencyContactPerson}</span> : null
                                     }
-                                    <label htmlFor="staffEmgcontactperson" className='text-muted fontSize'>Emg.Contact Name*</label>
+                                    <label htmlFor="emergencyContactPerson" className='text-muted fontSize'>Emg.Contact Name*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="StaffEmgContactRel"
+                                    controlId="emergContactPersonRelationship"
                                     label="Emg.Contact Relation*"
-                                    name="StaffEmgContactRel"
-                                    value={formik.values.StaffEmgContactRel} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="emergContactPersonRelationship"
+                                    value={formik.values.emergContactPersonRelationship} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="Emg.Contact Relation*" ref={emgcontactrel1}>
+                                    <Form.Select aria-label="emergContactPersonRelationship" ref={emgcontactrel1}>
                                         <option value="none">Select Type</option>
                                         <option value="batsman">PARENTS</option>
                                         <option value="bowler">GUARDIAN</option>
@@ -162,12 +171,12 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                                 </FloatingLabel>
 
                                 {
-                                    formik.touched.StaffEmgContactRel && formik.errors.StaffEmgContactRel ? <span className='span'>{formik.errors.StaffEmgContactRel}</span> : null
+                                    formik.touched.emergContactPersonRelationship && formik.errors.emergContactPersonRelationship ? <span className='span'>{formik.errors.emergContactPersonRelationship}</span> : null
                                 }
 
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onActivateProgressBar={handleMobileProgress} />
+                                <Phone isClear={mobileValueClear} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" />
                             </Col>
                         </Row>
 

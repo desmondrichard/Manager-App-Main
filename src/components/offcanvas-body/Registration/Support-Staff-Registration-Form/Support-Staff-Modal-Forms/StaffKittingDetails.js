@@ -14,37 +14,37 @@ import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 const validate = values => {
     const errors = {};
 
-    if (!values.staffJerseyName) {
-        errors.staffJerseyName = "*Required";
+    if (!values.jerseyName) {
+        errors.jerseyName = "*Required";
     }
-    else if (!/^[a-zA-Z]{2,10}$/.test(values.staffJerseyName)) {
-        errors.staffJerseyName = "Jersey Name should be between 2 to 10 characters long or only letters allowed";
-    }
-
-    if (!values.staffJerseyNo) {
-        errors.staffJerseyNo = "*Required";
-    }
-    else if (!/^[0-9]{0,3}$/.test(values.staffJerseyNo)) {
-        errors.staffJerseyNo = "enter valid Digits";
+    else if (!/^[a-zA-Z]{2,10}$/.test(values.jerseyName)) {
+        errors.jerseyName = "Jersey Name should be between 2 to 10 characters long or only letters allowed";
     }
 
-
-    if (!values.staffJerseysize) {
-        errors.staffJerseysize = "*Required";
+    if (!values.jerseyNo) {
+        errors.jerseyNo = "*Required";
     }
-
-    if (!/^[a-zA-Z]{0,1}$/.test(values.staffInitialprint)) {
-        errors.staffInitialprint = "only one letter allowed";
+    else if (!/^[0-9]{0,3}$/.test(values.jerseyNo)) {
+        errors.jerseyNo = "enter valid Digits";
     }
 
 
-    if (!/^[0-9]{0,2}$/.test(values.staffTrowserlength)) {
-        errors.staffTrowserlength = "upto two Digits allowed";
+    if (!values.jerseySize) {
+        errors.jerseySize = "*Required";
+    }
+
+    if (!/^[a-zA-Z]{0,1}$/.test(values.initialPrint)) {
+        errors.initialPrint = "only one letter allowed";
     }
 
 
-    if (!/^[0-9]{0,3}$/.test(values.staffFamilyjerseyno)) {
-        errors.staffFamilyjerseyno = "upto three Digits allowed";
+    if (!/^[0-9]{0,2}$/.test(values.trouserLength)) {
+        errors.trouserLength = "upto two Digits allowed";
+    }
+
+
+    if (!/^[0-9]{0,3}$/.test(values.familyJerseyNo)) {
+        errors.familyJerseyNo = "upto three Digits allowed";
     }
 
 
@@ -52,7 +52,7 @@ const validate = values => {
 }
 
 function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
-    
+
     // reset form start: 
     const JerseyName1 = useRef("");
     const JerseyNo1 = useRef("");
@@ -85,17 +85,22 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
 
     const formik = useFormik({
         initialValues: {
-            staffJerseyName: '',
-            staffJerseyNo: '',
-            staffJerseysize: '',
-            staffInitialprint: '',
-            staffTrowserlength: '',
-            staffFamilyjerseyno: ''
+            jerseyName: '',
+            jerseyNo: '',
+            jerseySize: '',
+            trouserSize: '',
+            initialPrint: '',
+            trouserLength: '',
+            familyJerseyNo: '',
+            shortsSize: '',
+            trackSuit: '',
+            travelPolo: ''
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+            alert(`Clicked Next`);
             onActivationKeyChild(childNextKey)
+            console.log("values",values)
         }
     });
 
@@ -157,12 +162,12 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         id="staffJerseyName"
                                         type="text"
                                         placeholder="JerseyName"
-                                        name='staffJerseyName'
+                                        name='jerseyName'
                                         ref={JerseyName1}
-                                        value={formik.values.staffJerseyName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.jerseyName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffJerseyName && formik.errors.staffJerseyName ? <span className='span'>{formik.errors.staffJerseyName}</span> : null
+                                        formik.touched.jerseyName && formik.errors.jerseyName ? <span className='span'>{formik.errors.jerseyName}</span> : null
                                     }
                                     <label htmlFor="staffJerseyName" className='text-muted'>Name on Jersey*</label>
                                 </Form.Floating>
@@ -173,25 +178,25 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         id="staffJerseyNo"
                                         type="text"
                                         placeholder="JerseyNo"
-                                        name="staffJerseyNo"
+                                        name="jerseyNo"
                                         ref={JerseyNo1}
-                                        value={formik.values.staffJerseyNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.jerseyNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffJerseyNo && formik.errors.staffJerseyNo ? <span className='span'>{formik.errors.staffJerseyNo}</span> : null
+                                        formik.touched.jerseyNo && formik.errors.jerseyNo ? <span className='span'>{formik.errors.jerseyNo}</span> : null
                                     }
                                     <label htmlFor="staffJerseyNo" className='text-muted'>Jersey No*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={3} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="staffJerseysize"
+                                    controlId="jerseySize"
                                     label="Jersey Size*"
-                                    name="staffJerseysize"
-                                    value={formik.values.staffJerseysize} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    name="jerseySize"
+                                    value={formik.values.jerseySize} onBlur={formik.handleBlur} onChange={formik.handleChange}
 
                                 >
-                                    <Form.Select aria-label="staffJerseysize" ref={jerseysize1}>
+                                    <Form.Select aria-label="jerseySize" ref={jerseysize1}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -202,7 +207,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         <option value="4XL">4XL</option>
                                     </Form.Select>
                                     {
-                                        formik.touched.staffJerseysize && formik.errors.staffJerseysize ? <span className='span'>{formik.errors.staffJerseysize}</span> : null
+                                        formik.touched.jerseySize && formik.errors.jerseySize ? <span className='span'>{formik.errors.jerseySize}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
@@ -212,12 +217,12 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         id="staffInitialprint"
                                         type="text"
                                         placeholder="initialprint"
-                                        name="staffInitialprint"
+                                        name="initialPrint"
 
-                                        value={formik.values.staffInitialprint} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.initialPrint} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffInitialprint && formik.errors.staffInitialprint ? <span className='span'>{formik.errors.staffInitialprint}</span> : null
+                                        formik.touched.initialPrint && formik.errors.initialPrint ? <span className='span'>{formik.errors.initialPrint}</span> : null
                                     }
                                     <label htmlFor="staffInitialprint" className='text-muted'>Initial Print</label>
                                 </Form.Floating>
@@ -226,13 +231,13 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
 
                             <Col xs={12} lg={3} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="staffIrowsersize"
+                                    controlId="trouserSize"
                                     label="Trowser Size"
-                                    name="staffIrowsersize"
+                                    name="trouserSize"
                                     onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="staffIrowsersize" ref={trowsersize1}>
+                                    <Form.Select aria-label="trouserSize" ref={trowsersize1}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -251,24 +256,24 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         id="staffTrowserlength"
                                         type="text"
                                         placeholder="Trowser Length"
-                                        name="staffTrowserlength"
+                                        name="trouserLength"
                                         ref={trowserlength1}
-                                        value={formik.values.staffTrowserlength} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.trouserLength} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffTrowserlength && formik.errors.staffTrowserlength ? <span className='span'>{formik.errors.staffTrowserlength}</span> : null
+                                        formik.touched.trouserLength && formik.errors.trouserLength ? <span className='span'>{formik.errors.trouserLength}</span> : null
                                     }
                                     <label htmlFor="staffTrowserlength" className='text-muted'>Trowser Length</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={3} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="staffShortssize"
+                                    controlId="shortsSize"
                                     label="Shorts Size"
-                                    name="staffShortssize"
+                                    name="shortsSize"
                                     onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="staffShortssize" ref={shortssize1}>
+                                    <Form.Select aria-label="shortsSize" ref={shortssize1}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -283,13 +288,13 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                             </Col>
                             <Col xs={12} lg={3} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="staffTracksuit"
+                                    controlId="trackSuit"
                                     label="Track suit"
-                                    name="staffTracksuit"
+                                    name="trackSuit"
                                     onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="staffTracksuit" ref={tracksuit1}>
+                                    <Form.Select aria-label="trackSuit" ref={tracksuit1}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -304,13 +309,13 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                             </Col>
                             <Col xs={12} lg={3} className='col'>
                                 <FloatingLabel className='mb-2'
-                                    controlId="staffTravelpolo"
+                                    controlId="travelPolo"
                                     label="Travel Polo"
-                                    name="staffTravelpolo"
+                                    name="travelPolo"
                                     onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="staffTravelpolo" ref={travelpolo1}>
+                                    <Form.Select aria-label="travelPolo" ref={travelpolo1}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -329,12 +334,12 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         id="staffFamilyjerseyno"
                                         type="text"
                                         placeholder="familyjerseyno"
-                                        name="staffFamilyjerseyno"
+                                        name="familyJerseyNo"
                                         ref={familyjerseyno1}
-                                        value={formik.values.staffFamilyjerseyno} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.familyJerseyNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffFamilyjerseyno && formik.errors.staffFamilyjerseyno ? <span className='span'>{formik.errors.staffFamilyjerseyno}</span> : null
+                                        formik.touched.familyJerseyNo && formik.errors.familyJerseyNo ? <span className='span'>{formik.errors.familyJerseyNo}</span> : null
                                     }
                                     <label htmlFor="staffFamilyjerseyno" className='text-muted'>Family Jersey No</label>
                                 </Form.Floating>

@@ -94,12 +94,12 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         onSubmit: values => {
             alert('clicked next');
             const newVal= {
-                'Food Type': values.foodtype,
-                'Eggiterian': values.eggiterian,
-                'Sea Food': values.seafood,
-                'Red Meat': values.redMeat,
-                'Allergy If Any': values.allergyIfAny,
-                'Allergy': values.allergy
+                'foodtype': values.foodtype,
+                'eggiterian': values.eggiterian,
+                'seafood': values.seafood,
+                'redMeat': values.redMeat,
+                'allergyIfAny': values.allergyIfAny,
+                'allergy': values.allergy
             };
 
             // Log the values variable

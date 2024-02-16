@@ -12,25 +12,25 @@ import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 const validate = values => {
     const errors = {};
 
-    if (!values.staffCity) {
-        errors.staffCity = "*Required";
+    if (!values.cityDistrict) {
+        errors.cityDistrict = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.staffCity)) {
-        errors.staffCity = "City name should be between 3 to 15 characters long or only letters allowed";
-    }
-
-    if (!values.staffClub) {
-        errors.staffClub = "*Required";
-    }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.staffClub)) {
-        errors.staffClub = "Club name should be between 3 to 15 characters maximum or only letters allowed";
+    else if (!/^[a-zA-Z]{3,15}$/.test(values.cityDistrict)) {
+        errors.cityDistrict = "City name should be between 3 to 15 characters long or only letters allowed";
     }
 
-    if (!values.staffDivision) {
-        errors.staffDivision = "*Required";
+    if (!values.club) {
+        errors.club = "*Required";
     }
-    else if (!/^[a-zA-Z1-9]{0,10}$/.test(values.staffDivision)) {
-        errors.staffDivision = "Division name should be between 10 characters maximum";
+    else if (!/^[a-zA-Z]{3,15}$/.test(values.club)) {
+        errors.club = "Club name should be between 3 to 15 characters maximum or only letters allowed";
+    }
+
+    if (!values.division) {
+        errors.division = "*Required";
+    }
+    else if (!/^[a-zA-Z1-9]{0,10}$/.test(values.division)) {
+        errors.division = "Division name should be between 10 characters maximum";
     }
     return errors;
 }
@@ -52,15 +52,16 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
     }
     const formik = useFormik({
         initialValues: {
-            staffCity: '',
-            staffClub: '',
-            staffDivision: '',
+            cityDistrict: '',
+            club: '',
+            division: '',
 
         },
         validate,
         onSubmit: values => {
             alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
             onActivationKeyChild(childNextKey)
+            console.log("values",values)
         }
     });
 
@@ -118,17 +119,17 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="city"
+                                        id="cityDistrict"
                                         type="text"
                                         placeholder="city"
-                                        name="staffCity"
+                                        name="cityDistrict"
                                         ref={city1}
-                                        value={formik.values.staffCity} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.cityDistrict} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffCity && formik.errors.staffCity ? <span className='span'>{formik.errors.staffCity}</span> : null
+                                        formik.touched.cityDistrict && formik.errors.cityDistrict ? <span className='span'>{formik.errors.cityDistrict}</span> : null
                                     }
-                                    <label htmlFor="staffCity" className='text-muted'>State/City/District*</label>
+                                    <label htmlFor="cityDistrict" className='text-muted'>State/City/District*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -137,14 +138,14 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                                         id="club"
                                         type="text"
                                         placeholder="club"
-                                        name="staffClub"
+                                        name="club"
                                         ref={club1}
-                                        value={formik.values.staffClub} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.club} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffClub && formik.errors.staffClub ? <span className='span'>{formik.errors.staffClub}</span> : null
+                                        formik.touched.club && formik.errors.club ? <span className='span'>{formik.errors.club}</span> : null
                                     }
-                                    <label htmlFor="staffClub" className='text-muted'>Club/Franchise*</label>
+                                    <label htmlFor="club" className='text-muted'>Club/Franchise*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -154,13 +155,13 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                                         type="text"
                                         placeholder="division"
                                         ref={division1}
-                                        name="staffDivision"
-                                        value={formik.values.staffDivision} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="division"
+                                        value={formik.values.division} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.staffDivision && formik.errors.staffDivision ? <span className='span'>{formik.errors.staffDivision}</span> : null
+                                        formik.touched.division && formik.errors.division ? <span className='span'>{formik.errors.division}</span> : null
                                     }
-                                    <label htmlFor="staffDivision" className='text-muted'>Past Team Name*</label>
+                                    <label htmlFor="division" className='text-muted'>Past Team Name*</label>
                                 </Form.Floating>
                             </Col>
                         </Row>

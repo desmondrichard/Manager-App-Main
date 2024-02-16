@@ -4,15 +4,12 @@ import Header from './Header';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
-import { NavLink } from 'react-router-dom';
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
+import { NavLink, useParams } from 'react-router-dom';
 import NoDataImg from 'react-bootstrap/Image';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 //excel:
 // import * as XLSX from 'xlsx';
 //pdf:
@@ -25,7 +22,7 @@ function Accreditationcard() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  //Data Binding:
+  //Data Binding:GET Method using Fetch API
   const [showData, setShowData] = useState(null);
   useEffect(() => {
     fetch('http://192.168.1.192/ManagerApi/AllDataAccreadiation')
@@ -51,6 +48,47 @@ function Accreditationcard() {
       console.log("showData is undefined");
       return null;
     }
+  }
+
+
+  //DELETE MEthod using Axios:
+  // function deleteUser(id) {
+  //   axios.delete(`https://localhost:7097/Delete-AlldataAccreadiation/${id}`).then((response) => {
+  //     console.log("Deletion Success", response.data)
+  //   }).catch((error) => {
+  //     console.log("Error Deleting User", error)
+  //   })
+  // }
+
+  //using sweetAlert2 for popup after clicking delete button:
+  function deleteUser(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`https://localhost:7097/Delete-AlldataAccreadiation/${id}`).then((response) => {
+          console.log("Deletion Success", response.data)
+          Swal.fire(
+            'Deleted!',
+            'The user has been deleted.',
+            'success'
+          )
+        }).catch((error) => {
+          console.log("Error Deleting User", error)
+          Swal.fire(
+            'Error!',
+            'An error occurred while deleting the user.',
+            'error'
+          )
+        })
+      }
+    })
   }
 
   return (
@@ -99,7 +137,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button variant="warning" style={{ marginTop: '-7px' }} onClick={() => deleteUser(showData.alldataAccreadiationId)}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
@@ -145,7 +183,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button variant="warning" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
@@ -190,7 +228,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button variant="warning" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
@@ -234,7 +272,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button variant="warning" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
@@ -278,7 +316,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button variant="warning" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
