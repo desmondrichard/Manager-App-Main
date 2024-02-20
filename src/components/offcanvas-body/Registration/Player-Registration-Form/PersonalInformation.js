@@ -83,7 +83,6 @@ const validate = values => {
         errors.mobileNo = "*Required";
     }
 
-
     return errors;
 }
 
@@ -194,7 +193,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         console.log("formik values1", formik.values)
         const result = countKeysWithNonEmptyValues(formik.values);
         console.log("result for formik values:", result)
-        const totalFilledFields = result + phoneProgress + imgProgress;
+        const totalFilledFields = result + imgProgress;
 
         //calc formula
         let newProgress = ((totalFilledFields / 13) * 100).toFixed();
@@ -232,6 +231,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
     const [mobileNo, setMobileNo] = useState(null);
     const Samp = (value) => {
         setMobileNo(value);
+        formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component
         console.log("phonevalue", mobileNo)
 
     }
@@ -405,7 +405,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
 
                                 />
                                 {formik.touched.mobileNo && formik.errors.mobileNo ? (

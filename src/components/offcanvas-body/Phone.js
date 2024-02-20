@@ -13,7 +13,6 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId })
 
     console.log("isClear", isClear) //1st comes with value false-no clear
 
-
     const handleChange = (value) => {
         setPhoneNumber(value);
         setValid(validatePhoneNumber(value));

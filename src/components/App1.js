@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './Header'
 import Dashboard from './Dashboard'
 import HeaderSponsors from './HeaderSponsors'
+import Footer from './Footer/Footer'
 
 function App1() {
   return (
@@ -9,6 +10,7 @@ function App1() {
       <Header />
       {/* <HeaderSponsors /> */}
       <Dashboard />
+      <Footer />
     </>
   )
 }

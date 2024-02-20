@@ -41,7 +41,7 @@ function PlayerRegistration(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("4");
+  const [parentkey, setParentKey] = useState("0");
 
   //Data Binding:
   const [showData, setShowData] = useState(null);
@@ -127,7 +127,6 @@ function PlayerRegistration(props) {
     setShow(false);
     alert("going to close and form data is posted")
   }
-
 
 
   return (

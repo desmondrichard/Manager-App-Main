@@ -12,8 +12,9 @@ import ImageSponsorNew from 'react-bootstrap/Image';
 import ImageOrganizor from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import { NavLink } from 'react-router-dom';
-import CarouselScoreCard from './CarouselScoreCard';
+// import CarouselScoreCard from './CarouselScoreCard';
 import FullCalendar from './FullCalendar';
+import Piechart from './Chart/Piechart';
 
 
 function Dashboard() {
@@ -145,16 +146,17 @@ function Dashboard() {
                         </Card>
                     </Col>
 
-                    <Col lg={4} style={{ zIndex: 0 }}>
-                        <Card className='boxShadow'>
+                    <Col lg={4} style={{ zIndex: 0 }} className='mt-1'>
+                        <Card className='boxShadowPieChart' >
                             {/* <Calendar /> */}
-                            <CarouselScoreCard />
+                            {/* <CarouselScoreCard /> */}
+                            <Piechart />
                         </Card>
                     </Col>
                 </Row>
                 <Row>
                     <Col lg={8} style={{ zIndex: 0 }}>
-                        <Card className='my-3 boxShadow1' style={{ paddingLeft: '0px !important' }}>
+                        <Card className='my-3 boxShadow1 boxShadowMargin' style={{ paddingLeft: '0px !important' }}>
                             <Card.Body>
                                 <FullCalendar />
                             </Card.Body>

@@ -204,13 +204,26 @@
 }
 
 @media only screen and (min-width: 1022px) {
-    .boxShadow1 {
-        margin-left: -15px;
+    .boxShadowMargin {
+        margin-left: 23px;
     }
 }
 
 @media only screen and (max-width: 768px) {
-    .boxShadow1 {
+    .boxShadowMargin {
         margin-left: 28px;
     }
 }
+
+@media (min-width: 768px) and (max-width:1021px) {
+    .boxShadowMargin {
+        margin-left: 28px;
+    }
+}
+
+.boxShadowPieChart {
+    box-shadow: 2px 6px 17px 4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 6px 17px 4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 6px 17px 4px rgba(0,0,0,0.75);
+}
+

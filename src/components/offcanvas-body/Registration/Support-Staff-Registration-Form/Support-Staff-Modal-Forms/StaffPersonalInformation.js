@@ -164,7 +164,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             dateOfBirth: '',
             bloodGroup: '',
             emailId: '',
-
+            mobileNo: null
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
@@ -190,6 +190,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const [mobileNo, setMobileNo] = useState(null);
     const Samp = (value) => {
         setMobileNo(value);
+        formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component
         console.log("phonevalue", mobileNo)
 
     }
@@ -223,7 +224,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         console.log(result);  //returned count is stored in result variable
         console.log("phoneprogress", phoneProgress);
         //adding dynamic fields:
-        const totalFilledFields = result + phoneProgress + imgProgress;
+        const totalFilledFields = result + imgProgress;
 
         //calc formula
         let newProgress = ((totalFilledFields / 15) * 100).toFixed();
