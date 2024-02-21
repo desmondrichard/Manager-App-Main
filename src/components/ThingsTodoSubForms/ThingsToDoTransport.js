@@ -73,8 +73,8 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
       formik.setFieldValue('returnDate', '');
     }
     else {
-      formik.setFieldValue('returnDate',checkoutDate);
-  }
+      formik.setFieldValue('returnDate', checkoutDate);
+    }
   }
 
 
@@ -84,11 +84,11 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
       goingTo: '',
       noOfSeatsBooked: '',
       seatNumbers: '',
-      transportType:'',
+      transportType: '',
       travelType: '',
       busType: '',
-      dateOfJourney:'',
-      returnDate:''
+      dateOfJourney: '',
+      returnDate: ''
     },
     validate,
     onSubmit: values => {
@@ -185,12 +185,15 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
               value={formik.values.transportType}
               onChange={formik.handleChange}
             >
-              <Form.Select aria-label="transportType" ref={transportTypeReset}>
+              <Form.Select aria-label="transportType" ref={transportTypeReset} onChange={(e) => formik.setFieldValue('transportType', e.target.value)}>
                 <option value="none">Select Type</option>
                 <option value="Roadways">Roadways</option>
                 <option value="Railways">Railways</option>
                 <option value="Airways">Airways</option>
               </Form.Select>
+              {
+                formik.touched.transportType && formik.errors.transportType ? <span className='span'>{formik.errors.transportType}</span> : null
+              }
             </FloatingLabel>
           </Col>
           <Col md={3}>
@@ -198,31 +201,71 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
               controlId="travelType"
               label="Travel Type"
               name="travelType"
-              value={formik.values.travelType}
-              onChange={formik.handleChange}
+              value={formik.values.travelType} onBlur={formik.handleBlur}
+              onChange={(e) => formik.handleChange(e)}
             >
-              <Form.Select aria-label="travelType" ref={travelType}>
+              <Form.Select aria-label="travelType" ref={travelType} disabled={formik.values.transportType === 'none'}>
                 <option value="none">Select Type</option>
-                <option value="Roadways">Roadways</option>
-                <option value="Railways">Railways</option>
-                <option value="Airways">Airways</option>
+
+                <option value="Bus" disabled={formik.values.transportType !== 'Roadways'}>Bus</option>
+
+                <option value="Train" disabled={formik.values.transportType !== 'Railways'}>Train</option>
+
+                <option value="Flight" disabled={formik.values.transportType !== 'Airways'}>Flight</option>
+
               </Form.Select>
+              {
+                formik.touched.travelType && formik.errors.travelType ? <span className='span'>{formik.errors.travelType}</span> : null
+              }
             </FloatingLabel>
           </Col>
           <Col md={3}>
             <FloatingLabel className='mb-2 c1'
               controlId="busType"
-              label="Bus Type"
+              label="Vehicle Type"
               name='busType'
-              value={formik.values.busType}
-              onChange={formik.handleChange}
+              value={formik.values.busType} onBlur={formik.handleBlur}
+              onChange={(e) => formik.handleChange(e)}
+
             >
-              <Form.Select aria-label="busType" ref={busType}>
+              <Form.Select aria-label="busType" ref={busType} disabled={formik.values.travelType === 'none'}>
                 <option value="none">Select Type</option>
-                <option value="Roadways">Roadways</option>
-                <option value="Railways">Railways</option>
-                <option value="Airways">Airways</option>
+
+                <option value="Volvo" disabled={formik.values.travelType !== 'Bus'}>Volvo</option>
+                <option value="Sleeper" disabled={formik.values.travelType !== 'Bus'}>Sleeper</option>
+                <option value="SemiSleeper" disabled={formik.values.travelType !== 'Bus'}>Semi-Sleeper</option>
+                <option value="AC" disabled={formik.values.travelType !== 'Bus'}>AC</option>
+                <option value="NonAC" disabled={formik.values.travelType !== 'Bus'}>Non-AC</option>
+                <option value="executive" disabled={formik.values.travelType !== 'Bus'}>Executive/Seater</option>
+                <option value="Volvo" disabled={formik.values.travelType !== 'Bus'}>Volvo</option>
+                <option value="luxury" disabled={formik.values.travelType !== 'Bus'}>Luxury</option>
+                <option value="Intercity" disabled={formik.values.travelType !== 'Bus'}>Intercity</option>
+                <option value="Tourist" disabled={formik.values.travelType !== 'Bus'}>Tourist</option>
+
+                <option value="Express" disabled={formik.values.travelType !== 'Train'}>Express</option>
+                <option value="SuperFast" disabled={formik.values.travelType !== 'Train'}>SuperFast</option>
+                <option value="Local" disabled={formik.values.travelType !== 'Train'}>Local</option>
+
+                <option value="Economy" disabled={formik.values.travelType !== 'Flight'}>Economy</option>
+                <option value="PremiumEconomy" disabled={formik.values.travelType !== 'Flight'}>PremiumEconomy</option>
+                <option value="Business" disabled={formik.values.travelType !== 'Flight'}>Business</option>
+                <option value="FirstClass" disabled={formik.values.travelType !== 'Flight'}>FirstClass</option>
+                <option value="domestic" disabled={formik.values.travelType !== 'Flight'}>Domestic</option>
+                <option value="international" disabled={formik.values.travelType !== 'Flight'}>International</option>
+                <option value="shorthaul" disabled={formik.values.travelType !== 'Flight'}>Short-Haul</option>
+                <option value="longhaul" disabled={formik.values.travelType !== 'Flight'}>Long-Haul</option>
+                <option value="lowcostcarrier" disabled={formik.values.travelType !== 'Flight'}>Low-Cost Carrier (LCC)</option>
+                <option value="fullservicecarrier" disabled={formik.values.travelType !== 'Flight'}>Full-Service Carrier (FSC)</option>
+                <option value="charter" disabled={formik.values.travelType !== 'Flight'}>Charter</option>
+                <option value="redeye" disabled={formik.values.travelType !== 'Flight'}>Red-Eye</option>
+                <option value="Direct" disabled={formik.values.travelType !== 'Flight'}>Direct</option>
+                <option value="Connecting" disabled={formik.values.travelType !== 'Flight'}>Connecting</option>
+
+
               </Form.Select>
+              {
+                formik.touched.busType && formik.errors.busType ? <span className='span'>{formik.errors.busType}</span> : null
+              }
             </FloatingLabel>
           </Col>
           <Col md={3}>

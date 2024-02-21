@@ -120,7 +120,8 @@ function ThingsTodo() {
                 </thead>
 
                 <tbody className='table-light' style={{ fontSize: '13px' }}>
-                  {showData &&
+                  {
+                    showData &&
                     showData
                       .filter(item =>
                         search.length < 2 || (item.representatives && item.representatives.slice(0, 2).toLowerCase() === search.slice(0, 2))
@@ -142,13 +143,14 @@ function ThingsTodo() {
                       })
                   }
                 </tbody>
-                {
-                  showData ? ('') : (<div className='text-center'>
+              </Table>
+              {
+                showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
                 </div>)
-                }
+              }
 
-              </Table>
+
 
 
             </Tab>

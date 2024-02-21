@@ -213,8 +213,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     }
 
     //Progress Bar:
-
-
+ 
     function handleProgress() {
         //check form values or formik values:
         console.log("formik vals PersonalInfo:", formik.values);
@@ -223,7 +222,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all filled form fields count
         console.log(result);  //returned count is stored in result variable
         console.log("phoneprogress", phoneProgress);
-        //adding dynamic fields:
+        //adding dynamic fields: 
         const totalFilledFields = result + imgProgress;
 
         //calc formula

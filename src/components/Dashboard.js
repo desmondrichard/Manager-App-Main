@@ -31,6 +31,7 @@ function Dashboard() {
     }, [])
 
     //Data Binding for staff registration:
+
     const [showData1, setShowData1] = useState([]);
     useEffect(() => {
         fetch('http://192.168.1.192/ManagerApi/GetStaffAllDataAndImages')
