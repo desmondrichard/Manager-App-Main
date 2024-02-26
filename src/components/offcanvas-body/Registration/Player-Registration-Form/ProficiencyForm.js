@@ -73,7 +73,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         onSubmit: values => {
             alert('clicked next');
             onActivationKeyChild(childNextKey);
-            console.log("values",values)
+            console.log("values", values)
         }
     })
 
@@ -129,7 +129,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                     <p>{activationKey}</p>
                     <Form onSubmit={formik.handleSubmit}>
                         <Row>
-                            <Col xs={12} lg={4} className='col'>
+                            <Col xs={12} lg={6} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="specialization"
                                     label="Specialization*"
@@ -149,7 +149,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
                                 </FloatingLabel>
                             </Col>
-                            <Col xs={12} lg={4} className=' col'>
+                            <Col xs={12} lg={6} className=' col'>
                                 <label className='text-muted me-2' htmlFor="gender">BATTING STYLE</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
@@ -175,7 +175,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     </div>
                                 ))}
                             </Col>
-                            <Col xs={12} lg={4} className='col'>
+                            <Col xs={12} lg={6} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="battingOrder"
                                     label="Batting order*"
@@ -194,7 +194,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     }
                                 </FloatingLabel>
                             </Col>
-                            <Col xs={12} lg={4} className='col'>
+                            <Col xs={12} lg={6} className='col'>
                                 <label className='text-muted me-2' htmlFor="bowlerType">BOWLER TYPE</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} className="mb-3">
@@ -223,7 +223,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
                             </Col>
 
-                            <Col xs={12} lg={4} className='col'>
+                            <Col xs={12} lg={6} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="bowlingType"
                                     label="Bowling Style*"
@@ -241,7 +241,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     {formik.touched.bowlingType && formik.errors.bowlingType ? <span className='span'>{formik.errors.bowlingType}</span> : null}
                                 </FloatingLabel>
                             </Col>
-                            <Col xs={12} lg={4} className='col'>
+                            <Col xs={12} lg={6} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="bowlingSpecification"
                                     label="Bowling Specification*"

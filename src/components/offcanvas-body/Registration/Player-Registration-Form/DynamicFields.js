@@ -25,9 +25,6 @@ const DynamicFields = () => {
         setFields([...fields, newFieldSet])
         setOptionsLabel('') // Clear input after adding fields
 
-        //to find selected option:
-        // const selectedOption = document.querySelector(`#optionsLabel select option:checked`);
-        // const fieldName = selectedOption ? selectedOption.dataset.fieldName : '';
     }
 
     return (
@@ -88,19 +85,6 @@ const DynamicFields = () => {
                     <option value="THIGH GUARD" data-field-name="thighGaurad" style={{ whiteSpace: 'nowrap' }}>THIGH GUARD</option>
                     <option value="ABDOMINAL GUARD" data-field-name="abdominalGaurad" style={{ whiteSpace: 'nowrap' }}>ABDOMINAL GUARD</option>
                     
-                    {/* Radio Btn: */}
-                    {/* <option value="BATTING PAD" data-field-name="battinpadqty" style={{ whiteSpace: 'nowrap' }}>BATTING PAD</option>
-                    <option value="BATTING GLOVE" data-field-name="battinggloveqty" style={{ whiteSpace: 'nowrap' }}>BATTING GLOVE</option>
-                    <option value="WK GLOVES" data-field-name="wkGlovesqty" style={{ whiteSpace: 'nowrap' }}>WK GLOVES</option>
-                    <option value="WK PAD" data-field-name="wkpadqty" style={{ whiteSpace: 'nowrap' }}>WK PAD</option>
-                    <option value="SHOULDER BAG" data-field-name="shoulderbagqty" style={{ whiteSpace: 'nowrap' }}>SHOULDER BAG</option>
-                    <option value="SHOE BAG" data-field-name="shoebagqty" style={{ whiteSpace: 'nowrap' }}>SHOE BAG</option>
-                    <option value="PLAYER BAG" data-field-name="playerbagqty" style={{ whiteSpace: 'nowrap' }}>PLAYER BAG</option>
-                    <option value="PRACTICE JERSEY" data-field-name="practisejerseyqty" style={{ whiteSpace: 'nowrap' }}>PRACTICE JERSEY</option>
-                    <option value="FAMILY JERSEY" data-field-name="familyjerseyqty" style={{ whiteSpace: 'nowrap' }}>FAMILY JERSEY</option>
-                    <option value="ARM GUARD" data-field-name="armguardyqty" style={{ whiteSpace: 'nowrap' }}>ARM GUARD</option>
-                    <option value="THIGH GUARD" data-field-name="thighguardyqty" style={{ whiteSpace: 'nowrap' }}>THIGH GUARD</option>
-                    <option value="ABDOMINAL GUARD" data-field-name="abdominalguardyqty" style={{ whiteSpace: 'nowrap' }}>ABDOMINAL GUARD</option> */}
                 </Form.Control>
             </Form.Group>
             <div className='text-center my-2' >

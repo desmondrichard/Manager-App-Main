@@ -1,3 +1,12 @@
+Note:
+1,once valid user logged in and entered into dashboard he cannot go back to login page in address bar
+2,on clicking logout will navigate to login page
+3,in login page invalid users cannot able to navigate to dashboard
+
+------------------------------------------
+
+Login.js:
+
 import React, { useState ,useEffect} from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -28,13 +37,18 @@ function Login() {
         setsuccessMessage('');
         seterrorMessage('')
         if (email !== 'admin' || pwd !== 'admin123') {
-            seterrorMessage('Invalid username or password');
+            seterrorMessage('Invalid email or password');
         } else {
             navigate('/dashboard')
-          
+            localStorage.setItem('auth',true)
         }
     }
 
+    useEffect(()=>{
+        if( localStorage.getItem( "auth" ) === 'true' ){
+            navigate("/dashboard")
+        }
+    })
     return (
         <div style={{ paddingTop: '3%' }} className='div1' >
             <Container>
@@ -64,8 +78,8 @@ function Login() {
                                                 visible ? "password" : "text"}
                                                 placeholder="Password" onChange={(e) => setPwd(e.target.value)} />
                                             <div className='p-2 pwd-toggle' onClick={() => setVisible(!visible)}>
-                                                {visible ? <Image1 className='img11' style={{ height: '18px' }} src={require('../assets/eye-close.png')}></Image1>
-                                                    : <Image2 className='img11' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>}
+                                                {visible ? <Image1 className='img1' style={{ height: '18px' }} src={require('../assets/eye-close.png')}></Image1>
+                                                    : <Image2 className='img1' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>}
                                             </div>
                                         </div>
 
@@ -94,3 +108,61 @@ function Login() {
 }
 
 export default Login
+
+---------------------------------------------------------------------------
+Header.js
+
+import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import Menubar from './offcanvas-body/Menubar';
+import Badge from 'react-bootstrap/Badge';
+import './Header1.css';
+import { useNavigate } from 'react-router-dom';
+
+function Header() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    //
+    const navigate = useNavigate();
+    const [logout, setLogout] = useState(false)
+
+    function handleLogout(e) {
+        e.preventDefault();
+        localStorage.removeItem('auth')
+        setLogout(true)
+    }
+
+    useEffect(() => {
+        if (!localStorage.getItem("auth")) {
+            navigate("/")
+        }
+    }, [logout])
+    return (
+        <div className='parentDiv bg fixed'>
+            <>
+                <Button onClick={handleShow} variant="primary" className='btn1'><i className="bi bi-list text-white" style={{ fontSize: '25px', fontWeight: '600', marginLeft: '-12px' }}></i></Button>
+                <Offcanvas show={show} onHide={handleClose}>
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title></Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body className='bg1'>
+                        <Menubar />
+                    </Offcanvas.Body>
+                </Offcanvas>
+            </>
+
+            <h2 className='text-white text-center font1'>MANAGER APPLICATION</h2>
+            <span>
+                <Button variant="primary" className='btn1'><i className="bi bi-bell-fill " style={{ fontSize: '20px' }}></i><sup><Badge bg="danger">9</Badge></sup> <span className="visually-hidden">unread messages</span></Button>
+                {/* <NavLink to='/'> */}
+                <Button className='btn2' onClick={handleLogout}><i className="bi bi-box-arrow-right" style={{ fontSize: '24px' }}></i></Button>
+                {/* </NavLink> */}
+            </span>
+
+        </div >
+    )
+}
+
+export default Header

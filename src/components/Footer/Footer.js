@@ -5,7 +5,7 @@ function Footer() {
     let year = new Date().getFullYear();
     console.log("year", year)
     return (
-        <div>
+        <div className='mt-3'>
             <div className="pg-footer">
                 <footer className="footer">
                     <svg className="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">

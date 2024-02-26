@@ -213,7 +213,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     }
 
     //Progress Bar:
- 
+
     function handleProgress() {
         //check form values or formik values:
         console.log("formik vals PersonalInfo:", formik.values);

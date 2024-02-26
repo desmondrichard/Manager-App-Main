@@ -1,0 +1,29 @@
+.accordions {
+    --bs-accordion-btn-active-icon: none !important;
+    --bs-accordion-btn-icon: none !important;
+    --bs-accordion-btn-focus-box-shadow: none !important;
+}
+
+.accordionItem {
+    box-shadow: 0px 11px 13px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 11px 13px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 11px 13px 0px rgba(0, 0, 0, 0.75);
+
+}
+
+.header-z-index {
+    z-index: 1;
+}
+
+.accordions .accordion-button::after {
+    content: '-';
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    /* margin-right: 20px; */
+}
+
+.accordions .accordion-button.collapsed::after {
+    content: '+';
+    margin-right: -12px;
+
+}

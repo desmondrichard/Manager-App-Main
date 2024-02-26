@@ -15,6 +15,7 @@ import { NavLink } from 'react-router-dom';
 // import CarouselScoreCard from './CarouselScoreCard';
 import FullCalendar from './FullCalendar';
 import Piechart from './Chart/Piechart';
+import Help from './Help';
 
 
 function Dashboard() {
@@ -156,14 +157,16 @@ function Dashboard() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col lg={8} style={{ zIndex: 0 }}>
+                    <Col xs={12} style={{ zIndex: 0 }}>
                         <Card className='my-3 boxShadow1 boxShadowMargin' style={{ paddingLeft: '0px !important' }}>
                             <Card.Body>
                                 <FullCalendar />
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col lg={3}>Welcome</Col>
+                    <Col xs={12}>
+                        <Help />
+                    </Col>
                 </Row>
 
             </Container>

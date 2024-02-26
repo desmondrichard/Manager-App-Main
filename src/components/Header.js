@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Menubar from './offcanvas-body/Menubar';
 import Badge from 'react-bootstrap/Badge';
-import { NavLink, Navigate } from 'react-router-dom';
 import './Header1.css';
+import { useNavigate } from 'react-router-dom';
+
 function Header() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
     //
+    const navigate = useNavigate();
+    // const [logout, setLogout] = useState(false)
 
+    function handleLogout(e) {
+        e.preventDefault();
+        navigate("/")
+        // setLogout(true)
+    }
+
+   
     return (
         <div className='parentDiv bg fixed'>
             <>
@@ -29,7 +38,9 @@ function Header() {
             <h2 className='text-white text-center font1'>MANAGER APPLICATION</h2>
             <span>
                 <Button variant="primary" className='btn1'><i className="bi bi-bell-fill " style={{ fontSize: '20px' }}></i><sup><Badge bg="danger">9</Badge></sup> <span className="visually-hidden">unread messages</span></Button>
-                <NavLink to='/'><Button className='btn2'><i className="bi bi-box-arrow-right" style={{ fontSize: '24px' }}></i></Button></NavLink>
+                {/* <NavLink to='/'> */}
+                <Button className='btn2' onClick={handleLogout}><i className="bi bi-box-arrow-right" style={{ fontSize: '24px' }}></i></Button>
+                {/* </NavLink> */}
             </span>
 
         </div >
