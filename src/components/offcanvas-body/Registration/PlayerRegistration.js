@@ -41,7 +41,7 @@ function PlayerRegistration(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("2");
+  const [parentkey, setParentKey] = useState("0");
 
   //Data Binding:
   const [showData, setShowData] = useState(null);
@@ -277,8 +277,9 @@ function PlayerRegistration(props) {
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</span></td>
                         {/* blob to image: */}
                         <td>
+                          {/* check below image is able to be getted from DB since we added /* in front of image: */ }
                           <img
-                            src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
+                            src={showData ? `data:image;base64/*,${showData.imageData}` :  //checks for data
                               require('./../../../assets/dummy_profile_img.png')}   //default img 
                             alt="img" style={{ width: '37px', height: '37px' }}
                             onError={(e) => {

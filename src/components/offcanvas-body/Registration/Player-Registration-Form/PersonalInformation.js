@@ -162,7 +162,10 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const newValues = { ...values, mobileNo, ImageData }
+            const dateOfBirth = new Date(values.dateOfBirth);
+            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            const newValues = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
+            console.log("formattedDate",formattedDOB)
             alert('Clicked Next');
             onActivationKeyChild(childNextKey)
             console.log('newvalues', newValues)
@@ -222,8 +225,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
     const [ImageData, setImageData] = useState("");
     const dynamicImageNameFn = (val) => {
         // console.log("valll", val)
-        val = val.slice(23)  //sliced  to remove data:image/png;base64 and to display from /9j.....
-        console.log('sliced Val', val)
+        //to unslice: data:image/png;base64,
+        // val = val.slice(23)  //sliced  to remove data:image/png;base64 and to display from /9j.....
+        // console.log('sliced Val', val)
         setImageData(val)
     }
 
@@ -369,7 +373,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                         id="dateOfBirth"
                                         type="date"
                                         ref={dobReset}
-                                        placeholder='DD-MM-YYYY'
+                                        // placeholder='DD-MM-YYYY'
                                         min="1960-01-01" max="2008-12-31"
                                         name="dateOfBirth"
                                         value={formik.values.dateOfBirth} onBlur={formik.handleBlur} onChange={formik.handleChange}

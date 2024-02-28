@@ -72,21 +72,27 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
             roomsNo: '',
             daysStayed: '',
             noOfPeople: '',
-            checkIn:'',
-            checkOut:''
+            checkIn: '',
+            checkOut: ''
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
+            const dateOfBirth = new Date(values.checkIn);
+            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            const dateOfBirth1 = new Date(values.checkOut);
+            const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
+            const newValues = { ...values, checkIn: formattedDOB, checkOut: formattedDOB1 };
             alert(`Hello! ,${values.groundName} you have successfully signed up`);
             onChildNextActivationKey(childNextKey)
-            console.log("values",values)
+            console.log("newvalues", newValues)
+            setSubmitting(false);
             // console.log("checkOutValue", checkOutValue)
         }
     });
 
     // const [checkOutValue, setCheckOutValue] = useState("");
 
-    function checkIfCheckoutAfterCheckin(checkinDate,checkoutDate) {
+    function checkIfCheckoutAfterCheckin(checkinDate, checkoutDate) {
         const checkin = new Date(checkinDate);
         const checkout = new Date(checkoutDate);
         if (checkout < checkin) {
@@ -198,7 +204,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                                 name="checkOut"
                                 ref={checkOut}
                                 value={formik.values.checkOut}
-                                onChange={(e) => checkIfCheckoutAfterCheckin(checkIn.current.value,e.target.value)}
+                                onChange={(e) => checkIfCheckoutAfterCheckin(checkIn.current.value, e.target.value)}
                             />
 
                             <label htmlFor="checkOut" className='text-muted'>Check Out</label>

@@ -91,11 +91,16 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
       returnDate: ''
     },
     validate,
-    onSubmit: values => {
-      // alert(`Hello! ,${values.groundName} you have successfully signed up`);
-      // values.returnDate = formik.values.checkOut;
-      notify()
-      console.log("values", values)
+    onSubmit: (values, { setSubmitting }) => {
+      const dateOfBirth = new Date(values.dateOfJourney);
+      const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+      const dateOfBirth1 = new Date(values.returnDate);
+      const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
+      const newValues = { ...values, dateOfJourney: formattedDOB, returnDate: formattedDOB1 };
+      notify();
+      console.log("newvalues", newValues)
+      setSubmitting(false);
+
     }
   });
 

@@ -45,15 +45,20 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
   const formik = useFormik({
     initialValues: {
       groundName: '',
-      dateTime:'',
+      dateTime: '',
       teamA: '',
       teamB: ''
     },
     validate,
-    onSubmit: values => {
+    onSubmit: (values, { setSubmitting }) => {
+      const dateOfBirth = new Date(values.dateTime);
+      const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+      const newValues = { ...values, dateTime: formattedDOB }
       alert(`clicked next`);
       onChildNextActivationKey(childNextKey)
-      console.log("values",values)
+      console.log("newvalues", newValues)
+      setSubmitting(false);
+
     }
   });
 
@@ -66,7 +71,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
     <div>
       <Form onSubmit={formik.handleSubmit}>
         <Row>
-        <Col>
+          <Col>
             <Form.Floating className="mb-2">
               <Form.Control
                 id="groundName"
@@ -98,7 +103,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
               <label htmlFor="dateTime" className='text-muted'>Date</label>
             </Form.Floating>
           </Col>
-         
+
           <Col>
             <Form.Floating className="mb-2">
               <Form.Control

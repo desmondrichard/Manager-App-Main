@@ -16,11 +16,14 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName }) 
         const file = e.target.files[0];//setted file path like target
         setImage(file);//used to set img present in target.files[0]
         const base64 = await convertBase64(file) //converting to base64
-        setBaseImage(base64);
+        const base64WithoutPrefix = base64.split(',')[1]; //To remove prefix data:image/jpeg;base64, from url.since we in GET method we defaultly added data:image/*;base64, in parent else this line is no needed:
+        setBaseImage(base64WithoutPrefix);//setting here
         console.log(file);
         onActivateProgressBar(1); //sets value to 1 from 0 if image is uploaded
-        console.log("after file", base64)
-        dynamicImageName(base64); //passing the base64 string to another component for displaying it as a preview
+        console.log("after file", base64WithoutPrefix)
+        dynamicImageName(base64WithoutPrefix); //passing the base64 string to another component for displaying it as a preview
+
+
     }
 
     const convertBase64 = (file) => {
@@ -46,7 +49,7 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName }) 
 
             <label htmlFor='image-upload-input' className='image-upload-label h5 text-muted' style={{ fontWeight: '400', whiteSpace: 'nowrap' }}>
                 {/* like placeholder: */}
-                {baseImage ? baseImage.split(',')[0].replace('data:image/', '') : "Upload JPG/PNG"}
+                {baseImage ? image.name : "Upload JPG/PNG"}
             </label>
 
             <div onClick={() => handleImageClick()}>

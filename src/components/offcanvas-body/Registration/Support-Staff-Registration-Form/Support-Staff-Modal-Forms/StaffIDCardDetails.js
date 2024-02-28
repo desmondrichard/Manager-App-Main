@@ -142,10 +142,17 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
             city: '',
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
+            const dateOfBirth = new Date(values.passportExpDate);
+            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            const dateOfBirth1 = new Date(values.visaValidity);
+            const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
+            const newValues = { ...values, passportExpDate: formattedDOB, visaValidity: formattedDOB1 }
             alert(`Clicked Next`);
             onActivationKeyChild(childNextKey)
-            console.log("values", values)
+            console.log("newvalues", newValues)
+            setSubmitting(false);
+
         }
     });
 
@@ -438,69 +445,69 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 </Col>
 
                                 {/* country-state-city: */}
-                            <Col xs={12} lg={4} className='col'>
-                                {/* <label htmlFor="country">Country:</label> */}
-                                <Select placeholder='country*' id='country' name='country'
-                                    className="dynamicSelect" style={{ zIndex: 100, outline: 'none', border: 'none' }}
-                                    options={Country.getAllCountries()}
-                                    getOptionLabel={(options) => {
-                                        return options["name"];
-                                    }}
-                                    getOptionValue={(options) => {
-                                        return options["name"];
-                                    }}
-                                    value={selectedCountry}
-                                    // onChange={(item) => {
-                                    //     setSelectedCountry(item);
-                                    // }}
-                                    onChange={(item) => {
-                                        formik.setFieldValue("country", item.name);
-                                        setSelectedCountry(item);
-                                    }}
+                                <Col xs={12} lg={4} className='col'>
+                                    {/* <label htmlFor="country">Country:</label> */}
+                                    <Select placeholder='country*' id='country' name='country'
+                                        className="dynamicSelect" style={{ zIndex: 100, outline: 'none', border: 'none' }}
+                                        options={Country.getAllCountries()}
+                                        getOptionLabel={(options) => {
+                                            return options["name"];
+                                        }}
+                                        getOptionValue={(options) => {
+                                            return options["name"];
+                                        }}
+                                        value={selectedCountry}
+                                        // onChange={(item) => {
+                                        //     setSelectedCountry(item);
+                                        // }}
+                                        onChange={(item) => {
+                                            formik.setFieldValue("country", item.name);
+                                            setSelectedCountry(item);
+                                        }}
 
-                                />
-                                {formik.touched.country && formik.errors.country ? <span className='span'>{formik.errors.country}</span> : null}
+                                    />
+                                    {formik.touched.country && formik.errors.country ? <span className='span'>{formik.errors.country}</span> : null}
 
-                            </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                {/* <label htmlFor="state">State:</label> */}
-                                <Select placeholder='State*' style={{ zIndex: 100 }} id='state' name='state'
-                                    options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
-                                    getOptionLabel={(options) => {
-                                        return options["name"];
-                                    }}
-                                    getOptionValue={(options) => {
-                                        return options["name"];
-                                    }}
-                                    value={selectedState}
-                                    onChange={(item) => {
-                                        formik.setFieldValue("state", item.name);
-                                        setSelectedState(item);
-                                    }}
-                                />
-                                {formik.touched.state && formik.errors.state ? <span className='span'>{formik.errors.state}</span> : null}
-                            </Col>
-                            <Col xs={12} lg={4} className='col '>
-                                {/* <label htmlFor="city">City:</label> */}
-                                <Select id='city' name='city' placeholder='City*' className="dynamicSelect" style={{ zIndex: 100 }}
-                                    options={City.getCitiesOfState(
-                                        selectedState?.countryCode,
-                                        selectedState?.isoCode
-                                    )}
-                                    getOptionLabel={(options) => {
-                                        return options["name"];
-                                    }}
-                                    getOptionValue={(options) => {
-                                        return options["name"];
-                                    }}
-                                    value={selectedCity}
-                                    onChange={(item) => {
-                                        formik.setFieldValue("city", item.name);
-                                        setSelectedCity(item);
-                                    }}
-                                />
-                                {formik.touched.city && formik.errors.city ? <span className='span'>{formik.errors.city}</span> : null}
-                            </Col>
+                                </Col>
+                                <Col xs={12} lg={4} className='col'>
+                                    {/* <label htmlFor="state">State:</label> */}
+                                    <Select placeholder='State*' style={{ zIndex: 100 }} id='state' name='state'
+                                        options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
+                                        getOptionLabel={(options) => {
+                                            return options["name"];
+                                        }}
+                                        getOptionValue={(options) => {
+                                            return options["name"];
+                                        }}
+                                        value={selectedState}
+                                        onChange={(item) => {
+                                            formik.setFieldValue("state", item.name);
+                                            setSelectedState(item);
+                                        }}
+                                    />
+                                    {formik.touched.state && formik.errors.state ? <span className='span'>{formik.errors.state}</span> : null}
+                                </Col>
+                                <Col xs={12} lg={4} className='col '>
+                                    {/* <label htmlFor="city">City:</label> */}
+                                    <Select id='city' name='city' placeholder='City*' className="dynamicSelect" style={{ zIndex: 100 }}
+                                        options={City.getCitiesOfState(
+                                            selectedState?.countryCode,
+                                            selectedState?.isoCode
+                                        )}
+                                        getOptionLabel={(options) => {
+                                            return options["name"];
+                                        }}
+                                        getOptionValue={(options) => {
+                                            return options["name"];
+                                        }}
+                                        value={selectedCity}
+                                        onChange={(item) => {
+                                            formik.setFieldValue("city", item.name);
+                                            setSelectedCity(item);
+                                        }}
+                                    />
+                                    {formik.touched.city && formik.errors.city ? <span className='span'>{formik.errors.city}</span> : null}
+                                </Col>
                             </>
 
 

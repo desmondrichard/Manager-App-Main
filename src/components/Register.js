@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 //
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+
 // Validation:
 const validate = values => {
     const errors = {};
@@ -81,9 +82,9 @@ function Register() {
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const formattedDob = dob ? dob.toLocaleDateString('en-GB') : '';
-            console.log("formattedDob", formattedDob);
-            const newValues = { ...values, dob: formattedDob }
+            const dateOfBirth = new Date(values.dob);
+            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            const newValues = { ...values, dob: formattedDOB }
             // formik.setFieldValue('dob', formattedDob);
             alert(`Hello! ,${values.fullname}you have successfully signed up`);
             console.log('newvalues', newValues)
@@ -98,10 +99,6 @@ function Register() {
         formik.setFieldValue('dob', date); // Update formik value for dob
     };
 
-    //try:
-    // console.log(name);
-    // console.log(formik.values.fullname);
-    // console.log(formik.values);
 
     return (
         <div className='pt-1 '>
@@ -137,26 +134,15 @@ function Register() {
                                 {/* Email Field: */}
                                 <Form.Group className="mb-1" controlId="formGroupEmail">
                                     <Form.Label className='fontRegister'>Email address</Form.Label>
-                                    <Form.Control size="sm" className='shadow-none' type="email" placeholder="Enter email" name='email' value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange} />
+                                    <Form.Control size="sm" className='shadow-none' type="email" placeholder="Enter Email" name='email' value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange} />
                                     {
                                         formik.touched.email && formik.errors.email ? <span className='span'>{formik.errors.email}</span> : null
                                     }
                                 </Form.Group>
                                 {/* DOB Field: */}
                                 <Form.Group className="mb-3" controlId="DOB">
-                                    <Form.Label className='fontRegister shadow-none custom-input'>D.O.B</Form.Label><br />
-                                    {/* <Form.Control size="sm" className='shadow-none' min="1960-01-01" max="2008-12-31" type="date" placeholder="Enter Date of Birth" name='dob' value={formik.values.dob} onBlur={formik.handleBlur} onChange={formik.handleChange} />
-                                    {
-                                        formik.touched.dob && formik.errors.dob ? <span className='span'>{formik.errors.dob}</span> : null
-                                    } */}
-                                    <DatePicker
-                                        id="dob"
-                                        selected={dob}
-                                        onChange={handleDobChange}
-                                        dateFormat="dd/MM/yyyy"
-                                        placeholderText="Select Date of Birth"
-                                        // customInput={<CustomInput />}
-                                    />
+                                    <Form.Label className='fontRegister'>D.O.B</Form.Label>
+                                    <Form.Control size="sm" className='shadow-none' type="date" placeholder="Enter Date of Birth" name='dob' value={formik.values.dob} onBlur={formik.handleBlur} onChange={formik.handleChange} max="2008-12-31" />
                                     {
                                         formik.touched.dob && formik.errors.dob ? <span className='span'>{formik.errors.dob}</span> : null
                                     }

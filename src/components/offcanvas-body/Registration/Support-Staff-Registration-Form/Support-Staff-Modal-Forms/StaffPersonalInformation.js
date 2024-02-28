@@ -85,6 +85,9 @@ const validate = values => {
         errors.emailId = "*Invalid email address";
     }
 
+    if (!values.mobileNo) {
+        errors.mobileNo = "*Required";
+    }
 
     return errors;
 }
@@ -168,7 +171,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const newValues = { ...values, mobileNo, ImageData }
+            const dateOfBirth = new Date(values.dateOfBirth);
+            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            const newValues = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
             alert(`Clicked next`);
             onActivationKeyChild(childNextKey)
             // console.log("values:", values)
@@ -180,9 +185,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     // Image base 64 value:
     const [ImageData, setImageData] = useState("");
     const dynamicImageNameFn = (val) => {
-        // console.log("valll", val)
-        val = val.slice(23)  //sliced  to remove data:image/png;base64 and to display from /9j.....
-        console.log('sliced Val', val)
+        console.log("valll", val)
         setImageData(val)
     }
 
@@ -506,6 +509,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
 
                             <Col className='col' lg={4}>
                                 <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" />
+                                {formik.touched.mobileNo && formik.errors.mobileNo ? (
+                                    <span className="span">{formik.errors.mobileNo}</span>
+                                ) : null}
                             </Col>
 
                             <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>

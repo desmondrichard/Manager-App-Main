@@ -274,8 +274,9 @@ function SupportStaffRegistration(props) {
                                             return (
                                                 <tr className='text-center' key={i}>
                                                     <td>
+                                                        {/* check below image is able to be getted from DB since we added /* in front of image: */}
                                                         <img
-                                                            src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
+                                                            src={showData ? `data:image/*;base64,${showData.imageData}` :  //checks for data
                                                                 require('./../../../../assets/dummy_profile_img.png')}   //default img 
                                                             alt="img" style={{ width: '37px', height: '37px' }}
                                                             onError={(e) => {

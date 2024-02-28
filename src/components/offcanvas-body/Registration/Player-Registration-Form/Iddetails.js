@@ -137,12 +137,16 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
 
         },
         validate,
-        onSubmit: (values) => {
-            alert('clicked next');
+        onSubmit: (values, { setSubmitting }) => {
+            const passportExpDate = new Date(values.passportExpDate);
+            const formattedPassportExpDate = `${passportExpDate.getDate()}/${passportExpDate.getMonth() + 1}/${passportExpDate.getFullYear()}`;
+            const dob = formattedPassportExpDate;
+            const newValues = { ...values, passportExpDate: dob };
             onActivationKeyChild(childNextKey);
-            console.log("values", values)
+            alert('clicked next');
+            console.log("newvalues", newValues)
             // console.log(values.visacheck === 'inline-radio-provided' ? 'Yes' : 'No');
-            // setSubmitting(false);
+            setSubmitting(false);
         }
     });
 
@@ -260,8 +264,8 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         placeholder="passexp"
                                         name="passportExpDate"
                                         ref={passexpReset}
-                                        value={formik.values.passportExpDate} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                         min={new Date().toISOString().split('T')[0]}
+                                        value={formik.values.passportExpDate} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
                                         formik.touched.passportExpDate && formik.errors.passportExpDate ? <span className='span'>{formik.errors.passportExpDate}</span> : null
