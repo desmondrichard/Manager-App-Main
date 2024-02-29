@@ -161,7 +161,7 @@ function Accessories() {
             <th >S.NO</th>
             <th>PLAYER NAME</th>
             <th>JERSEY NO</th>
-            <th>TROWSER LENGTH</th>
+            <th>TROUSER LENGTH</th>
             <th>SHORTS SIZE</th>
             <th>TRACK SUIT</th>
             <th>TRAVEL POLO</th>

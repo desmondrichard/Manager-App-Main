@@ -15,12 +15,16 @@ const validate = values => {
     errors.groundName = "enter a valid name";
   }
 
-  if (!/^[a-zA-Z ]*$/.test(values.teamA)) {
-    errors.teamA = "enter a valid name";
+  if (!(values.teamA)) {
+    errors.teamA = "*Required";
   }
 
-  if (!/^[a-zA-Z ]*$/.test(values.teamB)) {
-    errors.teamB = "enter a valid name";
+  if (!(values.teamB)) {
+    errors.teamB = "*Required";
+  }
+
+  if (!values.dateTime) {
+    errors.dateTime = "*Required";
   }
 
   return errors;
@@ -97,10 +101,13 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
                 name="dateTime"
                 ref={date}
                 max={new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
-                value={formik.values.dateTime} onChange={formik.handleChange}
+                value={formik.values.dateTime} onChange={formik.handleChange} onBlur={formik.handleBlur}
               />
+              {
+                formik.touched.dateTime && formik.errors.dateTime ? <span className='span'>{formik.errors.dateTime}</span> : null
+              }
 
-              <label htmlFor="dateTime" className='text-muted'>Date</label>
+              <label htmlFor="dateTime" className='text-muted'>Date*</label>
             </Form.Floating>
           </Col>
 
@@ -117,7 +124,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
               {
                 formik.touched.teamA && formik.errors.teamA ? <span className='span'>{formik.errors.teamA}</span> : null
               }
-              <label htmlFor="teamA" className='text-muted'>Team A</label>
+              <label htmlFor="teamA" className='text-muted'>Team A*</label>
             </Form.Floating>
           </Col>
           <Col>
@@ -133,7 +140,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
               {
                 formik.touched.teamB && formik.errors.teamB ? <span className='span'>{formik.errors.teamB}</span> : null
               }
-              <label htmlFor="teamB" className='text-muted'>Team B</label>
+              <label htmlFor="teamB" className='text-muted'>Team B*</label>
             </Form.Floating>
           </Col>
         </Row>

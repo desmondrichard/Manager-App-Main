@@ -7,6 +7,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
 import Phone from './../offcanvas-body/Phone';
 import { useFormik } from 'formik';
+import axios from 'axios';
 // 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -57,14 +58,26 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            // alert(`Hello! ,${values.name} you have successfully signed up`);
             const newValues = { ...values, SponsorMobilNo }
-            console.log("newvalues", newValues)
-            setSubmitting(false);
-            notify();
-
+            axios.post('', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                    notify();
+                })
+                .catch(error => {
+                    console.error(error.response.data);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
         }
     });
+
+    // const newValues = { ...values, SponsorMobilNo }
+    // console.log("newvalues", newValues)
+    // setSubmitting(false);
+    // notify();
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("3")

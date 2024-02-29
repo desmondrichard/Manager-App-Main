@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Phone from './../offcanvas-body/Phone';
 import { useState } from 'react';
 import { useFormik } from 'formik';
+import axios from 'axios';
 
 // import Tab from 'react-bootstrap';
 
@@ -61,11 +62,26 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            alert(`clicked next`);
             const newValues = { ...values, PlayersMobilNo }
-            onChildNextActivationKey(childNextKey)
-            console.log("newvalues", newValues)
-            setSubmitting(false);
+            console.log("new values",newValues)
+            axios.post('', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onChildNextActivationKey(childNextKey);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    //console.log(error.message);
+                    console.error(error.response.data);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
+            // alert(`clicked next`);
+            // const newValues = { ...values, PlayersMobilNo }
+            // onChildNextActivationKey(childNextKey)
+            // console.log("newvalues", newValues)
+            // setSubmitting(false);
         }
     });
     const [PlayersMobilNo, setPlayersMobilNo] = useState("");

@@ -167,7 +167,7 @@ function PlayersAuctionList() {
           <tr className='text-center thead' style={{ whiteSpace: 'nowrap', fontSize: '14px' }}>
             <th >S.NO</th>
             <th>PLAYER NAME</th>
-            <th>DOB</th>
+            <th>DATE OF BIRTH</th>
             <th>PRICE</th>
             <th>CATEGORY</th>
             <th>ROLE</th>

@@ -7,7 +7,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
 import Phone from './../offcanvas-body/Phone';
 import { useFormik } from 'formik';
-
+import axios from 'axios';
 
 // validation:
 const validate = values => {
@@ -54,13 +54,27 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            alert(`Hello! ,${values.name} you have successfully signed up`);
             const newValues = { ...values, OwnerMobilNo }
-            onChildNextActivationKey(childNextKey)
-            console.log("newvalues", newValues)
-            setSubmitting(false);
+            axios.post('', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onChildNextActivationKey(childNextKey);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.response.data);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
         }
     });
+
+    // alert(`Hello! ,${values.name} you have successfully signed up`);
+    // const newValues = { ...values, OwnerMobilNo }
+    // onChildNextActivationKey(childNextKey)
+    // console.log("newvalues", newValues)
+    // setSubmitting(false);
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("1")

@@ -34,7 +34,17 @@ const validate = values => {
     errors.seatNumbers = "enter a valid number";
   }
 
+  // if (!values.transportType) {
+  //   errors.transportType = "*Required";
+  // }
 
+  if (!values.travelType) {
+    errors.travelType = "*Required";
+  }
+
+  if (!values.busType) {
+    errors.busType = "*Required";
+  }
 
   return errors;
 }
@@ -204,7 +214,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
           <Col md={3}>
             <FloatingLabel className='mb-2 c1'
               controlId="travelType"
-              label="Travel Type"
+              label="Travel Type*"
               name="travelType"
               value={formik.values.travelType} onBlur={formik.handleBlur}
               onChange={(e) => formik.handleChange(e)}
@@ -227,7 +237,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
           <Col md={3}>
             <FloatingLabel className='mb-2 c1'
               controlId="busType"
-              label="Vehicle Type"
+              label="Vehicle Type*"
               name='busType'
               value={formik.values.busType} onBlur={formik.handleBlur}
               onChange={(e) => formik.handleChange(e)}

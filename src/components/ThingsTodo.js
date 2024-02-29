@@ -112,7 +112,7 @@ function ThingsTodo() {
                 <thead>
                   <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
                     <th className='font'>S.NO</th>
-                    <th className='font'>REPRESENTATIVES</th>
+                    <th className='font'>REPRESENTATIVES NAME</th>
                     <th className='font'>TEAM UNIFORM</th>
                     <th className='font'>TEAM TSHIRT</th>
                     <th className='font'>ACTION</th>
@@ -163,8 +163,8 @@ function ThingsTodo() {
                   <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
                     <th className='font'>S.NO</th>
                     <th className='font'>TEAM LOGO</th>
-                    <th className='font'>TEAM FLAGE</th>
-                    <th className='font'>SIDE FLAGES</th>
+                    <th className='font'>TEAM FLAG</th>
+                    <th className='font'>SIDE FLAG</th>
                     <th className='font'>STANDEES</th>
                     <th className='font'>BUS BRANDING</th>
                     <th className='font'>BUS BOOKING</th>

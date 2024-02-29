@@ -7,7 +7,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
 import Phone from './../offcanvas-body/Phone';
 import { useFormik } from 'formik';
-
+import axios from 'axios';
 
 
 // validation:
@@ -54,13 +54,28 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            alert(`clecked next`);
             const newValues = { ...values, OfficialMobilNo }
-            onChildNextActivationKey(childNextKey)
-            console.log("newvalues",newValues)
-            setSubmitting(false);
+            axios.post('', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onChildNextActivationKey(childNextKey);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.response.data);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
         }
     });
+
+
+    // alert(`clecked next`);
+    // const newValues = { ...values, OfficialMobilNo }
+    // onChildNextActivationKey(childNextKey)
+    // console.log("newvalues",newValues)
+    // setSubmitting(false);
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("2")
@@ -113,7 +128,7 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                             </FloatingLabel>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="OfficialMobilNo" onActivateProgressBar={Sample}/>
+                            <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="OfficialMobilNo" onActivateProgressBar={Sample} />
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">

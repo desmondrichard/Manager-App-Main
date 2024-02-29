@@ -7,7 +7,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
 import Phone from './../offcanvas-body/Phone';
 import { useFormik } from 'formik';
-
+import axios from 'axios';
 
 // validation:
 const validate = values => {
@@ -48,8 +48,6 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
 
     // 
 
-
-
     const formik = useFormik({
         initialValues: {
             StaffName: '',
@@ -57,13 +55,27 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            alert(`clicked next`);
-            const newValues = { ...values,StaffMobilNo }
-            onChildNextActivationKey(childNextKey)
-            console.log("newvalues", newValues)
-            setSubmitting(false);
+            const newValues = { ...values, StaffMobilNo }
+            axios.post('', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onChildNextActivationKey(childNextKey);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.response.data);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
         }
     });
+
+    // alert(`clicked next`);
+    // const newValues = { ...values,StaffMobilNo }
+    // onChildNextActivationKey(childNextKey)
+    // console.log("newvalues", newValues)
+    // setSubmitting(false);
 
     const [StaffMobilNo, setStaffMobilNo] = useState("");
     const Samp = (s) => {

@@ -162,3 +162,40 @@ Player form:
 deleteAlldataAccreadiation(alldataThingsId: number): Observable<any> {
     return this._http.delete(`https://localhost:7097/Delete-AlldataAccreadiation/${alldataThingsId}`);
   }
+
+--------------------------------------------------------------------------------
+NEW:
+--------------------------------------------------------------------------------
+a,ACCREADIATION:
+
+1.Accreadiation GET Request:
+ getAccreadiationAlldata(): Observable<any> {
+    return this._http.get(`http://52.172.96.40/ManagerApi/AllDataAccreadiation`);
+  }
+
+2.Accreadiation DELETE Request:
+  deleteAlldataAccreadiation(alldataThingsId: number): Observable<any> {
+    return this._http.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${alldataThingsId}`);
+  }
+
+3.Accreadiation POST Request:
+ addAccreadiationPlayers(accreaditionData: any): Observable<any> {
+    return this._http.post('http://52.172.96.40/ManagerApi/register/AccreadiationPlayers', accreaditionData);
+  }
+
+  addAccreadiationStaff(accreaditionData: any): Observable<any> {
+    return this._http.post('http://52.172.96.40/ManagerApi/register/AccreadiationStaff', accreaditionData);
+  }
+
+  addFranciseSponsors(accreaditionData: any): Observable<any> {
+    return this._http.post('http://52.172.96.40/ManagerApi/register/FranciseSponsors', accreaditionData);
+  }
+
+  addFrnciseOfficials(accreaditionData: any): Observable<any> {
+    return this._http.post('http://52.172.96.40/ManagerApi/register/FrnciseOfficials ', accreaditionData);
+  }
+
+  addOwnersManagement(accreaditionData: any): Observable<any> {
+    return this._http.post('http://52.172.96.40/ManagerApi/register/OwnersManagement', accreaditionData);
+  }
+

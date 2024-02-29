@@ -23,22 +23,33 @@ const validate = values => {
         errors.cityName = "enter a valid name";
     }
 
-    if (!/^\d{0,3}?$/.test(values.noOfRooms)) {
-        errors.noOfRoom = "enter a valid number";
+    if (!values.noOfRooms) {
+        errors.noOfRooms = "*Required";
+    }
+    else if (!/^\d{0,3}?$/.test(values.noOfRooms)) {
+        errors.noOfRooms = "enter a valid number";
     }
 
-    if (!/^\d{0,3}?$/.test(values.roomsNo)) {
-        errors.roomNo = "enter a valid number";
+    if (!values.roomsNo) {
+        errors.roomsNo = "*Required";
+    }
+    else if (!/^\d{0,3}?$/.test(values.roomsNo)) {
+        errors.roomsNo = "enter a valid number";
     }
 
-    if (!/^\d{0,3}?$/.test(values.daysStayed)) {
+    if (!values.daysStayed) {
+        errors.daysStayed = "*Required";
+    }
+    else if (!/^\d{0,3}?$/.test(values.daysStayed)) {
         errors.daysStayed = "enter a valid number";
     }
 
+    if (!values.noOfPeople) {
+        errors.noOfPeople = "*Required";
+    }
     if (!/^\d{0,3}?$/.test(values.noOfPeople)) {
         errors.noOfPeople = "enter a valid number";
     }
-
 
     return errors;
 }
@@ -159,7 +170,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                             {
                                 formik.touched.noOfRooms && formik.errors.noOfRooms ? <span className='span'>{formik.errors.noOfRooms}</span> : null
                             }
-                            <label htmlFor="noOfRoom" className='text-muted'>No Of Rooms</label>
+                            <label htmlFor="noOfRoom" className='text-muted'>No Of Rooms*</label>
                         </Form.Floating>
                     </Col>
                     <Col md={3} className='my-3'>
@@ -175,7 +186,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                             {
                                 formik.touched.roomsNo && formik.errors.roomsNo ? <span className='span'>{formik.errors.roomsNo}</span> : null
                             }
-                            <label htmlFor="roomNo" className='text-muted'>Room Number</label>
+                            <label htmlFor="roomNo" className='text-muted'>Room Number*</label>
                         </Form.Floating>
                     </Col>
                     <Col md={3} className='my-3'>
@@ -191,7 +202,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                                 onChange={formik.handleChange}
                             />
 
-                            <label htmlFor="checkin" className='text-muted'>Check In</label>
+                            <label htmlFor="checkin" className='text-muted'>Check In*</label>
                         </Form.Floating>
                     </Col>
                     <Col md={3} className='my-3'>
@@ -207,7 +218,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                                 onChange={(e) => checkIfCheckoutAfterCheckin(checkIn.current.value, e.target.value)}
                             />
 
-                            <label htmlFor="checkOut" className='text-muted'>Check Out</label>
+                            <label htmlFor="checkOut" className='text-muted'>Check Out*</label>
                         </Form.Floating>
                     </Col>
                     <Col md={3} className='my-3'>
@@ -223,7 +234,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                             {
                                 formik.touched.daysStayed && formik.errors.daysStayed ? <span className='span'>{formik.errors.daysStayed}</span> : null
                             }
-                            <label htmlFor="daysStayed" className='text-muted'>Days Stayed</label>
+                            <label htmlFor="daysStayed" className='text-muted'>Days Stayed*</label>
                         </Form.Floating>
                     </Col>
                     <Col md={3} className='my-3'>
@@ -239,7 +250,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                             {
                                 formik.touched.noOfPeople && formik.errors.noOfPeople ? <span className='span'>{formik.errors.noOfPeople}</span> : null
                             }
-                            <label htmlFor="noOfPeople" className='text-muted'>No Of people</label>
+                            <label htmlFor="noOfPeople" className='text-muted'>No Of people*</label>
                         </Form.Floating>
                     </Col>
                 </Row>

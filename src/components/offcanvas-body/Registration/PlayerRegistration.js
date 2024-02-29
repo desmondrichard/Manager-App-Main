@@ -24,7 +24,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { NavLink } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 //excel:
 import * as XLSX from 'xlsx';
 //pdf:
@@ -38,7 +38,23 @@ import TextField from '@mui/material/TextField';
 function PlayerRegistration(props) {
 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    Swal.fire({
+      title: "Are you sure you want to close?",
+      // text: "You won't be able to revert this!",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Close it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setShow(false);
+      }
+    });
+
+
+  }
   const handleShow = () => setShow(true);
   //Next Btn:
   const [parentkey, setParentKey] = useState("0");
@@ -125,8 +141,8 @@ function PlayerRegistration(props) {
 
   function handleModalClose() {
     setShow(false);
-    alert("going to close and form data is posted")
   }
+
 
 
   return (
@@ -245,7 +261,6 @@ function PlayerRegistration(props) {
 
       {/* Table Data Binding: */}
 
-
       <Table striped hover responsive className='tableHead my-3 table-dark'
       >
         <thead>
@@ -277,7 +292,7 @@ function PlayerRegistration(props) {
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</span></td>
                         {/* blob to image: */}
                         <td>
-                          {/* check below image is able to be getted from DB since we added /* in front of image: */ }
+                          {/* check below image is able to be getted from DB since we added /* in front of image: */}
                           <img
                             src={showData ? `data:image;base64/*,${showData.imageData}` :  //checks for data
                               require('./../../../assets/dummy_profile_img.png')}   //default img 

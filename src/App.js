@@ -23,6 +23,7 @@ import AccreadiationViewCard from './components/AccreadiationViewCard';
 import DashboardPlayGroundViewCard from './components/DashboardPlayGroundViewCard';
 import SponsorsViewCard from './components/SponsorsViewCard';
 import PageNotFound from './components/Error404Page/PageNotFound';
+import AdminDashboard from './components/AdminDashboard';
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
           <Route path='/accessories' exact element={<Accessories />} />
           <Route path='/playersauctionlist' exact element={<PlayersAuctionList />} />
           <Route path='/fixtures' exact element={<Fixtures />} />
+          <Route path='/admindashboard' exact element={<AdminDashboard />} />
 
           {/* Nested Routes: */}
           <Route path='thingstodo'>

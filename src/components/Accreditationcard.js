@@ -25,7 +25,7 @@ function Accreditationcard() {
   //Data Binding:GET Method using Fetch API
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('http://192.168.1.192/ManagerApi/AllDataAccreadiation')
+    fetch('http://52.172.96.40/ManagerApi/AllDataAccreadiation')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -51,45 +51,49 @@ function Accreditationcard() {
   }
 
 
-  //DELETE MEthod using Axios:
-  // function deleteUser(id) {
-  //   axios.delete(`https://localhost:7097/Delete-AlldataAccreadiation/${id}`).then((response) => {
-  //     console.log("Deletion Success", response.data)
-  //   }).catch((error) => {
-  //     console.log("Error Deleting User", error)
-  //   })
-  // }
-
-  //using sweetAlert2 for popup after clicking delete button:
+  //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
   function deleteUser(id) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios.delete(`https://localhost:7097/Delete-AlldataAccreadiation/${id}`).then((response) => {
-          console.log("Deletion Success", response.data)
-          Swal.fire(
-            'Deleted!',
-            'The user has been deleted.',
-            'success'
-          )
-        }).catch((error) => {
-          console.log("Error Deleting User", error)
-          Swal.fire(
-            'Error!',
-            'An error occurred while deleting the user.',
-            'error'
-          )
-        })
+    axios.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${id}`).then((response) => {
+      if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here
+        console.log("Deletion Success", response.data)
       }
+      console.log("res",response.data)
+    }).catch((error) => {
+      console.log("Error Deleting User", error)
+      
     })
   }
+
+  // //using sweetAlert2 for popup after clicking delete button:
+  // function deleteUser(id) {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: 'You won\'t be able to revert this!',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       axios.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${id}`).then((response) => {
+  //         console.log("Deletion Success", response.data)
+  //         Swal.fire(
+  //           'Deleted!',
+  //           'The user has been deleted.',
+  //           'success'
+  //         )
+  //       }).catch((error) => {
+  //         console.log("Error Deleting User", error)
+  //         Swal.fire(
+  //           'Error!',
+  //           'An error occurred while deleting the user.',
+  //           'error'
+  //         )
+  //       })
+  //     }
+  //   })
+  // }
 
   return (
     <div>

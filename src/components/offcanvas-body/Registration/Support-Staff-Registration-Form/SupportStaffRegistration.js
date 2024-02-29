@@ -23,6 +23,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Swal from 'sweetalert2';
 //pdf:
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
@@ -34,7 +35,22 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 function SupportStaffRegistration(props) {
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        Swal.fire({
+            title: "Are you sure you want to close?",
+            // text: "You won't be able to revert this!",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Close it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setShow(false);
+            }
+        });
+    }
+
     const handleShow = () => setShow(true);
     const [age, setAge] = React.useState('');
 
