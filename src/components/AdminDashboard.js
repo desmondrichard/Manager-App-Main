@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -9,7 +9,74 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { useFormik } from 'formik';
+import ImageUpload from './offcanvas-body/Registration/ImageUpload';
+import { useRef } from 'react';
+//validation:
+const validate = values => {
+    const errors = {};
+
+    if (!values.teamName) {
+        errors.teamName = "*Required";
+    }
+
+    if (!values.year) {
+        errors.year = "*Required";
+    }
+
+    return errors;
+}
+
+
 function AdminDashboard() {
+
+    // Image base 64 value:
+    const [ImageData, setImageData] = useState("");
+    const [imgProgress, setImageProgress] = useState(0);
+    const [imageValue, setImageValue] = useState(false);
+
+    const dynamicImageNameFn = (val) => {
+        console.log("vals", val)
+        setImageData(val)
+    }
+
+    function handleImageUploadProgress(value) {
+        console.log("childtoparentImage", value);
+        setImageProgress(value);
+        setImageValue(false); //to avoid image view issue after clicking reset btn  i.e after clicking reset button we setted imageValue as true (clear image) ,so now to reupload we set it back to false
+
+    }
+
+    const teamNameReset = useRef("")
+
+    const formik = useFormik({
+        initialValues: {
+            teamName: '',
+            year: '',
+            imageData: '',
+
+        },
+        validate,
+        onSubmit: (values, { setSubmitting }) => {
+            const newValues = { ...values, ImageData }
+            console.log("newvalues", newValues)
+            setSubmitting(false);
+            ResetFields();
+
+        }
+    });
+
+    function ResetFields() {
+        teamNameReset.current.value = "";
+        formik.resetForm();
+        setImageProgress(""); // to reset image
+        setImageValue(true); // to reset image
+
+    }
+
+    useEffect(() => {
+    }, [formik.values, imgProgress])
+
     return (
         <div>
             <Header />
@@ -42,40 +109,51 @@ function AdminDashboard() {
                                     <td><Button variant="danger">REMOVE</Button></td>
                                 </tr>
 
-
                             </tbody>
                         </Table>
                     </Col>
                     <Col lg={4} className='mt-2'>
                         <h5 className='text-center' style={{ color: '#595c5f' }}>ADD TEAMS</h5>
                         <Card style={{ border: '3px outset #2885D7' }}>
-                            <Form className='p-3'>
+                            <Form className='p-3' onSubmit={formik.handleSubmit}>
+
                                 <FloatingLabel
-                                    controlId="floatingInput"
+                                    controlId="teamName"
                                     label="Team Name*"
                                     className="mb-3"
+                                    name="teamName"
+                                    value={formik.values.teamName} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="Default select example">
-                                        <option value="none">Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <Form.Select aria-label="Default select example" ref={teamNameReset}>
+                                        <option value="none">Select Teams</option>
+                                        <option value="1">Team 1</option>
+                                        <option value="2">Team 2</option>
+                                        <option value="3">Team 3</option>
                                     </Form.Select>
-                                </FloatingLabel>
-                                <FloatingLabel
-                                    controlId="floatingInput"
-                                    label="Season Year*"
-                                    className="mb-3"
-                                >
-                                    <Form.Control type="text" placeholder="enter year" />
+                                    {
+                                        formik.touched.teamName && formik.errors.teamName ? <span className='span'>{formik.errors.teamName}</span> : null
+                                    }
                                 </FloatingLabel>
 
-                                <div>
-                                    <p style={{ fontSize: '12px', textAlign: 'center', fontWeight: 'bold' }}>*Please upload JPG/PNG image only</p>
+                                <Form.Floating className="mb-2" >
+                                    <Form.Control
+                                        id="year"
+                                        type="text"
+                                        placeholder="year"
+                                        name="year"
+                                        value={formik.values.year} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.year && formik.errors.year ? <span className='span'>{formik.errors.year}</span> : null
+                                    }
+                                    <label htmlFor="year" className='text-muted'>Season Year*</label>
+                                </Form.Floating>
+                                <div className='text-center mb-3'>
+                                    <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
                                 </div>
 
                                 <div className="d-grid gap-2">
-                                    <Button variant="outline-success">SUBMIT</Button>
+                                    <Button type="submit" variant="outline-success">SUBMIT</Button>
                                 </div>
                             </Form>
                         </Card>
