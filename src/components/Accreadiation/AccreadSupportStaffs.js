@@ -64,7 +64,7 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
                     setSubmitting(false);
                 })
                 .catch(error => {
-                    console.error(error.response.data);
+                    console.error(error.message);
                     console.log("newvalues", newValues)
                     setSubmitting(false);
                 });

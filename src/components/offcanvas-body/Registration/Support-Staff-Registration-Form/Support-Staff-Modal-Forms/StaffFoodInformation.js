@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import './StaffFoodInformation.css';
 import { useFormik } from 'formik';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
+import axios from 'axios';
 
 function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
     const [childNextKey, setChildNextKey] = useState("5");
@@ -88,7 +89,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         },
         onSubmit: values => {
             alert('clicked next');
-            const newVal = {
+            const newValues = {
                 'foodType': values.foodtype,
                 'eggiterian': values.eggiterian,
                 'seafood': values.seafood,
@@ -96,13 +97,28 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 'allergyIfAny': values.allergyIfAny,
                 'allergy': values.allergy
             };
-
             // Log the values variable
-            console.log('Values11:', newVal);
-            onActivationKeyChild(childNextKey);
+            console.log('Values11:', newValues);
+            axios.post('http://', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey);
+                    console.log("newvalues", newValues)
+                   
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                   
+                });
+
 
         }
     })
+
+    // Log the values variable
+    //   console.log('Values11:', newVal);
+    //   onActivationKeyChild(childNextKey);
 
     // progress Bar for static fields:
     const [progress, setProgress] = useState(0);

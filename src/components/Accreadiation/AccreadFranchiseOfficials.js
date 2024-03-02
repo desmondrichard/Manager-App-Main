@@ -63,7 +63,7 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                     setSubmitting(false);
                 })
                 .catch(error => {
-                    console.error(error.response.data);
+                    console.error(error.message);
                     console.log("newvalues", newValues)
                     setSubmitting(false);
                 });

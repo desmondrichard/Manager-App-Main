@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import './ThingsToDoBranding.css';
 import { useFormik } from 'formik';
-
+import axios from 'axios';
 
 function ThingsToDoBranding({ activationKey, onChildNextActivationKey, onPreviousActivationKey }) {
   //reset:
@@ -47,11 +47,23 @@ function ThingsToDoBranding({ activationKey, onChildNextActivationKey, onPreviou
       busBooking: ''
     },
     onSubmit: values => {
-      alert(`clicked next tab`);
-      onChildNextActivationKey(childNextKey)
-      console.log("values", values)
+      axios.post('http://', values)
+        .then(response => {
+          console.log(response.data);
+          onChildNextActivationKey(childNextKey)
+          console.log("values", values)
+        })
+        .catch(error => {
+          console.error(error.message);
+          console.log("values", values)
+        });
     }
   });
+
+  // alert(`clicked next tab`);
+  // onChildNextActivationKey(childNextKey)
+  // console.log("values", values)
+
   return (
     <div>
       <Card className='bg-light p-4'>

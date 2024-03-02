@@ -10,7 +10,7 @@ function Fixtures() {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('http://192.168.1.192/ManagerApi/register/AllDataThingsToDo')
+    fetch('http://52.172.96.40/ManagerApi/register/AllDataThingsToDo')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -25,10 +25,9 @@ function Fixtures() {
       <Header />
       <div className='text-center'>
         <div className='playersList'>FIXTURES LIST</div>
-
       </div>
 
-      <Table striped='row' hover responsive className='tableHead my-3 table-dark'
+      <Table striped hover responsive className='tableHead my-3 table-dark'
       >
         <thead>
           <tr className='text-center thead' style={{ whiteSpace: 'nowrap', fontSize: '14px' }}>

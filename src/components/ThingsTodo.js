@@ -12,6 +12,7 @@ import format from 'date-fns/format';
 import FormControl from '@mui/material/FormControl';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
 import NoDataImg from 'react-bootstrap/Image';
+import axios from 'axios';
 //Filter:
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -24,7 +25,7 @@ function ThingsTodo() {
   //
 
   useEffect(() => {
-    fetch('http://192.168.1.192/ManagerApi/register/AllDataThingsToDo')
+    fetch('http://52.172.96.40/ManagerApi/register/AllDataThingsToDo')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -46,6 +47,18 @@ function ThingsTodo() {
       console.log("showData is undefined");
       return null;
     }
+  }
+
+  //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
+  function deleteUser(id) {
+    axios.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${id}`).then((response) => {
+      if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here
+        console.log("Deletion Success", response.data)
+      }
+      console.log("res", response.data)
+    }).catch((error) => {
+      console.log("Error Deleting User", error)
+    })
   }
 
   //
@@ -137,7 +150,7 @@ function ThingsTodo() {
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight' onClick={() => handleClick1(showData)}><i className="bi bi-eye-fill"></i></Button>
                               </NavLink>
-                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                              <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                           </tr>
                         )
                       })
@@ -149,9 +162,6 @@ function ThingsTodo() {
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
                 </div>)
               }
-
-
-
 
             </Tab>
 
@@ -191,7 +201,7 @@ function ThingsTodo() {
                                 onClick={() => handleClick1(showData)}
                               ><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="primary" style={{ marginTop: '-7px' }} ><i className="bi bi-trash"></i></Button> </td>
+                            <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }} ><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       )
                     })
@@ -241,7 +251,7 @@ function ThingsTodo() {
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                               </NavLink>
-                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                              <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                           </tr>
                         )
                       })
@@ -297,7 +307,7 @@ function ThingsTodo() {
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                               </NavLink>
-                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                              <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                           </tr>
                         )
                       })
@@ -360,7 +370,7 @@ function ThingsTodo() {
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                               </NavLink>
-                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                              <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                           </tr>
                         )
                       })
@@ -413,7 +423,7 @@ function ThingsTodo() {
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                               </NavLink>
-                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                              <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                           </tr>
                         )
 
@@ -473,7 +483,7 @@ function ThingsTodo() {
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                               </NavLink>
-                              <Button variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                              <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                           </tr>
                         )
                       })

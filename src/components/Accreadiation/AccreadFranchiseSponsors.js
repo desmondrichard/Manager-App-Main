@@ -67,7 +67,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
                     notify();
                 })
                 .catch(error => {
-                    console.error(error.response.data);
+                    console.error(error.message);
                     console.log("newvalues", newValues)
                     setSubmitting(false);
                 });

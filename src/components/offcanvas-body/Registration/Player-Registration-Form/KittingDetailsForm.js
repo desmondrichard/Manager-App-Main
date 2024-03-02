@@ -11,6 +11,8 @@ import { useFormik } from 'formik';
 import DynamicFields from './DynamicFields';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
+import axios from 'axios';
+
 const validate = values => {
     const errors = {};
 
@@ -122,11 +124,24 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         },
         validate,
         onSubmit: values => {
-            alert('clicked next');
-            onActivationKeyChild(childNextKey);
-            console.log('values',values)
+            axios.post('http://', values)
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey);
+                    console.log("values", values)
+
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("values", values);
+                        
+                });
         }
     });
+
+    // alert('clicked next');
+    // onActivationKeyChild(childNextKey);
+    // console.log('values',values)
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("1")

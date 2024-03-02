@@ -12,6 +12,7 @@ import Phone from '../../../Phone';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
+import axios from 'axios';
 
 
 // validation:
@@ -174,13 +175,28 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             const dateOfBirth = new Date(values.dateOfBirth);
             const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             const newValues = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
-            alert(`Clicked next`);
-            onActivationKeyChild(childNextKey)
-            // console.log("values:", values)
-            console.log('newvalues', newValues)
-            setSubmitting(false);
+
+            axios.post('http://', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
         }
     });
+
+    // alert(`Clicked next`);
+    // onActivationKeyChild(childNextKey)
+    // // console.log("values:", values)
+    // console.log('newvalues', newValues)
+    // setSubmitting(false);
+
 
     // Image base 64 value:
     const [ImageData, setImageData] = useState("");

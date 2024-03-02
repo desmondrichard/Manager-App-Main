@@ -57,10 +57,10 @@ function Accreditationcard() {
       if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here
         console.log("Deletion Success", response.data)
       }
-      console.log("res",response.data)
+      console.log("res", response.data)
     }).catch((error) => {
       console.log("Error Deleting User", error)
-      
+
     })
   }
 
@@ -141,7 +141,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="warning" style={{ marginTop: '-7px' }} onClick={() => deleteUser(showData.alldataAccreadiationId)}><i className="bi bi-trash"></i></Button> </td>
+                            <Button variant="danger" style={{ marginTop: '-7px' }} onClick={() => deleteUser(showData.alldataAccreadiationId)}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
@@ -187,7 +187,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="warning" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
@@ -232,7 +232,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="warning" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
@@ -249,7 +249,6 @@ function Accreditationcard() {
 
             {/* Tab:4 */}
             <Tab eventKey='tab-4' title='FRANCHISE OFFICIALS'>
-
               <Table striped hover responsive className='tableHead table-dark'
               >
                 <thead>
@@ -276,7 +275,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="warning" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )
@@ -320,7 +319,7 @@ function Accreditationcard() {
                             <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                               <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
                             </NavLink>
-                            <Button variant="warning" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                            <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
                         </tr>
                       </tbody>
                     )

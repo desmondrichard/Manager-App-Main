@@ -10,6 +10,8 @@ import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
+import axios from 'axios';
+
 
 const validate = values => {
     const errors = {};
@@ -98,11 +100,23 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
         },
         validate,
         onSubmit: values => {
-            alert(`Clicked Next`);
-            onActivationKeyChild(childNextKey)
-            console.log("values",values)
+            axios.post('http://', values)
+            .then(response => {
+                console.log(response.data);
+                onActivationKeyChild(childNextKey)
+                console.log("values", values)
+            })
+            .catch(error => {
+                console.error(error.message);
+                console.log("values", values)
+               
+            });
         }
     });
+
+    // alert(`Clicked Next`);
+    // onActivationKeyChild(childNextKey)
+    // console.log("values",values)
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("0")

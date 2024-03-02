@@ -10,6 +10,8 @@ import { useFormik } from 'formik';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
+import axios from 'axios';
+
 // validation:
 const validate = values => {
     const errors = {};
@@ -59,11 +61,25 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         onSubmit: (values, { setSubmitting }) => {
             alert("you have successfully signed up");
             const newValues = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
-            onActivationKeyChild(childNextKey)
-            console.log("newValues", newValues)
-            setSubmitting(false);
+            axios.post('http://', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
         }
     });
+
+    // onActivationKeyChild(childNextKey)
+    // console.log("newValues", newValues)
+    // setSubmitting(false);
+
     const handlePreviousButton = () => {
         onPreviousActivationKey("6")
     }

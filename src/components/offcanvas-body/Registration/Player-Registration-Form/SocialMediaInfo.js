@@ -11,6 +11,7 @@ import { useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
+import axios from 'axios';
 import { useFormik } from 'formik';
 
 function SocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
@@ -97,14 +98,27 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
 
         },
         onSubmit: values => {
-            alert(`clicked submit`);
-            notify();
-            console.log("values", values)
-            onCloseModal(modalClose);
+            axios.post('http://', values)
+                .then(response => {
+                    notify(); //not working
+                    console.log(response.data);
+                    console.log("values", values)
+                    onCloseModal(modalClose);
+                })
+                .catch(error => {
+                    notify();  //not working
+                    console.error(error.message);
+                    console.log("values", values)
+                    onCloseModal(modalClose);
+                });
 
         }
     });
 
+    // alert(`clicked submit`);
+    // notify();
+    // console.log("values", values)
+    // onCloseModal(modalClose);
 
     useEffect(() => {
         handleProgress();

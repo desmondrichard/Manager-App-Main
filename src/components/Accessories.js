@@ -26,7 +26,7 @@ function Accessories() {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('http://192.168.1.192/ManagerApi/GetAllDataAndImages')
+    fetch('http://52.172.96.40/ManagerApi/GetAllDataAndImages')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -70,7 +70,7 @@ function Accessories() {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('http://192.168.1.192/ManagerApi/GetAllDataAndImages');
+      const response = await fetch('https://');
       const data = await response.json();
       console.log("response", data);
 

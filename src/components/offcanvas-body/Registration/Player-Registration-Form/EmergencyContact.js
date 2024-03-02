@@ -10,6 +10,7 @@ import Phone from '../../Phone';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
+import axios from 'axios';
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
 
 // validation:
@@ -45,12 +46,26 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         validate,
         onSubmit: (values, { setSubmitting }) => {  //to add emergencyContactPersonNo along with values
             const newValues = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
-            alert(`clicked next`);
-            onActivationKeyChild(childNextKey)
-            console.log("newValues", newValues)
-            setSubmitting(false);
+           
+            axios.post('http://', newValues)
+            .then(response => {
+                console.log(response.data);
+                onActivationKeyChild(childNextKey)
+                console.log("newvalues", newValues)
+                setSubmitting(false);
+            })
+            .catch(error => {
+                console.error(error.message);
+                console.log("newvalues", newValues)
+                setSubmitting(false);
+            });
         }
     });
+
+     // alert(`clicked next`);
+            // onActivationKeyChild(childNextKey)
+            // console.log("newValues", newValues)
+            // setSubmitting(false);
 
     // reset form start: 
     const emgcontactpersonReset = useRef("");

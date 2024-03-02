@@ -10,6 +10,8 @@ import { useRef } from 'react';
 import { Country, State, City } from 'country-state-city';
 import Select from "react-select";
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
+import axios from 'axios';
+
 // validation:
 const validate = values => {
     const errors = {};
@@ -148,13 +150,27 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
             const dateOfBirth1 = new Date(values.visaValidity);
             const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
             const newValues = { ...values, passportExpDate: formattedDOB, visaValidity: formattedDOB1 }
-            alert(`Clicked Next`);
-            onActivationKeyChild(childNextKey)
-            console.log("newvalues", newValues)
-            setSubmitting(false);
+
+            axios.post('http://', newValues)
+            .then(response => {
+                console.log(response.data);
+                onActivationKeyChild(childNextKey)
+                console.log("newvalues", newValues)
+                setSubmitting(false);
+            })
+            .catch(error => {
+                console.error(error.message);
+                console.log("newvalues", newValues)
+                setSubmitting(false);
+            });
 
         }
     });
+
+    // alert(`Clicked Next`);
+    // onActivationKeyChild(childNextKey)
+    // console.log("newvalues", newValues)
+    // setSubmitting(false);
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("1")

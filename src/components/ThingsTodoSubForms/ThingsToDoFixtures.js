@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
+import axios from 'axios';
 
 const validate = values => {
   const errors = {};
@@ -58,13 +59,29 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
       const dateOfBirth = new Date(values.dateTime);
       const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
       const newValues = { ...values, dateTime: formattedDOB }
-      alert(`clicked next`);
-      onChildNextActivationKey(childNextKey)
-      console.log("newvalues", newValues)
-      setSubmitting(false);
 
+      axios.post('http://', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onChildNextActivationKey(childNextKey)
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
     }
   });
+
+     // const dateOfBirth = new Date(values.dateTime);
+      // const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+      // const newValues = { ...values, dateTime: formattedDOB }
+      // alert(`clicked next`);
+      // onChildNextActivationKey(childNextKey)
+      // console.log("newvalues", newValues)
+      // setSubmitting(false);
 
   const [childNextKey, setChildNextKey] = useState("4");
 

@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
 import './StaffBankAccountDetails.css';
+import axios from 'axios';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 // validation:
 const validate = values => {
@@ -130,11 +131,22 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         },
         validate,
         onSubmit: values => {
-            alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
-            onActivationKeyChild(childNextKey)
-            console.log("values", values)
+            axios.post('http://', values)
+            .then(response => {
+                console.log(response.data);
+                onActivationKeyChild(childNextKey)
+                console.log("values", values)
+            })
+            .catch(error => {
+                console.error(error.message);
+                console.log("values", values)
+            });
         }
     });
+
+    // alert(`Hello! ,${values.fNamelNamemName}you have successfully signed up`);
+    // onActivationKeyChild(childNextKey)
+    // console.log("values", values)
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("2")

@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import axios from 'axios';
 import { useFormik } from 'formik';
 // 
 import { ToastContainer, toast } from 'react-toastify';
@@ -108,11 +109,23 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
       const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
       const newValues = { ...values, dateOfJourney: formattedDOB, returnDate: formattedDOB1 };
       notify();
-      console.log("newvalues", newValues)
-      setSubmitting(false);
+      axios.post('http://', newValues)
+        .then(response => {
+          console.log(response.data);
+          console.log("newvalues", newValues)
+          setSubmitting(false);
+        })
+        .catch(error => {
+          console.error(error.message);
+          console.log("newvalues", newValues)
+          setSubmitting(false);
+        });
 
     }
   });
+
+  // console.log("newvalues", newValues)
+  // setSubmitting(false);
 
   //Toast msg:
   const notify = () => {

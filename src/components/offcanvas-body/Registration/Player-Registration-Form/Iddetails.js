@@ -13,6 +13,8 @@ import { useRef } from 'react';
 import { Country, State, City } from 'country-state-city';
 import Select from "react-select";
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
+import axios from 'axios';
+
 // validation:
 const validate = values => {
     const errors = {};
@@ -142,13 +144,27 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             const formattedPassportExpDate = `${passportExpDate.getDate()}/${passportExpDate.getMonth() + 1}/${passportExpDate.getFullYear()}`;
             const dob = formattedPassportExpDate;
             const newValues = { ...values, passportExpDate: dob };
-            onActivationKeyChild(childNextKey);
-            alert('clicked next');
-            console.log("newvalues", newValues)
-            // console.log(values.visacheck === 'inline-radio-provided' ? 'Yes' : 'No');
-            setSubmitting(false);
+
+            axios.post('http://', newValues)
+            .then(response => {
+                console.log(response.data);
+                onActivationKeyChild(childNextKey);
+                console.log("newvalues", newValues)
+                setSubmitting(false);
+            })
+            .catch(error => {
+                console.error(error.message);
+                console.log("newvalues", newValues)
+                setSubmitting(false);
+            });
+
         }
     });
+
+    // onActivationKeyChild(childNextKey);
+    // alert('clicked next');
+    // console.log("newvalues", newValues)
+    // setSubmitting(false);
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("2")

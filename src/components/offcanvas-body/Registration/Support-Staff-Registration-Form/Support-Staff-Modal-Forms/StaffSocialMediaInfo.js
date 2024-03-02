@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 import { useFormik } from 'formik';
+import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
@@ -87,12 +88,27 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
 
         },
         onSubmit: values => {
-            alert(`clicked submit`);
-            notify();
-            console.log("values", values)
-            onCloseModal(modalClose);
+            axios.post('http://', values)
+                .then(response => {
+                    console.log(response.data);
+                    console.log("values", values)
+                    alert('clicked')
+                    onCloseModal(modalClose);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("values", values)
+                    alert('clicked')
+                    onCloseModal(modalClose);
+                });
+                notify();  //not working
         }
     });
+
+    // alert(`clicked submit`);
+    // notify();
+    // console.log("values", values)
+    // onCloseModal(modalClose);
 
     useEffect(() => {
         handleProgress();
@@ -101,7 +117,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
     return (
 
         <Accordion.Item eventKey="8">
-             <ToastContainer />
+            <ToastContainer />
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>SOCIAL MEDIA INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >

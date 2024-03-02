@@ -1,6 +1,6 @@
 .a {
   border: none;
-  font-size: large;
+  font-size: 14px;
   color: white;
   cursor: pointer;
 }
@@ -31,16 +31,16 @@
   --bs-accordion-border-color: none !important;
   --bs-accordion-active-bg: black;
   --bs-accordion-btn-padding-x: 0px;
-  --bs-accordion-btn-icon-width:2rem;
+  --bs-accordion-btn-icon-width: 2rem;
 }
 
- 
-.list-group-item:last-child{
-  border-bottom-right-radius:0px;
-  border-bottom-left-radius:0px
+
+.list-group-item:last-child {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px
 }
 
 .list-group-item:first-child {
-  border-top-left-radius:0px;
-  border-top-right-radius:0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }

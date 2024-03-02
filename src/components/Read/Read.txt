@@ -206,3 +206,11 @@ a,ACCREADIATION:
     return this._http.post('http://52.172.96.40/ManagerApi/register/OwnersManagement', accreaditionData);
   }
 
+
+-------------------------------------------------------------------------------------------
+.THINGS TODO
+1.GET METHOD:
+
+getThingsDoToAlldata(): Observable<any> {
+    return this._http.get(`http://52.172.96.40/ManagerApi/register/AllDataThingsToDo`);
+  }

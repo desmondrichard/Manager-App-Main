@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
+import axios from 'axios';
 
 // validation:
 const validate = values => {
@@ -31,11 +32,23 @@ function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviou
         },
         validate,
         onSubmit: values => {
-            alert("you have successfully signed up");
-            onActivationKeyChild(childNextKey)
-            console.log("values",values)
+            axios.post('http://', values)
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("values", values)
+
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("values", values)
+                });
         }
     });
+
+    // alert("you have successfully signed up");
+    // onActivationKeyChild(childNextKey)
+    // console.log("values",values)
 
     // reset form start: 
     const from = useRef("");

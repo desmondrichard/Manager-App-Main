@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
-
+import axios from 'axios';
 
 const validate = values => {
   const errors = {};
@@ -49,11 +49,22 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
     },
     validate,
     onSubmit: values => {
-      alert(`Hello! ,${values.groundName} you have successfully signed up`);
-      onChildNextActivationKey(childNextKey)
-      console.log("values", values);
+      axios.post('http://', values)
+        .then(response => {
+          console.log(response.data);
+          onChildNextActivationKey(childNextKey)
+          console.log("values", values)
+        })
+        .catch(error => {
+          console.error(error.message);
+          console.log("values", values)
+        });
     }
   });
+
+  // alert(`Hello! ,${values.groundName} you have successfully signed up`);
+  // onChildNextActivationKey(childNextKey)
+  // console.log("values", values);
 
   const handlePreviousButton = () => {
     onPreviousActivationKey("4")

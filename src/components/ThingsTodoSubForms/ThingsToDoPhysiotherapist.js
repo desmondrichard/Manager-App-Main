@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useFormik } from 'formik';
+import axios from 'axios';
 
 // validation:
 const validate = values => {
@@ -34,15 +35,26 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
   const formik = useFormik({
     initialValues: {
       name: '',
-      designation:''
+      designation: ''
     },
     validate,
     onSubmit: values => {
-      alert(`Hello! ,${values.name} you have successfully signed up`);
-      onChildNextActivationKey(childNextKey)
-      console.log("values",values);
+      axios.post('https://', values)
+      .then(response => {
+          console.log(response.data);
+          onChildNextActivationKey(childNextKey)
+          console.log("values", values)
+      })
+      .catch(error => {
+          console.error(error.message);
+          console.log("values", values)
+      });
     }
   });
+
+  // alert(`Hello! ,${values.name} you have successfully signed up`);
+  // onChildNextActivationKey(childNextKey)
+  // console.log("values",values);
 
   const [childNextKey, setChildNextKey] = useState("3");
 

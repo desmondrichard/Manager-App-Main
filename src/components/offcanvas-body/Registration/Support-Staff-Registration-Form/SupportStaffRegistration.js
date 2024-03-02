@@ -23,6 +23,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 //pdf:
 import { jsPDF } from 'jspdf';
@@ -33,6 +34,7 @@ import * as XLSX from 'xlsx';
 //search:
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
 function SupportStaffRegistration(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => {
@@ -66,7 +68,7 @@ function SupportStaffRegistration(props) {
     //Data Binding:
     const [showData, setShowData] = useState(null);
     useEffect(() => {
-        fetch('http://192.168.1.192/ManagerApi/GetStaffAllDataAndImages')
+        fetch('http://52.172.96.40/ManagerApi/GetStaffAllDataAndImages')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("data",data);
@@ -140,6 +142,39 @@ function SupportStaffRegistration(props) {
         setShow(false);
     }
 
+    //DELETE Method using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
+    function deleteUser(id) {
+        axios.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${id}`).then((response) => {
+            if (response.data.alldataStaffId === id) {   //check how to use alldataThingsId here
+                console.log("Deletion Success", response.data)
+            }
+            console.log("res", response.data)
+        }).catch((error) => {
+            console.log("Error Deleting User", error)
+        })
+    }
+
+    //UPDATE Method Using Axios:
+    const [updatedData, setUpdatedData] = useState(null);  //to store updated data
+
+    function updateUser(id, updatedInfo) {
+        axios
+            .put(`http://52.172.96.40/ManagerApi/Update-AlldataAccreadiation/${id}`, updatedInfo)
+            .then((response) => {
+                if (response.data.alldataStaffId === id) {
+                    console.log("Updation Success", response.data);
+                    // Refresh the data or update the specific staff data in the state based on the response
+                }
+                console.log("res", response.data);
+            })
+            .catch((error) => {
+                console.log("Error Updating User", error);
+            });
+    }
+
+    const handleUpdateButtonClick = (id, updatedData) => {
+        updateUser(id, updatedData);
+    }
 
     return (
         <div>
@@ -277,10 +312,7 @@ function SupportStaffRegistration(props) {
                         (
                             <tbody className='table-light' >
                                 {
-                                    // showData
-                                    //     .filter(item =>
-                                    //         search.length < 2 || search.toLowerCase() === '' ? item : item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2)
-                                    //     )
+
                                     showData
                                         .filter(item =>
                                             search.length < 2 || (item.supportStaffName && item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2))
@@ -308,7 +340,13 @@ function SupportStaffRegistration(props) {
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.specialization ? showData.specialization : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.club ? showData.club : 'N/A'}</span></td>
-                                                    <td className='d-flex'><Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button><Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
+                                                    <td className='d-flex'>
+                                                        <NavLink state={{ showData }} to='/staffregister/' className='navLinks' >
+                                                            <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
+                                                        </NavLink>
+                                                        <Button onClick={() => updateUser(showData.alldataStaffId)} variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button>
+                                                        <Button onClick={() => handleUpdateButtonClick(showData.alldataStaffId)} variant="danger"><i className="bi bi-trash"></i></Button>
+                                                    </td>
                                                 </tr>
                                             )
                                         })

@@ -25,6 +25,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 //excel:
 import * as XLSX from 'xlsx';
 //pdf:
@@ -52,7 +53,6 @@ function PlayerRegistration(props) {
         setShow(false);
       }
     });
-
 
   }
   const handleShow = () => setShow(true);
@@ -114,7 +114,7 @@ function PlayerRegistration(props) {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('http://192.168.1.192/ManagerApi/GetAllDataAndImages');
+      const response = await fetch('http://52.172.96.40/ManagerApi/GetAllDataAndImages');
       const data = await response.json();
       console.log("response", data);
 
@@ -136,6 +136,20 @@ function PlayerRegistration(props) {
       console.error("Error fetching or processing data for Excel download", error);
     }
   };
+
+  //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
+  function deleteUser(id) {
+    axios.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${id}`).then((response) => {
+      if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here
+        console.log("Deletion Success", response.data)
+      }
+      console.log("res", response.data)
+    }).catch((error) => {
+      console.log("Error Deleting User", error)
+
+    })
+  }
+
   // Filter:
   const [search, setSearch] = useState('');
 
@@ -313,7 +327,9 @@ function PlayerRegistration(props) {
                           <NavLink state={{ showData }} to='/playerregister/playerdetails' className='navLinks' >
                             <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
                           </NavLink>
-                          <Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button><Button variant="warning"><i className="bi bi-trash"></i></Button></td>
+                          <Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button>
+                          <Button onClick={() => deleteUser(showData.alldataplayerId)} variant="danger"><i className="bi bi-trash"></i></Button>
+                        </td>
                       </tr>
                     )
                   })

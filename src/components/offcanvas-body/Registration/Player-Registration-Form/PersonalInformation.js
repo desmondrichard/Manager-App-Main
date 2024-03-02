@@ -13,6 +13,8 @@ import Phone from '../../Phone';
 import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
+import axios from 'axios';
+
 // validation:
 const validate = values => {
     const errors = {};
@@ -165,13 +167,28 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             const dateOfBirth = new Date(values.dateOfBirth);
             const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             const newValues = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
-            console.log("formattedDate",formattedDOB)
-            alert('Clicked Next');
-            onActivationKeyChild(childNextKey)
-            console.log('newvalues', newValues)
-            setSubmitting(false);
+
+            axios.post('http://', newValues)
+            .then(response => {
+                console.log(response.data);
+                onActivationKeyChild(childNextKey)
+                console.log("newvalues", newValues)
+                setSubmitting(false);
+            })
+            .catch(error => {
+                console.error(error.message);
+                console.log("newvalues", newValues)
+                setSubmitting(false);
+            });
+
         }
     });
+
+    // console.log("formattedDate",formattedDOB)
+    // alert('Clicked Next');
+    // onActivationKeyChild(childNextKey)
+    // console.log('newvalues', newValues)
+    // setSubmitting(false);
 
     //Dynamic Image upload progress Bar:
     const [imgProgress, setImageProgress] = useState(0);

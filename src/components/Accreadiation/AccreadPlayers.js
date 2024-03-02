@@ -64,7 +64,7 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, PlayersMobilNo }
             console.log("new values",newValues)
-            axios.post('', newValues)
+            axios.post('http://', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);
@@ -72,9 +72,9 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                     setSubmitting(false);
                 })
                 .catch(error => {
-                    //console.log(error.message);
-                    console.error(error.response.data);
-                    console.log("newvalues", newValues)
+                    console.log(error.message);
+                    // console.error(error.response.data);
+                    console.log("newvaluesErr", newValues)
                     setSubmitting(false);
                 });
             // alert(`clicked next`);

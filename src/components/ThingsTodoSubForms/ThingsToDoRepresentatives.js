@@ -6,6 +6,8 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import './ThingsToDoRepresentatives.css';
 import { useFormik } from 'formik';
+import axios from 'axios';
+
 
 // validation:
 const validate = values => {
@@ -28,12 +30,7 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
   const name1 = useRef("");
   const uniformChecked = useRef(false);
   const tshirtChecked = useRef(false);
-  // if (uniformChecked.current.checked) {
-  //   console.log("Team Uniform checked");
-  // }
-  // if (tshirtChecked.current.checked) {
-  //   console.log("Team Tshirt checked");
-  // }
+
 
   function handleReset() {
     name1.current.value = "";
@@ -53,12 +50,24 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
     },
     validate,
     onSubmit: values => {
-      alert(`clicked next tab`);
-      onChildNextActivationKey(childNextKey)
-      console.log("values", values)
+      axios.post('https://', values)
+                .then(response => {
+                    console.log(response.data); 
+                    onChildNextActivationKey(childNextKey)
+                    console.log("values", values)    
+                })
+                .catch(error => {
+                  console.log("values", values)
+                  // console.error(error.response.data);
+                  console.log(error.message);
+
+                });
     }
   });
 
+  // alert(`clicked next tab`);
+  // onChildNextActivationKey(childNextKey)
+  // console.log("values", values)
 
   return (
     <div>

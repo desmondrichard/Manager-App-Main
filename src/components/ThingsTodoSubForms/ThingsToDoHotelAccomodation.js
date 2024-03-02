@@ -4,6 +4,8 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
+import axios from 'axios';
+
 
 const validate = values => {
     const errors = {};
@@ -93,13 +95,29 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
             const dateOfBirth1 = new Date(values.checkOut);
             const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
             const newValues = { ...values, checkIn: formattedDOB, checkOut: formattedDOB1 };
-            alert(`Hello! ,${values.groundName} you have successfully signed up`);
-            onChildNextActivationKey(childNextKey)
-            console.log("newvalues", newValues)
-            setSubmitting(false);
-            // console.log("checkOutValue", checkOutValue)
+
+            axios.post('http://', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onChildNextActivationKey(childNextKey)
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
+
+
         }
     });
+
+    // alert(`Hello! ,${values.groundName} you have successfully signed up`);
+    // onChildNextActivationKey(childNextKey)
+    // console.log("newvalues", newValues)
+    // setSubmitting(false);
+
 
     // const [checkOutValue, setCheckOutValue] = useState("");
 
