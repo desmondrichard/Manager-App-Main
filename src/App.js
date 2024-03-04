@@ -24,6 +24,7 @@ import DashboardPlayGroundViewCard from './components/DashboardPlayGroundViewCar
 import SponsorsViewCard from './components/SponsorsViewCard';
 import PageNotFound from './components/Error404Page/PageNotFound';
 import AdminDashboard from './components/AdminDashboard';
+import StaffRegistrationViewCard from './components/offcanvas-body/Registration/Support-Staff-Registration-Form/Support-Staff-Modal-Forms/StaffRegistrationViewCard';
 
 
 function App() {
@@ -49,9 +50,10 @@ function App() {
           </Route>
           {/* <Route path='/playerregister' exact element={<PlayerRegistration />} /> */}
 
-
-
-          <Route path='/staffregister' exact element={<SupportStaffRegistration />} />
+          <Route path='staffregister'>
+            <Route index element={<SupportStaffRegistration />} />
+            <Route path='staffdetails' exact element={<StaffRegistrationViewCard />} />
+          </Route>
 
           <Route path='/accessories' exact element={<Accessories />} />
           <Route path='/playersauctionlist' exact element={<PlayersAuctionList />} />
@@ -75,7 +77,7 @@ function App() {
 
           {/* <Route path='/thingstodoform' exact element={<ThingsTodoForm />} /> */}
           {/* Page Not Found: */}
-          <Route path='*'  element= {<PageNotFound />}/>
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

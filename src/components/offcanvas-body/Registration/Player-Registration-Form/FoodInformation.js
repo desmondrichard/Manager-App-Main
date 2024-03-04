@@ -94,7 +94,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         },
         onSubmit: values => {
             alert('clicked next');
-            const newValues= {
+            const newValues = {
                 'foodtype': values.foodtype,
                 'eggiterian': values.eggiterian,
                 'seafood': values.seafood,
@@ -104,25 +104,25 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
             };
 
             axios.post('http://', newValues)
-            .then(response => {
-                console.log(response.data);
-                onActivationKeyChild(childNextKey);
-                console.log("newvalues", newValues)
-              
-            })
-            .catch(error => {
-                console.error(error.message);
-                console.log("newvalues", newValues)
-               
-            });
-          
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey);
+                    console.log("newvalues", newValues)
+
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+
+                });
+
 
         }
     })
 
-  // Log the values variable
-//   console.log('Values11:', newValues);
-//   onActivationKeyChild(childNextKey);
+    // Log the values variable
+    //   console.log('Values11:', newValues);
+    //   onActivationKeyChild(childNextKey);
 
     // progress Bar for static fields:
     const [progress, setProgress] = useState(0);
@@ -148,10 +148,27 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                 obj[key] !== null &&
                 obj[key] !== undefined &&
                 obj[key] !== ''
-            ) {
-                count++;
-            }
+            )
+                //incremented count by 2 since foodtype='veg' original total count is 80% only:
+                if (key === 'foodtype' && obj[key] === 'veg') {
+                    count += 2;
+                } else {
+                    count++;
+                }
+
         }
+
+        //To dynamically remove progress count and set eggiterian as empty if nonveg is selected:
+        if (obj.foodtype === 'nonveg' && (obj.eggiterian === 'Yes' || obj.eggiterian === 'No')) {
+            obj.eggiterian = "";
+            count = count - 1;
+        }
+        else if (obj.foodtype === 'veg' && (obj.seafood === 'Yes' || obj.seafood === 'No') && (obj.redMeat === 'Yes' || obj.redMeat === 'No')) {
+            obj.seafood = "";
+            obj.redMeat = "";
+            count = count - 1;
+        }
+
         console.log("count", count)
         return count;
     }

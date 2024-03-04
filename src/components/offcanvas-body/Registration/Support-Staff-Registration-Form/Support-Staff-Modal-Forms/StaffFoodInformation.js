@@ -104,12 +104,12 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
                     console.log("newvalues", newValues)
-                   
+
                 })
                 .catch(error => {
                     console.error(error.message);
                     console.log("newvalues", newValues)
-                   
+
                 });
 
 
@@ -144,10 +144,25 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 obj[key] !== null &&
                 obj[key] !== undefined &&
                 obj[key] !== ''
-            ) {
-                count++;
-            }
+            ) 
+            //incremented count by 2 since foodtype='veg' original total count is 80% only:
+            if (key === 'foodtype' && obj[key] === 'veg') {
+                count += 2;
+            } else {
+                    count++;
+                }
         }
+        //To dynamically remove progress count and set eggiterian as empty if nonveg is selected:
+        if (obj.foodtype === 'nonveg' && (obj.eggiterian === 'Yes' || obj.eggiterian === 'No')) {
+            obj.eggiterian = "";
+            count = count - 1;
+        }
+        if (obj.foodtype === 'veg' && (obj.seafood === 'Yes' || obj.seafood === 'No') && (obj.redMeat === 'Yes' || obj.redMeat === 'No')) {
+            obj.seafood = "";
+            obj.redMeat = "";
+            count = count - 1;
+        }
+
         console.log("count", count)
         return count;
     }

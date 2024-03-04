@@ -1,4 +1,4 @@
-@media only screen and (min-width: 992px) {
+/* @media only screen and (min-width: 992px) {
     .dynamicRadioField {
         margin-left: -27px;
     }
@@ -34,9 +34,37 @@
     margin-left:0px !important;
     margin-top:40px;
    }
+} */
+
+.form-check {
+    padding-right: 2rem;
+
 }
 
-.form-check{
- padding-right:2rem;   
-    
+.dynamicRadioField {
+    display: flex;
+    align-items: center;
+}
+
+.dynamicQtyField {
+    margin-left: 1rem;
+}
+
+.dynamicMargin {
+    margin-top: 1rem;
+}
+
+.radioNotProvided{
+    margin-left:20px;
+    margin-top:-6px;
+}
+
+.radioProvidedBtn{
+    margin-left:15px;
+    margin-top:-6px;
+}
+
+.radioNotProvidedBtn{
+    margin-left:108px;
+    margin-top:-22px;
 }

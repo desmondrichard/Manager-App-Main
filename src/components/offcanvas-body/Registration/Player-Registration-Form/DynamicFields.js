@@ -1,61 +1,109 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import './DynamicFields.css'
 
-const DynamicFields = () => {
-    const [fields, setFields] = useState([])
+const DynamicFields = ({ onDataUpdate, isClear }) => {
+    const [fields, setFields] = useState({})
     const [optionsLabel, setOptionsLabel] = useState('')
     const bowlerA = useRef(null)
     const bowlerB = useRef(null)
 
     const addFields = () => {
-        const newFieldSet = {
-            id: fields.length,
-            radioLabel: optionsLabel || 'Options',
-            radios: [
-                { id: `radioA-${fields.length}`, label: 'Yes' },
-                { id: `radioB-${fields.length}`, label: 'No' },
-            ],
-            text: { id: `text-${fields.length}`, placeholder: 'Enter text' },
-        }
-        //
+        const kitValue = { provided: false, quantity: 0 }
+        const kitKey = optionsLabel;
+        console.log("kitkey", kitKey)
+        setFields({
+            ...fields,
+            [kitKey]: kitValue
 
-        setFields([...fields, newFieldSet])
-        setOptionsLabel('') // Clear input after adding fields
-
+        })
+        setSelectBoxContent(optionsLabel);
     }
+
+    const [selectBoxContent, setSelectBoxContent] = useState('');
+
+    useEffect(() => {
+        onDataUpdate(fields)
+    }, [fields])
+
+    useEffect(() => {
+        console.log("need to clear field value")
+        setFields("")
+    }, [isClear])
+
 
     return (
         <div>
+            {/* {JSON.stringify(fields)} */}
             <Form className='dynamicMargin'>
-                {fields.map((field, index) => (
-                    <div key={field.id} style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column' }}>
+                {Object?.entries(fields).map((field) => (
+                    <div key={field[0]} style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column' }}>
                         <div style={{ marginBottom: '10px' }}>
+                            {/* <p>{JSON.stringify(field)}</p> */} {/*used to view data:*/}
                             <Row>
-                                <Col sm={5} md={6} lg={4} className='dynamicRadioField'>
-                                    <Form.Label>{field.radioLabel}</Form.Label>
+                                <Col xs={12}>{selectBoxContent}</Col>   {/*used to display what we selected in select field so kept in a state*/}
+                                <Col xs={12} md={12} lg={7} className='dynamicRadioField'>
+                                    <Form.Label>Provided</Form.Label>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                        <div style={{ Right: '10px' }}> <Form.Check type="radio" id={field.radios[0].id} label={field.radios[0].label} name={`radioGroup-${field.id}`} ref={field.radios[0]} value='provided' /> </div>
-                                        <div> <Form.Check type="radio" id={field.radios[1].id} label={field.radios[1].label} name={`radioGroup-${field.id}`} ref={field.radios[1]} value='notprovided' /> </div>
+
+                                        <div className='radioProvided'>
+                                            <Form.Check className='radioProvidedBtn' id={field[0]} type="radio" name={`radioGroup-${field[0]}`} value='provided'
+                                                onChange={(e) => {
+                                                    // console.log(e)
+                                                    const id = e.target.id
+                                                    const checkBox = e.target.checked
+                                                    setFields({
+                                                        ...fields,
+                                                        [id]: {
+                                                            quantity: fields[id].quantity,
+                                                            provided: true
+                                                        }
+                                                    })
+                                                }}
+                                            />
+                                        </div>
+                                        <div className='radioNotProvided'>
+                                            <label htmlFor='NotProvided'>Not Provided</label>
+                                            <Form.Check className='radioNotProvidedBtn' id={field[0]} type="radio" name={`radioGroup-${field[0]}`} value='notprovided'
+                                                onChange={(e) => {
+                                                    // console.log(e)
+                                                    const id = e.target.id
+                                                    const checkBox = e.target.checked
+                                                    setFields({
+                                                        ...fields,
+                                                        [id]: {
+                                                            quantity: fields[id].quantity,
+                                                            provided: false
+                                                        }
+                                                    })
+                                                }} />
+                                        </div>
                                     </div>
                                 </Col>
-                                <Col xs={12} sm={6} md={6} lg={6} className='dynamicQtyField'>
+                                <Col xs={12} md={12} lg={3} className='dynamicQtyField'>
                                     <Form.Label style={{ color: '#6F7275' }}>QUANTITY</Form.Label>
                                     <Form.Control
                                         type="number"
-                                        id={field.text.id}
+                                        id={field[0]}
                                         style={{ width: '80px' }}
                                         min="0"
                                         max="2"
                                         onChange={(e) => {
-                                            if (e.target.value > 0) {
-                                                field.radios[0].current.checked = true
-                                            } else {
-                                                field.radios[1].current.checked = true
-                                            }
+                                            // console.log(e)
+                                            const id = e.target.id
+                                            const qty = e.target.value
+                                            setFields({
+                                                ...fields,
+                                                [id]: {
+                                                    provided: fields[id].provided,
+                                                    quantity: qty
+                                                }
+                                            })
                                         }}
+                                    // pass the value to parent {fields}
+
                                     />
                                 </Col>
                             </Row>
@@ -69,7 +117,10 @@ const DynamicFields = () => {
                 <Form.Control
                     as="select"
                     value={optionsLabel}
-                    onChange={(e) => setOptionsLabel(e.target.value)}
+                    onChange={(e) => {
+                        setOptionsLabel(e.target.value)
+                        setSelectBoxContent(e.target.options[e.target.selectedIndex].text)
+                    }}
                 >
                     <option value="none">Select Kit</option>
                     <option value="BATTING PADS" data-field-name="battingPads" style={{ whiteSpace: 'nowrap' }}>BATTING PADS</option>
@@ -84,7 +135,7 @@ const DynamicFields = () => {
                     <option value="ARM GUARD" data-field-name="armGuard" style={{ whiteSpace: 'nowrap' }}>ARM GUARD</option>
                     <option value="THIGH GUARD" data-field-name="thighGaurad" style={{ whiteSpace: 'nowrap' }}>THIGH GUARD</option>
                     <option value="ABDOMINAL GUARD" data-field-name="abdominalGaurad" style={{ whiteSpace: 'nowrap' }}>ABDOMINAL GUARD</option>
-                    
+
                 </Form.Control>
             </Form.Group>
             <div className='text-center my-2' >

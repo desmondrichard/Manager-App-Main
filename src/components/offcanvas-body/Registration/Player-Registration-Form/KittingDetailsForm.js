@@ -85,7 +85,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
     const familyjerseynoReset = useRef("");
     const bowlerA = useRef(false);
     const bowlerB = useRef(false);
-    const qty = useRef("");
+    // const qty = useRef("");
 
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
@@ -100,13 +100,22 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         circkethelmetReset.current.value = "none";
         travelpoloReset.current.value = "none";
         familyjerseynoReset.current.value = "";
-        bowlerA.current.checked = false;
-        bowlerB.current.checked = false;
-        qty.current.value = "";
+
+        if (bowlerA?.current) {
+            bowlerA.current.checked = false;
+        }
+        if (bowlerB?.current) {
+            bowlerB.current.checked = false;
+
+        }
+
+        setDynamicFieldsClear(count => count + 1)
         formik.resetForm();
         setProgress(0);
 
     }
+
+
     // reset form end: 
     const formik = useFormik({
         initialValues: {
@@ -123,21 +132,29 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setSubmitting }) => {
+            const newValues = { ...values, ...dynamicValues };
             axios.post('http://', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
-                    console.log("values", values)
-
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
                 })
                 .catch(error => {
                     console.error(error.message);
-                    console.log("values", values);
-                        
+                    console.log("newvalues", newValues);
+                    setSubmitting(false);
                 });
         }
     });
+
+    //getting dynamicfield values here:
+    const [dynamicValues, setDynamicValues] = useState({});
+    function handleDataUpdate(dynamicValues) {
+        console.log("Data", dynamicValues)
+        setDynamicValues(dynamicValues)
+    }
 
     // alert('clicked next');
     // onActivationKeyChild(childNextKey);
@@ -146,6 +163,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
     const handlePreviousButton = () => {
         onPreviousActivationKey("1")
     }
+
+
 
     // progress Bar for static fields:
     const [progress, setProgress] = useState(0);
@@ -177,6 +196,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         console.log("count", count)
         return count;
     }
+
+    //clearing DynamicFields:
+    const [dynamicFieldsClear, setDynamicFieldsClear] = useState(0);
 
     useEffect(() => {
         handleProgress();
@@ -439,7 +461,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                             </Col> */}
                             {/* Dynamic Form: */}
                             <Col xs={12} lg={{ span: 12 }} className='col'>
-                                <DynamicFields />
+                                <DynamicFields onDataUpdate={handleDataUpdate} isClear={dynamicFieldsClear} />
                             </Col>
                         </Row>
                         {/* <Row> */}
