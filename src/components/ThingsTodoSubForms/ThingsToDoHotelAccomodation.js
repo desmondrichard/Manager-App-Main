@@ -96,7 +96,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
             const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
             const newValues = { ...values, checkIn: formattedDOB, checkOut: formattedDOB1 };
 
-            axios.post('http://', newValues)
+            axios.post('https://localhost:7097/register/HotelAccomodation', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey)

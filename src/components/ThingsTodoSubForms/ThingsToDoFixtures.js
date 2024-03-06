@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
 import axios from 'axios';
 
+
 const validate = values => {
   const errors = {};
 
@@ -38,12 +39,16 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
   const teamA = useRef("");
   const teamB = useRef("");
   const date = useRef("");
+  const teamImage1 = useRef(null)
+  const teamImage2 = useRef(null)
 
   function handleReset() {
     name1.current.value = "";
     teamA.current.value = "";
     teamB.current.value = "";
     date.current.value = "";
+    teamImage1.current.value = null;
+    teamImage2.current.value = null;
     formik.resetForm();
   }
 
@@ -52,42 +57,65 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
       groundName: '',
       dateTime: '',
       teamA: '',
-      teamB: ''
+      teamB: '',
+      teamImage1: null,
+      teamImagePreview1: null,
+      teamAImage: '',
+      teamImage2: null,
+      teamImagePreview2: null,
+      teamBImage: '',
+
     },
     validate,
     onSubmit: (values, { setSubmitting }) => {
-      const dateOfBirth = new Date(values.dateTime);
-      const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-      const newValues = { ...values, dateTime: formattedDOB }
+      // const dateOfBirth = new Date(values.dateTime);
+      // const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
 
-      axios.post('http://', newValues)
-                .then(response => {
-                    console.log(response.data);
-                    onChildNextActivationKey(childNextKey)
-                    console.log("newvalues", newValues)
-                    setSubmitting(false);
-                })
-                .catch(error => {
-                    console.error(error.message);
-                    console.log("newvalues", newValues)
-                    setSubmitting(false);
-                });
+      const newValues = { ...values, teamAImage: formik.values.teamImagePreview1, teamBImage: formik.values.teamImagePreview2 }
+
+      const formData = new FormData();
+      formData.append('groundName', values.groundName);
+      formData.append('dateTime', values.dateTime);
+      formData.append('teamA', values.teamA);
+      formData.append('teamB', values.teamB);
+      formData.append('teamAImage', formik.values.teamImage1);
+      formData.append('teamBImage', formik.values.teamImage2);
+
+
+      axios.post('https://localhost:7097/api/playerimage/FixturesTest', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          onChildNextActivationKey(childNextKey)
+          console.log("newvalues", newValues)
+          setSubmitting(false);
+        })
+        .catch(error => {
+          console.error(error.message);
+          console.log("newvalues", newValues)
+          setSubmitting(false);
+        });
     }
   });
 
-     // const dateOfBirth = new Date(values.dateTime);
-      // const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-      // const newValues = { ...values, dateTime: formattedDOB }
-      // alert(`clicked next`);
-      // onChildNextActivationKey(childNextKey)
-      // console.log("newvalues", newValues)
-      // setSubmitting(false);
+  // const dateOfBirth = new Date(values.dateTime);
+  // const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+  // const newValues = { ...values, teamAImage: formik.values.teamImagePreview1, teamBImage: formik.values.teamImagePreview2 }
+  // alert(`clicked next`);
+  // onChildNextActivationKey(childNextKey)
+  // console.log("newvalues", newValues)
+  // setSubmitting(false);
 
   const [childNextKey, setChildNextKey] = useState("4");
 
   const handlePreviousButton = () => {
     onPreviousActivationKey("2")
   }
+
+
   return (
     <div>
       <Form onSubmit={formik.handleSubmit}>
@@ -128,7 +156,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
             </Form.Floating>
           </Col>
 
-          <Col>
+          <Col xs={12} lg={3} className='col'>
             <Form.Floating className="mb-2">
               <Form.Control
                 id="teamA"
@@ -144,7 +172,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
               <label htmlFor="teamA" className='text-muted'>Team A*</label>
             </Form.Floating>
           </Col>
-          <Col>
+          <Col xs={12} lg={3} className='col'>
             <Form.Floating className="mb-2">
               <Form.Control
                 id="teamB"
@@ -160,6 +188,64 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
               <label htmlFor="teamB" className='text-muted'>Team B*</label>
             </Form.Floating>
           </Col>
+          {/* Added Team image: */}
+          <Col xs={12} lg={4} className='col'>
+            <Form.Floating className="mb-2">
+              <Form.Control
+                id="teamImage1"
+                type="file"
+                accept="image/*"
+                placeholder="teamImage"
+                name="teamAImage"
+                ref={teamImage1}
+                onChange={(event) => {
+                  formik.setFieldValue('teamImage1', event.currentTarget.files[0]);
+                  const file1 = event.currentTarget.files[0];
+                  if (file1) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                      formik.setFieldValue('teamImagePreview1', event.target.result);
+                    };
+                    reader.readAsDataURL(file1);
+                  }
+                }}
+              />
+              <label htmlFor="teamImage1" className='text-muted'>Team A Image</label>
+            </Form.Floating>
+            {formik.values.teamImagePreview1 && (
+              <img src={formik.values.teamImagePreview1} alt="Team Image Preview" className="img-fluid mt-2" style={{ height: '200px', width: '150px' }} />
+            )}
+          </Col>
+
+          {/* Image:2 */}
+          <Col xs={12} lg={4} className='col'>
+            <Form.Floating className="mb-2">
+              <Form.Control
+                id="teamImage2"
+                type="file"
+                accept="image/*"
+                placeholder="teamImage"
+                name="teamBImage"
+                ref={teamImage2}
+                onChange={(event) => {
+                  formik.setFieldValue('teamImage2', event.currentTarget.files[0]);
+                  const file2 = event.currentTarget.files[0];
+                  if (file2) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                      formik.setFieldValue('teamImagePreview2', event.target.result);
+                    };
+                    reader.readAsDataURL(file2);
+                  }
+                }}
+              />
+              <label htmlFor="teamImage2" className='text-muted'>Team A Image</label>
+            </Form.Floating>
+            {formik.values.teamImagePreview2 && (
+              <img src={formik.values.teamImagePreview2} alt="Team Image Preview" className="img-fluid mt-2" style={{ height: '200px', width: '150px' }} />
+            )}
+          </Col>
+
         </Row>
         <Row>
           <Col className='end btns'>

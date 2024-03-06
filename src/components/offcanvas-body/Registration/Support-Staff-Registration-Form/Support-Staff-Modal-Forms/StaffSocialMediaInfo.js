@@ -88,7 +88,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
 
         },
         onSubmit: values => {
-            axios.post('http://', values)
+            axios.post('https://localhost:7097/StaffSocialMediaModel', values)
                 .then(response => {
                     console.log(response.data);
                     console.log("values", values)
@@ -101,7 +101,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
                     alert('clicked')
                     onCloseModal(modalClose);
                 });
-                notify();  //not working
+            notify();  //not working
         }
     });
 

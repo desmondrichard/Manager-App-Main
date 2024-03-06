@@ -174,20 +174,43 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         onSubmit: (values, { setSubmitting }) => {
             const dateOfBirth = new Date(values.dateOfBirth);
             const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-            const newValues = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
+            values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
 
-            axios.post('http://', newValues)
+            //converting to form-data  for sending data as multipart/form-data:
+            const formData = new FormData();
+
+            formData.append('supportStaffName', values.supportStaffName);
+            formData.append('middleName', values.middleName);
+            formData.append('lastName', values.lastName);
+            formData.append('designation', values.designation);
+            formData.append('specialization', values.specialization);
+            formData.append('initials', values.initials);
+            formData.append('displayName', values.displayName);
+            formData.append('fatherName', values.fatherName);
+            formData.append('motherName', values.motherName);
+            formData.append('dateOfBirth', formattedDOB);
+            formData.append('bloodGroup', values.bloodGroup);
+            formData.append('emailId', values.emailId);
+            formData.append('mobileNo', values.mobileNo);
+            formData.append('ImageData', ImageData);
+
+            axios.post('https://localhost:7097/api/playerimage/StaffTestingImage', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
-                    console.log("newvalues", newValues)
+                    console.log("newvalues", values)
                     setSubmitting(false);
                 })
                 .catch(error => {
                     console.error(error.message);
-                    console.log("newvalues", newValues)
+                    console.log("newvalues", values)
                     setSubmitting(false);
                 });
+
         }
     });
 

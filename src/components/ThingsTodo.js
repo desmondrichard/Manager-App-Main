@@ -25,7 +25,7 @@ function ThingsTodo() {
   //
 
   useEffect(() => {
-    fetch('http://52.172.96.40/ManagerApi/register/AllDataThingsToDo')
+    fetch('https://localhost:7097/register/AllDataThingsToDo')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -51,7 +51,7 @@ function ThingsTodo() {
 
   //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
   function deleteUser(id) {
-    axios.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${id}`).then((response) => {
+    axios.delete(`https://localhost:7097/Delete-AlldataThings/${id}`).then((response) => {
       if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here
         console.log("Deletion Success", response.data)
       }

@@ -56,7 +56,7 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, StaffMobilNo }
-            axios.post('', newValues)
+            axios.post('https://localhost:7097/register/AccreadiationStaff', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);
@@ -123,7 +123,8 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
                             >
                                 <Form.Select aria-label="StaffDesignation" ref={desig1}>
                                     <option value='none'>Select Type</option>
-                                    <option value="player">Player</option>
+                                    <option value="head of operation">Head of Operation</option>
+                                    <option value="head coach">Head Coach</option>
                                 </Form.Select>
                             </FloatingLabel>
                         </Col>

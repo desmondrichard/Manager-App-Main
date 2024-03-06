@@ -99,8 +99,8 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
             travelPolo: ''
         },
         validate,
-        onSubmit: values => {
-            axios.post('http://', values)
+        onSubmit: values => {  
+            axios.post('https://localhost:7097/StaffplayerkittingModel', values)
             .then(response => {
                 console.log(response.data);
                 onActivationKeyChild(childNextKey)

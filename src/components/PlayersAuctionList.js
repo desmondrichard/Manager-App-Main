@@ -27,7 +27,7 @@ function PlayersAuctionList() {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('http://52.172.96.40/ManagerApi/GetAllDataAndImages')
+    fetch('https://localhost:7097/register/AuctionRepresentatives')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -71,7 +71,7 @@ function PlayersAuctionList() {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('http://');
+      const response = await fetch('https://localhost:7097/register/AuctionRepresentatives');
       const data = await response.json();
       console.log("response", data);
 

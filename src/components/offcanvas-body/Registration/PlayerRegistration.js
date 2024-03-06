@@ -57,12 +57,12 @@ function PlayerRegistration(props) {
   }
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("8");
+  const [parentkey, setParentKey] = useState("0");
 
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('http://192.168.1.192/ManagerApi/GetAllDataAndImages')
+    fetch('https://localhost:7097/getAllPlayers')
       .then((data) => data.json())
       .then((data) => {
         console.log("data", data);
@@ -114,7 +114,7 @@ function PlayerRegistration(props) {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('http://52.172.96.40/ManagerApi/GetAllDataAndImages');
+      const response = await fetch('https://localhost:7097/getAllPlayers');
       const data = await response.json();
       console.log("response", data);
 
@@ -139,7 +139,7 @@ function PlayerRegistration(props) {
 
   //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
   function deleteUser(id) {
-    axios.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${id}`).then((response) => {
+    axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
       if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here
         console.log("Deletion Success", response.data)
       }

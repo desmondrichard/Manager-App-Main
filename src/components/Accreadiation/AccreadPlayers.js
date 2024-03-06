@@ -45,11 +45,13 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
     const desig1 = useRef("");
     const email1 = useRef("");
     const dutypass1 = useRef("");
+    const team1 = useRef("");
 
     function handleReset() {
         name1.current.value = "";
         desig1.current.value = "";
         email1.current.value = "";
+        team1.current.value = "";
         dutypass1.current.value = "";
         setMobValue(true);
         formik.resetForm();
@@ -59,12 +61,13 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
         initialValues: {
             PlayersName: '',
             PlayersEmailId: '',
+            team: ''
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, PlayersMobilNo }
-            console.log("new values",newValues)
-            axios.post('http://', newValues)
+            console.log("new values", newValues)
+            axios.post('https://localhost:7097/register/AccreadiationPlayers', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);
@@ -159,6 +162,22 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                                 <option value="no">No</option>
                             </Form.Select>
                         </FloatingLabel>
+                    </Col>
+                    {/* Temporary Field: */}
+                    <Col xs={12} md={4} className='py-3 c1'>
+                        <Form.Floating className="mb-2">
+                            <Form.Control
+                                id="team"
+                                type="text"
+                                placeholder="name"
+                                name="team"
+                                value={formik.values.team} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                            />
+                            {
+                                formik.touched.team && formik.errors.team ? <span className='span'>{formik.errors.team}</span> : null
+                            }
+                            <label htmlFor="PlayersName" className='text-muted'>Team Name</label>
+                        </Form.Floating>
                     </Col>
 
                 </Row>

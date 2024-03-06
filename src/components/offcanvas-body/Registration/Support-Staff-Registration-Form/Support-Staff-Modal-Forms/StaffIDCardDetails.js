@@ -151,7 +151,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
             const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
             const newValues = { ...values, passportExpDate: formattedDOB, visaValidity: formattedDOB1 }
 
-            axios.post('http://', newValues)
+            axios.post('https://localhost:7097/StaffIDCardDetails', newValues)
             .then(response => {
                 console.log(response.data);
                 onActivationKeyChild(childNextKey)

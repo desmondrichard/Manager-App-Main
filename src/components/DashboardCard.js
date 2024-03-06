@@ -15,7 +15,7 @@ function DashboardCard() {
     //Data Binding:
     const [showData, setShowData] = useState(null);
     useEffect(() => {
-        fetch('http://192.168.1.192/ManagerApi/GetAllDataAndImages')
+        fetch('https://localhost:7097/getAllPlayers')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("data",data);

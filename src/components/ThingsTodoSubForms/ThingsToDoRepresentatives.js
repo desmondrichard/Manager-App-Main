@@ -28,16 +28,17 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
 
   //reset:
   const name1 = useRef("");
-  const uniformChecked = useRef(false);
-  const tshirtChecked = useRef(false);
+  // const uniformChecked = useRef({ checked: false });
+  // const tshirtChecked = useRef({ checked: false });
 
 
   function handleReset() {
     name1.current.value = "";
-    uniformChecked.current.checked = false;
-    tshirtChecked.current.checked = false;
+    // uniformChecked.current.checked = false;
+    // tshirtChecked.current.checked = false;
+    formik.setFieldValue('teamUniform', '');
+    formik.setFieldValue('teamTshirt', '');
     formik.setFieldValue('representatives', '');
-    formik.setFieldValue('teamUniform', false);
     formik.resetForm();
 
   }
@@ -45,23 +46,23 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
   const formik = useFormik({
     initialValues: {
       representatives: '',
-      teamUniform: '',
-      teamTshirt:''
+      teamUniform: 'no',
+      teamTshirt: 'no',
+      team: ''
     },
     validate,
     onSubmit: values => {
-      axios.post('https://', values)
-                .then(response => {
-                    console.log(response.data); 
-                    onChildNextActivationKey(childNextKey)
-                    console.log("values", values)    
-                })
-                .catch(error => {
-                  console.log("values", values)
-                  // console.error(error.response.data);
-                  console.log(error.message);
-
-                });
+      axios.post('https://localhost:7097/register/AuctionRepresentatives', values)
+        .then(response => {
+          console.log(response.data);
+          onChildNextActivationKey(childNextKey)
+          console.log("values", values)
+        })
+        .catch(error => {
+          console.log("values", values)
+          // console.error(error.response.data);
+          console.log(error.message);
+        });
     }
   });
 
@@ -92,10 +93,31 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
             </Col>
             <Col xs={12} md={4} className='col1'>
               {/* <Form.Check label="Team Uniform" ref={uniformChecked} name='teamUniform' /> */}
-              <Form.Check label="Team Uniform" name='teamUniform' value={true} checked={formik.values.teamUniform} onChange={formik.handleChange} />
+              <Form.Check label="Team Uniform" name='teamUniform' value="yes" checked={formik.values.teamUniform === "yes"} onChange={(e) => {
+                formik.setFieldValue('teamUniform', e.target.checked ? "yes" : "no");
+              }} />
             </Col>
             <Col xs={12} md={4} className='col1'>
-              <Form.Check label="Team Tshirt" name='teamTshirt' value={true} checked={formik.values.teamTshirt} onChange={formik.handleChange} />
+              <Form.Check label="Team Tshirt" name='teamTshirt' value="yes" checked={formik.values.teamTshirt === "yes"} onChange={(e) => {
+                formik.setFieldValue('teamTshirt', e.target.checked ? "yes" : "no");
+              }} />
+            </Col>
+
+            {/* Temporary Field: */}
+            <Col xs={12} md={4} className='py-3 c1'>
+              <Form.Floating className="mb-2">
+                <Form.Control
+                  id="team"
+                  type="text"
+                  placeholder="name"
+                  name="team"
+                  value={formik.values.team} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                />
+                {
+                  formik.touched.team && formik.errors.team ? <span className='span'>{formik.errors.team}</span> : null
+                }
+                <label htmlFor="PlayersName" className='text-muted'>Team Name</label>
+              </Form.Floating>
             </Col>
           </Row>
           <Row>

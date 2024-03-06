@@ -55,7 +55,7 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, OfficialMobilNo }
-            axios.post('', newValues)
+            axios.post('https://localhost:7097/register/FrnciseOfficials', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);
@@ -123,7 +123,7 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                             >
                                 <Form.Select aria-label="OfficialDesignation" ref={desig1}>
                                     <option>Select Type</option>
-                                    <option value="year1">Player</option>
+                                    <option value="franchise officials">Franchise Officials</option>
                                 </Form.Select>
                             </FloatingLabel>
                         </Col>

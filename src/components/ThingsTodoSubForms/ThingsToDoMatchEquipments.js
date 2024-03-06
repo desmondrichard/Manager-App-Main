@@ -49,7 +49,7 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
     },
     validate,
     onSubmit: values => {
-      axios.post('http://', values)
+      axios.post('https://localhost:7097/register/MatchEquipments_Requirements', values)
         .then(response => {
           console.log(response.data);
           onChildNextActivationKey(childNextKey)

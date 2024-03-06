@@ -10,7 +10,7 @@ function Fixtures() {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('http://52.172.96.40/ManagerApi/register/AllDataThingsToDo')
+    fetch('https://localhost:7097/getAllPlayers')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);

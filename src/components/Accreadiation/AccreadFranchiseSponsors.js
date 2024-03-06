@@ -59,7 +59,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, SponsorMobilNo }
-            axios.post('', newValues)
+            axios.post('https://localhost:7097/register/FranciseSponsors', newValues)
                 .then(response => {
                     console.log(response.data);
                     console.log("newvalues", newValues)
@@ -130,7 +130,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
                             >
                                 <Form.Select aria-label="designation" ref={desig1}>
                                     <option value='none'>Select Type</option>
-                                    <option value="year1">Player</option>
+                                    <option value="franchise/sponsors">Franchise/Sponsors</option>
                                 </Form.Select>
                             </FloatingLabel>
                         </Col>

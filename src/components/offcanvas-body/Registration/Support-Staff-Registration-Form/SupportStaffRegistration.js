@@ -60,15 +60,15 @@ function SupportStaffRegistration(props) {
         setAge(event.target.value);
     };
     //next btn:
-    const [key, setKey] = useState("4")
+    const [key, setKey] = useState("0")
 
     //pdf:
     const [loader, setLoader] = useState(false);
 
-    //Data Binding:
+    //Data Binding GET:
     const [showData, setShowData] = useState(null);
     useEffect(() => {
-        fetch('http://52.172.96.40/ManagerApi/GetStaffAllDataAndImages')
+        fetch('https://localhost:7097/GETalldata-Staffs')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("data",data);
@@ -144,37 +144,47 @@ function SupportStaffRegistration(props) {
 
     //DELETE Method using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
     function deleteUser(id) {
-        axios.delete(`http://52.172.96.40/ManagerApi/Delete-AlldataAccreadiation/${id}`).then((response) => {
+        axios.delete(`https://localhost:7097/Delete-AlldataStaff/${id}`).then((response) => {
             if (response.data.alldataStaffId === id) {   //check how to use alldataThingsId here
                 console.log("Deletion Success", response.data)
             }
             console.log("res", response.data)
+
+            // Call the GET method here
+            axios.get(`https://localhost:7097/GETalldata-Staffs`)
+                .then((response) => {
+                    console.log("GET Success", response.data)
+                })
+                .catch((error) => {
+                    console.log("Error Getting User", error)
+                })
+
         }).catch((error) => {
             console.log("Error Deleting User", error)
         })
     }
 
     //UPDATE Method Using Axios:
-    const [updatedData, setUpdatedData] = useState(null);  //to store updated data
+    // const [updatedData, setUpdatedData] = useState(null);  //to store updated data
 
-    function updateUser(id, updatedInfo) {
-        axios
-            .put(`http://52.172.96.40/ManagerApi/Update-AlldataAccreadiation/${id}`, updatedInfo)
-            .then((response) => {
-                if (response.data.alldataStaffId === id) {
-                    console.log("Updation Success", response.data);
-                    // Refresh the data or update the specific staff data in the state based on the response
-                }
-                console.log("res", response.data);
-            })
-            .catch((error) => {
-                console.log("Error Updating User", error);
-            });
-    }
+    // function updateUser(id, updatedInfo) {
+    //     axios
+    //         .put(`http://52.172.96.40/ManagerApi/Update-AlldataAccreadiation/${id}`, updatedInfo)
+    //         .then((response) => {
+    //             if (response.data.alldataStaffId === id) {
+    //                 console.log("Updation Success", response.data);
+    //                 // Refresh the data or update the specific staff data in the state based on the response
+    //             }
+    //             console.log("res", response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.log("Error Updating User", error);
+    //         });
+    // }
 
-    const handleUpdateButtonClick = (id, updatedData) => {
-        updateUser(id, updatedData);
-    }
+    // const handleUpdateButtonClick = (id, updatedData) => {
+    //     updateUser(id, updatedData);
+    // }
 
     return (
         <div>
@@ -344,8 +354,8 @@ function SupportStaffRegistration(props) {
                                                         <NavLink state={{ showData }} to='/staffregister/' className='navLinks' >
                                                             <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
                                                         </NavLink>
-                                                        <Button onClick={() => updateUser(showData.alldataStaffId)} variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button>
-                                                        <Button onClick={() => handleUpdateButtonClick(showData.alldataStaffId)} variant="danger"><i className="bi bi-trash"></i></Button>
+                                                        <Button  variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button>
+                                                        <Button onClick={() => deleteUser(showData.alldataStaffId)} variant="danger"><i className="bi bi-trash"></i></Button>
                                                     </td>
                                                 </tr>
                                             )

@@ -55,7 +55,7 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, OwnerMobilNo }
-            axios.post('', newValues)
+            axios.post('https://localhost:7097/register/OwnersManagement', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);
@@ -120,7 +120,7 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                             >
                                 <Form.Select aria-label="OwnerDesignation" ref={desig1}>
                                     <option value='none'>Select Type</option>
-                                    <option value="year1">Player</option>
+                                    <option value="owner">Owner</option>
                                 </Form.Select>
                             </FloatingLabel>
                         </Col>

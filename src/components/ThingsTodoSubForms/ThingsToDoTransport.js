@@ -109,7 +109,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
       const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
       const newValues = { ...values, dateOfJourney: formattedDOB, returnDate: formattedDOB1 };
       notify();
-      axios.post('http://', newValues)
+      axios.post('https://localhost:7097/register/Transport', newValues)
         .then(response => {
           console.log(response.data);
           console.log("newvalues", newValues)
