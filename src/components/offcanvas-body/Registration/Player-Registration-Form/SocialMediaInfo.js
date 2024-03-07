@@ -98,7 +98,7 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
 
         },
         onSubmit: values => {
-            axios.post('http://', values)
+            axios.post('https://localhost:7097/SocialMediaModel', values)
                 .then(response => {
                     notify(); //not working
                     console.log(response.data);

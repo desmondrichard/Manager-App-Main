@@ -47,7 +47,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         onSubmit: (values, { setSubmitting }) => {  //to add emergencyContactPersonNo along with values
             const newValues = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
            
-            axios.post('http://', newValues)
+            axios.post('https://localhost:7097/playerEmergencycontactmodel', newValues)
             .then(response => {
                 console.log(response.data);
                 onActivationKeyChild(childNextKey)

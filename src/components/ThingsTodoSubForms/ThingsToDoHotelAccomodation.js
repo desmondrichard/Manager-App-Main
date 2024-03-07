@@ -90,11 +90,13 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const dateOfBirth = new Date(values.checkIn);
-            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-            const dateOfBirth1 = new Date(values.checkOut);
-            const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
-            const newValues = { ...values, checkIn: formattedDOB, checkOut: formattedDOB1 };
+            //const dateOfBirth = new Date(values.checkIn);
+            //const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            //const dateOfBirth1 = new Date(values.checkOut);
+            //const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
+            // const newValues = { ...values, checkIn: formattedDOB, checkOut: formattedDOB1 };
+
+            const newValues = { ...values }
 
             axios.post('https://localhost:7097/register/HotelAccomodation', newValues)
                 .then(response => {
@@ -108,7 +110,6 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                     console.log("newvalues", newValues)
                     setSubmitting(false);
                 });
-
 
         }
     });

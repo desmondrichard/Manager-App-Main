@@ -160,26 +160,57 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             emailId: '',
             gender: '',
             mobileNo: null,
-
+            team: '',
+            year: ''
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const dateOfBirth = new Date(values.dateOfBirth);
-            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-            const newValues = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
+            //Default year:
+            const year = new Date().getFullYear();
+            console.log("year", year)
+            // const dateOfBirth = new Date(values.dateOfBirth);
+            //const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            //values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
 
-            axios.post('http://', newValues)
-            .then(response => {
-                console.log(response.data);
-                onActivationKeyChild(childNextKey)
-                console.log("newvalues", newValues)
-                setSubmitting(false);
+            values = { ...values, mobileNo, ImageData, year: year }
+
+
+            const formData = new FormData();
+            // Append form data fields
+            formData.append('playerName', values.playerName);
+            formData.append('middleName', values.middleName);
+            formData.append('lastName', values.lastName);
+            formData.append('initials', values.initials);
+            formData.append('displayName', values.displayName);
+            formData.append('fatherName', values.fatherName);
+            formData.append('motherName', values.motherName);
+            formData.append('dateOfBirth', values.dateOfBirth);
+            formData.append('bloodGroup', values.bloodGroup);
+            formData.append('emailId', values.emailId);
+            formData.append('gender', values.gender);
+            // formData.append('mobileNo', JSON.stringify(values.mobileNo));
+            formData.append('mobileNo', values.mobileNo);
+            formData.append('ImageData', values.ImageData);
+            formData.append('team', values.team);
+            formData.append('year', values.year);
+
+            
+            axios.post('https://localhost:7097/api/playerimage/PlayersTestingImage', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
-            .catch(error => {
-                console.error(error.message);
-                console.log("newvalues", newValues)
-                setSubmitting(false);
-            });
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("newvalues", values)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", values)
+                    setSubmitting(false);
+                });
 
         }
     });
@@ -255,6 +286,8 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component
         console.log("phonevalue", mobileNo)
     }
+
+
 
     useEffect(() => {
         handleProgress();
@@ -477,8 +510,26 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                     </div>
                                 ))}
                             </Col>
-                            <Col xs={5} lg={2} className='col'>
+                            <Col xs={5} lg={4} className='col'>
                                 <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
+                            </Col>
+
+
+                            {/* Temporary Field: */}
+                            <Col xs={12} lg={4} className='py-3 c1'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="team"
+                                        type="text"
+                                        placeholder="name"
+                                        name="team"
+                                        value={formik.values.team} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.team && formik.errors.team ? <span className='span'>{formik.errors.team}</span> : null
+                                    }
+                                    <label htmlFor="PlayersName" className='text-muted'>Team Name</label>
+                                </Form.Floating>
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>

@@ -103,7 +103,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                 'allergy': values.allergy
             };
 
-            axios.post('http://', newValues)
+            axios.post('https://localhost:7097/FoodInformationModel', newValues)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);

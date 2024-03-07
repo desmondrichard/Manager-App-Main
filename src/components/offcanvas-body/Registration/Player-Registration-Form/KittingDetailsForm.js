@@ -134,7 +134,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, ...dynamicValues };
-            axios.post('http://', values)
+            axios.post('https://localhost:7097/playerkittingModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);

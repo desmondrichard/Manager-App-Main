@@ -78,8 +78,16 @@ function Accessories() {
       const playerData = data.map(item => {
         const sanitizedData = {};
         for (const key in item) {
-          sanitizedData[key] = item[key] || 'n/a';
+          let cellData = item[key] || 'n/a';
+          // Check if the cellData exceeds the maximum length:
+          if (cellData.length > 32767) {
+            console.warn(`Cell data for key ${key} exceeds 32767 characters.`);
+            // Truncate the cellData to fit within the limit
+            cellData = cellData.substring(0, 32767);
+          }
+          sanitizedData[key] = cellData;
         }
+
         return sanitizedData;
       });
 

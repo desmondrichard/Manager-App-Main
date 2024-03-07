@@ -126,7 +126,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         },
         validate,
         onSubmit: values => {
-            axios.post('http://', values)
+            axios.post('https://localhost:7097/bankModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);

@@ -73,7 +73,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         },
         validate,
         onSubmit: values => {
-            axios.post('http://', values)
+            axios.post('https://localhost:7097/playerSpecializationModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);

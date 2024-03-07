@@ -120,8 +120,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     const dob = useRef("");
     const bloodgrp = useRef("");
     const email = useRef("");
-    const genderMale = useRef(false);
-    const genderFemale = useRef(false);
+    const genderMaleReset = useRef(false);
+    const genderFemaleReset = useRef(false);
     const desig = useRef("");
     const spec = useRef("");
 
@@ -139,8 +139,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         dob.current.value = "";
         bloodgrp.current.value = "none"; //since default or initial value in html code below is none
         email.current.value = "";
-        genderMale.current.checked = false;
-        genderFemale.current.checked = false;
+        genderMaleReset.current.checked = false;
+        genderFemaleReset.current.checked = false;
         desig.current.value = "none";
         spec.current.value = "none";
         setImageValue(true);//means clears the image
@@ -168,13 +168,20 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             dateOfBirth: '',
             bloodGroup: '',
             emailId: '',
-            mobileNo: null
+            gender: '',
+            mobileNo: null,
+            year: '',
+            team: ''
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const dateOfBirth = new Date(values.dateOfBirth);
-            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-            values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
+            // const dateOfBirth = new Date(values.dateOfBirth);
+            //const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            //values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
+            //Default year:
+            const year = new Date().getFullYear();
+            console.log("year", year)
+            values = { ...values, mobileNo }
 
             //converting to form-data  for sending data as multipart/form-data:
             const formData = new FormData();
@@ -188,12 +195,15 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             formData.append('displayName', values.displayName);
             formData.append('fatherName', values.fatherName);
             formData.append('motherName', values.motherName);
-            formData.append('dateOfBirth', formattedDOB);
+            formData.append('dateOfBirth', values.dateOfBirth);
             formData.append('bloodGroup', values.bloodGroup);
             formData.append('emailId', values.emailId);
             formData.append('mobileNo', values.mobileNo);
             formData.append('ImageData', ImageData);
-
+            formData.append('team', values.team);
+            formData.append('year', values.year);
+            formData.append('gender', values.gender);
+            
             axios.post('https://localhost:7097/api/playerimage/StaffTestingImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -529,6 +539,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                     }
                                 </FloatingLabel>
                             </Col>
+                          
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
@@ -564,7 +575,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                             type={type}
                                             id={`inline-${type}-male`}
                                             // defaultChecked={true}
-                                            ref={genderMale}
+                                            ref={genderMaleReset}
                                             value="Male"
                                             style={{ marginRight: '-15px' }}
                                         />
@@ -574,13 +585,30 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                             name="gender"
                                             type={type}
                                             id={`inline-${type}-female`}
-                                            ref={genderFemale}
+                                            ref={genderFemaleReset}
                                             value="Female"
                                             style={{ marginRight: '-30px' }}
 
                                         />
                                     </div>
                                 ))}
+                            </Col>
+
+                            {/* Temporary Field: */}
+                            <Col xs={12} lg={4} className='py-3 c1'>
+                                <Form.Floating className="mb-2 mt-2">
+                                    <Form.Control
+                                        id="team"
+                                        type="text"
+                                        placeholder="name"
+                                        name="team"
+                                        value={formik.values.team} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.team && formik.errors.team ? <span className='span'>{formik.errors.team}</span> : null
+                                    }
+                                    <label htmlFor="PlayersName" className='text-muted'>Team Name</label>
+                                </Form.Floating>
                             </Col>
                             <Col xs={5} lg={2} className='col'>
                                 <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />

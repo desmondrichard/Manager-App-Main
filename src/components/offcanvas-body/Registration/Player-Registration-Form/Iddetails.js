@@ -96,6 +96,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
     const address0 = useRef("");
     const address1 = useRef("");
     const address2 = useRef("");
+    const visaNumber = useRef("");
 
     // const addressRef0 = useRef("");
 
@@ -112,6 +113,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         address0.current.value = "";
         address1.current.value = "";
         address2.current.value = "";
+        visaNumber.current.value = "";
         setSelectedCountry(null);
         setSelectedState(null);
         setSelectedCity(null);
@@ -136,6 +138,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             country: '',    //right approach
             state: '',
             city: '',
+            visaNumber:''
 
         },
         validate,
@@ -145,18 +148,18 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             const dob = formattedPassportExpDate;
             const newValues = { ...values, passportExpDate: dob };
 
-            axios.post('http://', newValues)
-            .then(response => {
-                console.log(response.data);
-                onActivationKeyChild(childNextKey);
-                console.log("newvalues", newValues)
-                setSubmitting(false);
-            })
-            .catch(error => {
-                console.error(error.message);
-                console.log("newvalues", newValues)
-                setSubmitting(false);
-            });
+            axios.post('https://localhost:7097/bankModel', newValues)
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
 
         }
     });
@@ -189,7 +192,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         const totalFilledFields = result;
 
         //calc formula
-        let newProgress = ((totalFilledFields / 12) * 100).toFixed();
+        let newProgress = ((totalFilledFields / 13) * 100).toFixed();
         console.log("Progress", newProgress)
         setProgress(newProgress);
     }
@@ -342,9 +345,22 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                     </div>
                                 ))}
                             </Col>
-                            {/* <Col xs={12}>
-                                <PlayerDynamicTextFields isClearAddress0={clearValue} isClearAddress1={clearValue} isClearAddress2={clearValue} isClearCountry={clearValue} isClearState={clearValue} isClearCity={clearValue} />
-                            </Col> */}
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="visaNumber"
+                                        type="text"
+                                        placeholder="visaNumber"
+                                        name="visaNumber"
+                                        ref={visaNumber}
+                                        value={formik.values.visaNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.visaNumber && formik.errors.visaNumber ? <span className='span'>{formik.errors.visaNumber}</span> : null
+                                    }
+                                    <label htmlFor="visaNumber" className='text-muted'>VISA NUMBER*</label>
+                                </Form.Floating>
+                            </Col>
 
                             {/* <Row className='row1'> */}
                             <Col xs={12} lg={4} className='col'>

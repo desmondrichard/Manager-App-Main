@@ -103,11 +103,13 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
     },
     validate,
     onSubmit: (values, { setSubmitting }) => {
-      const dateOfBirth = new Date(values.dateOfJourney);
-      const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-      const dateOfBirth1 = new Date(values.returnDate);
-      const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
-      const newValues = { ...values, dateOfJourney: formattedDOB, returnDate: formattedDOB1 };
+      // const dateOfBirth = new Date(values.dateOfJourney);
+      //const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+      //const dateOfBirth1 = new Date(values.returnDate);
+      //const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
+      // const newValues = { ...values, dateOfJourney: formattedDOB, returnDate: formattedDOB1 };
+
+      const newValues = { ...values }
       notify();
       axios.post('https://localhost:7097/register/Transport', newValues)
         .then(response => {
