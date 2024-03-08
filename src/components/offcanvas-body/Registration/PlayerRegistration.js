@@ -62,7 +62,7 @@ function PlayerRegistration(props) {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('https://localhost:7097/getAllPlayers')
+    fetch('https://localhost:7097/api/playerimage/register/getTestingInformation')
       .then((data) => data.json())
       .then((data) => {
         console.log("data", data);
@@ -114,7 +114,7 @@ function PlayerRegistration(props) {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('https://localhost:7097/getAllPlayers');
+      const response = await fetch('https://localhost:7097/api/playerimage/register/getTestingInformation');
       const data = await response.json();
       console.log("response", data);
 
@@ -146,17 +146,75 @@ function PlayerRegistration(props) {
   };
 
   //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
-  function deleteUser(id) {
-    axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
-      if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here
-        console.log("Deletion Success", response.data)
-      }
-      console.log("res", response.data)
-    }).catch((error) => {
-      console.log("Error Deleting User", error)
+  // function deleteUser(id) {
+  //   axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
+  //     if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here
+  //       console.log("Deletion Success", response.data)
+  //     }
+  //     console.log("res", response.data)
 
+  //     //Call the GET method here:
+  //     axios.get(`https://localhost:7097/api/playerimage/register/getTestingInformation`).then((response) => {
+  //       console.log("GET Success", response.data)
+  //       // Update the state with the new data
+  //       setShowData(response.data)
+  //     })
+  //       .catch((error) => {
+  //         console.log("Error Getting User", error)
+  //       })
+  //     //GET ends here
+
+  //   }).catch((error) => {
+  //     console.log("Error Deleting User", error)
+
+  //   })
+  // }
+
+  function deleteUser(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
+          if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
+        console.log("Deletion Success", response.data)
+          }
+          console.log("res", response.data)
+
+          //Call the GET method here:
+      axios.get(`https://localhost:7097/api/playerimage/register/getTestingInformation`).then((response) => {
+        console.log("GET Success", response.data)
+        // Update the state with the new data
+        setShowData(response.data)
+      })
+        .catch((error) => {
+          console.log("Error Getting User", error)
+        })
+      //GET ends here
+
+          Swal.fire(
+            'Deleted!',
+            'The user has been deleted.',
+            'success'
+          )
+        }).catch((error) => {
+          console.log("Error Deleting User", error)
+          Swal.fire(
+            'Error!',
+            'An error occurred while deleting the user.',
+            'error'
+          )
+        })
+      }
     })
   }
+
 
   // Filter:
   const [search, setSearch] = useState('');

@@ -148,7 +148,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             const dob = formattedPassportExpDate;
             const newValues = { ...values, passportExpDate: dob };
 
-            axios.post('https://localhost:7097/bankModel', newValues)
+            axios.post('https://localhost:7097/IDCardDetailsModel', newValues)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);

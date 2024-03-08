@@ -26,7 +26,7 @@ function Accessories() {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('https://localhost:7097/getAllPlayers')
+    fetch('https://localhost:7097/api/playerimage/register/getTestingInformation')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -70,7 +70,7 @@ function Accessories() {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('https://localhost:7097/getAllPlayers');
+      const response = await fetch('https://localhost:7097/api/playerimage/register/getTestingInformation');
       const data = await response.json();
       console.log("response", data);
 

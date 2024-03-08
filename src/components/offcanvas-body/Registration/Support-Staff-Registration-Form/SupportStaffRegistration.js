@@ -151,24 +151,71 @@ function SupportStaffRegistration(props) {
     }
 
     //DELETE Method using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
+    // function deleteUser(id) {
+    //     axios.delete(`https://localhost:7097/Delete-AlldataStaff/${id}`).then((response) => {
+    //         if (response.data.alldataStaffId === id) {   //check how to use alldataThingsId here
+    //             console.log("Deletion Success", response.data)
+    //         }
+    //         console.log("res", response.data)
+
+    //         //Call the GET method here:
+    //         axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
+    //             console.log("GET Success", response.data)
+    //             // Update the state with the new data
+    //             setShowData(response.data)
+    //         })
+    //             .catch((error) => {
+    //                 console.log("Error Getting User", error)
+    //             })
+    //             //GET ends here
+
+    //     }).catch((error) => {
+    //         console.log("Error Deleting User", error)
+    //     })
+    // }
+
     function deleteUser(id) {
-        axios.delete(`https://localhost:7097/Delete-AlldataStaff/${id}`).then((response) => {
-            if (response.data.alldataStaffId === id) {   //check how to use alldataThingsId here
-                console.log("Deletion Success", response.data)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`https://localhost:7097/Delete-AlldataStaff/${id}`).then((response) => {
+                    if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
+                        console.log("Deletion Success", response.data)
+                    }
+                    console.log("res", response.data)
+
+                    //Call the GET method here:
+                    axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
+                        console.log("GET Success", response.data)
+                        // Update the state with the new data
+                        setShowData(response.data)
+                    })
+                        .catch((error) => {
+                            console.log("Error Getting User", error)
+                        })
+                    //GET ends here
+
+                    Swal.fire(
+                        'Deleted!',
+                        'The user has been deleted.',
+                        'success'
+                    )
+                }).catch((error) => {
+                    console.log("Error Deleting User", error)
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred while deleting the user.',
+                        'error'
+                    )
+                })
             }
-            console.log("res", response.data)
-
-            // Call the GET method here
-            axios.get(`https://localhost:7097/GETalldata-Staffs`)
-                .then((response) => {
-                    console.log("GET Success", response.data)
-                })
-                .catch((error) => {
-                    console.log("Error Getting User", error)
-                })
-
-        }).catch((error) => {
-            console.log("Error Deleting User", error)
         })
     }
 
@@ -312,9 +359,9 @@ function SupportStaffRegistration(props) {
             >
                 <thead>
                     <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                        <th>Player Image</th>
+                        <th>Staff Image</th>
                         <th>Staff Name</th>
-                        <th>Player ID</th>
+                        <th>Staff ID</th>
                         <th>Designation</th>
                         <th>Mobile No</th>
                         <th>Email ID</th>
@@ -359,10 +406,12 @@ function SupportStaffRegistration(props) {
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.club ? showData.club : 'N/A'}</span></td>
                                                     <td className='d-flex'>
-                                                        <NavLink state={{ showData }} to='/staffregister/' className='navLinks' >
+                                                        <NavLink state={{ showData }} to='/staffregister/staffdetails' className='navLinks' >
                                                             <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
                                                         </NavLink>
+
                                                         <Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button>
+
                                                         <Button onClick={() => deleteUser(showData.alldataStaffId)} variant="danger"><i className="bi bi-trash"></i></Button>
                                                     </td>
                                                 </tr>

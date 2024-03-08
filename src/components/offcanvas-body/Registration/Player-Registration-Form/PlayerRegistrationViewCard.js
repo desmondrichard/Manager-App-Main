@@ -19,7 +19,7 @@ import html2canvas from 'html2canvas';
 //excel:
 import * as XLSX from 'xlsx';
 function PlayerRegistrationViewCard() {
-    const location = useLocation();
+    const location = useLocation(); //getting state indirectly here using useLocation
     console.log("location1", location)
     let formattedDate = "";
 
@@ -200,8 +200,8 @@ function PlayerRegistrationViewCard() {
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey Name: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseyName ? location.state.showData.jerseyName : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey No: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseyNo ? location.state.showData.jerseyNo : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Jersey Size: <span style={{ fontWeight: '400' }}>{location.state.showData.jerseySize ? location.state.showData.jerseySize : 'N/A'}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Trowser Length: <span style={{ fontWeight: '400' }}>{location.state.showData.trouserLength ? location.state.showData.trouserLength : 'N/A'}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Trowser Size: <span style={{ fontWeight: '400' }}>{location.state.showData.trouserSize ? location.state.showData.trouserSize : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Trouser Length: <span style={{ fontWeight: '400' }}>{location.state.showData.trouserLength ? location.state.showData.trouserLength : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Trouser Size: <span style={{ fontWeight: '400' }}>{location.state.showData.trouserSize ? location.state.showData.trouserSize : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Shorts Size: <span style={{ fontWeight: '400' }}>{location.state.showData.shortsSize ? location.state.showData.shortsSize : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Track Suit: <span style={{ fontWeight: '400' }}>{location.state.showData.trackSuit ? location.state.showData.trackSuit : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Travel Polo: <span style={{ fontWeight: '400' }}>{location.state.showData.travelPolo ? location.state.showData.travelPolo : 'N/A'}</span></div></Col>
@@ -239,7 +239,6 @@ function PlayerRegistrationViewCard() {
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>City: <span style={{ fontWeight: '400' }}>{location.state.showData.city ? location.state.showData.city : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>State: <span style={{ fontWeight: '400' }}>{location.state.showData.state ? location.state.showData.state : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Country: <span style={{ fontWeight: '400' }}>{location.state.showData.country ? location.state.showData.country : 'N/A'}</span></div></Col>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Postal Code: <span style={{ fontWeight: '400' }}>N/A</span></div></Col>
                             </Row>
                         </Card.Body>
                     </Card>
@@ -307,7 +306,7 @@ function PlayerRegistrationViewCard() {
                         <Card.Header className='todoHeader'>EMERGENCY CONTACT DETAILS</Card.Header>
                         <Card.Body>
                             <Row style={{ fontSize: '15px' }}>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Emergency Contact Person: <span style={{ fontWeight: '400' }}>{location.state.showData.emergencyContactPerson ? location.state.showData.emergencyContactPerson : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Emergency Contact Name: <span style={{ fontWeight: '400' }}>{location.state.showData.emergencyContactPerson ? location.state.showData.emergencyContactPerson : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Emergency Contact Relationship: <span style={{ fontWeight: '400' }}>{location.state.showData.emergContactPersonRelationship ? location.state.showData.emergContactPersonRelationship : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Emergency Contact No: <span style={{ fontWeight: '400' }}>{location.state.showData.emergencyContactPersonNo ? location.state.showData.emergencyContactPersonNo : 'N/A'}</span></div></Col>
                             </Row>

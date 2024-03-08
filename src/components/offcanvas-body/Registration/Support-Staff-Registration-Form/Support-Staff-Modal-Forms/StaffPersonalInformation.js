@@ -175,13 +175,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
+            const year = new Date().getFullYear();
+            console.log("year", year)
             // const dateOfBirth = new Date(values.dateOfBirth);
             //const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             //values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
             //Default year:
-            const year = new Date().getFullYear();
-            console.log("year", year)
-            values = { ...values, mobileNo }
+
+            values = { ...values, mobileNo,year:year }
 
             //converting to form-data  for sending data as multipart/form-data:
             const formData = new FormData();
@@ -203,7 +204,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             formData.append('team', values.team);
             formData.append('year', values.year);
             formData.append('gender', values.gender);
-            
+
             axios.post('https://localhost:7097/api/playerimage/StaffTestingImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -539,7 +540,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
                                     }
                                 </FloatingLabel>
                             </Col>
-                          
+
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control

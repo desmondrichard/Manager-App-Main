@@ -10,6 +10,7 @@ import Table from 'react-bootstrap/Table';
 import { NavLink } from 'react-router-dom';
 import format from 'date-fns/format';
 import FormControl from '@mui/material/FormControl';
+import Swal from 'sweetalert2';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
 import NoDataImg from 'react-bootstrap/Image';
 import axios from 'axios';
@@ -50,14 +51,72 @@ function ThingsTodo() {
   }
 
   //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
+  // function deleteUser(id) {
+  //   axios.delete(`https://localhost:7097/Delete-AlldataThings/${id}`).then((response) => {
+  //     if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here
+  //       console.log("Deletion Success", response.data)
+  //     }
+  //     console.log("res", response.data)
+    
+
+  //   //Call the GET method here:
+  //   axios.get(`https://localhost:7097/register/AllDataThingsToDo`).then((response) => {
+  //     console.log("GET Success", response.data)
+  //     // Update the state with the new data
+  //     setShowData(response.data)
+  //   })
+  //     .catch((error) => {
+  //       console.log("Error Getting User", error)
+  //     })
+  //     //GET ends here
+
+  //   }).catch((error) => {
+  //       console.log("Error Deleting User", error)
+  //     })
+  // }
+
   function deleteUser(id) {
-    axios.delete(`https://localhost:7097/Delete-AlldataThings/${id}`).then((response) => {
-      if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`https://localhost:7097/Delete-AlldataThings/${id}`).then((response) => {
+          if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
         console.log("Deletion Success", response.data)
+          }
+          console.log("res", response.data)
+
+          //Call the GET method here:
+      axios.get(`https://localhost:7097/register/AllDataThingsToDo`).then((response) => {
+        console.log("GET Success", response.data)
+        // Update the state with the new data
+        setShowData(response.data)
+      })
+        .catch((error) => {
+          console.log("Error Getting User", error)
+        })
+      //GET ends here
+
+          Swal.fire(
+            'Deleted!',
+            'The user has been deleted.',
+            'success'
+          )
+        }).catch((error) => {
+          console.log("Error Deleting User", error)
+          Swal.fire(
+            'Error!',
+            'An error occurred while deleting the user.',
+            'error'
+          )
+        })
       }
-      console.log("res", response.data)
-    }).catch((error) => {
-      console.log("Error Deleting User", error)
     })
   }
 
