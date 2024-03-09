@@ -150,30 +150,7 @@ function SupportStaffRegistration(props) {
         setShow(false);
     }
 
-    //DELETE Method using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
-    // function deleteUser(id) {
-    //     axios.delete(`https://localhost:7097/Delete-AlldataStaff/${id}`).then((response) => {
-    //         if (response.data.alldataStaffId === id) {   //check how to use alldataThingsId here
-    //             console.log("Deletion Success", response.data)
-    //         }
-    //         console.log("res", response.data)
-
-    //         //Call the GET method here:
-    //         axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
-    //             console.log("GET Success", response.data)
-    //             // Update the state with the new data
-    //             setShowData(response.data)
-    //         })
-    //             .catch((error) => {
-    //                 console.log("Error Getting User", error)
-    //             })
-    //             //GET ends here
-
-    //     }).catch((error) => {
-    //         console.log("Error Deleting User", error)
-    //     })
-    // }
-
+   
     function deleteUser(id) {
         Swal.fire({
             title: 'Are you sure?',
@@ -219,12 +196,11 @@ function SupportStaffRegistration(props) {
         })
     }
 
-    //UPDATE Method Using Axios:
-    // const [updatedData, setUpdatedData] = useState(null);  //to store updated data
-
-    // function updateUser(id, updatedInfo) {
+    // //UPDATE Method Using Axios:
+    // function updateUser(showData, id) {
+    //     console.log("Update Data", showData);
     //     axios
-    //         .put(`http://52.172.96.40/ManagerApi/Update-AlldataAccreadiation/${id}`, updatedInfo)
+    //         .put(`http://52.172.96.40/ManagerApi/Update-AlldataAccreadiation/${id}`, showData)
     //         .then((response) => {
     //             if (response.data.alldataStaffId === id) {
     //                 console.log("Updation Success", response.data);
@@ -237,9 +213,13 @@ function SupportStaffRegistration(props) {
     //         });
     // }
 
-    // const handleUpdateButtonClick = (id, updatedData) => {
-    //     updateUser(id, updatedData);
-    // }
+
+    function handleUpdateButtonClick(showData, id) {
+        console.log("Data: ", showData, "ID: ", id)
+        setShow(true)
+    }
+
+
 
     return (
         <div>
@@ -267,7 +247,7 @@ function SupportStaffRegistration(props) {
                             <p>{key}</p>
                             <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
-                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} />
+                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} updateMethodData={showData} />
                                 {/* Accordion:2 */}
                                 <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
                                 {/* Accordion:3 */}
@@ -410,7 +390,7 @@ function SupportStaffRegistration(props) {
                                                             <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
                                                         </NavLink>
 
-                                                        <Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button>
+                                                        <Button variant="success" className='me-1' onClick={() => handleUpdateButtonClick(showData, showData.alldataStaffId)}><i className="bi bi-pencil-square"></i></Button>
 
                                                         <Button onClick={() => deleteUser(showData.alldataStaffId)} variant="danger"><i className="bi bi-trash"></i></Button>
                                                     </td>
@@ -433,7 +413,7 @@ function SupportStaffRegistration(props) {
 export default SupportStaffRegistration
 
 function Apps() {
-    const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = useState(false);
 
     return (
         <>

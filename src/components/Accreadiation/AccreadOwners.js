@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
@@ -20,9 +20,21 @@ const validate = values => {
         errors.OwnerName = "enter a valid name";
     }
 
-    if (!/^^$|^.*@.*\..*$/.test(values.OwnerEmailId)) {
+    if (!values.OwnerEmailId) {
+        errors.OwnerEmailId = "*Required";
+    }
+    else if (!/^^$|^.*@.*\..*$/.test(values.OwnerEmailId)) {
         errors.OwnerEmailId = "Invalid email address";
     }
+
+    if (!values.OwnerDesignation) {
+        errors.OwnerDesignation = "*Required";
+    }
+
+    if (!values.OwnerMobilNo) {
+        errors.OwnerMobilNo = "*Required";
+    }
+
 
 
     return errors;
@@ -50,7 +62,9 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
     const formik = useFormik({
         initialValues: {
             OwnerName: '',
-            OwnerEmailId: ''
+            OwnerEmailId: '',
+            OwnerDesignation: '',
+            OwnerMobilNo: null,
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
@@ -80,15 +94,31 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
         onPreviousActivationKey("1")
     }
 
-    const [OwnerMobilNo, setOwnerMobilNo] = useState("");
-    const Samp = (s) => {
-        console.log("sample1", s)
-        setOwnerMobilNo(s);
+    const [OwnerMobilNo, setOwnerMobilNo] = useState(null);
+    const Samp = (value) => {
+        console.log("sample1", value)
+        setOwnerMobilNo(value);
+        formik.setFieldValue('OwnerMobilNo', value);// used to push value in formik dynamic child component else submit wont be enabled
         console.log("PlayersMobilNo", OwnerMobilNo)
     }
-    function Sample() {
-        console.log("hi")
+    function Sample(val) {
+        console.log(val)
+        setMobValue(false)
+
     }
+
+    //mobile validation:
+    const [errors, setErrors] = useState({});
+    const validateForm = (validationErrors) => {
+        setErrors(validationErrors);
+    };
+
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+    }
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values])
     return (
         <div>
             <Card className='bg-light p-4'>
@@ -113,19 +143,26 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                         <Col xs={12} md={4} className='py-3 c1'>
                             <FloatingLabel className='mb-2 c1'
                                 controlId="OwnerDesignation"
-                                label="Designation"
+                                label="Designation*"
                                 name="OwnerDesignation"
-                                value={formik.values.OwnerDesignation} onChange={formik.handleChange}
+                                value={formik.values.OwnerDesignation} onChange={formik.handleChange} onBlur={formik.handleBlur}
 
                             >
                                 <Form.Select aria-label="OwnerDesignation" ref={desig1}>
                                     <option value='none'>Select Type</option>
                                     <option value="owner">Owner</option>
                                 </Form.Select>
+                                {
+                                    formik.touched.OwnerDesignation && formik.errors.OwnerDesignation ? <span className='span'>{formik.errors.OwnerDesignation}</span> : null
+                                }
                             </FloatingLabel>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="OwnerMobilNo" onActivateProgressBar={Sample} />
+                            <Phone isClear={mobValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="OwnerMobilNo" onActivateProgressBar={Sample} />
+
+                            {formik.touched.OwnerMobilNo && formik.errors.OwnerMobilNo ? (
+                                <span className="span">{formik.errors.OwnerMobilNo}</span>
+                            ) : null}
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">
@@ -140,7 +177,7 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                                 {
                                     formik.touched.OwnerEmailId && formik.errors.OwnerEmailId ? <span className='span'>{formik.errors.OwnerEmailId}</span> : null
                                 }
-                                <label htmlFor="OwnerEmailId" className='text-muted'>Email ID</label>
+                                <label htmlFor="OwnerEmailId" className='text-muted'>Email ID*</label>
                             </Form.Floating>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>

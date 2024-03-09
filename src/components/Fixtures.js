@@ -34,7 +34,10 @@ function Fixtures() {
             <th >DATE</th>
             <th>GROUND NAME</th>
             <th>TEAM A</th>
+            <th>Team A Logo</th>
             <th>TEAM B</th>
+            <th>Team B Logo</th>
+
           </tr>
         </thead>
         {showData &&
@@ -48,7 +51,9 @@ function Fixtures() {
                   ) : 'N/A'}</td>
                   <td>{showData.groundName ? showData.groundName : 'N/A'}</td>
                   <td>{showData.teamA ? showData.teamA : 'N/A'}</td>
+                  <td>Logo A</td>
                   <td>{showData.teamB ? showData.teamB : 'N/A'}</td>
+                  <td>Logo B</td>
                 </tr>
               </tbody>
             )

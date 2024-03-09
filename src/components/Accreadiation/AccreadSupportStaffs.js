@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
@@ -20,8 +20,19 @@ const validate = values => {
         errors.StaffName = "enter a valid name";
     }
 
-    if (!/^^$|^.*@.*\..*$/.test(values.StaffEmailId)) {
+    if (!values.StaffEmailId) {
+        errors.StaffEmailId = "*Required";
+    }
+    else if (!/^^$|^.*@.*\..*$/.test(values.StaffEmailId)) {
         errors.StaffEmailId = "Invalid email address";
+    }
+
+    if (!values.StaffDesignation) {
+        errors.StaffDesignation = "*Required";
+    }
+
+    if (!values.StaffMobilNo) {
+        errors.StaffMobilNo = "*Required";
     }
 
     return errors;
@@ -51,7 +62,9 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
     const formik = useFormik({
         initialValues: {
             StaffName: '',
-            StaffEmailId: ''
+            StaffEmailId: '',
+            StaffDesignation: '',
+            StaffMobilNo: null
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
@@ -77,20 +90,36 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
     // console.log("newvalues", newValues)
     // setSubmitting(false);
 
-    const [StaffMobilNo, setStaffMobilNo] = useState("");
-    const Samp = (s) => {
-        console.log("sample1", s)
-        setStaffMobilNo(s);
+    //phone value:
+    const [StaffMobilNo, setStaffMobilNo] = useState(null);
+    const Samp = (val) => {
+        console.log("sample1", val)
+        setStaffMobilNo(val);
+        formik.setFieldValue('StaffMobilNo', val);// used to push value in formik dynamic child component else submit wont be enabled
         console.log("PlayersMobilNo", StaffMobilNo)
     }
-    function Sample() {
-        console.log("hi")
+    function Sample(val) {
+        console.log("val", val);
+        setMobValue(false);
     }
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("0")
     }
 
+
+    //mobile validation:
+    const [errors, setErrors] = useState({});
+    const validateForm = (validationErrors) => {
+        setErrors(validationErrors);
+    };
+
+    function handleProgress() {
+        console.log("formik values1", formik.values)
+    }
+    useEffect(() => {
+        handleProgress();
+    }, [formik.values])
     return (
         <div>
             <Card className='bg-light p-4'>
@@ -116,21 +145,28 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
                         <Col xs={12} md={4} className='py-3 c1'>
                             <FloatingLabel className='mb-2 c1'
                                 controlId="StaffDesignation"
-                                label="Designation"
+                                label="Designation*"
                                 name="StaffDesignation"
-                                value={formik.values.StaffName} onChange={formik.handleChange}
-
+                                value={formik.values.StaffDesignation} onChange={formik.handleChange} onBlur={formik.handleBlur}
                             >
+
                                 <Form.Select aria-label="StaffDesignation" ref={desig1}>
                                     <option value='none'>Select Type</option>
                                     <option value="head of operation">Head of Operation</option>
                                     <option value="head coach">Head Coach</option>
                                 </Form.Select>
+                                {
+                                    formik.touched.StaffDesignation && formik.errors.StaffDesignation ? <span className='span'>{formik.errors.StaffDesignation}</span> : null
+                                }
                             </FloatingLabel>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="StaffMobilNo" onActivateProgressBar={Sample} />
+                            <Phone isClear={mobValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} samp={Samp} onActivateProgressBar={Sample} dynamicName="StaffMobilNo" />
+                            {formik.touched.StaffMobilNo && formik.errors.StaffMobilNo ? (
+                                <span className="span">{formik.errors.StaffMobilNo}</span>
+                            ) : null}
                         </Col>
+
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">
                                 <Form.Control
@@ -144,7 +180,7 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
                                 {
                                     formik.touched.StaffEmailId && formik.errors.StaffEmailId ? <span className='span'>{formik.errors.StaffEmailId}</span> : null
                                 }
-                                <label htmlFor="StaffEmailId" className='text-muted'>Email ID</label>
+                                <label htmlFor="StaffEmailId" className='text-muted'>Email ID*</label>
                             </Form.Floating>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>

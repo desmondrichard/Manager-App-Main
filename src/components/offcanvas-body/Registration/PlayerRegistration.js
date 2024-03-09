@@ -80,7 +80,7 @@ function PlayerRegistration(props) {
     setParentKey(k);
   }
 
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = useState('');
 
   const handleChange = (event) => {
     setAge(event.target.value);

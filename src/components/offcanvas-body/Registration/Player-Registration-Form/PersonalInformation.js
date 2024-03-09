@@ -283,7 +283,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
     const [mobileNo, setMobileNo] = useState(null);
     const Samp = (value) => {
         setMobileNo(value);
-        formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component
+        formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component else submit wont be enabled
         console.log("phonevalue", mobileNo)
     }
 

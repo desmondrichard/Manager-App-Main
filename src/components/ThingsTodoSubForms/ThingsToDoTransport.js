@@ -9,6 +9,8 @@ import { useFormik } from 'formik';
 // 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const validate = values => {
   const errors = {};
@@ -88,6 +90,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
     }
   }
 
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -116,11 +119,25 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
           console.log(response.data);
           console.log("newvalues", newValues)
           setSubmitting(false);
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Data Successfully saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate('/thingstodo')
         })
         .catch(error => {
           console.error(error.message);
           console.log("newvalues", newValues)
           setSubmitting(false);
+          Swal.fire({
+            title: "Oops",
+            text: "Somthing went wrong?",
+            icon: "error"
+          });
+          navigate('/thingstodo')
         });
 
     }

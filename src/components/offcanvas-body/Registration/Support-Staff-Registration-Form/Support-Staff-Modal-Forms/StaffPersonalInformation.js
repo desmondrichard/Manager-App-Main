@@ -93,7 +93,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
+function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateMethodData }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
 
     //true-clear,false-not clear:
@@ -182,7 +182,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
             //values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
             //Default year:
 
-            values = { ...values, mobileNo,year:year }
+            values = { ...values, mobileNo, year: year }
 
             //converting to form-data  for sending data as multipart/form-data:
             const formData = new FormData();
@@ -265,8 +265,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
         setMobileValueClear(false);//if value is present  then clear the field  only after reset it clicked so made false-no clear again else it will be true always hence field cannot be cleared
     }
 
-    //Progress Bar:
 
+
+    //Progress Bar:
     function handleProgress() {
         //check form values or formik values:
         console.log("formik vals PersonalInfo:", formik.values);
@@ -305,6 +306,22 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild }) {
     useEffect(() => {
         handleProgress();
     }, [formik.values, phoneProgress, imgProgress]); // Ensure that the effect is triggered when form values change
+
+    //Update method:
+    console.log('updateMethodData', updateMethodData)
+    console.log('updateMethodDataID:', updateMethodData.alldataStaffId)
+
+    // axios.put(`https://localhost:7097/StaffPersonalInformation/${id}`, updateMethodData)
+    //     .then((response) => {
+    //         if (response.data.alldataStaffId === updateMethodData.alldataStaffId) {
+    //             console.log("Updation Success", response.data);
+    //             // Refresh the data or update the specific staff data in the state based on the response
+    //         }
+    //         console.log("res", response.data);
+    //     })
+    //     .catch((error) => {
+    //         console.log("Error Updating User", error);
+    //     });
 
 
     return (
