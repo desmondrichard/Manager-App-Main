@@ -59,7 +59,7 @@ function PlayerRegistration(props) {
   //Next Btn:
   const [parentkey, setParentKey] = useState("0");
 
-  //Data Binding:
+  //Data Binding GET:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
     fetch('https://localhost:7097/api/playerimage/register/getTestingInformation')
@@ -183,20 +183,20 @@ function PlayerRegistration(props) {
       if (result.isConfirmed) {
         axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
           if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
-        console.log("Deletion Success", response.data)
+            console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
 
           //Call the GET method here:
-      axios.get(`https://localhost:7097/api/playerimage/register/getTestingInformation`).then((response) => {
-        console.log("GET Success", response.data)
-        // Update the state with the new data
-        setShowData(response.data)
-      })
-        .catch((error) => {
-          console.log("Error Getting User", error)
-        })
-      //GET ends here
+          axios.get(`https://localhost:7097/api/playerimage/register/getTestingInformation`).then((response) => {
+            console.log("GET Success", response.data)
+            // Update the state with the new data
+            setShowData(response.data)
+          })
+            .catch((error) => {
+              console.log("Error Getting User", error)
+            })
+          //GET ends here
 
           Swal.fire(
             'Deleted!',
@@ -347,6 +347,7 @@ function PlayerRegistration(props) {
           <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
             <th >PLAYER ID</th>
             <th >PLAYER IMAGE</th>
+            <th>TEAM NAME</th>
             <th>PLAYER NAME</th>
             <th>DISPLAY NAME</th>
             <th>MOBILE NO</th>
@@ -384,6 +385,7 @@ function PlayerRegistration(props) {
                         </td>
                         <td className='td-parent' style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.playerName ? showData.playerName : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.displayName ? showData.displayName : 'N/A'}</span></td>
+                        <td></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.emailId ? showData.emailId : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.specialization ? showData.specialization : 'N/A'}</span></td>

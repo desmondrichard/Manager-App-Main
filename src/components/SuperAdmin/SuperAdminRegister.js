@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -10,12 +12,6 @@ import { Link } from 'react-router-dom';
 import Image1 from 'react-bootstrap/Image';
 import Image2 from 'react-bootstrap/Image';
 import InputGroup from 'react-bootstrap/InputGroup';
-import './Register.css';
-import { useFormik } from 'formik';
-import { useNavigate } from "react-router-dom";
-//
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 // Validation:
 const validate = values => {
@@ -34,12 +30,6 @@ const validate = values => {
         errors.email = "*Required";
     } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
         errors.email = "*Invalid email address";
-    }
-    if (!values.dob) {
-        errors.dob = "*Required";
-    }
-    if (!values.userType) {
-        errors.userType = "*Required";
     }
     if (!values.mobile) {
         errors.mobile = "*Required";
@@ -61,12 +51,12 @@ const validate = values => {
     return errors;
 }
 
-function Register() {
+function SuperAdminRegister() {
     const navigate = useNavigate();
     // password show/hide:
     const [visible, setVisible] = useState(true);
     const [visible1, setVisible1] = useState(true);
-    const [dob, setDob] = useState(null);
+
 
     // Formik:
     const formik = useFormik({
@@ -77,14 +67,12 @@ function Register() {
             mobile: '',
             password: '',
             confirmpassword: '',
-            userType: '',
-            dob: ''
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const dateOfBirth = new Date(values.dob);
-            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-            const newValues = { ...values, dob: formattedDOB }
+            // const dateOfBirth = new Date(values.dob);
+            // const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            const newValues = { ...values }
             // formik.setFieldValue('dob', formattedDob);
             alert(`Hello! ,${values.fullname}you have successfully signed up`);
             console.log('newvalues', newValues)
@@ -93,19 +81,12 @@ function Register() {
 
         }
     });
-
-    const handleDobChange = (date) => {
-        setDob(date);
-        formik.setFieldValue('dob', date); // Update formik value for dob
-    };
-
-
     return (
         <div className='pt-1 '>
             <Card className='mx-3 cardBg'>
                 <Row className='row11parent'>
                     <Col md={7}>
-                        <Image0 src={require('../assets/mountain2.jpg')} fluid className='borderRadius d-none d-md-block' style={{ height: '100%' }}></Image0>
+                        <Image0 src={require('../../assets/mountain2.jpg')} fluid className='borderRadius d-none d-md-block' style={{ height: '100%' }}></Image0>
                     </Col>
                     <Col md={5}>
                         <Container className='pt-1'>
@@ -139,14 +120,6 @@ function Register() {
                                         formik.touched.email && formik.errors.email ? <span className='span'>{formik.errors.email}</span> : null
                                     }
                                 </Form.Group>
-                                {/* DOB Field: */}
-                                <Form.Group className="mb-3" controlId="DOB">
-                                    <Form.Label className='fontRegister'>D.O.B</Form.Label>
-                                    <Form.Control size="sm" className='shadow-none' type="date" placeholder="Enter Date of Birth" name='dob' value={formik.values.dob} onBlur={formik.handleBlur} onChange={formik.handleChange} max="2008-12-31" />
-                                    {
-                                        formik.touched.dob && formik.errors.dob ? <span className='span'>{formik.errors.dob}</span> : null
-                                    }
-                                </Form.Group>
 
                                 {/* Mobile Field: */}
                                 <Form.Group className="mb-1" controlId="Phone">
@@ -169,8 +142,8 @@ function Register() {
                                             visible ? "password" : "text"}
                                             placeholder="Password" name='password' value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} />
                                         <div className='p-2 pwd-toggle' onClick={() => setVisible(!visible)}>
-                                            {visible ? <Image1 className='img11' style={{ height: '18px' }} src={require('../assets/eye-close.png')}></Image1> :
-                                                <Image2 className='img11' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>}
+                                            {visible ? <Image1 className='img11' style={{ height: '18px' }} src={require('../../assets/eye-close.png')}></Image1> :
+                                                <Image2 className='img11' style={{ height: '14px' }} src={require('../../assets/eye-open.png')}></Image2>}
                                         </div>
                                     </div>
                                     {
@@ -185,8 +158,8 @@ function Register() {
                                         <Form.Control size="sm" className='shadow-none' type={
                                             visible1 ? "password" : "text"} name='confirmpassword' placeholder="Confirm Password" value={formik.values.confirmpassword} onBlur={formik.handleBlur} onChange={formik.handleChange} />
                                         <div className='p-2 pwd-toggle' onClick={() => setVisible1(!visible1)}>
-                                            {visible1 ? <Image1 className='img11' style={{ height: '18px' }} src={require('../assets/eye-close.png')}></Image1>
-                                                : <Image2 className='img11' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>
+                                            {visible1 ? <Image1 className='img11' style={{ height: '18px' }} src={require('../../assets/eye-close.png')}></Image1>
+                                                : <Image2 className='img11' style={{ height: '14px' }} src={require('../../assets/eye-open.png')}></Image2>
                                             }
                                         </div>
                                     </div>
@@ -195,17 +168,6 @@ function Register() {
                                     }
                                 </Form.Group>
 
-                                <label htmlFor="userType" className='mt-1 fontRegister'>Select Team</label>
-                                <Form.Select aria-label="userType" size='sm' className='mt-1' name='userType'
-                                    value={formik.values.userType} onBlur={formik.handleBlur} onChange={formik.handleChange}>
-                                    <option value=''>None</option>
-                                    <option value="admin">Salem Spartans</option>
-                                    <option value="supportstaff">Ballsy Trichy</option>
-
-                                </Form.Select>
-                                {
-                                    formik.touched.userType && formik.errors.userType ? <span className='span'>{formik.errors.userType}</span> : null
-                                }
 
                                 {/* Submit Button: */}
                                 <div className="d-grid gap-2 my-2">
@@ -227,4 +189,4 @@ function Register() {
     )
 }
 
-export default Register
+export default SuperAdminRegister

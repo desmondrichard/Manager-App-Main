@@ -52,7 +52,7 @@ function Accreditationcard() {
 
 
   //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
- 
+
 
   // //using sweetAlert2 for popup after clicking delete button:
   function deleteUser(id) {
@@ -68,20 +68,20 @@ function Accreditationcard() {
       if (result.isConfirmed) {
         axios.delete(`https://localhost:7097/Delete-AlldataAccreadiation/${id}`).then((response) => {
           if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
-        console.log("Deletion Success", response.data)
+            console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
 
           //Call the GET method here:
-      axios.get(`https://localhost:7097/AllDataAccreadiation`).then((response) => {
-        console.log("GET Success", response.data)
-        // Update the state with the new data
-        setShowData(response.data)
-      })
-        .catch((error) => {
-          console.log("Error Getting User", error)
-        })
-      //GET ends here
+          axios.get(`https://localhost:7097/AllDataAccreadiation`).then((response) => {
+            console.log("GET Success", response.data)
+            // Update the state with the new data
+            setShowData(response.data)
+          })
+            .catch((error) => {
+              console.log("Error Getting User", error)
+            })
+          //GET ends here
 
           Swal.fire(
             'Deleted!',
@@ -124,6 +124,7 @@ function Accreditationcard() {
                   <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
                     <th className='font'>S.NO</th>
                     <th className='font'>NAME</th>
+                    <th className='font'>TEAM NAME</th>
                     <th className='font'>DESIGNATION</th>
                     <th className='font'>MOBILE NO</th>
                     <th className='font'>EMAIL</th>
@@ -138,6 +139,7 @@ function Accreditationcard() {
                         <tr className='text-center fontBody'>
                           <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
                           <td>{showData.playersName ? showData.playersName : 'N/A'}</td>
+                          <td></td>
                           <td>{showData.playersDesignation ? showData.playersDesignation : 'N/A'}</td>
                           <td>{showData.playersMobilNo ? showData.playersMobilNo : 'N/A'}</td>
                           <td>{showData.playersEmailId ? showData.playersEmailId : 'N/A'}</td>

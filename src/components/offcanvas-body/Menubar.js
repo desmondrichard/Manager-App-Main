@@ -3,8 +3,15 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import './Menubar.css';
 import { NavLink } from 'react-router-dom';
 import Accordion from 'react-bootstrap/Accordion';
-
+import { useNavigate } from 'react-router-dom';
 function Menubar() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.clear();
+        // window.location.reload();
+        navigate("/")
+    }
     return (
         <div style={{ backgroundColor: 'black' }}>
             <ListGroup style={{ borderRadius: '0px' }} >
@@ -29,7 +36,7 @@ function Menubar() {
                 <NavLink className='nav-bar-link text' to='/thingstodo'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-list-check"></i> THINGS TO DO</ListGroup.Item></NavLink>
                 <NavLink className='nav-bar-link text' to='/accreadiationcards'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-credit-card-2-back-fill"></i> ACCREADIATION CARDS</ListGroup.Item></NavLink>
                 <NavLink className='nav-bar-link text' to='/admindashboard'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-person-gear"></i> ADMIN DASHBOARD</ListGroup.Item></NavLink>
-                <NavLink to='/'><ListGroup.Item action variant="secondary" className='py-2 a' style={{ position: 'absolute', bottom: 0 }}><i className="bi bi-box-arrow-left"></i> LOG OUT</ListGroup.Item></NavLink>
+                <ListGroup.Item action variant="secondary" onClick={handleLogout} className='py-2 a' style={{ position: 'absolute', bottom: 0 }}><i className="bi bi-box-arrow-left"></i> LOG OUT</ListGroup.Item>
             </ListGroup>
         </div>
     )

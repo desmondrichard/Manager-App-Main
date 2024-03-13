@@ -25,6 +25,8 @@ import SponsorsViewCard from './components/SponsorsViewCard';
 import PageNotFound from './components/Error404Page/PageNotFound';
 import AdminDashboard from './components/AdminDashboard';
 import StaffRegistrationViewCard from './components/offcanvas-body/Registration/Support-Staff-Registration-Form/Support-Staff-Modal-Forms/StaffRegistrationViewCard';
+import SuperAdminLogin from './components/SuperAdmin/SuperAdminLogin';
+import SuperAdminRegister from './components/SuperAdmin/SuperAdminRegister';
 
 
 function App() {
@@ -32,8 +34,12 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact element={<Login />} />
-          <Route path='/signup' exact element={<Register />} />
+          {/* <Route path='/' exact element={<Login />} />
+          <Route path='/signup' exact element={<Register />} /> */}
+
+          {/* sample: */}
+          <Route path='/' exact element={<SuperAdminLogin />} />
+          <Route path='/superadminsignup' exact element={<SuperAdminRegister />} />
 
           {/* Nested Routes for Dashboard: */}
           <Route path='dashboard'>

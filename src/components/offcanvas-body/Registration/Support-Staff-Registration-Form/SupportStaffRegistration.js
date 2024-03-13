@@ -150,7 +150,7 @@ function SupportStaffRegistration(props) {
         setShow(false);
     }
 
-   
+
     function deleteUser(id) {
         Swal.fire({
             title: 'Are you sure?',
@@ -339,16 +339,17 @@ function SupportStaffRegistration(props) {
             >
                 <thead>
                     <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
-                        <th>Staff Image</th>
-                        <th>Staff Name</th>
-                        <th>Staff ID</th>
-                        <th>Designation</th>
-                        <th>Mobile No</th>
-                        <th>Email ID</th>
-                        <th>Specialization</th>
-                        <th>jersey No</th>
-                        <th>Club</th>
-                        <th>Action</th>
+                        <th>STAFF IMAGE</th>
+                        <th>STAFF NAME</th>
+                        <th>TEAM NAME</th>
+                        <th>STAFF ID</th>
+                        <th>DESIGNATION</th>
+                        <th>MOBILE NO</th>
+                        <th>EMAIL ID</th>
+                        <th>SEPCIALIZATION</th>
+                        <th>JERSEY NO</th>
+                        <th>CLUB</th>
+                        <th>ACTION</th>
                     </tr>
                 </thead>
 
@@ -379,6 +380,7 @@ function SupportStaffRegistration(props) {
                                                     </td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</span></td>
+                                                    <td></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.designation ? showData.designation : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.emailId ? showData.emailId : 'N/A'}</span></td>

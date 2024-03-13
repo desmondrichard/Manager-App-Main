@@ -12,6 +12,8 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useFormik } from 'formik';
 import ImageUpload from './offcanvas-body/Registration/ImageUpload';
 import { useRef } from 'react';
+import axios from 'axios';
+
 //validation:
 const validate = values => {
     const errors = {};
@@ -20,8 +22,8 @@ const validate = values => {
         errors.teamName = "*Required";
     }
 
-    if (!values.year) {
-        errors.year = "*Required";
+    if (!values.seasonYear) {
+        errors.seasonYear = "*Required";
     }
 
     return errors;
@@ -30,13 +32,26 @@ const validate = values => {
 
 function AdminDashboard() {
 
+    //GET method:
+    const [showData, setShowData] = useState(null);
+    useEffect(() => {
+        fetch('https://localhost:7097/getTeams')
+            .then((data) => data.json())
+            .then((data) => {
+                console.log("data", data);
+                // console.log("Success in getting players data", data);
+                setShowData(data);  // showData=data;
+            })
+    }, [])
+
+
     // Image base 64 value:
-    const [ImageData, setImageData] = useState("");
+    const [imageData, setImageData] = useState("");
     const [imgProgress, setImageProgress] = useState(0);
     const [imageValue, setImageValue] = useState(false);
 
     const dynamicImageNameFn = (val) => {
-        console.log("vals", val)
+        console.log("imagevalues: ", val)
         setImageData(val)
     }
 
@@ -52,16 +67,42 @@ function AdminDashboard() {
     const formik = useFormik({
         initialValues: {
             teamName: '',
-            year: '',
-            imageData: '',
+            seasonYear: '',
+            
 
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const newValues = { ...values, ImageData }
+            const newValues = { ...values, imageData: imageData }
             console.log("newvalues", newValues)
-            setSubmitting(false);
-            ResetFields();
+
+            const formData = new FormData();
+            // Append form data fields
+            formData.append('teamName', values.teamName);
+            formData.append('seasonYear', values.seasonYear);
+            formData.append('imageData', imageData);
+
+            //POST method:
+            axios.post('https://localhost:7097/AddTeams', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(response => {
+                    console.log("response",response);
+                    // console.log("newvalues", newValues)
+                    setSubmitting(false);
+                    ResetFields();
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                    // ResetFields();
+                });
+
+            // setSubmitting(false);
+            // ResetFields();
 
         }
     });
@@ -75,7 +116,7 @@ function AdminDashboard() {
     }
 
     useEffect(() => {
-    }, [formik.values, imgProgress])
+    }, [formik.values])
 
     return (
         <div>
@@ -99,17 +140,42 @@ function AdminDashboard() {
                                     <th style={{ color: 'white' }}>DELETE</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td className='pt-3 text-center'>1</td>
-                                    <td className='pt-3 text-center'>Mark</td>
-                                    <td className='pt-3 text-center'>Otto</td>
-                                    <td className='pt-3 text-center'>@mdo</td>
-                                    <td><Button variant="success">LOGIN</Button></td>
-                                    <td><Button variant="danger">REMOVE</Button></td>
-                                </tr>
+                            {/* {console.log("imageFile1:", imageData)} */}
+                            {
+                                (showData) ?
+                                    (
+                                        <tbody>
+                                            {
+                                                showData.map((showData, i) => {
+                                                    console.log("ShowAdminDataImage", showData.imageData)
+                                                    console.log("ShowAdminData", showData)
+                                                    return (
+                                                        <tr key={i}>
+                                                            <td style={{ whiteSpace: 'nowrap' }} className='pt-3 text-center'>{showData.teamName ? showData.teamName : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>{showData.teamCode ? showData.teamCode : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>{showData.seasonYear ? showData.seasonYear : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>
+                                                                {showData.imageData ? showData.imageData : "no image"}
+                                                                {/* <img
+                                                                    src={showData ? `data:image;base64/*,${showData.imageData}` :  //checks for data
+                                                                        require('./../assets/dummy_profile_img.png')}   //default img 
+                                                                    alt="img" style={{ width: '37px', height: '37px' }}
+                                                                    onError={(e) => {
+                                                                        e.target.src = require('./../assets/dummy_profile_img.png');
+                                                                    }}
+                                                                /> */}
 
-                            </tbody>
+                                                            </td>
+                                                            <td><Button variant="success">LOGIN</Button></td>
+                                                            <td><Button variant="danger">REMOVE</Button></td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+
+                                        </tbody>
+                                    ) : ('')
+                            }
                         </Table>
                     </Col>
                     <Col lg={4} className='mt-2'>
@@ -126,9 +192,10 @@ function AdminDashboard() {
                                 >
                                     <Form.Select aria-label="Default select example" ref={teamNameReset}>
                                         <option value="none">Select Teams</option>
-                                        <option value="1">Team 1</option>
-                                        <option value="2">Team 2</option>
-                                        <option value="3">Team 3</option>
+                                        <option value="ballsytrichy">Ballsy Trichy</option>
+                                        <option value="salemspartans">Salem Spartans</option>
+                                        <option value="chennaicheetas">Punjab Panthers</option>
+
                                     </Form.Select>
                                     {
                                         formik.touched.teamName && formik.errors.teamName ? <span className='span'>{formik.errors.teamName}</span> : null
@@ -137,16 +204,16 @@ function AdminDashboard() {
 
                                 <Form.Floating className="mb-2" >
                                     <Form.Control
-                                        id="year"
+                                        id="seasonYear"
                                         type="text"
                                         placeholder="year"
-                                        name="year"
-                                        value={formik.values.year} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        name="seasonYear"
+                                        value={formik.values.seasonYear} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.year && formik.errors.year ? <span className='span'>{formik.errors.year}</span> : null
+                                        formik.touched.seasonYear && formik.errors.seasonYear ? <span className='span'>{formik.errors.seasonYear}</span> : null
                                     }
-                                    <label htmlFor="year" className='text-muted'>Season Year*</label>
+                                    <label htmlFor="seasonYear" className='text-muted'>Season Year*</label>
                                 </Form.Floating>
                                 <div className='text-center mb-3'>
                                     <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />

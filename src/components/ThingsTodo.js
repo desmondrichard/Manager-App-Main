@@ -184,6 +184,7 @@ function ThingsTodo() {
                 <thead>
                   <tr className='text-center thead' style={{ whiteSpace: 'nowrap' }}>
                     <th className='font'>S.NO</th>
+                    <th className='font'>TEAM NAME</th>
                     <th className='font'>REPRESENTATIVES NAME</th>
                     <th className='font'>TEAM UNIFORM</th>
                     <th className='font'>TEAM TSHIRT</th>
@@ -202,6 +203,7 @@ function ThingsTodo() {
                         return (
                           <tr className='text-center font' key={i}>
                             <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td></td>
                             <td>{showData.representatives ? showData.representatives : 'N/A'}</td>
                             <td>{showData.teamUniform ? showData.teamUniform : 'N/A'}</td>
                             <td>{showData.teamTshirt ? showData.teamTshirt : 'N/A'}</td>

@@ -16,11 +16,13 @@ function Header() {
 
     function handleLogout(e) {
         e.preventDefault();
+        console.log("clicked logout")
+        localStorage.clear();
+        // window.location.reload();
         navigate("/")
-        // setLogout(true)
     }
 
-   
+
     return (
         <div className='parentDiv bg fixed'>
             <>
@@ -39,7 +41,7 @@ function Header() {
             <span>
                 <Button variant="primary" className='btn1'><i className="bi bi-bell-fill " style={{ fontSize: '20px' }}></i><sup><Badge bg="danger">9</Badge></sup> <span className="visually-hidden">unread messages</span></Button>
                 {/* <NavLink to='/'> */}
-                <Button className='btn2' onClick={handleLogout}><i className="bi bi-box-arrow-right" style={{ fontSize: '24px' }}></i></Button>
+                <Button className='btn2' type='submit' onClick={handleLogout}><i className="bi bi-box-arrow-right" style={{ fontSize: '24px' }}></i></Button>
                 {/* </NavLink> */}
             </span>
 
