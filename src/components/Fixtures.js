@@ -42,6 +42,7 @@ function Fixtures() {
         </thead>
         {showData &&
           showData.map((showData, i) => {
+            console.log("showData",showData)
             return (
               <tbody className='table-light' key={i}>
                 <tr className='text-center'>

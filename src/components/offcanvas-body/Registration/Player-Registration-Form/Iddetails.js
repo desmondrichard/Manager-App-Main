@@ -38,7 +38,7 @@ const validate = values => {
     if (!values.passportNo) {
         errors.passportNo = "*Required";
     }
-    else if (!/^[a-zA-Z0-9]{10}$/.test(values.passportNo)) {
+    else if (!/^[A-Z]{1}[0-9]{6}$/.test(values.passportNo)) {
         errors.passportNo = "Enter Valid Passport Number"
     }
     //
@@ -138,7 +138,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             country: '',    //right approach
             state: '',
             city: '',
-            visaNumber:''
+            visaNumber: ''
 
         },
         validate,
@@ -358,7 +358,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                     {
                                         formik.touched.visaNumber && formik.errors.visaNumber ? <span className='span'>{formik.errors.visaNumber}</span> : null
                                     }
-                                    <label htmlFor="visaNumber" className='text-muted'>VISA NUMBER*</label>
+                                    <label htmlFor="visaNumber" className='text-muted'>VISA NUMBER</label>
                                 </Form.Floating>
                             </Col>
 

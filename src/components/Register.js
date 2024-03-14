@@ -216,7 +216,7 @@ function Register() {
                                 </div>
                             </Form>
                             <div className='text-center py-2'>
-                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/'>Login</Link> </span></p>
+                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/teamslogin'>Login</Link> </span></p>
                             </div>
 
                         </Container>

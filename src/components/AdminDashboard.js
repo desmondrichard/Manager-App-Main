@@ -13,6 +13,8 @@ import { useFormik } from 'formik';
 import ImageUpload from './offcanvas-body/Registration/ImageUpload';
 import { useRef } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 //validation:
 const validate = values => {
@@ -45,8 +47,8 @@ function AdminDashboard() {
     }, [])
 
 
-    // Image base 64 value:
-    const [imageData, setImageData] = useState("");
+
+    const [ImageData, setImageData] = useState("");
     const [imgProgress, setImageProgress] = useState(0);
     const [imageValue, setImageValue] = useState(false);
 
@@ -68,44 +70,57 @@ function AdminDashboard() {
         initialValues: {
             teamName: '',
             seasonYear: '',
-            
+
 
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const newValues = { ...values, imageData: imageData }
+            const newValues = { ...values, imageData: ImageData }
             console.log("newvalues", newValues)
+            // console.log("imageData", ImageData)
 
+            // POST method:
             const formData = new FormData();
-            // Append form data fields
             formData.append('teamName', values.teamName);
             formData.append('seasonYear', values.seasonYear);
-            formData.append('imageData', imageData);
+            formData.append('imageData', ImageData);
 
-            //POST method:
+            //Looping:
+            formData.forEach((value, key) => {
+                console.log("formData key:", key);
+                console.log("formData value:", value);
+            });
+
             axios.post('https://localhost:7097/AddTeams', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-                .then(response => {
-                    console.log("response",response);
-                    // console.log("newvalues", newValues)
+                .then((response) => {
+                    console.log("response result", response.data);
                     setSubmitting(false);
                     ResetFields();
+                    //GET Request recalling:
+                    fetch('https://localhost:7097/getTeams')
+                        .then((data) => data.json())
+                        .then((data) => {
+                            console.log("data", data);
+                            setShowData(data);  // showData=data;
+                        })
                 })
-                .catch(error => {
-                    console.error(error.message);
-                    console.log("newvalues", newValues)
+                .catch((error) => {
+                    console.error(error);
                     setSubmitting(false);
-                    // ResetFields();
                 });
-
-            // setSubmitting(false);
-            // ResetFields();
 
         }
     });
+
+    // setSubmitting(false);
+    // ResetFields();
+
+    //DELETE Request:  https://localhost:7097/deleteTeam/TNPL03
+
 
     function ResetFields() {
         teamNameReset.current.value = "";
@@ -113,6 +128,57 @@ function AdminDashboard() {
         setImageProgress(""); // to reset image
         setImageValue(true); // to reset image
 
+    }
+
+    function deleteTeam(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`https://localhost:7097/deleteTeam/${id}`).then((response) => {
+                    if (response.data.TeamCode === id) {   //check how to use alldataThingsId here 
+                        console.log("Deletion Success", response.data)
+                    }
+                    console.log("res", response.data)
+
+                    //Call the GET method here:
+                    axios.get(`https://localhost:7097/getTeams`).then((response) => {
+                        console.log("GET Success", response.data)
+                        // Update the state with the new data
+                        setShowData(response.data)
+                    })
+                        .catch((error) => {
+                            console.log("Error Getting User", error)
+                        })
+                    //GET ends here
+
+                    Swal.fire(
+                        'Deleted!',
+                        'The user has been deleted.',
+                        'success'
+                    )
+                }).catch((error) => {
+                    console.log("Error Deleting User", error)
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred while deleting the user.',
+                        'error'
+                    )
+                })
+            }
+        })
+    }
+
+    const navigate=useNavigate();
+
+    function handleLoginTeam(){
+        navigate("/teamslogin")
     }
 
     useEffect(() => {
@@ -147,27 +213,24 @@ function AdminDashboard() {
                                         <tbody>
                                             {
                                                 showData.map((showData, i) => {
-                                                    console.log("ShowAdminDataImage", showData.imageData)
-                                                    console.log("ShowAdminData", showData)
+                                                    // console.log("ShowAdminDataImage", showData.imageData)
+                                                    console.log("ShowData", showData)
                                                     return (
                                                         <tr key={i}>
                                                             <td style={{ whiteSpace: 'nowrap' }} className='pt-3 text-center'>{showData.teamName ? showData.teamName : 'N/A'}</td>
                                                             <td className='pt-3 text-center'>{showData.teamCode ? showData.teamCode : 'N/A'}</td>
                                                             <td className='pt-3 text-center'>{showData.seasonYear ? showData.seasonYear : 'N/A'}</td>
                                                             <td className='pt-3 text-center'>
-                                                                {showData.imageData ? showData.imageData : "no image"}
-                                                                {/* <img
-                                                                    src={showData ? `data:image;base64/*,${showData.imageData}` :  //checks for data
-                                                                        require('./../assets/dummy_profile_img.png')}   //default img 
-                                                                    alt="img" style={{ width: '37px', height: '37px' }}
-                                                                    onError={(e) => {
-                                                                        e.target.src = require('./../assets/dummy_profile_img.png');
-                                                                    }}
-                                                                /> */}
-
+                                                                {/* {showData.imageData ? <img src={`data:image/jpeg;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px' }} /> : ""} */}
+                                                                {showData.imageData ? (
+                                                                    <img src={`data:image/jpeg;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px', marginTop: '-8px' }} />
+                                                                ) : (
+                                                                    <img src={require('./../assets/noimage.jpg')} alt="default" style={{ width: '37px', height: '37px', marginTop: '-8px' }} />
+                                                                )}
                                                             </td>
-                                                            <td><Button variant="success">LOGIN</Button></td>
-                                                            <td><Button variant="danger">REMOVE</Button></td>
+                                                            <td><Button variant="success" onClick={handleLoginTeam}>LOGIN</Button></td>
+                                                            <td><Button variant="danger" onClick={() => deleteTeam(showData.teamCode)}>REMOVE</Button></td>
+
                                                         </tr>
                                                     )
                                                 })
@@ -178,6 +241,7 @@ function AdminDashboard() {
                             }
                         </Table>
                     </Col>
+
                     <Col lg={4} className='mt-2'>
                         <h5 className='text-center' style={{ color: '#595c5f' }}>ADD TEAMS</h5>
                         <Card style={{ border: '3px outset #2885D7' }}>
@@ -194,7 +258,7 @@ function AdminDashboard() {
                                         <option value="none">Select Teams</option>
                                         <option value="ballsytrichy">Ballsy Trichy</option>
                                         <option value="salemspartans">Salem Spartans</option>
-                                        <option value="chennaicheetas">Punjab Panthers</option>
+                                        <option value="punjabpanthers">Punjab Panthers</option>
 
                                     </Form.Select>
                                     {
@@ -220,7 +284,7 @@ function AdminDashboard() {
                                 </div>
 
                                 <div className="d-grid gap-2">
-                                    <Button type="submit" variant="outline-success">SUBMIT</Button>
+                                    <Button type="submit" variant="outline-success" >SUBMIT</Button>
                                 </div>
                             </Form>
                         </Card>

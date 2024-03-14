@@ -91,6 +91,7 @@ const validate = values => {
 
 function PersonalInformation({ activationKey, onActivationKeyChild }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
+    const [mobileValueClear1, setMobileValueClear1] = useState(false);//for clearing mobile no ..false-no clear
 
     const navigate = useNavigate();
     // const [mobileValue, setMobileValue] = useState(false);
@@ -139,6 +140,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         setImageProgress("");
         setImageValue(true);
         setMobileValueClear(true);
+        setMobileValueClear1(true);
         setPhoneProgress("");
         formik.resetForm();
         setProgress(0);
@@ -159,6 +161,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             bloodGroup: '',
             emailId: '',
             gender: '',
+            secondNumber: null,
             mobileNo: null,
             team: '',
             year: ''
@@ -172,7 +175,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             //const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             //values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
 
-            values = { ...values, mobileNo, ImageData, year: year }
+            values = { ...values, mobileNo, secondNumber, ImageData, year: year }
 
 
             const formData = new FormData();
@@ -190,11 +193,11 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             formData.append('gender', values.gender);
             // formData.append('mobileNo', JSON.stringify(values.mobileNo));
             formData.append('mobileNo', values.mobileNo);
+            formData.append('secondNumber', values.secondNumber);
             formData.append('ImageData', values.ImageData);
             formData.append('team', values.team);
             formData.append('year', values.year);
 
-            
             axios.post('https://localhost:7097/api/playerimage/PlayersTestingImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -236,6 +239,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         console.log("childtoparentval: ", val);
         setPhoneProgress(val);//checking if value present or not
         setMobileValueClear(false);//if value is present  then clear the field  only after reset it clicked so made false-no clear again else it will be true always hence field cannot be cleared
+        setMobileValueClear1(false);//if value is present  then clear the field  only after reset it clicked so made false-no clear again else it will be true always hence field cannot be cleared
     }
 
     // progress Bar for static fields:
@@ -279,12 +283,20 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         setImageData(val)
     }
 
-    //phone value:
+    //1st number phone value:
     const [mobileNo, setMobileNo] = useState(null);
     const Samp = (value) => {
         setMobileNo(value);
         formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component else submit wont be enabled
         console.log("phonevalue", mobileNo)
+    }
+
+    //2nd number phone value:
+    const [secondNumber, setsecondNumber] = useState(null);
+    const Samp1 = (value) => {
+        setsecondNumber(value);
+        formik.setFieldValue('secondNumber', value);// used to push value in formik dynamic child component else submit wont be enabled
+        console.log("phone2value", secondNumber)
     }
 
 
@@ -459,6 +471,15 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
+
+                                />
+                                {formik.touched.mobileNo && formik.errors.mobileNo ? (
+                                    <span className="span">{formik.errors.mobileNo}</span>
+                                ) : null}
+                            </Col>
+                            {/* second mobile */}
+                            <Col xs={12} lg={4} className='col'>
+                                <Phone isClear={mobileValueClear1} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp1} dynamicName="secondNumber" dynamicId="secondNumberId"
 
                                 />
                                 {formik.touched.mobileNo && formik.errors.mobileNo ? (

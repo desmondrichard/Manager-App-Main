@@ -30,15 +30,26 @@ function PlayerRegistrationViewCard() {
         try {
             const data = location.state.showData;
 
+            // Exclude imageData from truncation
+            const { imageData, ...dataWithoutImage } = data;
+
             // Iterate through object properties and replace empty values with 'n/a'
-            Object.keys(data).forEach(key => {
-                if (data[key] === '' || data[key] === null || data[key] === undefined) {
-                    data[key] = 'n/a';
+            Object.keys(dataWithoutImage).forEach(key => {
+                if (dataWithoutImage[key] === '' || dataWithoutImage[key] === null || dataWithoutImage[key] === undefined) {
+                    dataWithoutImage[key] = 'n/a';
+                }
+
+                // Check if the length of cell data exceeds a limit (e.g., 255 characters)
+                if (typeof dataWithoutImage[key] === 'string' && dataWithoutImage[key].length > 32767) {
+                    // Truncate the string if it exceeds the limit
+                    dataWithoutImage[key] = dataWithoutImage[key].substring(0, 32767);
                 }
             });
 
+            //while truncating removes image in Card.Body
+
             var wb = XLSX.utils.book_new();
-            var ws = XLSX.utils.json_to_sheet([data]); //convert it into array else wont work
+            var ws = XLSX.utils.json_to_sheet([dataWithoutImage]); //convert it into array else wont work
 
             XLSX.utils.book_append_sheet(wb, ws, "MySheet1");
             XLSX.writeFile(wb, "MyExcelAccreadiation.xlsx");
@@ -48,7 +59,7 @@ function PlayerRegistrationViewCard() {
 
     };
 
-    const [age, setAge] = React.useState('');
+    const [age, setAge] =useState('');
 
     const handleChange = (event) => {
         setAge(event.target.value);

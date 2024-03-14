@@ -12,35 +12,13 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName }) 
         inputRef.current.click();
     }
 
+    //Image without converting to Base64:
     const handleImageChange = async (e) => {
-        const file = e.target.files[0];//setted file path like target
-        setImage(file);//used to set img present in target.files[0]
-        const base64 = await convertBase64(file) //converting to base64
-        const base64WithoutPrefix = base64.split(',')[1]; //To remove prefix data:image/jpeg;base64, from url.since we in GET method we defaultly added data:image/*;base64, in parent else this line is no needed:
-        setBaseImage(base64WithoutPrefix);//setting here
-        console.log(file);
-        onActivateProgressBar(1); //sets value to 1 from 0 if image is uploaded
-        console.log("after file", base64WithoutPrefix)
-        dynamicImageName(base64WithoutPrefix); //passing the base64 string to another component for displaying it as a preview
-
-
+        const file = e.target.files[0];
+        setImage(file);
+        onActivateProgressBar(1);
+        dynamicImageName(file);
     }
-
-    const convertBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            }
-            fileReader.onerror = (error) => {
-                reject(error);
-            }
-        })
-    }
-
-
 
 
     return (

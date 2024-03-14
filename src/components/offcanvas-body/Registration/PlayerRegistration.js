@@ -62,7 +62,7 @@ function PlayerRegistration(props) {
   //Data Binding GET:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('https://localhost:7097/api/playerimage/register/getTestingInformation')
+    fetch('https://localhost:7097/getAllPlayers')
       .then((data) => data.json())
       .then((data) => {
         console.log("data", data);
@@ -114,7 +114,7 @@ function PlayerRegistration(props) {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('https://localhost:7097/api/playerimage/register/getTestingInformation');
+      const response = await fetch('https://localhost:7097/getAllPlayers');
       const data = await response.json();
       console.log("response", data);
 
@@ -147,14 +147,16 @@ function PlayerRegistration(props) {
 
   //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
   // function deleteUser(id) {
+  //   console.log("alldataplayerid",id)
   //   axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
+  //     // console.log("res",response)
   //     if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here
   //       console.log("Deletion Success", response.data)
   //     }
   //     console.log("res", response.data)
 
   //     //Call the GET method here:
-  //     axios.get(`https://localhost:7097/api/playerimage/register/getTestingInformation`).then((response) => {
+  //     axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
   //       console.log("GET Success", response.data)
   //       // Update the state with the new data
   //       setShowData(response.data)
@@ -171,6 +173,7 @@ function PlayerRegistration(props) {
   // }
 
   function deleteUser(id) {
+    console.log("alldataplayerid", id)
     Swal.fire({
       title: 'Are you sure?',
       text: 'You won\'t be able to revert this!',
@@ -182,13 +185,13 @@ function PlayerRegistration(props) {
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
-          if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
+          if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here 
             console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
 
           //Call the GET method here:
-          axios.get(`https://localhost:7097/api/playerimage/register/getTestingInformation`).then((response) => {
+          axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
             console.log("GET Success", response.data)
             // Update the state with the new data
             setShowData(response.data)
@@ -367,21 +370,21 @@ function PlayerRegistration(props) {
                     search.length < 2 || (item.playerName && item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2))
                   )
                   .map((showData, i) => {
-                    console.log("ShowData", showData.playerName);
+                    console.log("ShowDataPlayer", showData);
                     return (
                       <tr className='text-center' key={i}>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</span></td>
                         {/* blob to image: */}
                         <td>
-                          {/* check below image is able to be getted from DB since we added /* in front of image: */}
                           <img
-                            src={showData ? `data:image;base64/*,${showData.imageData}` :  //checks for data
+                            src={showData ? `data:image/*;base64,${showData.imageData}` :  //checks for data
                               require('./../../../assets/dummy_profile_img.png')}   //default img 
                             alt="img" style={{ width: '37px', height: '37px' }}
                             onError={(e) => {
                               e.target.src = require('./../../../assets/dummy_profile_img.png');
                             }}
                           />
+
                         </td>
                         <td className='td-parent' style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.playerName ? showData.playerName : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.displayName ? showData.displayName : 'N/A'}</span></td>
@@ -419,7 +422,7 @@ export default PlayerRegistration
 
 
 function Apps() {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   return (
     <>

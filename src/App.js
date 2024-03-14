@@ -34,8 +34,8 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          {/* <Route path='/' exact element={<Login />} />
-          <Route path='/signup' exact element={<Register />} /> */}
+           <Route path='/teamslogin' exact element={<Login />} />
+          <Route path='/teamssignup' exact element={<Register />} /> 
 
           {/* sample: */}
           <Route path='/' exact element={<SuperAdminLogin />} />

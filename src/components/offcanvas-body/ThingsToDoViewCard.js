@@ -19,40 +19,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-//
-// import { useParams } from 'react-router-dom';
-// import axios from 'axios';
+
 function ThingsToDoViewCard() {
     const location = useLocation();
     console.log("location", location)
-
-    //ID
-    // const param = useParams();
-    // console.log(param);
-    // const [showData, setShowData] = useState({});
-    // const postId = 1; // replace this with the actual post id
-
-    // useEffect(() => {
-    //     axios.get(`http://192.168.1.192/ManagerApi/register/AllDataThingsToDo/${postId}`)
-    //         .then(response => {
-    //             setShowData(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }, [postId]);
-
-
-    // Data Binding:
-    // const [showData, setShowData] = useState(null);
-    // useEffect(() => {
-    //     fetch('http://192.168.1.192/ManagerApi/register/AllDataThingsToDo')
-    //         .then((data) => data.json())
-    //         .then((data) => {
-    //             // console.log("data",data);
-    //             setShowData(data);  // showData=data;
-    //         })
-    // }, [])
 
     var formattedDate;
     //excel download:
@@ -60,12 +30,14 @@ function ThingsToDoViewCard() {
 
         try {
             const data = location.state.showData;
+            console.log("Data for ThingsTodoviewcard: ", data)
 
             // Iterate through object properties and replace empty values with 'n/a'
             Object.keys(data).forEach(key => {
                 if (data[key] === '' || data[key] === null || data[key] === undefined) {
                     data[key] = 'n/a';
                 }
+
             });
 
             var wb = XLSX.utils.book_new();
@@ -80,10 +52,10 @@ function ThingsToDoViewCard() {
     };
 
     const [age, setAge] = React.useState('');
-
     const handleChange = (event) => {
         setAge(event.target.value);
     };
+
 
     //pdf:
     const [loader, setLoader] = useState(false);

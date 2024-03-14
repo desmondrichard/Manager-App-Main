@@ -33,7 +33,7 @@ const validate = values => {
     if (!values.passportNo) {
         errors.passportNo = "*Required";
     }
-    else if (!/^[a-zA-Z0-9]{10}$/.test(values.passportNo)) {
+    else if (!/^[A-Z]{1}[0-9]{6}$/.test(values.passportNo)) {
         errors.passportNo = "Enter Valid Passport Number"
     }
 
@@ -48,12 +48,7 @@ const validate = values => {
         errors.birthCertificate = "Enter Valid Birth Certificate Number"
     }
 
-    if (!values.visaNumber) {
-        errors.visaNumber = "*Required"
-    }
-    else if (!/^[0-9]{16}?$/.test(values.visaNumber)) {
-        errors.visaNumber = "Enter Valid Visa Number"
-    }
+    
 
     if (!values.address) {
         errors.address = "Required"

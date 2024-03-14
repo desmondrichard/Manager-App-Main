@@ -352,7 +352,6 @@ function SupportStaffRegistration(props) {
                         <th>ACTION</th>
                     </tr>
                 </thead>
-
                 {
                     (showData) ?
                         (
@@ -364,10 +363,10 @@ function SupportStaffRegistration(props) {
                                             search.length < 2 || (item.supportStaffName && item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2))
                                         )
                                         .map((showData, i) => {
-                                            console.log("showData", showData.supportStaffName)
+                                            console.log("showData", showData)
                                             return (
                                                 <tr className='text-center' key={i}>
-                                                    <td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}>
                                                         {/* check below image is able to be getted from DB since we added /* in front of image: */}
                                                         <img
                                                             src={showData ? `data:image/*;base64,${showData.imageData}` :  //checks for data
@@ -379,8 +378,8 @@ function SupportStaffRegistration(props) {
                                                         />
                                                     </td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</span></td>
-                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</span></td>
                                                     <td></td>
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.designation ? showData.designation : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.emailId ? showData.emailId : 'N/A'}</span></td>
@@ -392,7 +391,9 @@ function SupportStaffRegistration(props) {
                                                             <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
                                                         </NavLink>
 
-                                                        <Button variant="success" className='me-1' onClick={() => handleUpdateButtonClick(showData, showData.alldataStaffId)}><i className="bi bi-pencil-square"></i></Button>
+                                                        <Button variant="success" className='me-1' >
+                                                         {/* onClick={() => handleUpdateButtonClick(showData, showData.alldataStaffId)}> */}
+                                                            <i className="bi bi-pencil-square"></i></Button>
 
                                                         <Button onClick={() => deleteUser(showData.alldataStaffId)} variant="danger"><i className="bi bi-trash"></i></Button>
                                                     </td>

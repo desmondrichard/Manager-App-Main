@@ -308,8 +308,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
     }, [formik.values, phoneProgress, imgProgress]); // Ensure that the effect is triggered when form values change
 
     //Update method:
-    console.log('updateMethodData', updateMethodData)
-    console.log('updateMethodDataID:', updateMethodData.alldataStaffId)
+    //console.log('updateMethodData', updateMethodData)
+    //console.log('updateMethodDataID:', updateMethodData.alldataStaffId)
 
     // axios.put(`https://localhost:7097/StaffPersonalInformation/${id}`, updateMethodData)
     //     .then((response) => {
