@@ -11,7 +11,10 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
+
+
+function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) {
+
     const [modalClose, setModalClose] = useState(false)
     // reset form start: 
     const fbid1 = useRef("");
@@ -94,6 +97,8 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
                     console.log("values", values)
                     alert('clicked')
                     onCloseModal(modalClose);
+                    //   call a function from parent
+                    onShowData();
 
                 })
                 .catch(error => {
@@ -102,7 +107,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
                     alert('clicked')
                     onCloseModal(modalClose);
                 });
-            notify();  //not working
+                 //not working
         }
     });
 

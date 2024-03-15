@@ -14,7 +14,7 @@ import ProgressBarWithLabel from '../ProgressBarWithLabel';
 import axios from 'axios';
 import { useFormik } from 'formik';
 
-function SocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
+function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) {
     //close modal:
     const [modalClose, setModalClose] = useState(false)
     // reset form start: 
@@ -104,6 +104,7 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey }) {
                     console.log(response.data);
                     console.log("values", values)
                     onCloseModal(modalClose);
+                    onShowData();
                 })
                 .catch(error => {
                     notify();  //not working

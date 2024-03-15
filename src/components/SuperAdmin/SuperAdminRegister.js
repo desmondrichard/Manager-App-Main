@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 import Image1 from 'react-bootstrap/Image';
 import Image2 from 'react-bootstrap/Image';
 import InputGroup from 'react-bootstrap/InputGroup';
+import axios from 'axios';
+
 
 // Validation:
 const validate = values => {
@@ -70,17 +72,30 @@ function SuperAdminRegister() {
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            // const dateOfBirth = new Date(values.dob);
-            // const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             const newValues = { ...values }
-            // formik.setFieldValue('dob', formattedDob);
-            alert(`Hello! ,${values.fullname}you have successfully signed up`);
-            console.log('newvalues', newValues)
-            setSubmitting(false)
-            navigate("/");
+            axios.post('https://localhost:7097/SuperAdmin', newValues)
+                .then(response => {
+                    console.log("response status: ", response.status) //to fetch  the status of API like 200 etc
+                    console.log(response.data);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false)
+                    navigate("/");
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("values", newValues)
+                });
+
 
         }
     });
+
+    // const newValues = { ...values }
+    // alert(`Hello! ,${values.fullname}you have successfully signed up`);
+    // console.log('newvalues', newValues)
+    // setSubmitting(false)
+    // navigate("/");
+
     return (
         <div className='pt-1 '>
             <Card className='mx-3 cardBg'>

@@ -150,7 +150,19 @@ function SupportStaffRegistration(props) {
         setShow(false);
     }
 
+    function handleShowData() {   
+        //Call the GET method here:
+        axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
+            console.log("GET Success", response.data)
+            // Update the state with the new data
+            setShowData(response.data)
+        })
+            .catch((error) => {
+                console.log("Error Getting User", error)
+            })
+    }
 
+    //DELETE Method:
     function deleteUser(id) {
         Swal.fire({
             title: 'Are you sure?',
@@ -263,7 +275,7 @@ function SupportStaffRegistration(props) {
                                 {/* Accordion:8 */}
                                 <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
                                 {/* Accordion:9 */}
-                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} />
+                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} />
                             </Accordion>
                         </Modal.Body>
 
@@ -392,7 +404,7 @@ function SupportStaffRegistration(props) {
                                                         </NavLink>
 
                                                         <Button variant="success" className='me-1' >
-                                                         {/* onClick={() => handleUpdateButtonClick(showData, showData.alldataStaffId)}> */}
+                                                            {/* onClick={() => handleUpdateButtonClick(showData, showData.alldataStaffId)}> */}
                                                             <i className="bi bi-pencil-square"></i></Button>
 
                                                         <Button onClick={() => deleteUser(showData.alldataStaffId)} variant="danger"><i className="bi bi-trash"></i></Button>

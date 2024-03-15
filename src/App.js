@@ -34,12 +34,12 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-           <Route path='/teamslogin' exact element={<Login />} />
-          <Route path='/teamssignup' exact element={<Register />} /> 
+          <Route path='/' exact element={<Login />} />
+          <Route path='/teamssignup' exact element={<Register />} />
 
           {/* sample: */}
-          <Route path='/' exact element={<SuperAdminLogin />} />
-          <Route path='/superadminsignup' exact element={<SuperAdminRegister />} />
+          {/* <Route path='/' exact element={<SuperAdminLogin />} />
+          <Route path='/superadminsignup' exact element={<SuperAdminRegister />} /> */}
 
           {/* Nested Routes for Dashboard: */}
           <Route path='dashboard'>

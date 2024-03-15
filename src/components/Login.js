@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,15 +12,16 @@ import Image1 from 'react-bootstrap/Image';
 import Image2 from 'react-bootstrap/Image';
 import Image3 from 'react-bootstrap/Image';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
     //to  navigate between pages:
     const navigate = useNavigate();
 
     // Getting input from user:
-    const [username, setUsername] = useState('');
-    const [pwd, setPwd] = useState('');
-    const [teamname, setTeamname] = useState('');
+    const [userName, setUsername] = useState('');
+    const [password, setPwd] = useState('');
+    const [team, setTeam] = useState('');
 
     // Error message display:
     const [errorMessage, seterrorMessage] = useState('');
@@ -34,20 +35,46 @@ function Login() {
     // password show/hide:
     const [visible, setVisible] = useState(true);
 
-    function handleLogin(e) {
+    const handleLogin = async (e) => {
         e.preventDefault();
         setsuccessMessage('');
         seterrorMessage('')
-        if (username !== 'admin' || pwd !== 'admin123' || teamname !== 'Ballsy Trichy') {
-            seterrorMessage('Invalid username or password');
-        } else {
-            localStorage.setItem("usernameData", "admin");
-            localStorage.setItem("pwdData", "admin123");
-            localStorage.setItem("teamnameData", "Ballsy Trichy");
-            // navigate('/dashboard')
 
+        try {
+            const response = await axios.post('https://localhost:7097/Signup/Authenticate', {
+                userName: userName,
+                password: password,
+                team: team
+            });
+
+            // Authentication successful, redirect or show success message
+
+            console.log("login response:", response.data.message);
+            if (response.data.message === 'Signup login success!') {
+                console.log('Login success');
+                navigate('/dashboard')
+                setsuccessMessage('Login successful!');
+            }
+
+            // setting Local storage:
+            // localStorage.setItem("usernameData", userName);
+            // localStorage.setItem("pwdData", password);
+            // localStorage.setItem("teamnameData", team);
+
+            else {
+                seterrorMessage('Invalid credentials');
+                console.log('Invalid credentials');
+            }
+        } catch (error) {
+            console.error('Error occurred during login:', error);
+            seterrorMessage('Error occurred during login');
         }
+
+
     }
+
+
+    //
 
     return (
         <div style={{ paddingTop: '3%' }} className='div1' >
@@ -68,15 +95,18 @@ function Login() {
                                         {successMessage.length > 0 && (
                                             <div style={{ marginBottom: '10px', color: 'green' }}>{successMessage}</div>
                                         )}
+
+                                        {/* username: */}
                                         <Form.Group className="mb-2" controlId="Username1" >
                                             <Form.Label className='fontLogin'>Username</Form.Label>
-                                            <Form.Control className='shadow-none' type="text" placeholder="Enter username" onChange={(e) => setUsername(e.target.value)} />
+                                            <Form.Control className='shadow-none' type="text" placeholder="Enter username" value={userName} onChange={(e) => setUsername(e.target.value)} />
                                         </Form.Group>
 
+                                        {/* password: */}
                                         <Form.Group className="mb-2" controlId="Passwords" >
                                             <Form.Label className='fontLogin'>Password</Form.Label>
                                             <div className='number' >
-                                                <Form.Control className='input shadow-none' type={
+                                                <Form.Control className='input shadow-none' value={password} type={
                                                     visible ? "password" : "text"}
                                                     placeholder="Password" onChange={(e) => setPwd(e.target.value)} />
                                                 <div className='p-2 pwd-toggle' onClick={() => setVisible(!visible)}>
@@ -84,13 +114,12 @@ function Login() {
                                                         : <Image2 className='img11' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>}
                                                 </div>
                                             </div>
-
                                         </Form.Group>
 
                                         {/* team name: */}
                                         <Form.Group className="mb-1" controlId="teamname" >
                                             <Form.Label className='fontLogin'>Teamname</Form.Label>
-                                            <Form.Control className='shadow-none' type="text" placeholder="Enter teamname" onChange={(e) => setTeamname(e.target.value)} />
+                                            <Form.Control className='shadow-none' type="text" placeholder="Enter teamname" value={team} onChange={(e) => setTeam(e.target.value)} />
                                         </Form.Group>
 
                                         <div className="d-grid gap-2 my-2 btn1">

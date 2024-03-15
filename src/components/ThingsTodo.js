@@ -57,7 +57,7 @@ function ThingsTodo() {
   //       console.log("Deletion Success", response.data)
   //     }
   //     console.log("res", response.data)
-    
+
 
   //   //Call the GET method here:
   //   axios.get(`https://localhost:7097/register/AllDataThingsToDo`).then((response) => {
@@ -88,20 +88,20 @@ function ThingsTodo() {
       if (result.isConfirmed) {
         axios.delete(`https://localhost:7097/Delete-AlldataThings/${id}`).then((response) => {
           if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
-        console.log("Deletion Success", response.data)
+            console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
 
           //Call the GET method here:
-      axios.get(`https://localhost:7097/register/AllDataThingsToDo`).then((response) => {
-        console.log("GET Success", response.data)
-        // Update the state with the new data
-        setShowData(response.data)
-      })
-        .catch((error) => {
-          console.log("Error Getting User", error)
-        })
-      //GET ends here
+          axios.get(`https://localhost:7097/register/AllDataThingsToDo`).then((response) => {
+            console.log("GET Success", response.data)
+            // Update the state with the new data
+            setShowData(response.data)
+          })
+            .catch((error) => {
+              console.log("Error Getting User", error)
+            })
+          //GET ends here
 
           Swal.fire(
             'Deleted!',
@@ -203,7 +203,7 @@ function ThingsTodo() {
                         return (
                           <tr className='text-center font' key={i}>
                             <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                            <td></td>
+                            <td>{showData.team ? showData.team : 'N/A'}</td>
                             <td>{showData.representatives ? showData.representatives : 'N/A'}</td>
                             <td>{showData.teamUniform ? showData.teamUniform : 'N/A'}</td>
                             <td>{showData.teamTshirt ? showData.teamTshirt : 'N/A'}</td>
@@ -338,6 +338,8 @@ function ThingsTodo() {
                     <th className='font'>GROUND NAME</th>
                     <th className='font'>TEAM A</th>
                     <th className='font'>TEAM B</th>
+                    <th className='font'>TEAM A LOGO</th>
+                    <th className='font'>TEAM B LOGO</th>
                     <th className='font'>ACTION</th>
                   </tr>
                 </thead>
@@ -354,6 +356,7 @@ function ThingsTodo() {
                             : item.groundName && item.groundName.slice(0, 2).toLowerCase() === search.slice(0, 2)
                       )
                       .map((showData, i) => {
+                        console.log("FixturesShowData:", showData)
                         return (
                           <tr className='text-center font' key={i}>
                             <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
@@ -364,6 +367,27 @@ function ThingsTodo() {
                             <td>{showData.groundName ? showData.groundName : 'N/A'}</td>
                             <td>{showData.teamA ? showData.teamA : 'N/A'}</td>
                             <td>{showData.teamB ? showData.teamB : 'N/A'}</td>
+                            {/* LOGO: */}
+                            <td>
+                              <img
+                                src={showData ? `data:image/*;base64,${showData.teamAImage}` :  //checks for data
+                                  require('./../assets/noimage.jpg')}   //default img 
+                                alt="img" style={{ width: '40px', height: '30px' }}
+                                onError={(e) => {
+                                  e.target.src = require('./../assets/noimage.jpg');
+                                }}
+                              />
+                            </td>
+                            <td>
+                              <img
+                                src={showData ? `data:image/*;base64,${showData.teamBImage}` :  //checks for data
+                                  require('./../assets/noimage.jpg')}   //default img 
+                                alt="img" style={{ width: '40px', height: '30px' }}
+                                onError={(e) => {
+                                  e.target.src = require('./../assets/noimage.jpg');
+                                }}
+                              />
+                            </td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>

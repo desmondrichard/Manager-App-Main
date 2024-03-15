@@ -218,6 +218,17 @@ function PlayerRegistration(props) {
     })
   }
 
+  function handleShowData() {
+    //Call the GET method here:
+    axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
+      console.log("GET Success", response.data)
+      // Update the state with the new data
+      setShowData(response.data)
+    })
+      .catch((error) => {
+        console.log("Error Getting User", error)
+      })
+  }
 
   // Filter:
   const [search, setSearch] = useState('');
@@ -273,7 +284,7 @@ function PlayerRegistration(props) {
                 {/* Accordion:9 */}
                 <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
                 {/* Accordion:10 */}
-                <SocialMediaInfo activationKey={parentkey} onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <SocialMediaInfo activationKey={parentkey} onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} />
               </Accordion>
             </Modal.Body>
             {/* Footer: */}
@@ -386,9 +397,9 @@ function PlayerRegistration(props) {
                           />
 
                         </td>
+                        <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.team ? showData.team : 'N/A'}</span></td>
                         <td className='td-parent' style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.playerName ? showData.playerName : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.displayName ? showData.displayName : 'N/A'}</span></td>
-                        <td></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.emailId ? showData.emailId : 'N/A'}</span></td>
                         <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.specialization ? showData.specialization : 'N/A'}</span></td>

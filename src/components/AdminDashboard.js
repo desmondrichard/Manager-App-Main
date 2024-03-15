@@ -175,9 +175,9 @@ function AdminDashboard() {
         })
     }
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
-    function handleLoginTeam(){
+    function HandleLoginTeam() {
         navigate("/teamslogin")
     }
 
@@ -228,7 +228,7 @@ function AdminDashboard() {
                                                                     <img src={require('./../assets/noimage.jpg')} alt="default" style={{ width: '37px', height: '37px', marginTop: '-8px' }} />
                                                                 )}
                                                             </td>
-                                                            <td><Button variant="success" onClick={handleLoginTeam}>LOGIN</Button></td>
+                                                            <td><Button variant="success" onClick={HandleLoginTeam}>LOGIN</Button></td>
                                                             <td><Button variant="danger" onClick={() => deleteTeam(showData.teamCode)}>REMOVE</Button></td>
 
                                                         </tr>

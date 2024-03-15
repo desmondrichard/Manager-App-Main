@@ -15,6 +15,7 @@ import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
 //
 import DatePicker from 'react-datepicker';
+import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 
 // Validation:
@@ -38,8 +39,8 @@ const validate = values => {
     if (!values.dob) {
         errors.dob = "*Required";
     }
-    if (!values.userType) {
-        errors.userType = "*Required";
+    if (!values.team) {
+        errors.team = "*Required";
     }
     if (!values.mobile) {
         errors.mobile = "*Required";
@@ -77,7 +78,7 @@ function Register() {
             mobile: '',
             password: '',
             confirmpassword: '',
-            userType: '',
+            team: '',
             dob: ''
         },
         validate,
@@ -85,14 +86,31 @@ function Register() {
             const dateOfBirth = new Date(values.dob);
             const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             const newValues = { ...values, dob: formattedDOB }
-            // formik.setFieldValue('dob', formattedDob);
-            alert(`Hello! ,${values.fullname}you have successfully signed up`);
-            console.log('newvalues', newValues)
-            setSubmitting(false)
-            navigate("/");
+
+            axios.post('https://localhost:7097/register/Signup', newValues) 
+                .then(response => {
+                    console.log("response status: ", response.status)  //to fetch  the status of API like 200 etc
+                    console.log(response.data);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false)
+                    navigate("/");
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("values", newValues)
+                });
 
         }
     });
+
+    // const dateOfBirth = new Date(values.dob);
+    // const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+    // const newValues = { ...values, dob: formattedDOB }
+    // // formik.setFieldValue('dob', formattedDob);
+    // alert(`Hello! ,${values.fullname}you have successfully signed up`);
+    // console.log('newvalues', newValues)
+    // setSubmitting(false)
+    // navigate("/");
 
     const handleDobChange = (date) => {
         setDob(date);
@@ -195,16 +213,16 @@ function Register() {
                                     }
                                 </Form.Group>
 
-                                <label htmlFor="userType" className='mt-1 fontRegister'>Select Team</label>
-                                <Form.Select aria-label="userType" size='sm' className='mt-1' name='userType'
-                                    value={formik.values.userType} onBlur={formik.handleBlur} onChange={formik.handleChange}>
+                                <label htmlFor="team" className='mt-1 fontRegister'>Select Team</label>
+                                <Form.Select aria-label="team" size='sm' className='mt-1' name='team'
+                                    value={formik.values.team} onBlur={formik.handleBlur} onChange={formik.handleChange}>
                                     <option value=''>None</option>
                                     <option value="admin">Salem Spartans</option>
                                     <option value="supportstaff">Ballsy Trichy</option>
 
                                 </Form.Select>
                                 {
-                                    formik.touched.userType && formik.errors.userType ? <span className='span'>{formik.errors.userType}</span> : null
+                                    formik.touched.team && formik.errors.team ? <span className='span'>{formik.errors.team}</span> : null
                                 }
 
                                 {/* Submit Button: */}
@@ -216,7 +234,7 @@ function Register() {
                                 </div>
                             </Form>
                             <div className='text-center py-2'>
-                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/teamslogin'>Login</Link> </span></p>
+                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/'>Login</Link> </span></p>
                             </div>
 
                         </Container>
