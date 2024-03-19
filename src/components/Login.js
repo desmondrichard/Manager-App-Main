@@ -13,6 +13,8 @@ import Image2 from 'react-bootstrap/Image';
 import Image3 from 'react-bootstrap/Image';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
     //to  navigate between pages:
@@ -28,12 +30,24 @@ function Login() {
     const [successMessage, setsuccessMessage] = useState('');
 
     //Getting local storage:
-    const getUsername = localStorage.getItem("usernameData");
-    const getPwd = localStorage.getItem("pwdData");
-    const getTeamname = localStorage.getItem("teamnameData");
+    // const getUsername = localStorage.getItem("usernameData");
+    // const getPwd = localStorage.getItem("pwdData");
+    // const getTeamname = localStorage.getItem("teamnameData");
 
     // password show/hide:
     const [visible, setVisible] = useState(true);
+
+    //React-Toastify:
+    const notify = () => toast.success('Successfully Logged in!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -52,8 +66,11 @@ function Login() {
             console.log("login response:", response.data.message);
             if (response.data.message === 'Signup login success!') {
                 console.log('Login success');
-                navigate('/dashboard')
-                setsuccessMessage('Login successful!');
+                setsuccessMessage('Login success!');
+                notify();
+                setTimeout(() => {
+                    navigate("/dashboard");
+                }, 3000);
             }
 
             // setting Local storage:
@@ -73,9 +90,6 @@ function Login() {
 
     }
 
-
-    //
-
     return (
         <div style={{ paddingTop: '3%' }} className='div1' >
             <Container>
@@ -87,50 +101,50 @@ function Login() {
                         <Col md={5}>
                             <Container className='pt-4 '>
                                 {/* condition to navigate: */}
-                                {getUsername && getPwd && getTeamname ? navigate('/dashboard') :
-                                    <Form onSubmit={(e) => handleLogin(e)}>
-                                        <legend className='text-center' style={{ fontWeight: '700' }}>Login</legend>
-                                        <hr style={{ border: '2px solid #198754' }} />
-                                        {errorMessage && <div style={{ marginBottom: '10px', color: 'red' }}>{errorMessage}</div>}
-                                        {successMessage.length > 0 && (
-                                            <div style={{ marginBottom: '10px', color: 'green' }}>{successMessage}</div>
-                                        )}
 
-                                        {/* username: */}
-                                        <Form.Group className="mb-2" controlId="Username1" >
-                                            <Form.Label className='fontLogin'>Username</Form.Label>
-                                            <Form.Control className='shadow-none' type="text" placeholder="Enter username" value={userName} onChange={(e) => setUsername(e.target.value)} />
-                                        </Form.Group>
+                                <Form onSubmit={(e) => handleLogin(e)}>
+                                    <legend className='text-center' style={{ fontWeight: '700' }}>Login</legend>
+                                    <hr style={{ border: '2px solid #198754' }} />
+                                    {errorMessage && <div style={{ marginBottom: '10px', color: 'red' }}>{errorMessage}</div>}
+                                    {successMessage.length > 0 && (
+                                        <div style={{ marginBottom: '10px', color: 'green' }}>{successMessage}</div>
+                                    )}
 
-                                        {/* password: */}
-                                        <Form.Group className="mb-2" controlId="Passwords" >
-                                            <Form.Label className='fontLogin'>Password</Form.Label>
-                                            <div className='number' >
-                                                <Form.Control className='input shadow-none' value={password} type={
-                                                    visible ? "password" : "text"}
-                                                    placeholder="Password" onChange={(e) => setPwd(e.target.value)} />
-                                                <div className='p-2 pwd-toggle' onClick={() => setVisible(!visible)}>
-                                                    {visible ? <Image1 className='img11' style={{ height: '18px' }} src={require('../assets/eye-close.png')}></Image1>
-                                                        : <Image2 className='img11' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>}
-                                                </div>
+                                    {/* username: */}
+                                    <Form.Group className="mb-2" controlId="Username1" >
+                                        <Form.Label className='fontLogin'>Username</Form.Label>
+                                        <Form.Control className='shadow-none' type="text" placeholder="Enter username" value={userName} onChange={(e) => setUsername(e.target.value)} />
+                                    </Form.Group>
+
+                                    {/* password: */}
+                                    <Form.Group className="mb-2" controlId="Passwords" >
+                                        <Form.Label className='fontLogin'>Password</Form.Label>
+                                        <div className='number' >
+                                            <Form.Control className='input shadow-none' value={password} type={
+                                                visible ? "password" : "text"}
+                                                placeholder="Password" onChange={(e) => setPwd(e.target.value)} />
+                                            <div className='p-2 pwd-toggle' onClick={() => setVisible(!visible)}>
+                                                {visible ? <Image1 className='img11' style={{ height: '18px' }} src={require('../assets/eye-close.png')}></Image1>
+                                                    : <Image2 className='img11' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>}
                                             </div>
-                                        </Form.Group>
-
-                                        {/* team name: */}
-                                        <Form.Group className="mb-1" controlId="teamname" >
-                                            <Form.Label className='fontLogin'>Teamname</Form.Label>
-                                            <Form.Control className='shadow-none' type="text" placeholder="Enter teamname" value={team} onChange={(e) => setTeam(e.target.value)} />
-                                        </Form.Group>
-
-                                        <div className="d-grid gap-2 my-2 btn1">
-                                            {/* <NavLink to='/dashboard' className='navLinks'> */}
-                                            <Button variant="outline-success" className='mt-2 w-100 fs-4' size="lg" type='submit'>
-                                                Login
-                                            </Button>
-                                            {/* </NavLink> */}
                                         </div>
-                                    </Form>
-                                }
+                                    </Form.Group>
+
+                                    {/* team name: */}
+                                    <Form.Group className="mb-1" controlId="teamname" >
+                                        <Form.Label className='fontLogin'>Teamname</Form.Label>
+                                        <Form.Control className='shadow-none' type="text" placeholder="Enter teamname" value={team} onChange={(e) => setTeam(e.target.value)} />
+                                    </Form.Group>
+
+                                    <div className="d-grid gap-2 my-2 btn1">
+                                        {/* <NavLink to='/dashboard' className='navLinks'> */}
+                                        <Button variant="outline-success" className='mt-2 w-100 fs-4' size="lg" type='submit'>
+                                            Login
+                                        </Button>
+                                        {/* </NavLink> */}
+                                    </div>
+                                </Form>
+
                                 <div className='text-center py-2'>
                                     <p style={{ fontWeight: '500' }}>Not Registered ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/teamssignup'>Sign Up</Link>  </span></p>
                                 </div>

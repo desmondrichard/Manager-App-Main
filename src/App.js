@@ -27,19 +27,20 @@ import AdminDashboard from './components/AdminDashboard';
 import StaffRegistrationViewCard from './components/offcanvas-body/Registration/Support-Staff-Registration-Form/Support-Staff-Modal-Forms/StaffRegistrationViewCard';
 import SuperAdminLogin from './components/SuperAdmin/SuperAdminLogin';
 import SuperAdminRegister from './components/SuperAdmin/SuperAdminRegister';
-
+import { Navigate } from 'react-router-dom';
 
 function App() {
+  const getUserName = sessionStorage.getItem("userName");
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact element={<Login />} />
+          <Route path='/teamslogin' exact element={<Login />} />
           <Route path='/teamssignup' exact element={<Register />} />
 
           {/* sample: */}
-          {/* <Route path='/' exact element={<SuperAdminLogin />} />
-          <Route path='/superadminsignup' exact element={<SuperAdminRegister />} /> */}
+          <Route path='/' exact element={<SuperAdminLogin />} />
+          <Route path='/superadminsignup' exact element={<SuperAdminRegister />} />
 
           {/* Nested Routes for Dashboard: */}
           <Route path='dashboard'>

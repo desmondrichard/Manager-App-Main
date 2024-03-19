@@ -8,7 +8,6 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Accordion from 'react-bootstrap/Accordion';
 import Table from 'react-bootstrap/Table';
-import PlayerRegistration from '../PlayerRegistration';
 import StaffPersonalInformation from './Support-Staff-Modal-Forms/StaffPersonalInformation';
 import StaffKittingDetails from './Support-Staff-Modal-Forms/StaffKittingDetails';
 import StaffIDCardDetails from './Support-Staff-Modal-Forms/StaffIDCardDetails';
@@ -150,7 +149,7 @@ function SupportStaffRegistration(props) {
         setShow(false);
     }
 
-    function handleShowData() {   
+    function handleShowData() {
         //Call the GET method here:
         axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
             console.log("GET Success", response.data)
@@ -225,12 +224,12 @@ function SupportStaffRegistration(props) {
     //         });
     // }
 
-
-    function handleUpdateButtonClick(showData, id) {
-        console.log("Data: ", showData, "ID: ", id)
-        setShow(true)
+    const [showPutData, setShowPutData] = useState({})
+    function handleUpdateButtonClick(data, id) {
+        console.log("Data: ", data, "ID: ", id)
+        setShowPutData(data)
+        setShow(true) //to open modal onclicking update button
     }
-
 
 
     return (
@@ -259,7 +258,7 @@ function SupportStaffRegistration(props) {
                             <p>{key}</p>
                             <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
-                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} updateMethodData={showData} />
+                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} />
                                 {/* Accordion:2 */}
                                 <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
                                 {/* Accordion:3 */}
@@ -358,7 +357,7 @@ function SupportStaffRegistration(props) {
                         <th>DESIGNATION</th>
                         <th>MOBILE NO</th>
                         <th>EMAIL ID</th>
-                        <th>SEPCIALIZATION</th>
+                        <th>SPECIALIZATION</th>
                         <th>JERSEY NO</th>
                         <th>CLUB</th>
                         <th>ACTION</th>
@@ -390,7 +389,9 @@ function SupportStaffRegistration(props) {
                                                         />
                                                     </td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</span></td>
-                                                    <td></td>
+                                                    
+                                                    <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.team ? showData.team : 'N/A'}</span></td>
+
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.designation ? showData.designation : 'N/A'}</span></td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.mobileNo ? showData.mobileNo : 'N/A'}</span></td>
@@ -403,8 +404,8 @@ function SupportStaffRegistration(props) {
                                                             <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
                                                         </NavLink>
 
-                                                        <Button variant="success" className='me-1' >
-                                                            {/* onClick={() => handleUpdateButtonClick(showData, showData.alldataStaffId)}> */}
+                                                        <Button variant="success" className='me-1'
+                                                            onClick={() => handleUpdateButtonClick(showData, showData.alldataStaffId)}>
                                                             <i className="bi bi-pencil-square"></i></Button>
 
                                                         <Button onClick={() => deleteUser(showData.alldataStaffId)} variant="danger"><i className="bi bi-trash"></i></Button>
@@ -436,9 +437,10 @@ function Apps() {
                 Launch vertically centered modal
             </Button>
 
-            <PlayerRegistration
+            <SupportStaffRegistration
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+
             />
         </>
     );

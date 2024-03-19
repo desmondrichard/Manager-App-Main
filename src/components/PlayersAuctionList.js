@@ -27,7 +27,7 @@ function PlayersAuctionList() {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('https://localhost:7097/register/AuctionRepresentatives')
+    fetch('https://localhost:7097/getAllPlayers')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -71,7 +71,7 @@ function PlayersAuctionList() {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('https://localhost:7097/register/AuctionRepresentatives');
+      const response = await fetch('https://localhost:7097/getAllPlayers');
       const data = await response.json();
       console.log("response", data);
 
@@ -197,7 +197,7 @@ function PlayersAuctionList() {
                     <td>
                       {/* {showData.dateOfBirth ? formattedDate = format(new Date(showData.dateOfBirth),
                         'MMMM dd yyyy') : 'N/A'} */}
-                      {formattedDate = showData.dateOfirth ? format(new Date(showData.dateOfirth), 'MMMM dd yyyy') : (isValidDate(showData.OfBirth) ? 'N/A' : '-')}
+                      {formattedDate = showData.dateOfBirth ? format(new Date(showData.dateOfBirth), 'MMMM dd yyyy') : (isValidDate(showData.dateOfBirth) ? 'N/A' : '-')}
                     </td>
                     <td>-</td>
                     <td>-</td>

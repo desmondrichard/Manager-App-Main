@@ -17,8 +17,7 @@ function Header() {
     function handleLogout(e) {
         e.preventDefault();
         console.log("clicked logout")
-        localStorage.clear();
-        // window.location.reload();
+        sessionStorage.clear();//to clear session storage key,values
         navigate("/")
     }
 

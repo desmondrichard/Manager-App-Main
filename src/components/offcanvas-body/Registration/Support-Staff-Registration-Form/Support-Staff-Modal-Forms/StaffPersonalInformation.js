@@ -93,8 +93,11 @@ const validate = values => {
     return errors;
 }
 
-function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateMethodData }) {
+function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
+
+    //To show/hide progress bar:
+    const [showProgressBar, setShowProgressBar] = useState(true);
 
     //true-clear,false-not clear:
     const [imageValue, setImageValue] = useState(false);  //for clearing image after reset is clicked,false-no clear
@@ -107,6 +110,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
         setErrors(validationErrors);
     };
     const [count, setCount] = useState(0);
+
+    //Dynamic button hiding:
 
 
     // reset form start: 
@@ -147,34 +152,45 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
         setImageProgress("");
         setMobileValueClear(true);//means after reset clear field(clear-true)
         setPhoneProgress("");
+        //
+
         // console.log("Ref",genderMale);
         formik.resetForm();
+
+
         //after clicking reset btn progress bar should be 0:
         setProgress(0);
         // console.log("setprogress after reset", progress)
     }
 
+
+    //
+    const [initialValues, setInitialValues] = useState({
+        supportStaffName: '',
+        middleName: '',
+        lastName: '',
+        designation: '',
+        specialization: '',
+        initials: '',
+        displayName: '',
+        fatherName: '',
+        motherName: '',
+        dateOfBirth: '',
+        bloodGroup: '',
+        emailId: '',
+        gender: '',
+        mobileNo: null,
+        year: '',
+        team: ''
+    });
+
+
     const formik = useFormik({
-        initialValues: {
-            supportStaffName: '',
-            middleName: '',
-            lastName: '',
-            designation: '',
-            specialization: '',
-            initials: '',
-            displayName: '',
-            fatherName: '',
-            motherName: '',
-            dateOfBirth: '',
-            bloodGroup: '',
-            emailId: '',
-            gender: '',
-            mobileNo: null,
-            year: '',
-            team: ''
-        },
+        initialValues: initialValues,
         validate,
         onSubmit: (values, { setSubmitting }) => {
+
+            alert("POST executed")
             const year = new Date().getFullYear();
             console.log("year", year)
             // const dateOfBirth = new Date(values.dateOfBirth);
@@ -265,6 +281,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
         setMobileValueClear(false);//if value is present  then clear the field  only after reset it clicked so made false-no clear again else it will be true always hence field cannot be cleared
     }
 
+    //show or hide save,update btn:
 
 
     //Progress Bar:
@@ -302,31 +319,75 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
         return count;
     }
 
+
+    //Update method:
+    const [initialValuesLoaded, setInitialValuesLoaded] = useState(false);//for loading initial values
+
+    console.log('showPutData', showPutData)
+    console.log('updateMethodDataID:', showPutData.alldataStaffId)
+
+
+    function handleUpdate() {
+        setShowProgressBar(false);
+        alert("update executed");
+        axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey); //to navigate to next tab
+
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch((error) => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
     //useEffect will be trigerred whenever formik.values has value
     useEffect(() => {
         handleProgress();
     }, [formik.values, phoneProgress, imgProgress]); // Ensure that the effect is triggered when form values change
 
-    //Update method:
-    //console.log('updateMethodData', updateMethodData)
-    //console.log('updateMethodDataID:', updateMethodData.alldataStaffId)
+    useEffect(() => {
+        setInitialValues({
+            supportStaffName: showPutData.supportStaffName,
+            middleName: showPutData.middleName,
+            lastName: showPutData.lastName,
+            designation: showPutData.designation,
+            specialization: showPutData.specialization,
+            initials: showPutData.initials,
+            displayName: showPutData.displayName,
+            fatherName: showPutData.fatherName,
+            motherName: showPutData.motherName,
+            dateOfBirth: showPutData.dateOfBirth,
+            bloodGroup: showPutData.bloodGroup,
+            emailId: showPutData.emailId,
+            gender: showPutData.gender,
+            mobileNo: showPutData.mobileNo,
+            year: showPutData.year,
+            team: showPutData.team
+        });
+        setInitialValuesLoaded(true);
+    }, [showPutData]);
 
-    // axios.put(`https://localhost:7097/StaffPersonalInformation/${id}`, updateMethodData)
-    //     .then((response) => {
-    //         if (response.data.alldataStaffId === updateMethodData.alldataStaffId) {
-    //             console.log("Updation Success", response.data);
-    //             // Refresh the data or update the specific staff data in the state based on the response
-    //         }
-    //         console.log("res", response.data);
-    //     })
-    //     .catch((error) => {
-    //         console.log("Error Updating User", error);
-    //     });
-
-
+    useEffect(() => {
+        if (initialValuesLoaded) {
+            formik.setValues(initialValues);
+        }
+    }, [initialValuesLoaded]);
     return (
         <Accordion.Item eventKey="0">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span><ProgressBarWithLabel progressValue={progress} /> </Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span>{showProgressBar && <ProgressBarWithLabel progressValue={progress} />} </Accordion.Header>
             <Accordion.Body>
                 <Container>
                     <p>{activationKey}</p>
@@ -341,7 +402,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                                         placeholder="first name"
                                         name="supportStaffName"
                                         ref={firstName}
-                                        value={formik.values.supportStaffName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.supportStaffName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('supportStaffName', e.target.value)
+                                        }}
                                     />
                                     {
                                         formik.touched.supportStaffName && formik.errors.supportStaffName ? <span className='span'>{formik.errors.supportStaffName}</span> : null
@@ -357,7 +420,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                                         placeholder="second name"
                                         name="middleName"
                                         ref={middleName}
-                                        value={formik.values.middleName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.middleName} onBlur={formik.handleBlur}
+                                        onChange={(e) => {
+                                            formik.setFieldValue('middleName', e.target.value)
+                                        }}
                                     />
                                     {
                                         formik.touched.middleName && formik.errors.middleName ? <span className='span'>{formik.errors.middleName}</span> : null
@@ -373,7 +439,11 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                                         placeholder="last name"
                                         name="lastName"
                                         ref={lastName}
-                                        value={formik.values.lastName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.lastName} onBlur={formik.handleBlur}
+                                        onChange={(e) => {
+                                            formik.setFieldValue('lastName', e.target.value)
+                                        }}
+
                                     />
                                     {
                                         formik.touched.lastName && formik.errors.lastName ? <span className='span'>{formik.errors.lastName}</span> : null
@@ -387,11 +457,11 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                                     controlId="designation"
                                     label="Designation*"
                                     name="designation"
-                                    value={formik.values.designation} onBlur={formik.handleBlur} onChange={(e) => {
-                                        formik.handleChange(e)
-                                    }}>
+                                >
 
-                                    <Form.Select aria-label="designation" ref={desig} onChange={(e) => formik.setFieldValue('designation', e.target.value)}>
+
+                                    <Form.Select aria-label="designation" ref={desig} value={formik.values.designation} onBlur={formik.handleBlur}
+                                        onChange={(e) => formik.setFieldValue('designation', e.target.value)}>
                                         <option value="none">Select Type</option>
                                         <option value="management">Management</option>
                                         <option value="coach">Coaching</option>
@@ -411,10 +481,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                                     controlId="specialization"
                                     label="specialization*"
                                     name="specialization"
-                                    value={formik.values.specialization} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+
                                 >
 
-                                    <Form.Select aria-label="specialization" ref={spec} disabled={formik.values.designation === 'none'}>
+                                    <Form.Select aria-label="specialization" ref={spec} disabled={formik.values.designation === 'none'} value={formik.values.specialization} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('specialization', e.target.value)}>
                                         <option value="none">Select Type</option>
 
                                         <option value="ceo" disabled={formik.values.designation !== 'management'}>CEO</option>
@@ -538,10 +608,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                                     controlId="bloodGroup"
                                     label="BloodGroup*"
                                     name="bloodGroup"
-                                    value={formik.values.bloodGroup} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+
                                 >
 
-                                    <Form.Select aria-label="bloodGroup" ref={bloodgrp}>
+                                    <Form.Select aria-label="bloodGroup" ref={bloodgrp} value={formik.values.bloodGroup} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('bloodGroup', e.target.value)}>
                                         <option value="none">Select Type</option>
                                         <option value="O+">O+</option>
                                         <option value="O-">O-</option>
@@ -590,18 +660,22 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                                             inline
                                             label="Male"
                                             name="gender"
-                                            type={type}
+                                            type="radio"
                                             id={`inline-${type}-male`}
                                             // defaultChecked={true}
                                             ref={genderMaleReset}
                                             value="Male"
                                             style={{ marginRight: '-15px' }}
+                                            checked={formik.values.gender === "Male"}
+                                            onChange={(e) => {
+                                                formik.setFieldValue('gender', e.target.value);
+                                            }}
                                         />
                                         <Form.Check
                                             inline
                                             label="Female"
                                             name="gender"
-                                            type={type}
+                                            type="radio"
                                             id={`inline-${type}-female`}
                                             ref={genderFemaleReset}
                                             value="Female"
@@ -620,7 +694,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                                         type="text"
                                         placeholder="name"
                                         name="team"
-                                        value={formik.values.team} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.team} onBlur={formik.handleBlur}
+                                        onChange={(e) => {
+                                            formik.setFieldValue('team', e.target.value);
+                                        }}
                                     />
                                     {
                                         formik.touched.team && formik.errors.team ? <span className='span'>{formik.errors.team}</span> : null
@@ -634,12 +711,13 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, updateM
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                                 <Button variant="success" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>
+                                <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>
                             </Col>
                         </Row>
                     </Form>
                 </Container>
             </Accordion.Body>
-        </Accordion.Item>
+        </Accordion.Item >
 
     )
 }

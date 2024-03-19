@@ -8,8 +8,7 @@ function Menubar() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.clear();
-        // window.location.reload();
+        sessionStorage.clear();//to clear session storage key,values
         navigate("/")
     }
     return (

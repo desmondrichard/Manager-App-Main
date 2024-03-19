@@ -13,7 +13,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import './Register.css';
 import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
-//
+import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -87,12 +87,20 @@ function Register() {
             const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             const newValues = { ...values, dob: formattedDOB }
 
-            axios.post('https://localhost:7097/register/Signup', newValues) 
+            axios.post('https://localhost:7097/register/Signup', newValues)
                 .then(response => {
                     console.log("response status: ", response.status)  //to fetch  the status of API like 200 etc
                     console.log(response.data);
                     console.log("newvalues", newValues)
                     setSubmitting(false)
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Successfully Regitered",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        width: 300
+                    });
                     navigate("/");
                 })
                 .catch(error => {
@@ -217,8 +225,8 @@ function Register() {
                                 <Form.Select aria-label="team" size='sm' className='mt-1' name='team'
                                     value={formik.values.team} onBlur={formik.handleBlur} onChange={formik.handleChange}>
                                     <option value=''>None</option>
-                                    <option value="admin">Salem Spartans</option>
-                                    <option value="supportstaff">Ballsy Trichy</option>
+                                    <option value="Salem Spartans">Salem Spartans</option>
+                                    <option value="Balsy Trichy">Ballsy Trichy</option>
 
                                 </Form.Select>
                                 {
@@ -234,7 +242,7 @@ function Register() {
                                 </div>
                             </Form>
                             <div className='text-center py-2'>
-                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/'>Login</Link> </span></p>
+                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/teamslogin'>Login</Link> </span></p>
                             </div>
 
                         </Container>

@@ -13,7 +13,7 @@ import Image1 from 'react-bootstrap/Image';
 import Image2 from 'react-bootstrap/Image';
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from 'axios';
-
+import Swal from 'sweetalert2';
 
 // Validation:
 const validate = values => {
@@ -79,6 +79,14 @@ function SuperAdminRegister() {
                     console.log(response.data);
                     console.log("newvalues", newValues)
                     setSubmitting(false)
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Successfully Regitered",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        width: 300
+                    });
                     navigate("/");
                 })
                 .catch(error => {

@@ -364,6 +364,8 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                             <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
                             <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                            <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
+                            
                         </Col>
                     </Form>
                 </Container>

@@ -37,6 +37,8 @@ const DynamicFields = ({ onDataUpdate, isClear }) => {
     return (
         <div>
             {/* {JSON.stringify(fields)} */}
+            {console.log("fieldsVal:", JSON.stringify(fields))}
+            {console.log("fieldsData:", JSON.stringify(Object.keys(fields)[0]))}
             <Form className='dynamicMargin'>
                 {Object?.entries(fields).map((field) => (
                     <div key={field[0]} style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column' }}>
@@ -45,6 +47,7 @@ const DynamicFields = ({ onDataUpdate, isClear }) => {
                             <Row>
                                 <Col xs={12}>{selectBoxContent}</Col>   {/*used to display what we selected in select field so kept in a state*/}
                                 <Col xs={12} md={12} lg={7} className='dynamicRadioField'>
+                                    <h1>{Object.keys(fields)[0]}</h1>
                                     <Form.Label>Provided</Form.Label>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
 
@@ -57,6 +60,7 @@ const DynamicFields = ({ onDataUpdate, isClear }) => {
                                                     setFields({
                                                         ...fields,
                                                         [id]: {
+
                                                             quantity: fields[id].quantity,
                                                             provided: true
                                                         }
