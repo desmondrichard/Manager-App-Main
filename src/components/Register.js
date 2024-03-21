@@ -85,7 +85,8 @@ function Register() {
         onSubmit: (values, { setSubmitting }) => {
             const dateOfBirth = new Date(values.dob);
             const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-            const newValues = { ...values, dob: formattedDOB }
+            const newValues = { ...values, dob: formattedDOB, userType: 'other' }
+
 
             axios.post('https://localhost:7097/register/Signup', newValues)
                 .then(response => {
@@ -136,7 +137,7 @@ function Register() {
                     <Col md={5}>
                         <Container className='pt-1'>
                             <Form onSubmit={formik.handleSubmit}>
-                                <legend className='text-center ' style={{ fontWeight: '700' }}>Register</legend>
+                                <legend className='text-center ' style={{ fontWeight: '700' }}>REGISTER</legend>
                                 <hr style={{ border: '2px solid #198754' }} />
 
                                 {/*Full Name Field: */}
@@ -227,11 +228,16 @@ function Register() {
                                     <option value=''>None</option>
                                     <option value="Salem Spartans">Salem Spartans</option>
                                     <option value="Balsy Trichy">Ballsy Trichy</option>
-
                                 </Form.Select>
                                 {
                                     formik.touched.team && formik.errors.team ? <span className='span'>{formik.errors.team}</span> : null
                                 }
+
+                                <Form.Group className="mt-2 d-none" controlId="userType">
+                                    <Form.Label className='fontRegister'>User Type</Form.Label>
+                                    <Form.Control type="text" value="other" readOnly size='sm' style={{ cursor: 'not-allowed' }} />
+                                </Form.Group>
+
 
                                 {/* Submit Button: */}
                                 <div className="d-grid gap-2 my-2">
@@ -242,7 +248,7 @@ function Register() {
                                 </div>
                             </Form>
                             <div className='text-center py-2'>
-                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/teamslogin'>Login</Link> </span></p>
+                                <p style={{ fontWeight: '500' }}>Already Have an Account ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/'>Login</Link> </span></p>
                             </div>
 
                         </Container>

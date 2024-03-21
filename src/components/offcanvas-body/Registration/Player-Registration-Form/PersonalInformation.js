@@ -44,8 +44,8 @@ const validate = values => {
     if (!values.initials) {
         errors.initials = "*Required";
     }
-    else if (!/^[a-zA-Z]{0,1}$/.test(values.initials)) {
-        errors.initials = "Initial can only contain one letter"
+    else if (!/^[a-zA-Z]{0,4}$/.test(values.initials)) {
+        errors.initials = "Initial can only contain letters upto four characters only"
     }
 
     if (!values.displayName) {
@@ -77,13 +77,18 @@ const validate = values => {
     if (!values.emailId) {
         errors.emailId = "*Required";
     }
-    else if (!/^\S+@\S+\.\S+$/.test(values.emailId)) {
+    else if (!/^([a-zA-Z][\w+-]+(?:\.\w+)?)@([\w-]+(?:\.[a-zA-Z]{2,10})+)$/.test(values.emailId)) {
         errors.emailId = "*Invalid email address";
+        
     }
 
     if (!values.mobileNo) {
         errors.mobileNo = "*Required";
     }
+
+    // if (!values.secondNumber) {  
+    //     errors.secondNumber = "*Required";
+    // }
 
     return errors;
 }
@@ -251,7 +256,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         const totalFilledFields = result + imgProgress;
 
         //calc formula
-        let newProgress = ((totalFilledFields / 13) * 100).toFixed();
+        let newProgress = ((totalFilledFields / 15) * 100).toFixed();
         console.log("Progress", newProgress)
         setProgress(newProgress);
     }
@@ -379,6 +384,35 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                     <label htmlFor="initials" className='text-muted'>Initials</label>
                                 </Form.Floating>
                             </Col>
+                            <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
+                                <label className='text-muted me-2' htmlFor="gender">Gender:</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check
+                                            inline
+                                            label="Male"
+                                            name="gender"
+                                            type={type}
+                                            id={`inline-${type}-Male`}
+                                            // defaultChecked={true}
+                                            ref={genderMaleReset}
+                                            value="Male"
+                                            style={{ marginRight: '-25px' }}
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Female"
+                                            name="gender"
+                                            type={type}
+                                            id={`inline-${type}-Female`}
+                                            // defaultChecked={false}
+                                            ref={genderFemaleReset}
+                                            value="Female"
+                                            style={{ marginRight: '-40px' }}
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
@@ -482,8 +516,8 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                 <Phone isClear={mobileValueClear1} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp1} dynamicName="secondNumber" dynamicId="secondNumberId"
 
                                 />
-                                {formik.touched.mobileNo && formik.errors.mobileNo ? (
-                                    <span className="span">{formik.errors.mobileNo}</span>
+                                {formik.touched.secondNumber && formik.errors.secondNumber ? (
+                                    <span className="span">{formik.errors.secondNumber}</span>
                                 ) : null}
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -502,35 +536,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                                     <label htmlFor="emailId" className='text-muted'>Email Address*</label>
                                 </Form.Floating>
                             </Col>
-                            <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
-                                <label className='text-muted me-2' htmlFor="gender">Gender:</label>
-                                {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
-                                        <Form.Check
-                                            inline
-                                            label="Male"
-                                            name="gender"
-                                            type={type}
-                                            id={`inline-${type}-Male`}
-                                            // defaultChecked={true}
-                                            ref={genderMaleReset}
-                                            value="Male"
-                                            style={{ marginRight: '-25px' }}
-                                        />
-                                        <Form.Check
-                                            inline
-                                            label="Female"
-                                            name="gender"
-                                            type={type}
-                                            id={`inline-${type}-Female`}
-                                            // defaultChecked={false}
-                                            ref={genderFemaleReset}
-                                            value="Female"
-                                            style={{ marginRight: '-40px' }}
-                                        />
-                                    </div>
-                                ))}
-                            </Col>
+
                             <Col xs={5} lg={4} className='col'>
                                 <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
                             </Col>
@@ -538,7 +544,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
 
                             {/* Temporary Field: */}
                             <Col xs={12} lg={4} className='py-3 c1'>
-                                <Form.Floating className="mb-2">
+                                <Form.Floating className="mb-5">
                                     <Form.Control
                                         id="team"
                                         type="text"

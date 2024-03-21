@@ -28,6 +28,7 @@ import StaffRegistrationViewCard from './components/offcanvas-body/Registration/
 import SuperAdminLogin from './components/SuperAdmin/SuperAdminLogin';
 import SuperAdminRegister from './components/SuperAdmin/SuperAdminRegister';
 import { Navigate } from 'react-router-dom';
+import LoginSignup from './components/LoginSignup';
 
 function App() {
   const getUserName = sessionStorage.getItem("userName");
@@ -35,11 +36,12 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
+
+          <Route path='/' exact element={<LoginSignup />} />
           <Route path='/teamslogin' exact element={<Login />} />
           <Route path='/teamssignup' exact element={<Register />} />
 
-          {/* sample: */}
-          <Route path='/' exact element={<SuperAdminLogin />} />
+          {/* <Route path='/' exact element={<SuperAdminLogin />} /> */}
           <Route path='/superadminsignup' exact element={<SuperAdminRegister />} />
 
           {/* Nested Routes for Dashboard: */}
@@ -81,6 +83,7 @@ function App() {
             <Route path='accreadiationform' exact element={<AccreditionForm />} />
             <Route path='accreadiationViewCard' exact element={<AccreadiationViewCard />} />
           </Route>
+
 
           {/* <Route path='/thingstodoform' exact element={<ThingsTodoForm />} /> */}
           {/* Page Not Found: */}

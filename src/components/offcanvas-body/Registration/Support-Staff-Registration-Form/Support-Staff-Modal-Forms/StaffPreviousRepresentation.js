@@ -31,8 +31,8 @@ const validate = values => {
     if (!values.division) {
         errors.division = "*Required";
     }
-    else if (!/^[a-zA-Z1-9]{0,10}$/.test(values.division)) {
-        errors.division = "Division name should be between 10 characters maximum";
+    else if (!/^[a-zA-Z1-9]{0,15}$/.test(values.division)) {
+        errors.division = "Enter valid details";
     }
     return errors;
 }
@@ -134,6 +134,22 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
+                                        id="division"
+                                        type="text"
+                                        placeholder="division"
+                                        ref={division1}
+                                        name="division"
+                                        value={formik.values.division} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.division && formik.errors.division ? <span className='span'>{formik.errors.division}</span> : null
+                                    }
+                                    <label htmlFor="division" className='text-muted'>Division*</label>
+                                </Form.Floating>
+                            </Col>
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
                                         id="cityDistrict"
                                         type="text"
                                         placeholder="city"
@@ -144,7 +160,7 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                                     {
                                         formik.touched.cityDistrict && formik.errors.cityDistrict ? <span className='span'>{formik.errors.cityDistrict}</span> : null
                                     }
-                                    <label htmlFor="cityDistrict" className='text-muted'>State/City/District*</label>
+                                    <label htmlFor="cityDistrict" className='text-muted'>City/District*</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -160,25 +176,10 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                                     {
                                         formik.touched.club && formik.errors.club ? <span className='span'>{formik.errors.club}</span> : null
                                     }
-                                    <label htmlFor="club" className='text-muted'>Club/Franchise*</label>
+                                    <label htmlFor="club" className='text-muted'>Club*</label>
                                 </Form.Floating>
                             </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
-                                        id="division"
-                                        type="text"
-                                        placeholder="division"
-                                        ref={division1}
-                                        name="division"
-                                        value={formik.values.division} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                    />
-                                    {
-                                        formik.touched.division && formik.errors.division ? <span className='span'>{formik.errors.division}</span> : null
-                                    }
-                                    <label htmlFor="division" className='text-muted'>Past Team Name*</label>
-                                </Form.Floating>
-                            </Col>
+
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
@@ -186,7 +187,7 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                             <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                             <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
-                       
+
                         </Col>
                     </Form>
                 </Container>

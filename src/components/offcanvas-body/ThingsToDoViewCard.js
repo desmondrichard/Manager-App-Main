@@ -217,8 +217,8 @@ function ThingsToDoViewCard() {
                             <Row style={{ fontSize: '15px' }}>
                                 <Col md={4} className='todoCol'><div className='divCard'>ID: <span style={{ fontWeight: '400' }}>{location.state.showData.alldataThingsId ? location.state.showData.alldataThingsId : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Name: <span style={{ fontWeight: '400' }}>{location.state.showData.name ? location.state.showData.name : '-'}</span></div></Col>
-                                <Col md={4} className='todoCol'><div className='divCard'>Items: <span style={{ fontWeight: '400' }}>-</span></div></Col>
-                                <Col md={4} className='todoCol'><div className='divCard'>Items Type: <span style={{ fontWeight: '400' }}>-</span></div></Col>
+                                <Col md={4} className='todoCol'><div className='divCard'>Items: <span style={{ fontWeight: '400' }}>{location.state.showData.equipments ? location.state.showData.equipments : '-'}</span></div></Col>
+                                <Col md={4} className='todoCol'><div className='divCard'>Items Type: <span style={{ fontWeight: '400' }}>{location.state.showData.equipmentsType ? location.state.showData.equipmentsType : '-'}</span></div></Col>
                             </Row>
                         </Card.Body>
                     </Card>
@@ -236,8 +236,8 @@ function ThingsToDoViewCard() {
                                 <Col md={4} className='todoCol'><div className='divCard'>Seats Booked: <span style={{ fontWeight: '400' }}>{location.state.showData.noOfSeatsBooked ? location.state.showData.noOfSeatsBooked : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Return Date: <span style={{ fontWeight: '400' }}>{location.state.showData.returnDate ? location.state.showData.returnDate : '-'}</span></div></Col>
                                 <Col md={4} className='todoCol'><div className='divCard'>Seat No: <span style={{ fontWeight: '400' }}>{location.state.showData.seatNumbers ? location.state.showData.seatNumbers : '-'}</span></div></Col>
-                                <Col md={4} className='todoCol'><div className='divCard'>Time Slot:<span style={{ fontWeight: '400' }}> {location.state.showData.timeSlot ? location.state.showData.timeSlot : '-'}</span></div></Col>
-                                <Col md={4} className='todoCol'><div className='divCard'>Item Type:<span style={{ fontWeight: '400' }}> -</span></div></Col>
+                                {/* <Col md={4} className='todoCol'><div className='divCard'>Time Slot:<span style={{ fontWeight: '400' }}> {location.state.showData.timeSlot ? location.state.showData.timeSlot : '-'}</span></div></Col>
+                                <Col md={4} className='todoCol'><div className='divCard'>Item Type:<span style={{ fontWeight: '400' }}> -</span></div></Col> */}
                                 <Col md={4} className='todoCol'><div className='divCard'>Travel Type: <span style={{ fontWeight: '400' }}>{location.state.showData.travelType ? location.state.showData.travelType : '-'}</span></div></Col>
                             </Row>
                         </Card.Body>

@@ -247,24 +247,19 @@ function AdminDashboard() {
                         <Card style={{ border: '3px outset #2885D7' }}>
                             <Form className='p-3' onSubmit={formik.handleSubmit}>
 
-                                <FloatingLabel
-                                    controlId="teamName"
-                                    label="Team Name*"
-                                    className="mb-3"
-                                    name="teamName"
-                                    value={formik.values.teamName} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                >
-                                    <Form.Select aria-label="Default select example" ref={teamNameReset}>
-                                        <option value="none">Select Teams</option>
-                                        <option value="ballsytrichy">Ballsy Trichy</option>
-                                        <option value="salemspartans">Salem Spartans</option>
-                                        <option value="punjabpanthers">Punjab Panthers</option>
-
-                                    </Form.Select>
+                                <Form.Floating className="mb-2" >
+                                    <Form.Control
+                                        id="teamName"
+                                        type="text"
+                                        placeholder="enter team name"
+                                        name="teamName"
+                                        value={formik.values.teamName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
                                     {
                                         formik.touched.teamName && formik.errors.teamName ? <span className='span'>{formik.errors.teamName}</span> : null
                                     }
-                                </FloatingLabel>
+                                    <label htmlFor="teamName" className='text-muted'>Team Name*</label>
+                                </Form.Floating>
 
                                 <Form.Floating className="mb-2" >
                                     <Form.Control

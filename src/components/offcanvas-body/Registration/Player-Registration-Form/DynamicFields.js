@@ -47,7 +47,8 @@ const DynamicFields = ({ onDataUpdate, isClear }) => {
                             <Row>
                                 <Col xs={12}>{selectBoxContent}</Col>   {/*used to display what we selected in select field so kept in a state*/}
                                 <Col xs={12} md={12} lg={7} className='dynamicRadioField'>
-                                    <h1>{Object.keys(fields)[0]}</h1>
+                                    {/* need to be modified: */}
+                                    {/* <p>{Object.keys(fields)[0]}</p> */}
                                     <Form.Label>Provided</Form.Label>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
 
@@ -93,7 +94,6 @@ const DynamicFields = ({ onDataUpdate, isClear }) => {
                                         id={field[0]}
                                         style={{ width: '80px' }}
                                         min="0"
-                                        max="2"
                                         onChange={(e) => {
                                             // console.log(e)
                                             const id = e.target.id

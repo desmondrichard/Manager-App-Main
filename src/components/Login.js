@@ -103,7 +103,7 @@ function Login() {
                                 {/* condition to navigate: */}
 
                                 <Form onSubmit={(e) => handleLogin(e)}>
-                                    <legend className='text-center' style={{ fontWeight: '700' }}>Login</legend>
+                                    <legend className='text-center' style={{ fontWeight: '700' }}>LOGIN</legend>
                                     <hr style={{ border: '2px solid #198754' }} />
                                     {errorMessage && <div style={{ marginBottom: '10px', color: 'red' }}>{errorMessage}</div>}
                                     {successMessage.length > 0 && (
@@ -111,13 +111,13 @@ function Login() {
                                     )}
 
                                     {/* username: */}
-                                    <Form.Group className="mb-2" controlId="Username1" >
+                                    <Form.Group className="mb-2" controlId="UsernameLogin" >
                                         <Form.Label className='fontLogin'>Username</Form.Label>
                                         <Form.Control className='shadow-none' type="text" placeholder="Enter username" value={userName} onChange={(e) => setUsername(e.target.value)} />
                                     </Form.Group>
 
                                     {/* password: */}
-                                    <Form.Group className="mb-2" controlId="Passwords" >
+                                    <Form.Group className="mb-2" controlId="PasswordLogin" >
                                         <Form.Label className='fontLogin'>Password</Form.Label>
                                         <div className='number' >
                                             <Form.Control className='input shadow-none' value={password} type={

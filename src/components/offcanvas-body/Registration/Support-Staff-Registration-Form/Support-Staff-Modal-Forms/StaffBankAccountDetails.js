@@ -85,6 +85,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
     const gst1 = useRef("");
     const bankcontact1 = useRef("");
     const bankaddress1 = useRef("");
+    const bankaddress2 = useRef("");
     const bankcountry1 = useRef("");
 
 
@@ -104,6 +105,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         gst1.current.checked = "";
         bankcontact1.current.value = "";
         bankaddress1.current.value = "";
+        bankaddress2.current.value = "";
         bankcountry1.current.value = "";
 
         // console.log("Ref",genderMale);
@@ -124,6 +126,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
             ibanCode: '',
             gstNumber: '',
             bankAddress: '',
+            bankAddress2: '',
             bankContactNo: '',
             bankCountry: '',
             switchbicNumber: ''
@@ -132,15 +135,15 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         validate,
         onSubmit: values => {
             axios.post('https://localhost:7097/StaffbankModel', values)
-            .then(response => {
-                console.log(response.data);
-                onActivationKeyChild(childNextKey)
-                console.log("values", values)
-            })
-            .catch(error => {
-                console.error(error.message);
-                console.log("values", values)
-            });
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("values", values)
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("values", values)
+                });
         }
     });
 
@@ -163,7 +166,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
         console.log(result);  //returned count is stored in result variable
         //calc formula
-        let newProgress = ((result / 13) * 100).toFixed();
+        let newProgress = ((result / 14) * 100).toFixed();
         console.log("Progress", newProgress)
         //store result progress value
         setProgress(newProgress);
@@ -202,22 +205,6 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="beneficiaryName"
-                                        type="text"
-                                        placeholder="beneficiaryname"
-                                        name="beneficiaryName"
-                                        ref={beneficiaryname1}
-                                        value={formik.values.beneficiaryName} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                    />
-                                    {
-                                        formik.touched.beneficiaryName && formik.errors.beneficiaryName ? <span className='span'>{formik.errors.beneficiaryName}</span> : null
-                                    }
-                                    <label htmlFor="beneficiaryName" className='text-muted'>Beneficiary Name*</label>
-                                </Form.Floating>
-                            </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
                                         id="bankName"
                                         type="text"
                                         placeholder="bankname"
@@ -231,6 +218,23 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                     <label htmlFor="bankName" className='text-muted'>Bank Name*</label>
                                 </Form.Floating>
                             </Col>
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="beneficiaryName"
+                                        type="text"
+                                        placeholder="beneficiaryname"
+                                        name="beneficiaryName"
+                                        ref={beneficiaryname1}
+                                        value={formik.values.beneficiaryName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.beneficiaryName && formik.errors.beneficiaryName ? <span className='span'>{formik.errors.beneficiaryName}</span> : null
+                                    }
+                                    <label htmlFor="beneficiaryName" className='text-muted'>Beneficiary Name*</label>
+                                </Form.Floating>
+                            </Col>
+
                             <Col xs={12} lg={4}>
                                 <Form.Floating className="mb-2 col">
                                     <Form.Control
@@ -395,9 +399,24 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         ref={bankaddress1}
                                         onChange={formik.handleChange}
                                     />
-                                    <label htmlFor="bankAddress" className='text-muted'>Bank Address</label>
+                                    <label htmlFor="bankAddress" className='text-muted'>Bank Address 1</label>
                                 </Form.Floating>
                             </Col>
+
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="bankAddress2"
+                                        type="text"
+                                        placeholder="bankaddress"
+                                        name="bankAddress2"
+                                        ref={bankaddress2}
+                                        onChange={formik.handleChange}
+                                    />
+                                    <label htmlFor="bankAddress2" className='text-muted'>Bank Address 2</label>
+                                </Form.Floating>
+                            </Col>
+
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
@@ -419,7 +438,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                 <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                                 <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
-                                
+
                             </Col>
                         </Row>
 

@@ -13,25 +13,25 @@ import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 import axios from 'axios';
 
 // validation:
-const validate = values => {
-    const errors = {};
+// const validate = values => {
+//     const errors = {};
 
-    if (!values.emergencyContactPerson) {
-        errors.emergencyContactPerson = "*Required";
-    }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.emergencyContactPerson)) {
-        errors.emergencyContactPerson = "Name should be between 3 to 15 characters long or only letters allowed";
-    }
+//     if (!values.emergencyContactPerson) {
+//         errors.emergencyContactPerson = "*Required";
+//     }
+//     else if (!/^[a-zA-Z]{3,15}$/.test(values.emergencyContactPerson)) {
+//         errors.emergencyContactPerson = "Name should be between 3 to 15 characters long or only letters allowed";
+//     }
 
-    if (!values.emergContactPersonRelationship) {
-        errors.emergContactPersonRelationship = "*Required";
-    }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.emergContactPersonRelationship)) {
-        errors.emergContactPersonRelationship = "Name should be between 3 to 15 characters long or only letters allowed";
-    }
+//     if (!values.emergContactPersonRelationship) {
+//         errors.emergContactPersonRelationship = "*Required";
+//     }
+//     else if (!/^[a-zA-Z]{3,15}$/.test(values.emergContactPersonRelationship)) {
+//         errors.emergContactPersonRelationship = "Name should be between 3 to 15 characters long or only letters allowed";
+//     }
 
-    return errors;
-}
+//     return errors;
+// }
 
 
 function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
@@ -57,9 +57,9 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
             emergencyContactPerson: '',
             emergContactPersonRelationship: ''
         },
-        validate,
+        // validate,
         onSubmit: (values, { setSubmitting }) => {
-            alert("you have successfully signed up");
+            // alert("you have successfully signed up");
             const newValues = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
             axios.post('https://localhost:7097/StaffEmergencycontactmodel', newValues)
                 .then(response => {
@@ -164,25 +164,26 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                                     {
                                         formik.touched.emergencyContactPerson && formik.errors.emergencyContactPerson ? <span className='span'>{formik.errors.emergencyContactPerson}</span> : null
                                     }
-                                    <label htmlFor="emergencyContactPerson" className='text-muted fontSize'>Emg.Contact Name*</label>
+                                    <label htmlFor="emergencyContactPerson" className='text-muted fontSize'>Emg.Contact Name</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="emergContactPersonRelationship"
-                                    label="Emg.Contact Relation*"
+                                    label="Emg.Contact Relation"
                                     name="emergContactPersonRelationship"
                                     value={formik.values.emergContactPersonRelationship} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
 
                                     <Form.Select aria-label="emergContactPersonRelationship" ref={emgcontactrel1}>
                                         <option value="none">Select Type</option>
-                                        <option value="batsman">PARENTS</option>
-                                        <option value="bowler">GUARDIAN</option>
-                                        <option value="allrounder">SPONSORS</option>
-                                        <option value="wicketkeeper">FRIENDS</option>
-                                        <option value="wicketkeeper">FAMILY MEMBER</option>
-                                        <option value="wicketkeeper">NEIGHBOUR</option>
+                                        <option value="spouse">SPOUSE</option>
+                                        <option value="parents">PARENTS</option>
+                                        <option value="guardian">GUARDIAN</option>
+                                        <option value="sponsors">SPONSORS</option>
+                                        <option value="friends">FRIENDS</option>
+                                        <option value="familymember">FAMILY MEMBER</option>
+                                        <option value="neighbour">NEIGHBOUR</option>
                                     </Form.Select>
                                 </FloatingLabel>
 
@@ -201,7 +202,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                             <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} >Save and Next</Button>
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                             <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
-                       
+
                         </Col>
                     </Form>
                 </Container>

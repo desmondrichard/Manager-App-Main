@@ -66,6 +66,8 @@ const validate = values => {
     return errors;
 }
 
+
+
 function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
 
     // reset form start: 
@@ -83,7 +85,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
     const bankcontact1 = useRef("");
     const bankaddressReset = useRef("");
     const bankcountryReset = useRef("");
-
+    const bankaddressReset2 = useRef("");
 
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
@@ -102,6 +104,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         bankcontact1.current.value = "";
         bankaddressReset.current.value = "";
         bankcountryReset.current.value = "";
+        bankaddressReset2.current.value = "";
         // console.log("Ref",genderMale);
         formik.resetForm();
         setProgress(0);
@@ -121,8 +124,8 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
             ibanCode: '',
             gstNumber: '',
             bankContactNo: '',
-            bankCountry: ''
-
+            bankCountry: '',
+            bankAddress2: ''
         },
         validate,
         onSubmit: values => {
@@ -160,7 +163,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         const totalFilledFields = result;
 
         //calc formula
-        let newProgress = ((totalFilledFields / 13) * 100).toFixed();
+        let newProgress = ((totalFilledFields / 15) * 100).toFixed();
         console.log("Progress", newProgress)
         setProgress(newProgress);
     }
@@ -199,23 +202,6 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
-                                        id="beneficiaryName"
-                                        type="text"
-                                        placeholder="beneficiaryname"
-                                        name="beneficiaryName"
-                                        ref={beneficiarynameReset}
-                                        style={{ zIndex: -1 }}
-                                        value={formik.values.beneficiaryName} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                    />
-                                    {
-                                        formik.touched.beneficiaryName && formik.errors.beneficiaryName ? <span className='span'>{formik.errors.beneficiaryName}</span> : null
-                                    }
-                                    <label htmlFor="beneficiaryName" className='text-muted'>Beneficiary Name*</label>
-                                </Form.Floating>
-                            </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
                                         id="bankName"
                                         type="text"
                                         placeholder="bankname"
@@ -230,6 +216,24 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                     <label htmlFor="bankName" className='text-muted'>Bank Name*</label>
                                 </Form.Floating>
                             </Col>
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="beneficiaryName"
+                                        type="text"
+                                        placeholder="beneficiaryname"
+                                        name="beneficiaryName"
+                                        ref={beneficiarynameReset}
+                                        style={{ zIndex: -1 }}
+                                        value={formik.values.beneficiaryName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.beneficiaryName && formik.errors.beneficiaryName ? <span className='span'>{formik.errors.beneficiaryName}</span> : null
+                                    }
+                                    <label htmlFor="beneficiaryName" className='text-muted'>Beneficiary Name*</label>
+                                </Form.Floating>
+                            </Col>
+
                             <Col xs={12} lg={4}>
                                 <Form.Floating className="mb-2 col">
                                     <Form.Control
@@ -395,9 +399,24 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         ref={bankaddressReset}
                                         onChange={formik.handleChange}
                                     />
-                                    <label htmlFor="bankAddress" className='text-muted'>Bank Address</label>
+                                    <label htmlFor="bankAddress" className='text-muted'>Bank Address 1</label>
                                 </Form.Floating>
                             </Col>
+
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="bankAddress2"
+                                        type="text"
+                                        placeholder="bankaddress"
+                                        name="bankAddress2"
+                                        ref={bankaddressReset2}
+                                        onChange={formik.handleChange}
+                                    />
+                                    <label htmlFor="bankAddress2" className='text-muted'>Bank Address 2</label>
+                                </Form.Floating>
+                            </Col>
+
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control

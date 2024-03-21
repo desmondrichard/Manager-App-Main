@@ -39,6 +39,10 @@ const validate = values => {
         errors.PlayersMobilNo = "*Required";
     }
 
+    if (!values.PlayersDutyPass) {
+        errors.PlayersDutyPass = "*Required";
+    }
+
     return errors;
 }
 
@@ -192,7 +196,7 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                     <Col xs={12} md={4} className='py-3 c1'>
                         <FloatingLabel className='mb-2 c1'
                             controlId="PlayersDutyPass"
-                            label="Duty Pass"
+                            label="Duty Pass*"
                             name='PlayersDutyPass'
                             value={formik.values.PlayersDutyPass} onChange={formik.handleChange}
                         >

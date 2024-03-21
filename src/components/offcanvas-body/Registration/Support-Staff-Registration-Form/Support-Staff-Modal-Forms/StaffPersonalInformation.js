@@ -48,8 +48,8 @@ const validate = values => {
     if (!values.initials) {
         errors.initials = "*Required";
     }
-    else if (!/^[a-zA-Z]{0,1}$/.test(values.initials)) {
-        errors.initials = "Initial can only contain one letter"
+    else if (!/^[a-zA-Z]{0,4}$/.test(values.initials)) {
+        errors.initials = "Initial can only contain letters upto four characters only"
     }
 
     if (!values.displayName) {
@@ -82,7 +82,8 @@ const validate = values => {
     if (!values.emailId) {
         errors.emailId = "*Required";
     }
-    else if (!/^\S+@\S+\.\S+$/.test(values.emailId)) {
+    // ^([a-zA-Z][\w+-]+(?:\.\w+)?)@([\w-]+(?:\.[a-zA-Z]{2,10})+)$
+    else if (!/^([a-zA-Z][\w+-]+(?:\.\w+)?)@([\w-]+(?:\.[a-zA-Z]{2,10})+)$/.test(values.emailId)) {
         errors.emailId = "*Invalid email address";
     }
 
@@ -93,11 +94,11 @@ const validate = values => {
     return errors;
 }
 
-function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData }) {
+function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn }) {
+    console.log("showSaveBtn", showSaveBtn)
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
 
-    //To show/hide progress bar:
-    const [showProgressBar, setShowProgressBar] = useState(true);
+
 
     //true-clear,false-not clear:
     const [imageValue, setImageValue] = useState(false);  //for clearing image after reset is clicked,false-no clear
@@ -132,6 +133,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
 
     // progressbar:
     const [progress, setProgress] = useState(0);
+
 
     function handleReset() {
         firstName.current.value = "";
@@ -323,17 +325,18 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     //Update method:
     const [initialValuesLoaded, setInitialValuesLoaded] = useState(false);//for loading initial values
 
-    console.log('showPutData', showPutData)
+    console.log('showPutData1', showPutData)
     console.log('updateMethodDataID:', showPutData.alldataStaffId)
 
 
     function handleUpdate() {
-        setShowProgressBar(false);
+
         alert("update executed");
         axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }
+
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -350,6 +353,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                 } else {
                     console.log("Error Updating User: ", error.message);
                 }
+
             });
     }
 
@@ -387,7 +391,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     }, [initialValuesLoaded]);
     return (
         <Accordion.Item eventKey="0">
-            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span>{showProgressBar && <ProgressBarWithLabel progressValue={progress} />} </Accordion.Header>
+            <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span> <ProgressBarWithLabel progressValue={progress} /> </Accordion.Header>
             <Accordion.Body>
                 <Container>
                     <p>{activationKey}</p>
@@ -451,6 +455,75 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     <label htmlFor="staffLName" className='text-muted'>Staff Last Name*</label>
                                 </Form.Floating>
                             </Col>
+
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="staffintials"
+                                        type="text"
+                                        placeholder="initials"
+                                        name="initials"
+                                        ref={initials}
+                                        value={formik.values.initials} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                    />
+                                    {
+                                        formik.touched.initials && formik.errors.initials ? <span className='span'>{formik.errors.initials}</span> : null
+                                    }
+                                    <label htmlFor="staffintials" className='text-muted'>Initials*</label>
+                                </Form.Floating>
+                            </Col>
+
+                            <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
+                                <label className='text-muted me-2' htmlFor="gender">Gender:</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check
+                                            inline
+                                            label="Male"
+                                            name="gender"
+                                            type="radio"
+                                            id={`inline-${type}-male`}
+                                            // defaultChecked={true}
+                                            ref={genderMaleReset}
+                                            value="Male"
+                                            style={{ marginRight: '-15px' }}
+                                            checked={formik.values.gender === "Male"}
+                                            onChange={(e) => {
+                                                formik.setFieldValue('gender', e.target.value);
+                                            }}
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Female"
+                                            name="gender"
+                                            type="radio"
+                                            id={`inline-${type}-female`}
+                                            ref={genderFemaleReset}
+                                            value="Female"
+                                            style={{ marginRight: '-30px' }}
+
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="staffDisplayName"
+                                        type="text"
+                                        placeholder="display name"
+                                        name="displayName"
+                                        ref={displayName}
+                                        value={formik.values.displayName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
+                                    />
+                                    {
+                                        formik.touched.displayName && formik.errors.displayName ? <span className='span'>{formik.errors.displayName}</span> : null
+                                    }
+                                    <label htmlFor="staffDisplayName" className='text-muted'>Display Name*</label>
+                                </Form.Floating>
+                            </Col>
+
 
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
@@ -522,38 +595,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     }
                                 </FloatingLabel>
                             </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
-                                        id="staffintials"
-                                        type="text"
-                                        placeholder="initials"
-                                        name="initials"
-                                        ref={initials}
-                                        value={formik.values.initials} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
-                                    />
-                                    {
-                                        formik.touched.initials && formik.errors.initials ? <span className='span'>{formik.errors.initials}</span> : null
-                                    }
-                                    <label htmlFor="staffintials" className='text-muted'>Initials*</label>
-                                </Form.Floating>
-                            </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
-                                        id="staffDisplayName"
-                                        type="text"
-                                        placeholder="display name"
-                                        name="displayName"
-                                        ref={displayName}
-                                        value={formik.values.displayName} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
-                                    />
-                                    {
-                                        formik.touched.displayName && formik.errors.displayName ? <span className='span'>{formik.errors.displayName}</span> : null
-                                    }
-                                    <label htmlFor="staffDisplayName" className='text-muted'>Display Name*</label>
-                                </Form.Floating>
-                            </Col>
+
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
@@ -652,40 +694,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                 ) : null}
                             </Col>
 
-                            <Col xs={12} lg={4} className='d-flex justify-content-center pt-3 col'>
-                                <label className='text-muted me-2' htmlFor="gender">Gender:</label>
-                                {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
-                                        <Form.Check
-                                            inline
-                                            label="Male"
-                                            name="gender"
-                                            type="radio"
-                                            id={`inline-${type}-male`}
-                                            // defaultChecked={true}
-                                            ref={genderMaleReset}
-                                            value="Male"
-                                            style={{ marginRight: '-15px' }}
-                                            checked={formik.values.gender === "Male"}
-                                            onChange={(e) => {
-                                                formik.setFieldValue('gender', e.target.value);
-                                            }}
-                                        />
-                                        <Form.Check
-                                            inline
-                                            label="Female"
-                                            name="gender"
-                                            type="radio"
-                                            id={`inline-${type}-female`}
-                                            ref={genderFemaleReset}
-                                            value="Female"
-                                            style={{ marginRight: '-30px' }}
-
-                                        />
-                                    </div>
-                                ))}
-                            </Col>
-
                             {/* Temporary Field: */}
                             <Col xs={12} lg={4} className='py-3 c1'>
                                 <Form.Floating className="mb-2 mt-2">
@@ -710,8 +718,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                <Button variant="success" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>
-                                <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>
+                                {/*only when showSaveBtn is true saveandnext btn will be dsplayed:  */}
+                                {showSaveBtn && <Button variant="success" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
+                                {/* only when showSaveBtn is false update btn will be displayed: */}
+                                {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
                             </Col>
                         </Row>
                     </Form>

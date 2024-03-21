@@ -52,8 +52,16 @@ function SupportStaffRegistration(props) {
         });
     }
 
+    // modal open:
     const handleShow = () => setShow(true);
-    const [age, setAge] = React.useState('');
+
+    //state to open/hide progressbar: defaultly set as true:
+    // const [showProgressBar, setShowProgressBar] = useState(true);
+
+    //state open/hide save/update button: defaultly set as true:
+    const [showSaveBtn, setShowSaveBtn] = useState(true);
+
+    const [age, setAge] = useState('');
 
     const handleChange = (event) => {
         setAge(event.target.value);
@@ -225,7 +233,11 @@ function SupportStaffRegistration(props) {
     // }
 
     const [showPutData, setShowPutData] = useState({})
+
     function handleUpdateButtonClick(data, id) {
+        // console.log("progressBar", showProgressBar)
+        // setShowProgressBar(false);//so progress bar wont open
+        setShowSaveBtn(false)//so  Save/update button will be disabled
         console.log("Data: ", data, "ID: ", id)
         setShowPutData(data)
         setShow(true) //to open modal onclicking update button
@@ -258,7 +270,7 @@ function SupportStaffRegistration(props) {
                             <p>{key}</p>
                             <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
-                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} />
+                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                                 {/* Accordion:2 */}
                                 <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
                                 {/* Accordion:3 */}
@@ -389,7 +401,7 @@ function SupportStaffRegistration(props) {
                                                         />
                                                     </td>
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.supportStaffName ? showData.supportStaffName : 'N/A'}</span></td>
-                                                    
+
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.team ? showData.team : 'N/A'}</span></td>
 
                                                     <td style={{ whiteSpace: 'nowrap' }}><span style={{ lineHeight: '2.4' }}>{showData.alldataStaffId ? showData.alldataStaffId : 'N/A'}</span></td>

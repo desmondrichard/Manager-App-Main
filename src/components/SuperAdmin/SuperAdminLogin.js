@@ -119,7 +119,7 @@ function SuperAdminLogin() {
                                 {/* condition to navigate: */}
 
                                 <Form onSubmit={(e) => handleLogin(e)}>
-                                    <legend className='text-center' style={{ fontWeight: '700' }}>Login</legend>
+                                    <legend className='text-center' style={{ fontWeight: '700' }}>SUPER ADMIN LOGIN</legend>
                                     <hr style={{ border: '2px solid #198754' }} />
                                     {errorMessage && <div style={{ marginBottom: '10px', color: 'red' }}>{errorMessage}</div>}
                                     {successMessage.length > 0 && (

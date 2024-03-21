@@ -81,11 +81,11 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
       formData.append('teamAImage', formik.values.teamImage1);
       formData.append('teamBImage', formik.values.teamImage2);
 
-       //Looping:
-       formData.forEach((value, key) => {
+      //Looping:
+      formData.forEach((value, key) => {
         console.log("formData key:", key);
         console.log("formData value:", value);
-    });
+      });
 
       axios.post('https://localhost:7097/api/playerimage/FixturesTest', formData, {
         headers: {
@@ -250,6 +250,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
               <img src={formik.values.teamImagePreview2} alt="Team Image Preview" className="img-fluid mt-2" style={{ height: '200px', width: '150px' }} />
             )}
           </Col>
+          <Col xs={12} className='mt-2'><p style={{ color: 'red' }}>Note*:Image should be uploaded in .JPEG/.PNG format and size must not exceed 1MB.</p></Col>
 
         </Row>
         <Row>

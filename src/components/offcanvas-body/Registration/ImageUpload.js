@@ -27,7 +27,7 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName }) 
 
             <label htmlFor='image-upload-input' className='image-upload-label h5 text-muted' style={{ fontWeight: '400', whiteSpace: 'nowrap' }}>
                 {/* like placeholder: */}
-                {baseImage ? (isClearImage ? "" : image.name) : "Upload JPG/PNG"}
+                {baseImage ? (isClearImage ? "" : image.name) : "Upload .JPEG/.PNG"}
             </label>
 
             <div onClick={() => handleImageClick()}>

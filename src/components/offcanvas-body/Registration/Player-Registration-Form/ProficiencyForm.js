@@ -49,6 +49,10 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
     const bowlStyleReset = useRef("");
     const bowlSpecsReset = useRef("");
 
+    //
+    const [teamName, setteamName] = useState("");
+    //
+
     function handleReset() {
         specsReset.current.value = "none";
         batLeftReset.current.checked = false;
@@ -153,7 +157,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                 >
                                     <Form.Select aria-label="specialization" ref={specsReset}>
                                         <option>Select Type</option>
-                                        <option value="batsman">BATSMAN</option>
+                                        <option value="batter">BATTER</option>
                                         <option value="bowler">BOWLER</option>
                                         <option value="allrounder">ALL-ROUNDER</option>
                                         <option value="wicketkeeper">WICKETKEEPER</option>
@@ -183,7 +187,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                             name="battingStyle"
                                             type={type}
                                             id={`inline-${type}-right`}
-                                            // defaultChecked={true}
+                                            defaultChecked={true}
                                             ref={batRightReset}
                                             value="rightHanded"
                                         />
@@ -231,6 +235,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 id={`inline-${type}-rightarm`}
                                                 value='RightArm'
                                                 ref={armRightReset}
+                                                defaultChecked={true}
                                             />
                                         </span>
                                     </div>
@@ -276,6 +281,14 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     {formik.touched.bowlingSpecification && formik.errors.bowlingSpecification ? <span className='span'>{formik.errors.bowlingSpecification}</span> : null}
                                 </FloatingLabel>
                             </Col>
+
+                            {/*  */}
+                            {/* <Col xs={12}>
+                                <label htmlFor='team name'></label>
+                                <input type="text" id="teamName" value={teamName} onChange={(e) => setteamName(e.target.value)} />
+                            </Col> */}
+
+
                             <Col xs={12} lg={12} className='my-4 col'>
                                 <Button variant="primary" className='mb-2' style={{ width: "130px" }} onClick={() => handlePreviousButton()}>PREVIOUS</Button>
                                 <Button variant="success" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} type="submit" value="submit" className='mx-3 mb-2' style={{ width: "130px" }}>Save and Next</Button>

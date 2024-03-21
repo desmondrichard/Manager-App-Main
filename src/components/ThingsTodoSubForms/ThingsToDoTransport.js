@@ -6,8 +6,7 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios';
 import { useFormik } from 'formik';
-// 
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -113,7 +112,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
       // const newValues = { ...values, dateOfJourney: formattedDOB, returnDate: formattedDOB1 };
 
       const newValues = { ...values }
-      notify();
+      // notify();
       axios.post('https://localhost:7097/register/Transport', newValues)
         .then(response => {
           console.log(response.data);
@@ -147,11 +146,11 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
   // setSubmitting(false);
 
   //Toast msg:
-  const notify = () => {
-    toast.success("Form is Successfully Submitted!", {
-      position: toast.POSITION.TOP_CENTER // or 'BOTTOM_CENTER'
-    });
-  }
+  // const notify = () => {
+  //   toast.success("Form is Successfully Submitted!", {
+  //     position: toast.POSITION.TOP_CENTER // or 'BOTTOM_CENTER'
+  //   });
+  // }
 
   const handlePreviousButton = () => {
     onPreviousActivationKey("5")
@@ -256,7 +255,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
 
                 <option value="Bus" disabled={formik.values.transportType !== 'Roadways'}>Bus</option>
 
-                <option value="Train" disabled={formik.values.transportType !== 'Railways'}>Train</option>
+                <option value="Rail" disabled={formik.values.transportType !== 'Railways'}>Rail</option>
 
                 <option value="Flight" disabled={formik.values.transportType !== 'Airways'}>Flight</option>
 
@@ -289,9 +288,9 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
                 <option value="Intercity" disabled={formik.values.travelType !== 'Bus'}>Intercity</option>
                 <option value="Tourist" disabled={formik.values.travelType !== 'Bus'}>Tourist</option>
 
-                <option value="Express" disabled={formik.values.travelType !== 'Train'}>Express</option>
-                <option value="SuperFast" disabled={formik.values.travelType !== 'Train'}>SuperFast</option>
-                <option value="Local" disabled={formik.values.travelType !== 'Train'}>Local</option>
+                <option value="Express" disabled={formik.values.travelType !== 'Rail'}>Express</option>
+                <option value="SuperFast" disabled={formik.values.travelType !== 'Rail'}>SuperFast</option>
+                <option value="Local" disabled={formik.values.travelType !== 'Rail'}>Local</option>
 
                 <option value="Economy" disabled={formik.values.travelType !== 'Flight'}>Economy</option>
                 <option value="PremiumEconomy" disabled={formik.values.travelType !== 'Flight'}>PremiumEconomy</option>
@@ -352,7 +351,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
           <Col className='end btns'>
             <Button variant="danger" className='mx-2' style={{ color: 'white' }} onClick={handlePreviousButton}>BACK</Button>
             <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-            <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.leavingFrom === '' || formik.values.goingTo === ''}>SAVE</Button><ToastContainer />
+            <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.leavingFrom === '' || formik.values.goingTo === ''}>SAVE</Button>
           </Col>
         </Row>
       </Form>

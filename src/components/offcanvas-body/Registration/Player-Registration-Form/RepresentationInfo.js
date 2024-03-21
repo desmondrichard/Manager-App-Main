@@ -33,7 +33,7 @@ const validate = values => {
         errors.division = "*Required";
     }
     else if (!/^[a-zA-Z1-9]{0,15}$/.test(values.division)) {
-        errors.division = "Division name should be between 15 characters maximum";
+        errors.division = "Enter valid Details";
     }
     return errors;
 }
@@ -133,6 +133,22 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
+                                        id="division"
+                                        type="text"
+                                        placeholder="division"
+                                        name="division"
+                                        ref={divisionReset}
+                                        value={formik.values.division} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                    />
+                                    {
+                                        formik.touched.division && formik.errors.division ? <span className='span'>{formik.errors.division}</span> : null
+                                    }
+                                    <label htmlFor="division" className='text-muted'>Division*</label>
+                                </Form.Floating>
+                            </Col>
+                            <Col xs={12} lg={4} className='col'>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
                                         id="cityDistrict"
                                         type="text"
                                         placeholder="city"
@@ -162,22 +178,7 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
                                     <label htmlFor="club" className='text-muted'>Club*</label>
                                 </Form.Floating>
                             </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
-                                        id="division"
-                                        type="text"
-                                        placeholder="division"
-                                        name="division"
-                                        ref={divisionReset}
-                                        value={formik.values.division} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                    />
-                                    {
-                                        formik.touched.division && formik.errors.division ? <span className='span'>{formik.errors.division}</span> : null
-                                    }
-                                    <label htmlFor="division" className='text-muted'>Division*</label>
-                                </Form.Floating>
-                            </Col>
+
                         </Row>
 
                         <Col lg={12} className='my-4 col'>

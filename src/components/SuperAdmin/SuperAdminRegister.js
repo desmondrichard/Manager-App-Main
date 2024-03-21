@@ -69,10 +69,12 @@ function SuperAdminRegister() {
             mobile: '',
             password: '',
             confirmpassword: '',
+
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const newValues = { ...values }
+            const newValues = { ...values, userType: 'superadmin' };
+
             axios.post('https://localhost:7097/SuperAdmin', newValues)
                 .then(response => {
                     console.log("response status: ", response.status) //to fetch  the status of API like 200 etc
@@ -114,7 +116,7 @@ function SuperAdminRegister() {
                     <Col md={5}>
                         <Container className='pt-1'>
                             <Form onSubmit={formik.handleSubmit}>
-                                <legend className='text-center ' style={{ fontWeight: '700' }}>Register</legend>
+                                <legend className='text-center ' style={{ fontWeight: '700' }}>SUPER ADMIN REGISTER</legend>
                                 <hr style={{ border: '2px solid #198754' }} />
 
                                 {/*Full Name Field: */}
@@ -191,6 +193,10 @@ function SuperAdminRegister() {
                                     }
                                 </Form.Group>
 
+                                <Form.Group className="mt-2" controlId="userType">
+                                    <Form.Label className='fontRegister'>User Type</Form.Label>
+                                    <Form.Control type="text" value="superadmin" readOnly size='sm' style={{ cursor: 'not-allowed' }} />
+                                </Form.Group>
 
                                 {/* Submit Button: */}
                                 <div className="d-grid gap-2 my-2">

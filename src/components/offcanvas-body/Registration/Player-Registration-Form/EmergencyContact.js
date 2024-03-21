@@ -14,25 +14,25 @@ import axios from 'axios';
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
 
 // validation:
-const validate = values => {
-    const errors = {};
+// const validate = values => {
+//     const errors = {};
 
-    if (!values.emergencyContactPerson) {
-        errors.emergencyContactPerson = "*Required";
-    }
-    else if (!/^[a-zA-Z ]{3,25}$/.test(values.emergencyContactPerson)) {
-        errors.emergencyContactPerson = "Name should be between 3 to 25 characters long or only letters allowed";
-    }
+//     if (!values.emergencyContactPerson) {
+//         errors.emergencyContactPerson = "*Required";
+//     }
+//     else if (!/^[a-zA-Z ]{3,25}$/.test(values.emergencyContactPerson)) {
+//         errors.emergencyContactPerson = "Name should be between 3 to 25 characters long or only letters allowed";
+//     }
 
-    if (!values.emergContactPersonRelationship) {
-        errors.emergContactPersonRelationship = "*Required";
-    }
-    else if (!/^[a-zA-Z]{3,15}$/.test(values.emergContactPersonRelationship)) {
-        errors.emergContactPersonRelationship = "Name should be between 3 to 15 characters long or only letters allowed";
-    }
+//     if (!values.emergContactPersonRelationship) {
+//         errors.emergContactPersonRelationship = "*Required";
+//     }
+//     else if (!/^[a-zA-Z]{3,15}$/.test(values.emergContactPersonRelationship)) {
+//         errors.emergContactPersonRelationship = "Name should be between 3 to 15 characters long or only letters allowed";
+//     }
 
-    return errors;
-}
+//     return errors;
+// }
 function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);
     const [childNextKey, setChildNextKey] = useState("9");
@@ -41,31 +41,31 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         initialValues: {
             emergencyContactPerson: '',
             emergContactPersonRelationship: '',
-          
+
         },
-        validate,
+        // validate,
         onSubmit: (values, { setSubmitting }) => {  //to add emergencyContactPersonNo along with values
             const newValues = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
-           
+            // console.log("newValues", newValues)
             axios.post('https://localhost:7097/playerEmergencycontactmodel', newValues)
-            .then(response => {
-                console.log(response.data);
-                onActivationKeyChild(childNextKey)
-                console.log("newvalues", newValues)
-                setSubmitting(false);
-            })
-            .catch(error => {
-                console.error(error.message);
-                console.log("newvalues", newValues)
-                setSubmitting(false);
-            });
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
         }
     });
 
-     // alert(`clicked next`);
-            // onActivationKeyChild(childNextKey)
-            // console.log("newValues", newValues)
-            // setSubmitting(false);
+    // alert(`clicked next`);
+    // onActivationKeyChild(childNextKey)
+    // console.log("newValues", newValues)
+    // setSubmitting(false);
 
     // reset form start: 
     const emgcontactpersonReset = useRef("");
@@ -159,25 +159,26 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                                     {
                                         formik.touched.emergencyContactPerson && formik.errors.emergencyContactPerson ? <span className='span'>{formik.errors.emergencyContactPerson}</span> : null
                                     }
-                                    <label htmlFor="emergencyContactPerson" className='text-muted fontSize'>Emg.Contact Name*</label>
+                                    <label htmlFor="emergencyContactPerson" className='text-muted fontSize'>Emg.Contact Name</label>
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="emergContactPersonRelationship"
-                                    label="Emg.Contact Relation*"
+                                    label="Emg.Contact Relation"
                                     name="emergContactPersonRelationship"
                                     value={formik.values.emergContactPersonRelationship} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
 
                                     <Form.Select aria-label="Emg.Contact Relation*" ref={emgcontactrelReset}>
                                         <option value="none">Select Type</option>
-                                        <option value="batsman">PARENTS</option>
-                                        <option value="bowler">GUARDIAN</option>
-                                        <option value="allrounder">SPONSORS</option>
-                                        <option value="wicketkeeper">FRIENDS</option>
-                                        <option value="wicketkeeper">FAMILY MEMBER</option>
-                                        <option value="wicketkeeper">NEIGHBOUR</option>
+                                        <option value="spouse">SPOUSE</option>
+                                        <option value="parents">PARENTS</option>
+                                        <option value="guardian">GUARDIAN</option>
+                                        <option value="sponsors">SPONSORS</option>
+                                        <option value="friends">FRIENDS</option>
+                                        <option value="familymember">FAMILY MEMBER</option>
+                                        <option value="neighbour">NEIGHBOUR</option>
                                     </Form.Select>
                                 </FloatingLabel>
                                 {
