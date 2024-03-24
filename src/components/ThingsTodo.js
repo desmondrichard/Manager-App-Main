@@ -501,7 +501,7 @@ function ThingsTodo() {
                         return (
                           <tr className='text-center font' key={i}>
                             <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                            <td>{showData.name ? showData.name : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>{showData.name ? showData.name : 'N/A'}</td>
                             <td>{showData.equipments ? showData.equipments : 'N/A'}</td>
                             <td>{showData.equipmentsType ? showData.equipmentsType : 'N/A'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>

@@ -382,6 +382,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             team: showPutData.team
         });
         setInitialValuesLoaded(true);
+        if(showPutData.mobileNo)
+        {
+            setMobileValueClear(false);
+        }
     }, [showPutData]);
 
     useEffect(() => {
@@ -688,7 +692,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                             </Col>
 
                             <Col className='col' lg={4}>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" showPutData={showPutData} />
                                 {formik.touched.mobileNo && formik.errors.mobileNo ? (
                                     <span className="span">{formik.errors.mobileNo}</span>
                                 ) : null}
@@ -714,7 +718,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                 </Form.Floating>
                             </Col>
                             <Col xs={5} lg={2} className='col'>
-                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData}/>
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>

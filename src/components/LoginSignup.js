@@ -7,7 +7,7 @@ function LoginSignup() {
     return (
         <div>
             <Container>
-                <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
+                <Tabs defaultActiveKey="Other" id="uncontrolled-tab-example">
                     <Tab eventKey="Other" title="OTHER">
                         <Login />
                     </Tab>

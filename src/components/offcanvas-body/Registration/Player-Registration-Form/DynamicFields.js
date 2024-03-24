@@ -10,15 +10,13 @@ const DynamicFields = ({ onDataUpdate, isClear }) => {
     const bowlerA = useRef(null)
     const bowlerB = useRef(null)
 
-    const addFields = () => {
+    const addFields = (i) => {
         const kitValue = { provided: false, quantity: 0 }
         const kitKey = optionsLabel;
-        console.log("kitkey", kitKey)
-        setFields({
-            ...fields,
-            [kitKey]: kitValue
-
-        })
+        console.log("fields", fields)
+        const data = fields;
+        data[i].battingPads = "sample"
+        setFields(data)
         setSelectBoxContent(optionsLabel);
     }
 

@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName }) { //isClearImage 1st comes with value false-no clear
+function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, showPutData }) { //isClearImage 1st comes with value false-no clear
     const inputRef = useRef(null);   //initialized with null for resetting purpose, and since formik is used we use useRef
     const [image, setImage] = useState("");
     //base 64:
@@ -20,7 +20,9 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName }) 
         dynamicImageName(file);
     }
 
+   //get image url from backend for update request
 
+    console.log("showPutDataImage", showPutData)
     return (
         // 
         <>

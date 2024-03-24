@@ -3,7 +3,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './Phone.css';
 // import Col from 'react-bootstrap/Col';
-function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId }) {
+function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId,showPutData }) {
     const [phoneValue, setPhoneValue] = useState('');
 
     const [phoneNumber, setPhoneNumber] = useState('');//to fetch 0 or 1
@@ -23,7 +23,7 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId })
         samp(value)
     };
 
-
+   console.log("showPutDataPhone",showPutData)
     const validatePhoneNumber = (phoneNumber) => {
         const phoneNumberPattern = /^\+?[1-9]\d{1,14}$/;
         return phoneNumberPattern.test(phoneNumber);
@@ -38,14 +38,20 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId })
         }
     }, [phoneValue])
 
+    useEffect(()=>{
+        if(showPutData?.mobileNo){
+            setPhoneNumber(showPutData.mobileNo)
+        }
+    },[])
 
     return (
         <div>
             {/* {fieldValue} */}
-            {console.log('name', dynamicName)}
+            {console.log('name:',isClear, phoneNumber)}
             <PhoneInput className='phone'
                 country={'in'}
                 value={isClear ? "" : phoneNumber}
+                // value={"919898989898"}
                 onChange={handleChange}
                 inputProps={{
                     // required: true,
