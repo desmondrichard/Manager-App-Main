@@ -35,8 +35,8 @@ const validate = values => {
         errors.jerseySize = "*Required";
     }
 
-    if (!/^[a-zA-Z]{0,1}$/.test(values.initialPrint)) {
-        errors.initialPrint = "only one letter allowed";
+    if (!/^[a-zA-Z]{0,1}$/.test(values.initials)) {
+        errors.initials = "only one letter allowed";
     }
 
 
@@ -52,8 +52,8 @@ const validate = values => {
 
     return errors
 }
-
-function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+//how to update formik using put request as json as content type
+function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
 
     // reset form start: 
     const JerseyName1 = useRef("");
@@ -86,31 +86,31 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
     // reset form end: 
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            jerseyName: '',
-            jerseyNo: '',
-            jerseySize: '',
-            trouserSize: '',
-            initialPrint: '',
-            trouserLength: '',
-            familyJerseyNo: '',
-            shortsSize: '',
-            trackSuit: '',
-            travelPolo: ''
+            jerseyName: showPutData?.jerseyName || '',
+            jerseyNo: showPutData?.jerseyNo || '',
+            jerseySize: showPutData?.jerseySize || '',
+            trouserSize: showPutData?.trouserSize || '',
+            initials: showPutData?.initials || '',
+            trouserLength: showPutData?.trouserLength || '',
+            familyJerseyNo: showPutData?.familyJerseyNo || '',
+            shortsSize: showPutData?.shortsSize || '',
+            trackSuit: showPutData?.trackSuit || '',
+            travelPolo: showPutData?.travelPolo || ''
         },
         validate,
-        onSubmit: values => {  
+        onSubmit: values => {
             axios.post('https://localhost:7097/StaffplayerkittingModel', values)
-            .then(response => {
-                console.log(response.data);
-                onActivationKeyChild(childNextKey)
-                console.log("values", values)
-            })
-            .catch(error => {
-                console.error(error.message);
-                console.log("values", values)
-               
-            });
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("values", values)
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("values", values)
+                });
         }
     });
 
@@ -154,11 +154,37 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
         return count;
     }
 
+    console.log('showPutDataKitting', showPutData)
+
+    //update:
+    function handleUpdate() {
+
+        axios.put(`https://localhost:7097/StaffkittingModel/${showPutData.alldataStaffId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
     //useEffect will be trigerred whenever formik.values has value
     useEffect(() => {
         handleProgress();
     }, [formik.values]); // Ensure that the effect is triggered when form values change
-
 
 
     return (
@@ -207,10 +233,11 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                     controlId="jerseySize"
                                     label="Jersey Size*"
                                     name="jerseySize"
-                                    value={formik.values.jerseySize} onBlur={formik.handleBlur} onChange={formik.handleChange}
 
                                 >
-                                    <Form.Select aria-label="jerseySize" ref={jerseysize1}>
+                                    <Form.Select aria-label="jerseySize" ref={jerseysize1}
+                                        value={formik.values.jerseySize} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('jerseySize', e.target.value)}
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -231,27 +258,27 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         id="staffInitialprint"
                                         type="text"
                                         placeholder="initialprint"
-                                        name="initialPrint"
+                                        name="initials"
 
-                                        value={formik.values.initialPrint} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.initials} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                     />
                                     {
-                                        formik.touched.initialPrint && formik.errors.initialPrint ? <span className='span'>{formik.errors.initialPrint}</span> : null
+                                        formik.touched.initials && formik.errors.initials ? <span className='span'>{formik.errors.initials}</span> : null
                                     }
-                                    <label htmlFor="staffInitialprint" className='text-muted'>Initial Print</label>
+                                    <label htmlFor="initials" className='text-muted'>Initial Print</label>
                                 </Form.Floating>
                             </Col>
-
 
                             <Col xs={12} lg={3} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="trouserSize"
-                                    label="Trowser Size"
+                                    label="Trouser Size"
                                     name="trouserSize"
-                                    onChange={formik.handleChange}
-                                >
 
-                                    <Form.Select aria-label="trouserSize" ref={trowsersize1}>
+                                >
+                                    <Form.Select aria-label="trouserSize" ref={trowsersize1}
+                                        value={formik.values.trouserSize} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('trouserSize', e.target.value)}
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -261,7 +288,9 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         <option value="3XL">3XL</option>
                                         <option value="4XL">4XL</option>
                                     </Form.Select>
-
+                                    {
+                                        formik.touched.trouserSize && formik.errors.trouserSize ? <span className='span'>{formik.errors.trouserSize}</span> : null
+                                    }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={3} className='col'>
@@ -285,9 +314,10 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                     controlId="shortsSize"
                                     label="Shorts Size"
                                     name="shortsSize"
-                                    onChange={formik.handleChange}
+
                                 >
-                                    <Form.Select aria-label="shortsSize" ref={shortssize1}>
+                                    <Form.Select aria-label="shortsSize" ref={shortssize1}
+                                        value={formik.values.shortsSize} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('shortsSize', e.target.value)}>
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -297,7 +327,9 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         <option value="3XL">3XL</option>
                                         <option value="4XL">4XL</option>
                                     </Form.Select>
-
+                                    {
+                                        formik.touched.shortsSize && formik.errors.shortsSize ? <span className='span'>{formik.errors.shortsSize}</span> : null
+                                    }
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={3} className='col'>
@@ -305,10 +337,12 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                     controlId="trackSuit"
                                     label="Track suit"
                                     name="trackSuit"
-                                    onChange={formik.handleChange}
+
                                 >
 
-                                    <Form.Select aria-label="trackSuit" ref={tracksuit1}>
+                                    <Form.Select aria-label="trackSuit" ref={tracksuit1}
+                                        value={formik.values.trackSuit} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('trackSuit', e.target.value)}
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -329,7 +363,9 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                     onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="travelPolo" ref={travelpolo1}>
+                                    <Form.Select aria-label="travelPolo" ref={travelpolo1}
+                                        value={formik.values.travelPolo} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('travelPolo', e.target.value)}
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -362,10 +398,10 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                            <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
-                            
+                            {!showSaveBtn && <Button variant="info" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+
                         </Col>
                     </Form>
                 </Container>

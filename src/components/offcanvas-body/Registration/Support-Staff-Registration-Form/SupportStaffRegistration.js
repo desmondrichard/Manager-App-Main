@@ -52,6 +52,9 @@ function SupportStaffRegistration(props) {
         });
     }
 
+    //updateBtnClicked:
+    const [updateClicked, setUpdateClicked] = useState(false)
+
     // modal open:
     const handleShow = () => setShow(true);
 
@@ -60,6 +63,7 @@ function SupportStaffRegistration(props) {
 
     //state open/hide save/update button: defaultly set as true:
     const [showSaveBtn, setShowSaveBtn] = useState(true);
+    const [showUpdateBtn, setShowUpdateBtn] = useState(true);
 
     const [age, setAge] = useState('');
 
@@ -67,7 +71,7 @@ function SupportStaffRegistration(props) {
         setAge(event.target.value);
     };
     //next btn:
-    const [key, setKey] = useState("2")
+    const [key, setKey] = useState("8")
 
     //pdf:
     const [loader, setLoader] = useState(false);
@@ -215,22 +219,18 @@ function SupportStaffRegistration(props) {
         })
     }
 
-    // //UPDATE Method Using Axios:
-    // function updateUser(showData, id) {
-    //     console.log("Update Data", showData);
-    //     axios
-    //         .put(`http://52.172.96.40/ManagerApi/Update-AlldataAccreadiation/${id}`, showData)
-    //         .then((response) => {
-    //             if (response.data.alldataStaffId === id) {
-    //                 console.log("Updation Success", response.data);
-    //                 // Refresh the data or update the specific staff data in the state based on the response
-    //             }
-    //             console.log("res", response.data);
-    //         })
-    //         .catch((error) => {
-    //             console.log("Error Updating User", error);
-    //         });
-    // }
+    //previous btn clk:
+    const toggleSaveUpdateButtons = (isPreviousButtonClicked) => {
+        if (isPreviousButtonClicked) {
+            showSaveBtn(false);
+            showUpdateBtn(false);
+
+        } else {
+            showSaveBtn(true);
+            showUpdateBtn(true);
+        }
+    };
+
 
     const [showPutData, setShowPutData] = useState({})
 
@@ -238,9 +238,10 @@ function SupportStaffRegistration(props) {
         // console.log("progressBar", showProgressBar)
         // setShowProgressBar(false);//so progress bar wont open
         setShowSaveBtn(false)//so  Save/update button will be disabled
-        console.log("Data: ", data, "ID: ", id)
+        console.log("StaffDataforPUT: ", data, "ID: ", id)
         setShowPutData(data)
         setShow(true) //to open modal onclicking update button
+        setUpdateClicked(true) //set to true if update btn is clicked
     }
 
 
@@ -270,23 +271,23 @@ function SupportStaffRegistration(props) {
                             <p>{key}</p>
                             <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
-                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
+                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} toggleSaveUpdateButtons={toggleSaveUpdateButtons} updateClicked={updateClicked} />
                                 {/* Accordion:2 */}
-                                <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                                <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} toggleSaveUpdateButtons={toggleSaveUpdateButtons} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                                 {/* Accordion:3 */}
-                                <StaffIDCardDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                                <StaffIDCardDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                                 {/* Accordion:4 */}
-                                <StaffBankAccountDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                                <StaffBankAccountDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                                 {/* Accordion:5 */}
-                                <StaffFoodInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                                <StaffFoodInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                                 {/* Accordion:6 */}
-                                <StaffTravelInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                                <StaffTravelInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn}/>
                                 {/* Accordion:7 */}
-                                <StaffPreviousRepresentation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                                <StaffPreviousRepresentation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn}/>
                                 {/* Accordion:8 */}
-                                <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                                <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} updateClicked={updateClicked}/>
                                 {/* Accordion:9 */}
-                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} />
+                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                             </Accordion>
                         </Modal.Body>
 

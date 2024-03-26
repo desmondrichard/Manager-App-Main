@@ -48,7 +48,6 @@ const validate = values => {
         errors.birthCertificate = "Enter Valid Birth Certificate Number"
     }
 
-    
 
     if (!values.address) {
         errors.address = "Required"
@@ -73,7 +72,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData }) {
     //reset address:
     const [clearValue, setClearValue] = useState(false);
 
@@ -120,44 +119,50 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
     }
 
+    const [initialValues, setInitialValues] = useState({
+
+    })
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            aadharNo: '',
-            panCardNo: '',
-            passportNo: '',
-            passportExpDate: '',
-            birthCertificate: '',
-            visaNumber: '',
-            visacheck: '',
-            visaValidity: '',
-            address: '',
-            addressLine1: '',
-            addressLine2: '',
-            country: '',    //right approach
-            state: '',
-            city: '',
+            aadharNo: showPutData?.aadharNo || '',
+            panCardNo: showPutData?.panCardNo || '',
+            passportNo: showPutData?.passportNo || '',
+            passportExpDate: showPutData?.passportExpDate || '',
+            birthCertificate: showPutData?.birthCertificate || '',
+            visaNumber: showPutData?.visaNumber || '',
+            visacheck: showPutData?.visacheck || '',
+            visaValidity: showPutData?.visaValidity || '',
+            address: showPutData?.address || '',
+            addressLine1: showPutData?.addressLine1 || '',
+            addressLine2: showPutData?.addressLine2 || '',
+            country: showPutData?.country || '',    //right approach
+            state: showPutData?.state || '',
+            city: showPutData?.city || '',
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const dateOfBirth = new Date(values.passportExpDate);
-            const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
-            const dateOfBirth1 = new Date(values.visaValidity);
-            const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
-            const newValues = { ...values, passportExpDate: formattedDOB, visaValidity: formattedDOB1 }
+            // const dateOfBirth = new Date(values.passportExpDate);
+            // const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
+            // const dateOfBirth1 = new Date(values.visaValidity);
+            // const formattedDOB1 = `${dateOfBirth1.getDate()}/${dateOfBirth1.getMonth() + 1}/${dateOfBirth1.getFullYear()}`;
+
+
+            const newValues = { ...values }
 
             axios.post('https://localhost:7097/StaffIDCardDetails', newValues)
-            .then(response => {
-                console.log(response.data);
-                onActivationKeyChild(childNextKey)
-                console.log("newvalues", newValues)
-                setSubmitting(false);
-            })
-            .catch(error => {
-                console.error(error.message);
-                console.log("newvalues", newValues)
-                setSubmitting(false);
-            });
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("newvalues", newValues)
+                    setSubmitting(false);
+                });
 
         }
     });
@@ -228,10 +233,57 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
     }
 
 
-    // function onActivateProgressBar() {
-    //     handleProgress();
-    // }
+    // UPDATE:
+    console.log("showPutDataIDCard", showPutData);
 
+    console.log('updateMethodDataID:', showPutData.alldataStaffId)
+    function handleUpdate() {
+        console.log("showPutDataIDCard", showPutData);
+        alert("update executed");
+
+        // Convert the date strings to Date objects
+        const passportExpDate = new Date(formik.values.passportExpDate);
+        const visaValidity = new Date(formik.values.visaValidity);
+
+        // Format dates as "yyyy-MM-dd"
+        const formattedPassportExpDate = formatDate(passportExpDate);
+        const formattedVisaValidity = formatDate(visaValidity);
+
+        axios.put(`https://localhost:7097/StaffIdcard/${showPutData.alldataStaffId}`, {
+            ...formik.values, passportExpDate: formattedPassportExpDate,
+            visaValidity: formattedVisaValidity
+        },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey); //to navigate to next tab
+
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch((error) => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+    // Function to format dates as "yyyy-MM-dd"
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
 
     // country-state-city:
     const [selectedCountry, setSelectedCountry] = useState(null);
@@ -248,7 +300,11 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
         handleProgress();
     }, [formik.values, selectedCountry, selectedState, selectedCity]); // Ensure that the effect is triggered when form values change
 
-
+    useEffect(() => {
+        if (showPutData?.visacheck) {
+            formik.setFieldValue("visacheck", showPutData.visacheck);
+        }
+    }, [showPutData])
     return (
 
         <Accordion.Item eventKey="2">
@@ -314,13 +370,14 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="passexp"
                                         name="passportExpDate"
                                         ref={passexp1}
-                                        value={formik.values.passportExpDate} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                         min={new Date().toISOString().split('T')[0]}
+                                        value={formik.values.passportExpDate} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.passportExpDate && formik.errors.passportExpDate ? <span className='span'>{formik.errors.passportExpDate}</span> : null
                                     }
                                     <label htmlFor="passportExpDate" className='text-muted'>PASSPORT EXP DATE*</label>
+
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
@@ -343,23 +400,25 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 <label className='text-muted' htmlFor="battingpads">DO YOU HAVE VISA CARD</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} onChange={(e) => { formik.handleChange(e) }}>
-                                        <Form.Check style={{
-
-                                        }}
+                                        <Form.Check
                                             inline
                                             label="Yes"
                                             name="visacheck"
-                                            type={type}
-                                            id={`inline-${type}-provided`}
+                                            type="radio"
+                                            id={`inline-${type}-Yes`}
                                             ref={visaYes}
                                             value="Yes"
+                                            checked={formik.values.visacheck === "Yes"}
+                                            onChange={(e) => {
+                                                formik.setFieldValue('visacheck', e.target.value);
+                                            }}
                                         />
                                         <Form.Check
                                             inline
                                             label="No"
                                             name="visacheck"
-                                            type={type}
-                                            id={`inline-${type}-notprovided`}
+                                            type="radio"
+                                            id={`inline-${type}-No`}
                                             // defaultChecked={true}
                                             ref={visaNo}
                                             value="No"
@@ -367,6 +426,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                     </div>
                                 ))}
                             </Col>
+
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
@@ -391,9 +451,14 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="visavalidity"
                                         name="visaValidity"
                                         ref={visaValid}
-                                        min={new Date().toISOString().split('T')[0]}
+                                        value={formik.values.visaValidity}
+                                        onBlur={formik.handleBlur}
+                                        // min={new Date().toISOString().split('T')[0]}
                                         onChange={(e) => { formik.handleChange(e) }}
                                     />
+                                    {
+                                        formik.touched.visaValidity && formik.errors.visaValidity ? <span className='span'>{formik.errors.visaValidity}</span> : null
+                                    }
                                     <label htmlFor="visaValidity" className='text-muted' style={{ fontSize: '13px' }}>VISA VALIDITY</label>
                                 </Form.Floating>
                             </Col>
@@ -458,22 +523,34 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 {/* country-state-city: */}
                                 <Col xs={12} lg={4} className='col'>
                                     {/* <label htmlFor="country">Country:</label> */}
+                                    {console.log("value", selectedCountry)}
                                     <Select placeholder='country*' id='country' name='country'
                                         className="dynamicSelect" style={{ zIndex: 100, outline: 'none', border: 'none' }}
-                                        options={Country.getAllCountries()}
+                                        options={Country.getAllCountries()} //filter 
                                         getOptionLabel={(options) => {
+
                                             return options["name"];
                                         }}
                                         getOptionValue={(options) => {
+                                            console.log("options", options, typeof selectedCountry, selectedCountry)
+
                                             return options["name"];
                                         }}
-                                        value={selectedCountry}
+                                        value={(options) => {
+
+                                            if (typeof selectedCountry === "string") {
+                                                return options[selectedCountry];
+                                            } else {
+                                                return selectedCountry
+                                            }
+                                        }}
                                         // onChange={(item) => {
                                         //     setSelectedCountry(item);
                                         // }}
                                         onChange={(item) => {
                                             formik.setFieldValue("country", item.name);
                                             setSelectedCountry(item);
+                                            console.log("item", item)
                                         }}
 
                                     />
@@ -524,10 +601,10 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
                             <Col xs={12} lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                <Button variant="success" type='submit' className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                                {showSaveBtn && <Button variant="success" type='submit' className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
-                                
+                                {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+
                             </Col>
                         </Row>
 

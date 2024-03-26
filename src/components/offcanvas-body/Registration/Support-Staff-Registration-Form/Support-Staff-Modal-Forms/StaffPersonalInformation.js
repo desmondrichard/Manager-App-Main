@@ -94,11 +94,11 @@ const validate = values => {
     return errors;
 }
 
-function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn }) {
-    console.log("showSaveBtn", showSaveBtn)
+function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, toggleSaveUpdateButtons, updateClicked }) {
+    console.log("showSaveBtnNew", showSaveBtn)
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
 
-
+    console.log("updateClicked", updateClicked)
 
     //true-clear,false-not clear:
     const [imageValue, setImageValue] = useState(false);  //for clearing image after reset is clicked,false-no clear
@@ -193,6 +193,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         onSubmit: (values, { setSubmitting }) => {
 
             alert("POST executed")
+            console.log("imageDataNew:", ImageData)
             const year = new Date().getFullYear();
             console.log("year", year)
             // const dateOfBirth = new Date(values.dateOfBirth);
@@ -330,11 +331,31 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
 
 
     function handleUpdate() {
-
         alert("update executed");
-        axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, formik.values, {
+        console.log("formikVals", formik.values, ImageData)
+        //
+        const formData = new FormData();
+        formData.append('supportStaffName', formik.values.supportStaffName);
+        formData.append('middleName', formik.values.middleName);
+        formData.append('lastName', formik.values.lastName);
+        formData.append('designation', formik.values.designation);
+        formData.append('specialization', formik.values.specialization);
+        formData.append('initials', formik.values.initials);
+        formData.append('displayName', formik.values.displayName);
+        formData.append('fatherName', formik.values.fatherName);
+        formData.append('motherName', formik.values.motherName);
+        formData.append('dateOfBirth', formik.values.dateOfBirth);
+        formData.append('bloodGroup', formik.values.bloodGroup);
+        formData.append('emailId', formik.values.emailId);
+        formData.append('mobileNo', formik.values.mobileNo);
+        formData.append('ImageData', ImageData);
+        formData.append('team', formik.values.team);
+        formData.append('year', formik.values.year);
+        formData.append('gender', formik.values.gender);
+        console.log("form", formData)
+        axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, formData, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             }
 
         })
@@ -379,15 +400,23 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             gender: showPutData.gender,
             mobileNo: showPutData.mobileNo,
             year: showPutData.year,
-            team: showPutData.team
+            team: showPutData.team,
+            imageData: showPutData.imageData
         });
         setInitialValuesLoaded(true);
-        if(showPutData.mobileNo)
-        {
+        if (showPutData.mobileNo) {
             setMobileValueClear(false);
+        }
+
+        //added:
+        if (showPutData.imageData) {
+            setImageValue(false);
         }
     }, [showPutData]);
 
+
+
+    
     useEffect(() => {
         if (initialValuesLoaded) {
             formik.setValues(initialValues);
@@ -536,7 +565,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     name="designation"
                                 >
 
-
                                     <Form.Select aria-label="designation" ref={desig} value={formik.values.designation} onBlur={formik.handleBlur}
                                         onChange={(e) => formik.setFieldValue('designation', e.target.value)}>
                                         <option value="none">Select Type</option>
@@ -558,7 +586,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     controlId="specialization"
                                     label="specialization*"
                                     name="specialization"
-
                                 >
 
                                     <Form.Select aria-label="specialization" ref={spec} disabled={formik.values.designation === 'none'} value={formik.values.specialization} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('specialization', e.target.value)}>
@@ -654,7 +681,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     controlId="bloodGroup"
                                     label="BloodGroup*"
                                     name="bloodGroup"
-
                                 >
 
                                     <Form.Select aria-label="bloodGroup" ref={bloodgrp} value={formik.values.bloodGroup} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('bloodGroup', e.target.value)}>
@@ -718,14 +744,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                 </Form.Floating>
                             </Col>
                             <Col xs={5} lg={2} className='col'>
-                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData}/>
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                {/*only when showSaveBtn is true saveandnext btn will be dsplayed:  */}
+                                {/*only when showSaveBtn is true saveandnext btn will be displayed:  */}
                                 {showSaveBtn && <Button variant="success" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
                                 {/* only when showSaveBtn is false update btn will be displayed: */}
-                                {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-3 text-white' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
                             </Col>
                         </Row>
                     </Form>

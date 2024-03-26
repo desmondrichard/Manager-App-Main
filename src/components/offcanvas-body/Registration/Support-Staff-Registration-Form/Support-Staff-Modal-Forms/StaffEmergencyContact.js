@@ -34,7 +34,7 @@ import axios from 'axios';
 // }
 
 
-function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);
     const [childNextKey, setChildNextKey] = useState("8");
     const [emergencyContactPersonNo, setEmergencyContactNo] = useState("");
@@ -54,8 +54,8 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
     const formik = useFormik({
         initialValues: {
-            emergencyContactPerson: '',
-            emergContactPersonRelationship: ''
+            emergencyContactPerson: showPutData?.emergencyContactPerson || '',
+            emergContactPersonRelationship: showPutData?.emergContactPersonRelationship || ''
         },
         // validate,
         onSubmit: (values, { setSubmitting }) => {
@@ -133,6 +133,34 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         console.log("emergencyContactPersonNo", emergencyContactPersonNo)
     }
 
+    console.log('showPutDataKitting', showPutData)
+
+    //update:
+    function handleUpdate() {
+
+        axios.put(`https://localhost:7097/StaffEmergencycontactmodel/${showPutData.alldataStaffId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+
     //useEffect will be trigerred whenever formik.values has value
     useEffect(() => {
         handleProgress();
@@ -172,10 +200,12 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                                     controlId="emergContactPersonRelationship"
                                     label="Emg.Contact Relation"
                                     name="emergContactPersonRelationship"
-                                    value={formik.values.emergContactPersonRelationship} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 >
 
-                                    <Form.Select aria-label="emergContactPersonRelationship" ref={emgcontactrel1}>
+                                    <Form.Select aria-label="emergContactPersonRelationship" ref={emgcontactrel1}
+                                        value={formik.values.emergContactPersonRelationship} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('emergContactPersonRelationship', e.target.value)}
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="spouse">SPOUSE</option>
                                         <option value="parents">PARENTS</option>
@@ -193,15 +223,15 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" />
+                                <Phone isClear={mobileValueClear}  onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" showPutData={showPutData}/>
                             </Col>
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} >Save and Next</Button>
+                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} >Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                            <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
+                            {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
 
                         </Col>
                     </Form>

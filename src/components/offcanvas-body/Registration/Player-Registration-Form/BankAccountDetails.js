@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import { useRef } from 'react';
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
 import axios from 'axios';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 // validation:
 const validate = values => {
@@ -163,7 +164,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         const totalFilledFields = result;
 
         //calc formula
-        let newProgress = ((totalFilledFields / 15) * 100).toFixed();
+        let newProgress = ((totalFilledFields / 14) * 100).toFixed();
         console.log("Progress", newProgress)
         setProgress(newProgress);
     }
@@ -235,20 +236,27 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             </Col>
 
                             <Col xs={12} lg={4}>
-                                <Form.Floating className="mb-2 col">
-                                    <Form.Control
-                                        id="CurrencyType"
-                                        type="text"
-                                        placeholder="currencytype"
-                                        name="CurrencyType"
-                                        ref={currencytypeReset}
-                                        value={formik.values.CurrencyType} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                    />
+                                <FloatingLabel className='mb-2 col'
+                                    controlId="CurrencyType"
+                                    label="Currency Type*"
+                                    name="CurrencyType"
+                                >
+
+                                    <Form.Select aria-label="CurrencyType" ref={currencytypeReset} value={formik.values.CurrencyType} onBlur={formik.handleBlur}
+                                        onChange={(e) => formik.setFieldValue('CurrencyType', e.target.value)}>
+                                        <option value="none">Select Type</option>
+                                        <option value="rupees">Rupees</option>
+                                        <option value="us dollar">US Dollar</option>
+                                        <option value="euro">Euro</option>
+                                        <option value="swiss franc">Swiss Franc</option>
+                                        <option value="singapore dollar">Singapore Dollar</option>
+                                        <option value="pound sterling">Pound Sterling</option>
+                                        <option value="others">Others</option>
+                                    </Form.Select>
                                     {
                                         formik.touched.CurrencyType && formik.errors.CurrencyType ? <span className='span'>{formik.errors.CurrencyType}</span> : null
                                     }
-                                    <label htmlFor="CurrencyType" className='text-muted'>Currency Type</label>
-                                </Form.Floating>
+                                </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">

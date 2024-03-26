@@ -90,12 +90,12 @@ function Footer() {
                         <div className="footer-content-column">
                             <div className="footer-call-to-action">
                                 <h2 className="footer-call-to-action-title"> Email</h2>
-                                <p className="footer-call-to-action-description"> xyz@gmail.com</p>
+                                <p className="footer-call-to-action-description"> ManagerApp@gmail.com</p>
                                 <span className="footer-call-to-action-button button"> Get in Touch </span>
                             </div>
                             <div className="footer-call-to-action">
                                 <h2 className="footer-call-to-action-title"> You Call Us</h2>
-                                <p className="footer-call-to-action-link-wrapper"> <span className="footer-call-to-action-link" href="tel:0124-64XXXX" target="_self"> 0124-64789 </span></p>
+                                <p className="footer-call-to-action-link-wrapper"> <span className="footer-call-to-action-link" href="tel:0124-64XXXX" target="_self"> +91-7889364789 </span></p>
                             </div>
                         </div>
                         <div className="footer-social-links"> 

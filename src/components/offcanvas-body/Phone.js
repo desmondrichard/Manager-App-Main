@@ -51,7 +51,7 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId,sh
             <PhoneInput className='phone'
                 country={'in'}
                 value={isClear ? "" : phoneNumber}
-                // value={"919898989898"}
+                // value={"919898989898"} 
                 onChange={handleChange}
                 inputProps={{
                     // required: true,

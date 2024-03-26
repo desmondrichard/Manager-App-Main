@@ -10,6 +10,11 @@ import { ListGroup } from 'react-bootstrap';
 import Placeholder from 'react-bootstrap/Placeholder';
 import './DashboardSupportStaffCard.css';
 import Container from 'react-bootstrap/Container';
+//Lazy Loading Images:
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
+
 function DashboardSupportStaffCard() {
     //Data Binding:
     const [showData, setShowData] = useState(null);
@@ -33,23 +38,25 @@ function DashboardSupportStaffCard() {
 
             {/* Card: */}
             <div className='my-3 p-2'>
-                <Container>
+                <Container className='text-center'>
                     <Card style={{ width: '100%' }}>
                         <Card.Header style={{ fontWeight: 'bold', fontSize: '18px' }}>SUPPORT STAFFS</Card.Header>
                         <ListGroup variant='flush'>
                             {
                                 showData ?
                                     (
-                                        <Row className='my-3'>
+                                        <Row className='my-3 justify-content-center'>
                                             {
                                                 showData.map((showData, i) => {
                                                     return (
 
                                                         <Col xs={12} md={6} xl={4} key={i}>
                                                             <Card style={{ width: '15rem', cursor: 'pointer' }} className='m-4 zoom'>
-                                                                <Card.Img variant="top" src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
+
+                                                                <LazyLoadImage effect="blur" variant="top" src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
                                                                     require('./../assets/dummy_profile_img.png')}   //default img 
-                                                                    alt="img" style={{ width: 'auto', height: '250px' }}
+                                                                    alt="img" style={{ width: '239px', height: '250px' }}
+                                                                    // 
                                                                     onError={(e) => {
                                                                         e.target.src = require('./../assets/dummy_profile_img.png');
                                                                     }} />
@@ -122,7 +129,7 @@ function DashboardSupportStaffCard() {
             </div>
 
 
-        </div>
+        </div >
     )
 }
 

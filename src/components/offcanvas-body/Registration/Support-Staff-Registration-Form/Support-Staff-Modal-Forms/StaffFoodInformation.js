@@ -10,7 +10,7 @@ import { useFormik } from 'formik';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 import axios from 'axios';
 
-function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     const [childNextKey, setChildNextKey] = useState("5");
 
     //state for food type:
@@ -27,8 +27,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     const handleAllergyIfAnyChange = (e) => {
         setShowAllergyField(e.target.value === 'Yes')
     }
-
-
 
     //ref hook:
     const foodTypeRef = useRef(null);
@@ -76,8 +74,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         onPreviousActivationKey("3")
     }
 
+
+
     //Formik:
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
             foodtype: '',
             eggiterian: '',
@@ -144,13 +145,14 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 obj[key] !== null &&
                 obj[key] !== undefined &&
                 obj[key] !== ''
-            ) 
-            //incremented count by 2 since foodtype='veg' original total count is 80% only:
-            if (key === 'foodtype' && obj[key] === 'veg') {
-                count += 2;
-            } else {
+            )
+                //incremented count by 2(40%) if foodtype='veg' [or] AllergyIfAny='No':
+                if ((key === 'foodtype' && obj[key] === 'veg') || (key === 'allergyIfAny' && obj[key] === 'No')) {
+                    count += 2;
+                } else {
                     count++;
                 }
+
         }
         //To dynamically remove progress count and set eggiterian as empty if nonveg is selected:
         if (obj.foodtype === 'nonveg' && (obj.eggiterian === 'Yes' || obj.eggiterian === 'No')) {
@@ -165,6 +167,40 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
 
         console.log("count", count)
         return count;
+    }
+
+    //update
+    function handleUpdate() {
+        const newFormikValues = {
+            foodtype: showPutData.foodType,
+            eggiterian: showPutData.eggiterian,
+            seafood: showPutData.seafood,
+            redMeat: showPutData.redMeat,
+            allergyIfAny: showPutData.allergyIfAny,
+            allergy: showPutData.allergy,
+        };
+        formik.setValues(newFormikValues);
+        //
+        axios.put(`https://localhost:7097/StaffFoodInformationModel/${showPutData.alldataStaffId}`, newFormikValues, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
     }
 
     useEffect(() => {
@@ -286,10 +322,10 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                         <Row>
                             <Col lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>
+                                {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>
-                                <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
-                          
+                                {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+
                             </Col>
                         </Row>
 

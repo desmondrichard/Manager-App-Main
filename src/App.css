@@ -1,2 +1,12 @@
 /* Resizing loop error: */
-iframe#webpack-dev-server-client-overlay{display:none!important}
+iframe#webpack-dev-server-client-overlay {
+    display: none !important
+}
+
+.btn-info {
+    --bs-btn-color: white !important;
+}
+
+.btn-info {
+    --bs-btn-hover-color: white !important;
+}

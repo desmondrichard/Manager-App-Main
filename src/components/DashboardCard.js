@@ -7,11 +7,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Header from './Header';
 import { Container, ListGroup } from 'react-bootstrap';
-// 
+//Lazy Loading Images:
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import Placeholder from 'react-bootstrap/Placeholder';
 function DashboardCard() {
-    
+
     //Data Binding:
     const [showData, setShowData] = useState(null);
     useEffect(() => {
@@ -40,16 +42,16 @@ function DashboardCard() {
                         <ListGroup variant='flush'>
                             {
                                 showData ?
-                                    (<Row>
+                                    (<Row className='justify-content-center'>
                                         {
                                             showData.map((showData, i) => {
                                                 return (
                                                     <Col xs={12} md={6} xl={4} key={i} >
                                                         <Card style={{ width: '15rem', cursor: 'pointer' }} className='m-4 zoom'>
-                                                            <Card.Img variant="top"
+                                                            <LazyLoadImage effect="blur" variant="top"
                                                                 src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
                                                                     require('./../assets/dummy_profile_img.png')}   //default img 
-                                                                alt="img" style={{ width: 'auto', height: '250px' }}
+                                                                alt="img" style={{ width: '239px', height: '250px' }}
                                                                 onError={(e) => {
                                                                     e.target.src = require('./../assets/dummy_profile_img.png');
                                                                 }}
@@ -111,6 +113,7 @@ function DashboardCard() {
                                                 </Card>
                                             </Col>
 
+
                                         </Row>
                                     )
                             }
@@ -124,7 +127,7 @@ function DashboardCard() {
 
             {/*  */}
 
-        </div>
+        </div >
     )
 }
 

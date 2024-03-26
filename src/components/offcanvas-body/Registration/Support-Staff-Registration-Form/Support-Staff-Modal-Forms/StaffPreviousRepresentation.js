@@ -36,7 +36,7 @@ const validate = values => {
     }
     return errors;
 }
-function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     const [childNextKey, setChildNextKey] = useState("7");
     // reset form start: 
     const city1 = useRef("");
@@ -54,9 +54,9 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
     }
     const formik = useFormik({
         initialValues: {
-            cityDistrict: '',
-            club: '',
-            division: '',
+            cityDistrict: showPutData?.cityDistrict || '',
+            club: showPutData?.club || '',
+            division: showPutData?.division || '',
 
         },
         validate,
@@ -115,6 +115,32 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
         }
         console.log("count", count)
         return count;
+    }
+
+    //update:
+    console.log('showPutDataRep', showPutData)
+    function handleUpdate() {
+
+        axios.put(`https://localhost:7097/StaffRepresentationinformationModel/${showPutData.alldataStaffId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
     }
 
     //useEffect will be trigerred whenever formik.values has value
@@ -184,9 +210,9 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                            <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
+                            {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
 
                         </Col>
                     </Form>

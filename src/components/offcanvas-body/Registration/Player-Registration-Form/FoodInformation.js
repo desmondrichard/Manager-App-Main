@@ -149,8 +149,8 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                 obj[key] !== undefined &&
                 obj[key] !== ''
             )
-                //incremented count by 2 since foodtype='veg' original total count is 80% only:
-                if (key === 'foodtype' && obj[key] === 'veg') {
+                //incremented count by 2(40%) if foodtype='veg' [or] AllergyIfAny='No':
+                if ((key === 'foodtype' && obj[key] === 'veg') || (key === 'allergyIfAny' && obj[key] === 'No')) {
                     count += 2;
                 } else {
                     count++;

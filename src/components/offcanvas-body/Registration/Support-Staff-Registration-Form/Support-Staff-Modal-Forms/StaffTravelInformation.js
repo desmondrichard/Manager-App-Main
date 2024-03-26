@@ -23,12 +23,13 @@ const validate = values => {
     }
     return errors;
 }
-function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     const [childNextKey, setChildNextKey] = useState("6");
+
     const formik = useFormik({
         initialValues: {
-            travelFrom: '',
-            returnDestination: '',
+            travelFrom: showPutData?.travelFrom || '',
+            returnDestination: showPutData?.returnDestination || '',
         },
         validate,
         onSubmit: values => {
@@ -100,6 +101,35 @@ function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviou
         return count;
     }
 
+    console.log('showPutDataTravel', showPutData)
+
+    //update:
+    function handleUpdate() {
+
+        axios.put(`https://localhost:7097/StaffTravelInformationModel/${showPutData.alldataStaffId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+
+
     //useEffect will be trigerred whenever formik.values has value
     useEffect(() => {
         handleProgress();
@@ -151,10 +181,10 @@ function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviou
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                            <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
-                       
+                            {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+
                         </Col>
                     </Form>
                 </Container>

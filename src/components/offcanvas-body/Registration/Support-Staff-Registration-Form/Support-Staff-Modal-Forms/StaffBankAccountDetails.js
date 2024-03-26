@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import { useFormik } from 'formik';
 import { useRef } from 'react';
 import './StaffBankAccountDetails.css';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 // validation:
@@ -28,8 +29,8 @@ const validate = values => {
         errors.bankName = "Bank Name should be between 2 to 15 characters long or only letters allowed";
     }
 
-    if (!/^[^0-9]{0,12}$/.test(values.CurrencyType)) {
-        errors.CurrencyType = "Invalid currency type";
+    if (!/^[^0-9]{0,12}$/.test(values.currencyType)) {
+        errors.currencyType = "Invalid currency type";
     }
 
 
@@ -68,7 +69,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     const [childNextKey, setChildNextKey] = useState("4");
 
     // reset form start: 
@@ -94,7 +95,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
     function handleReset() {
         beneficiaryname1.current.value = "";
         bankname1.current.value = "";
-        currencytype1.current.value = "";
+        currencytype1.current.value = "none";
         accountno1.current.value = "";
         savings1.current.checked = false;
         current1.current.checked = false;
@@ -115,21 +116,22 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
     // reset form end: 
     // 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            beneficiaryName: '',
-            bankName: '',
-            CurrencyType: '',
-            acType: '',
-            bankAccountNo: '',
-            ifscCode: '',
-            micrCode: '',
-            ibanCode: '',
-            gstNumber: '',
-            bankAddress: '',
-            bankAddress2: '',
-            bankContactNo: '',
-            bankCountry: '',
-            switchbicNumber: ''
+            beneficiaryName: showPutData?.beneficiaryName || '',
+            bankName: showPutData?.bankName || '',
+            currencyType: showPutData?.currencyType || '',
+            acType: showPutData?.acType || '',
+            bankAccountNo: showPutData?.bankAccountNo || '',
+            ifscCode: showPutData?.ifscCode || '',
+            micrCode: showPutData?.micrCode || '',
+            ibanCode: showPutData?.ibanCode || '',
+            gstNumber: showPutData?.gstNumber || '',
+            bankAddress: showPutData?.bankAddress || '',
+            bankAddress2: showPutData?.bankAddress2 || '',
+            bankContactNo: showPutData?.bankContactNo || '',
+            bankCountry: showPutData?.bankCountry || '',
+            switchbicNumber: showPutData?.switchbicNumber || ''
 
         },
         validate,
@@ -144,6 +146,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                     console.error(error.message);
                     console.log("values", values)
                 });
+
         }
     });
 
@@ -186,6 +189,33 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         }
         console.log("count", count)
         return count;
+    }
+
+    //update:
+    console.log("showputDataBank", showPutData)
+
+    function handleUpdate() {
+
+        axios.put(`https://localhost:7097/StaffbankModel/${showPutData.alldataStaffId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
     }
 
     //useEffect will be trigerred whenever formik.values has value
@@ -236,21 +266,29 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                             </Col>
 
                             <Col xs={12} lg={4}>
-                                <Form.Floating className="mb-2 col">
-                                    <Form.Control
-                                        id="CurrencyType"
-                                        type="text"
-                                        placeholder="currencytype"
-                                        name="CurrencyType"
-                                        ref={currencytype1}
-                                        value={formik.values.CurrencyType} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                    />
+                                <FloatingLabel className='mb-2 col'
+                                    controlId="CurrencyType"
+                                    label="Currency Type*"
+                                    name="currencyType"
+                                >
+
+                                    <Form.Select aria-label="currencyType" ref={currencytype1} value={formik.values.currencyType} onBlur={formik.handleBlur}
+                                        onChange={(e) => formik.setFieldValue('currencyType', e.target.value)}>
+                                        <option value="none">Select Type</option>
+                                        <option value="rupees">Rupees</option>
+                                        <option value="us dollar">US Dollar</option>
+                                        <option value="euro">Euro</option>
+                                        <option value="swiss franc">Swiss Franc</option>
+                                        <option value="singapore dollar">Singapore Dollar</option>
+                                        <option value="pound sterling">Pound Sterling</option>
+                                        <option value="others">Others</option>
+                                    </Form.Select>
                                     {
-                                        formik.touched.CurrencyType && formik.errors.CurrencyType ? <span className='span'>{formik.errors.CurrencyType}</span> : null
+                                        formik.touched.currencyType && formik.errors.currencyType ? <span className='span'>{formik.errors.currencyType}</span> : null
                                     }
-                                    <label htmlFor="CurrencyType" className='text-muted'>Currency Type</label>
-                                </Form.Floating>
+                                </FloatingLabel>
                             </Col>
+
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
@@ -319,7 +357,8 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         placeholder="swiftbic"
                                         name="switchbicNumber"
                                         ref={swiftbic1}
-                                        onChange={formik.handleChange}
+                                        value={formik.values.switchbicNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
 
                                     {/*  */}
@@ -350,7 +389,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         placeholder="iban"
                                         name="ibanCode"
                                         ref={iban1}
-                                        onChange={formik.handleChange}
+                                        value={formik.values.ibanCode} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('ibanCode', e.target.value)}
                                     />
 
                                     <label htmlFor="ibanCode" className='text-muted'>IBAN Code</label>
@@ -397,7 +436,8 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         placeholder="bankaddress"
                                         name="bankAddress"
                                         ref={bankaddress1}
-                                        onChange={formik.handleChange}
+                                        value={formik.values.bankAddress} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
                                     <label htmlFor="bankAddress" className='text-muted'>Bank Address 1</label>
                                 </Form.Floating>
@@ -411,7 +451,8 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         placeholder="bankaddress"
                                         name="bankAddress2"
                                         ref={bankaddress2}
-                                        onChange={formik.handleChange}
+                                        value={formik.values.bankAddress2} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
                                     <label htmlFor="bankAddress2" className='text-muted'>Bank Address 2</label>
                                 </Form.Floating>
@@ -435,9 +476,9 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                             </Col>
                             <Col lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                                {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                <Button variant="primary" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Update</Button>
+                                {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
 
                             </Col>
                         </Row>
