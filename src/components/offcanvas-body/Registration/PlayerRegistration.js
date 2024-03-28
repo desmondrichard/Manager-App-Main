@@ -36,8 +36,8 @@ import html2canvas from 'html2canvas';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 // import './SearchButton.css';
-function PlayerRegistration(props) {
 
+function PlayerRegistration(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => {
     Swal.fire({
@@ -57,7 +57,7 @@ function PlayerRegistration(props) {
   }
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("0");
+  const [parentkey, setParentKey] = useState("1");
 
   //Data Binding GET:
   const [showData, setShowData] = useState(null);
@@ -145,32 +145,6 @@ function PlayerRegistration(props) {
     }
   };
 
-  //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
-  // function deleteUser(id) {
-  //   console.log("alldataplayerid",id)
-  //   axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
-  //     // console.log("res",response)
-  //     if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here
-  //       console.log("Deletion Success", response.data)
-  //     }
-  //     console.log("res", response.data)
-
-  //     //Call the GET method here:
-  //     axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
-  //       console.log("GET Success", response.data)
-  //       // Update the state with the new data
-  //       setShowData(response.data)
-  //     })
-  //       .catch((error) => {
-  //         console.log("Error Getting User", error)
-  //       })
-  //     //GET ends here
-
-  //   }).catch((error) => {
-  //     console.log("Error Deleting User", error)
-
-  //   })
-  // }
 
   function deleteUser(id) {
     console.log("alldataplayerid", id)
@@ -230,13 +204,30 @@ function PlayerRegistration(props) {
       })
   }
 
+  //updateBtnClicked:
+  const [updateClicked, setUpdateClicked] = useState(false)
+  //state open/hide save/update button: defaultly set as true:
+  const [showSaveBtn, setShowSaveBtn] = useState(true);
+
+  const [showPutData, setShowPutData] = useState({})
+
+  function handleUpdateButtonClick(data, id) {
+    // console.log("progressBar", showProgressBar)
+    // setShowProgressBar(false);//so progress bar wont open
+    setShowSaveBtn(false)//so  Save/update button will be disabled
+    console.log("StaffDataforPUT: ", data, "ID: ", id)
+    setShowPutData(data)
+    setShow(true) //to open modal onclicking update button
+    setUpdateClicked(true) //set to true if update btn is clicked
+  }
+
+
   // Filter:
   const [search, setSearch] = useState('');
 
   function handleModalClose() {
     setShow(false);
   }
-
 
 
   return (
@@ -266,25 +257,25 @@ function PlayerRegistration(props) {
               <Accordion activeKey={parentkey}>
                 {/* <RegistrationForm /> */}
                 {/* Accordion:1 */}
-                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} />
+                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/* Accordion:2 */}
-                <ProficiencyForm activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <ProficiencyForm activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/* Accordion:3 */}
-                <KittingDetailsForm activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <KittingDetailsForm activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/* Accordion:4 */}
-                <Iddetails activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <Iddetails activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/* Accordion:5 */}
-                <BankAccountDetails activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <BankAccountDetails activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/* Accordion:6 */}
-                <FoodInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <FoodInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/*Accordion:7 */}
-                <Travelinformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <Travelinformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/* Accordion:8 */}
-                <RepresentationInfo activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <RepresentationInfo activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/* Accordion:9 */}
-                <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} />
+                <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                 {/* Accordion:10 */}
-                <SocialMediaInfo activationKey={parentkey} onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} />
+                <SocialMediaInfo activationKey={parentkey} onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} />
               </Accordion>
             </Modal.Body>
             {/* Footer: */}
@@ -409,8 +400,9 @@ function PlayerRegistration(props) {
                           <NavLink state={{ showData }} to='/playerregister/playerdetails' className='navLinks' >
                             <Button variant="primary" className='me-1'><i className="bi bi-eye-fill"></i></Button>
                           </NavLink>
-                          <Button variant="success" className='me-1'><i className="bi bi-pencil-square"></i></Button>
+                          <Button variant="success" className='me-1' onClick={() => handleUpdateButtonClick(showData, showData.alldataplayerId)}><i className="bi bi-pencil-square"></i></Button>
                           <Button onClick={() => deleteUser(showData.alldataplayerId)} variant="danger"><i className="bi bi-trash"></i></Button>
+
                         </td>
                       </tr>
                     )

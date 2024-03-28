@@ -79,7 +79,7 @@ const validate = values => {
 
     return errors;
 }
-function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     // next btn:
     const [childNextKey, setChildNextKey] = useState("4");
 
@@ -125,20 +125,21 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
 
     const [visaChecked, setVisaChecked] = useState(null);
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            aadharNo: '',
-            panCardNo: '',
-            passportExpDate: '',
-            birthCertificate: '',
+            aadharNo: showPutData?.aadharNo || '',
+            panCardNo: showPutData?.panCardNo || '',
+            passportExpDate: showPutData?.passportExpDate || '',
+            birthCertificate: showPutData?.birthCertificate || '',
             visacheck: visaChecked || '',
-            address: '',
-            addressLine1: '',
-            addressLine2: '',
-            passportNo: '',
-            country: '',    //right approach
-            state: '',
-            city: '',
-            visaNumber: ''
+            address: showPutData?.address || '',
+            addressLine1: showPutData?.addressLine1 || '',
+            addressLine2: showPutData?.addressLine2 || '',
+            passportNo: showPutData?.passportNo || '',
+            country: showPutData?.country || '',    //right approach
+            state: showPutData?.state || '',
+            city: showPutData?.city || '',
+            visaNumber: showPutData?.visaNumber || ''
 
         },
         validate,
@@ -214,6 +215,37 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         return count;
     }
 
+    console.log("showPutDataProf", showPutData)
+
+    //update Method:
+    function handleUpdate() {
+
+        axios.put(`https://localhost:7097/PlayerIDcardModel/${showPutData.alldataplayerId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
+    }
+
 
     useEffect(() => {
         handleProgress();   // uncomment while adding progress bar
@@ -224,7 +256,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>ID CARD DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
-                    <p>{activationKey}</p>
+                    {/* <p>{activationKey}</p> */}
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>
                             <Col xs={12} lg={4} className='col'>
@@ -490,8 +522,10 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
 
                             <Col xs={12} lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                <Button variant="success" type='submit' disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                                {showSaveBtn && <Button variant="success" type='submit' className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                                {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

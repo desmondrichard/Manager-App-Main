@@ -33,15 +33,14 @@ import ProgressBarWithLabel from '../ProgressBarWithLabel';
 
 //     return errors;
 // }
-function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);
     const [childNextKey, setChildNextKey] = useState("9");
     const [emergencyContactPersonNo, setEmergencyContactNo] = useState("");
     const formik = useFormik({
         initialValues: {
-            emergencyContactPerson: '',
-            emergContactPersonRelationship: '',
-
+            emergencyContactPerson: showPutData?.emergencyContactPerson || '',
+            emergContactPersonRelationship: showPutData?.emergContactPersonRelationship || '',
         },
         // validate,
         onSubmit: (values, { setSubmitting }) => {  //to add emergencyContactPersonNo along with values
@@ -134,6 +133,38 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         console.log("emergencyContactPersonNo", emergencyContactPersonNo)
     }
 
+    console.log("showPutDataBank", showPutData)
+
+    //update Method:
+    function handleUpdate() {
+
+        axios.put(`/${showPutData.alldataplayerId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
+    }
+
+
     useEffect(() => {
         handleProgress();
     }, [formik.values, phoneProgress])
@@ -167,10 +198,12 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                                     controlId="emergContactPersonRelationship"
                                     label="Emg.Contact Relation"
                                     name="emergContactPersonRelationship"
-                                    value={formik.values.emergContactPersonRelationship} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="Emg.Contact Relation*" ref={emgcontactrelReset}>
+                                    <Form.Select aria-label="Emg.Contact Relation*" ref={emgcontactrelReset}
+                                        value={formik.values.emergContactPersonRelationship} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('emergContactPersonRelationship', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="spouse">SPOUSE</option>
                                         <option value="parents">PARENTS</option>
@@ -186,14 +219,20 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                                 }
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" showPutData={showPutData} />
+                                {formik.touched.emergencyContactPersonNo && formik.errors.emergencyContactPersonNo ? (
+                                    <span className="span">{formik.errors.emergencyContactPersonNo}</span>
+                                ) : null}
                             </Col>
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button variant="success" type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                            {showSaveBtn && <Button variant="success" type="submit" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                            {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+
                         </Col>
                     </Form>
                 </Container>

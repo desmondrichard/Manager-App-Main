@@ -37,14 +37,14 @@ const validate = values => {
     }
     return errors;
 }
-function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     const [childNextKey, setChildNextKey] = useState("8");
 
     const formik = useFormik({
         initialValues: {
-            cityDistrict: '',
-            club: '',
-            division: '',
+            cityDistrict: showPutData?.cityDistrict || '',
+            club: showPutData?.club || '',
+            division: showPutData?.division || '',
 
         },
         validate,
@@ -119,6 +119,39 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
         return count;
     }
 
+    console.log("showPutDataBank", showPutData)
+
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
+    }
+
+    //update Method:
+    function handleUpdate() {
+
+        axios.put(`/${showPutData.alldataplayerId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+
+
     useEffect(() => {
         handleProgress();
     }, [formik.values])
@@ -183,8 +216,11 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button variant="success" type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                            {showSaveBtn && <Button variant="success" type="submit" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                            {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+
                         </Col>
                     </Form>
                 </Container>

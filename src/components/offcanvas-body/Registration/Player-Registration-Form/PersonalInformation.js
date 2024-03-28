@@ -79,7 +79,7 @@ const validate = values => {
     }
     else if (!/^([a-zA-Z][\w+-]+(?:\.\w+)?)@([\w-]+(?:\.[a-zA-Z]{2,10})+)$/.test(values.emailId)) {
         errors.emailId = "*Invalid email address";
-        
+
     }
 
     if (!values.mobileNo) {
@@ -94,7 +94,7 @@ const validate = values => {
 }
 
 
-function PersonalInformation({ activationKey, onActivationKeyChild }) {
+function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
     const [mobileValueClear1, setMobileValueClear1] = useState(false);//for clearing mobile no ..false-no clear
 
@@ -304,7 +304,14 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
         console.log("phone2value", secondNumber)
     }
 
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
+    }
 
+    //update:
+    function handleUpdate() {
+
+    }
 
     useEffect(() => {
         handleProgress();
@@ -317,7 +324,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container>
-                    <p>{activationKey}</p>
+                    {/* <p>{activationKey}</p> */}
                     <Form onSubmit={formik.handleSubmit}>
                         <Row>
                             <Col xs={12} lg={4} className='col'>
@@ -560,7 +567,10 @@ function PersonalInformation({ activationKey, onActivationKeyChild }) {
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                <Button variant="success" type='submit' disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} >Save and Next</Button>
+                                {showSaveBtn && <Button variant="success" type='submit' disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} >Save and Next</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleSkip}>Skip</Button>}
+
                             </Col>
                         </Row>
                     </Form>

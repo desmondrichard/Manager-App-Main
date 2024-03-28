@@ -244,7 +244,7 @@ function ThingsToDoViewCard() {
                     </Card>
                 </Card.Body>
             </Card>
-            <Footer />
+          
         </div >
     )
 }

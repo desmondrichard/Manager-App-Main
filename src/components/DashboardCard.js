@@ -41,7 +41,7 @@ function DashboardCard() {
                         <Card.Header style={{ fontWeight: 'bold', fontSize: '18px' }}>PLAYERS</Card.Header>
                         <ListGroup variant='flush'>
                             {
-                                showData ?
+                                showData !== null && showData.length ?
                                     (<Row className='justify-content-center'>
                                         {
                                             showData.map((showData, i) => {

@@ -97,7 +97,9 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowDat
                 .then(response => {
                     console.log(response.data);
                     console.log("values", values)
-                    alert('clicked')
+                    // alert('clicked')
+                    notify();
+
                     onCloseModal(modalClose);
                     //   call a function from parent
                     onShowData();
@@ -114,7 +116,6 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowDat
     });
 
     // alert(`clicked submit`);
-    // notify();
     // console.log("values", values)
     // onCloseModal(modalClose);
 
@@ -251,7 +252,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowDat
                             <Button variant="primary" type="button" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                             {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                            {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="primary" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
 
                         </Col>
                     </Form>

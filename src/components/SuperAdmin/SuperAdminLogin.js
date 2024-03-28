@@ -156,9 +156,9 @@ function SuperAdminLogin() {
                                     </div>
                                 </Form>
 
-                                {/* <div className='text-center py-2'>
+                                <div className='text-center py-2'>
                                     <p style={{ fontWeight: '500' }}>Not Registered ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/superadminsignup'>Sign Up</Link>  </span></p>
-                                </div> */}
+                                </div>
                                 <div className='text-center'>
                                     <Image3 className='logo' src={require('../../assets/login-pow-logo.png')} ></Image3>
                                 </div>

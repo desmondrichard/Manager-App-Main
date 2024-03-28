@@ -30,14 +30,25 @@ import SuperAdminRegister from './components/SuperAdmin/SuperAdminRegister';
 import { Navigate } from 'react-router-dom';
 import LoginSignup from './components/LoginSignup';
 
+
 function App() {
   const getUserName = sessionStorage.getItem("userName");
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact element={<LoginSignup />} />
-          <Route path='/teamslogin' exact element={<Login />} />
+          <Route path='/'>
+            <Route index element={<LoginSignup />} />
+            <Route path='/teamslogin' exact element={<Login />} />
+            <Route path='teamssignup' exact element={<Register />} />
+            <Route path='superadminsignup' exact element={<SuperAdminRegister />} />
+            <Route path='accessories' exact element={<Accessories />} />
+            <Route path='playersauctionlist' exact element={<PlayersAuctionList />} />
+            <Route path='fixtures' exact element={<Fixtures />} />
+            <Route path='admindashboard' exact element={<AdminDashboard />} />
+          </Route>
+
+          {/*  */}
           {/* <Route path='/teamssignup' exact element={<Register />} /> */}
 
           {/* <Route path='/' exact element={<SuperAdminLogin />} /> */}
@@ -63,17 +74,12 @@ function App() {
             <Route path='staffdetails' exact element={<StaffRegistrationViewCard />} />
           </Route>
 
-          <Route path='/accessories' exact element={<Accessories />} />
-          <Route path='/playersauctionlist' exact element={<PlayersAuctionList />} />
-          <Route path='/fixtures' exact element={<Fixtures />} />
-          <Route path='/admindashboard' exact element={<AdminDashboard />} />
 
           {/* Nested Routes: */}
           <Route path='thingstodo'>
             <Route index element={<ThingsTodo />} />
             <Route path='thingstodoviewcard' exact element={<ThingsToDoViewCard />} />
             <Route path='thingstodoaddlist' exact element={<ThingsToDoAddList />} />
-
           </Route>
 
           {/* Nested Routes for Accreadiation: */}
@@ -81,6 +87,7 @@ function App() {
             <Route index element={<Accreditationcard />} />
             <Route path='accreadiationform' exact element={<AccreditionForm />} />
             <Route path='accreadiationViewCard' exact element={<AccreadiationViewCard />} />
+
           </Route>
 
 

@@ -192,7 +192,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         validate,
         onSubmit: (values, { setSubmitting }) => {
 
-            alert("POST executed")
+            // alert("POST executed")
             console.log("imageDataNew:", ImageData)
             const year = new Date().getFullYear();
             console.log("year", year)
@@ -256,6 +256,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     const dynamicImageNameFn = (val) => {
         console.log("valll", val)
         setImageData(val)
+    }
+
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
     }
 
     //phone value:
@@ -330,6 +334,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     console.log('updateMethodDataID:', showPutData.alldataStaffId)
 
 
+
     function handleUpdate() {
         alert("update executed");
         console.log("formikVals", formik.values, ImageData)
@@ -351,7 +356,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         formData.append('ImageData', ImageData);
         formData.append('team', formik.values.team);
         formData.append('year', formik.values.year);
-        formData.append('gender', formik.values.gender);
+        // formData.append('gender', formik.values.gender);
+
         console.log("form", formData)
         axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, formData, {
             headers: {
@@ -416,7 +422,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
 
 
 
-    
+
     useEffect(() => {
         if (initialValuesLoaded) {
             formik.setValues(initialValues);
@@ -427,7 +433,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span> <ProgressBarWithLabel progressValue={progress} /> </Accordion.Header>
             <Accordion.Body>
                 <Container>
-                    <p>{activationKey}</p>
+                    {/* <p>{activationKey}</p> */}
                     <Form onSubmit={formik.handleSubmit}>
                         {/* {progress} */}
                         <Row>
@@ -723,6 +729,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     <span className="span">{formik.errors.mobileNo}</span>
                                 ) : null}
                             </Col>
+                      
+{/* showPutData contains all datas from parent and sent to phone component */}
+
 
                             {/* Temporary Field: */}
                             <Col xs={12} lg={4} className='py-3 c1'>
@@ -749,9 +758,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                                 {/*only when showSaveBtn is true saveandnext btn will be displayed:  */}
-                                {showSaveBtn && <Button variant="success" className='mx-3' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
+                                {showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
                                 {/* only when showSaveBtn is false update btn will be displayed: */}
-                                {!showSaveBtn && <Button variant="info" className='mx-3 text-white' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 text-white' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>
                         </Row>
                     </Form>

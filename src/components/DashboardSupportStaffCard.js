@@ -43,7 +43,7 @@ function DashboardSupportStaffCard() {
                         <Card.Header style={{ fontWeight: 'bold', fontSize: '18px' }}>SUPPORT STAFFS</Card.Header>
                         <ListGroup variant='flush'>
                             {
-                                showData ?
+                                showData !== null && showData.length ?
                                     (
                                         <Row className='my-3 justify-content-center'>
                                             {

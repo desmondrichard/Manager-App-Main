@@ -24,29 +24,29 @@ const validate = values => {
     }
     return errors;
 }
-function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
     const [childNextKey, setChildNextKey] = useState("7");
 
     const formik = useFormik({
         initialValues: {
-            travelFrom: '',
-
+            travelFrom: showPutData?.travelFrom || '',
+            returnDestination: showPutData?.returnDestination || ''
         },
         validate,
         onSubmit: values => {
 
             axios.post('https://localhost:7097/TravelInformationModel', values)
-            .then(response => {
-                console.log(response.data);
-                onActivationKeyChild(childNextKey)
-                console.log("values", values)
-             
-            })
-            .catch(error => {
-                console.error(error.message);
-                console.log("values", values)
-                
-            });
+                .then(response => {
+                    console.log(response.data);
+                    onActivationKeyChild(childNextKey)
+                    console.log("values", values)
+
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    console.log("values", values)
+
+                });
         }
     });
 
@@ -102,6 +102,38 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
         return count;
     }
 
+
+    console.log("showPutDataBank", showPutData)
+
+    //update Method:
+    function handleUpdate() {
+
+        axios.put(`/${showPutData.alldataplayerId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
+    }
+
     useEffect(() => {
         handleProgress();
     }, [formik.values])
@@ -153,8 +185,11 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                            {showSaveBtn &&<Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                            {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+
                         </Col>
                     </Form>
                 </Container>

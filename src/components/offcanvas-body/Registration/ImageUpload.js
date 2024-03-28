@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, showPutData, updateClicked }) { //isClearImage 1st comes with value false-no clear
+function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, showPutData }) { //isClearImage 1st comes with value false-no clear
     const inputRef = useRef(null);   //initialized with null for resetting purpose, and since formik is used we use useRef
     const [image, setImage] = useState("");
     //base 64:
@@ -12,14 +12,14 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, sh
         inputRef.current.click();
     }
 
-    console.log("updateClickedChild", updateClicked)
+    // console.log("updateClickedChild", updateClicked)
     //Image without converting to Base64:
     const handleImageChange = async (e) => {
         const file = e.target.files[0];
         setImage(file);
         onActivateProgressBar(1);
         dynamicImageName(file);
-      
+
     }
 
     // Helper function to get the URL from the image file
@@ -29,8 +29,9 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, sh
 
     //get image url from backend for update request
     console.log("showPutDataImage", showPutData)
-    const putImageUrl = showPutData.imageData;
-    console.log("putImageUrl", putImageUrl)
+    //uncomment:
+    // const putImageUrl = showPutData.imageData;
+    // console.log("putImageUrl", putImageUrl)
     return (
 
         <>
@@ -42,17 +43,24 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, sh
 
             <div onClick={() => handleImageClick()}>
                 {
-                     image  ?
+                    //uncomment:
+                    //  image  ?
+                    //     (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={URL.createObjectURL(image)}></Image>)
+                    //     :
+                    //     // (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={require('../../../assets/dummy_profile_img.png')}></Image>)
+                    //     (updateClicked && putImageUrl ?
+                    //         (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={`data:image/jpeg;base64,${putImageUrl}`}></Image>)
+                    //         :
+                    //         (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={require('../../../assets/dummy_profile_img.png')}></Image>)
+                    //     )
+
+
+                    image && !isClearImage ?
                         (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={URL.createObjectURL(image)}></Image>)
                         :
-                        // (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={require('../../../assets/dummy_profile_img.png')}></Image>)
-                        (updateClicked && putImageUrl ?
-                            (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={`data:image/jpeg;base64,${putImageUrl}`}></Image>)
-                            :
-                            (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={require('../../../assets/dummy_profile_img.png')}></Image>)
-                        )
+                        (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={require('../../../assets/dummy_profile_img.png')}></Image>)
                 }
-    {console.log("updateClicked:", !updateClicked, image, !isClearImage )}
+                {/* {console.log("updateClicked:", !updateClicked, image, !isClearImage)} */}
                 <input type="file" ref={inputRef} onChange={(e) => handleImageChange(e)} style={{ display: 'none' }} /><br />
                 <Button variant="success" className='uploadImageBtn' style={{ whiteSpace: 'nowrap' }}>Select to Upload</Button>
             </div>

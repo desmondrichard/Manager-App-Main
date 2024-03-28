@@ -69,7 +69,7 @@ const validate = values => {
 }
 
 
-function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData }) {
     //next btn:
     const [childNextKey, setChildNextKey] = useState("3")
     // reset form start: 
@@ -118,17 +118,18 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
     // reset form end: 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            jerseyName: '',
-            jerseyNo: '',
-            jerseySize: '',
-            trouserSize: '',
-            trouserLength: '',
-            shortsSize: '',
-            trackSuit: '',
-            helmet: '',
-            travelPolo: '',
-            familyJerseyNo: ''
+            jerseyName: showPutData?.jerseyName || '',
+            jerseyNo: showPutData?.jerseyNo || '',
+            jerseySize: showPutData?.jerseySize || '',
+            trouserSize: showPutData?.trouserSize || '',
+            trouserLength: showPutData?.trouserLength || '',
+            shortsSize: showPutData?.shortsSize || '',
+            trackSuit: showPutData?.trackSuit || '',
+            helmet: showPutData?.helmet || '',
+            travelPolo: showPutData?.travelPolo || '',
+            familyJerseyNo: showPutData?.familyJerseyNo || ''
 
         },
         validate,
@@ -164,8 +165,6 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         onPreviousActivationKey("1")
     }
 
-
-
     // progress Bar for static fields:
     const [progress, setProgress] = useState(0);
     function handleProgress() {
@@ -195,6 +194,35 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         }
         console.log("count", count)
         return count;
+    }
+
+    //update Method:
+    function handleUpdate() {
+
+        axios.put(`https://localhost:7097/kittingModel/${showPutData.alldataplayerId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
     }
 
     //clearing DynamicFields:
@@ -250,10 +278,13 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     controlId="jerseySize"
                                     label="Jersey Size*"
                                     name="jerseySize"
-                                    value={formik.values.jerseySize} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 >
 
-                                    <Form.Select aria-label="jerseySize" ref={jerseysizeReset}>
+                                    <Form.Select aria-label="jerseySize" ref={jerseysizeReset}
+                                        value={formik.values.jerseySize} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('jerseySize', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -274,9 +305,12 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     label="Trowser Size*"
                                     name="trouserSize"
                                     min="0" max="999"
-                                    value={formik.values.trouserSize} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 >
-                                    <Form.Select aria-label="trouserSize" ref={trowsersizeReset}>
+                                    <Form.Select aria-label="trouserSize" ref={trowsersizeReset}
+                                        value={formik.values.trouserSize} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('trouserSize', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -313,9 +347,12 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     controlId="shortsSize"
                                     label="Shorts Size*"
                                     name="shortsSize"
-                                    value={formik.values.shortsSize} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 >
-                                    <Form.Select aria-label="shortsSize" ref={shortssizeReset}>
+                                    <Form.Select aria-label="shortsSize" ref={shortssizeReset}
+                                        value={formik.values.shortsSize} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('shortsSize', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -335,9 +372,12 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     controlId="trackSuit"
                                     label="Track suit*"
                                     name="trackSuit"
-                                    value={formik.values.trackSuit} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 >
-                                    <Form.Select aria-label="trackSuit" ref={tracksuitReset}>
+                                    <Form.Select aria-label="trackSuit" ref={tracksuitReset}
+                                        value={formik.values.trackSuit} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('trackSuit', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -357,9 +397,12 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     controlId="helmet"
                                     label="Cricket Helmet*"
                                     name="helmet"
-                                    value={formik.values.helmet} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 >
-                                    <Form.Select aria-label="helmet" ref={circkethelmetReset}>
+                                    <Form.Select aria-label="helmet" ref={circkethelmetReset}
+                                        value={formik.values.helmet} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('helmet', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="Junior">Junior (52-54 cm)</option>
                                         <option value="Youth">Youth (54-57 cm)</option>
@@ -377,9 +420,12 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     controlId="travelPolo"
                                     label="Travel Polo"
                                     name="travelPolo"
-                                    value={formik.values.travelPolo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 >
-                                    <Form.Select aria-label="travelPolo" ref={travelpoloReset}>
+                                    <Form.Select aria-label="travelPolo" ref={travelpoloReset}
+                                        value={formik.values.travelPolo} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('travelPolo', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="S">S</option>
                                         <option value="M">M</option>
@@ -468,8 +514,11 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button variant="success" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} type="submit" value="submit" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
+                            {showSaveBtn && <Button variant="success" type="submit" value="submit" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" type="button" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                            {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="dark" className='mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+
                         </Col>
                     </Form>
                 </Container>

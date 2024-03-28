@@ -10,7 +10,7 @@ import { useRef } from 'react';
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
 import axios from 'axios';
 import { useFormik } from 'formik';
-function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData }) {
     //state for food type:
     const [foodType, setFoodType] = useState(null);
 
@@ -93,7 +93,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
 
         },
         onSubmit: values => {
-            alert('clicked next');
+            // alert('clicked next');
             const newValues = {
                 'foodtype': values.foodtype,
                 'eggiterian': values.eggiterian,
@@ -171,6 +171,10 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
 
         console.log("count", count)
         return count;
+    }
+
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
     }
 
     useEffect(() => {
@@ -290,8 +294,10 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                         <Row>
                             <Col lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>
+                                {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>
+                                {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+
                             </Col>
                         </Row>
                     </Form>

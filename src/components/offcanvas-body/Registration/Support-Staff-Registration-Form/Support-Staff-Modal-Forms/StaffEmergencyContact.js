@@ -160,6 +160,9 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
             });
     }
 
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
+    }
 
     //useEffect will be trigerred whenever formik.values has value
     useEffect(() => {
@@ -223,7 +226,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear}  onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" showPutData={showPutData}/>
+                                <Phone isClear={mobileValueClear} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" showPutData={showPutData} />
                             </Col>
                         </Row>
 
@@ -231,8 +234,8 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                             {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} >Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                            {!showSaveBtn && <Button variant="primary" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
-
+                            {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
                         </Col>
                     </Form>
                 </Container>

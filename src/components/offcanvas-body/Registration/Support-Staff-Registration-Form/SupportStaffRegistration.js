@@ -71,7 +71,7 @@ function SupportStaffRegistration(props) {
         setAge(event.target.value);
     };
     //next btn:
-    const [key, setKey] = useState("8")
+    const [key, setKey] = useState("0")
 
     //pdf:
     const [loader, setLoader] = useState(false);

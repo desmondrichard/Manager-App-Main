@@ -156,6 +156,10 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
 
     console.log('showPutDataKitting', showPutData)
 
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
+    }
+
     //update:
     function handleUpdate() {
 
@@ -193,7 +197,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
             <Accordion.Header ><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>KITTING DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
-                    <p>{activationKey}</p>
+                    {/* <p>{activationKey}</p> */}
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>
                             <Col xs={12} lg={3} className='col'>
@@ -400,7 +404,8 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                             {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                            {!showSaveBtn && <Button variant="info" className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px',marginTop:'-8px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="dark" className='mt-1' style={{ whiteSpace: 'nowrap', width: '130px',marginTop:'-8px' }} onClick={handleSkip}>Skip</Button>}
 
                         </Col>
                     </Form>

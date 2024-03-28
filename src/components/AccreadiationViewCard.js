@@ -18,6 +18,8 @@ import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
 import html2canvas from 'html2canvas';
+
+
 function AccreadiationViewCard() {
     const location = useLocation();
     console.log("location", location);
@@ -190,7 +192,6 @@ function AccreadiationViewCard() {
                         </Card>
                     </Card.Body>
                 </Card>
-                <Footer />
             </div>
         </div>
     )

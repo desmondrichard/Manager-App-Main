@@ -46,7 +46,12 @@ function AdminDashboard() {
             })
     }, [])
 
-
+    // function ResetFields() {
+    //     teamNameReset.current.value = "";
+    //     formik.resetForm();
+    //     setImageProgress(""); // to reset image
+    //     setImageValue(true); // to reset image
+    // }
 
     const [ImageData, setImageData] = useState("");
     const [imgProgress, setImageProgress] = useState(0);
@@ -77,7 +82,10 @@ function AdminDashboard() {
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, imageData: ImageData }
             console.log("newvalues", newValues)
-            // console.log("imageData", ImageData)
+            formik.resetForm();//to reset text fields
+            setImageProgress(""); // to reset image
+            setImageValue(true); // to reset image
+
 
             // POST method:
             const formData = new FormData();
@@ -99,14 +107,18 @@ function AdminDashboard() {
                 .then((response) => {
                     console.log("response result", response.data);
                     setSubmitting(false);
-                    ResetFields();
+
                     //GET Request recalling:
-                    fetch('https://localhost:7097/getTeams')
-                        .then((data) => data.json())
-                        .then((data) => {
-                            console.log("data", data);
-                            setShowData(data);  // showData=data;
+                    axios.get(`https://localhost:7097/getTeams`).then((response) => {
+                        console.log("GET Success", response.data)
+                        // Update the state with the new data
+                        setShowData(response.data)
+
+                    })
+                        .catch((error) => {
+                            console.log("Error Getting User", error)
                         })
+
                 })
                 .catch((error) => {
                     console.error(error);
@@ -122,13 +134,7 @@ function AdminDashboard() {
     //DELETE Request:  https://localhost:7097/deleteTeam/TNPL03
 
 
-    function ResetFields() {
-        teamNameReset.current.value = "";
-        formik.resetForm();
-        setImageProgress(""); // to reset image
-        setImageValue(true); // to reset image
 
-    }
 
     function deleteTeam(id) {
         Swal.fire({

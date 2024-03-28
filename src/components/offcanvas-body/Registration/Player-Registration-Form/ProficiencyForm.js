@@ -37,7 +37,7 @@ const validate = values => {
 }
 
 
-function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActivationKey }) {
+function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
 
     // reset form start: 
     const specsReset = useRef("");
@@ -68,11 +68,12 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
     }
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            specialization: '',
-            battingOrder: '',
-            bowlingType: '',
-            bowlingSpecification: ''
+            specialization: showPutData?.specialization || '',
+            battingOrder: showPutData?.battingOrder || '',
+            bowlingType: showPutData?.bowlingType || '',
+            bowlingSpecification: showPutData?.bowlingSpecification || ''
 
         },
         validate,
@@ -134,18 +135,48 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         return count;
     }
 
+    console.log("showPutDataProficiency", showPutData)
+
+    function handleSkip() {
+        onActivationKeyChild(childNextKey)
+    }
+
+    //update Method:
+    function handleUpdate() {
+        axios.put(`https://localhost:7097/SpecializationModel/${showPutData.alldataplayerId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+
     useEffect(() => {
         handleProgress();
     }, [formik.values])
 
     return (
 
-
         <Accordion.Item eventKey="1">
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PROFICIENCY INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container>
-                    <p>{activationKey}</p>
+                    {/* <p>{activationKey}</p> */}
                     <Form onSubmit={formik.handleSubmit}>
                         <Row>
                             <Col xs={12} lg={6} className='col'>
@@ -153,10 +184,11 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     controlId="specialization"
                                     label="Specialization*"
                                     name="specialization"
-                                    value={formik.values.specialization} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="specialization" ref={specsReset}>
-                                        <option>Select Type</option>
+                                    <Form.Select aria-label="specialization" ref={specsReset}
+                                        value={formik.values.specialization} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('specialization', e.target.value)}
+                                    >
+                                        <option value="none">Select Type</option>
                                         <option value="batter">BATTER</option>
                                         <option value="bowler">BOWLER</option>
                                         <option value="allrounder">ALL-ROUNDER</option>
@@ -187,7 +219,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                             name="battingStyle"
                                             type={type}
                                             id={`inline-${type}-right`}
-                                            defaultChecked={true}
+                                            // defaultChecked={true}
                                             ref={batRightReset}
                                             value="rightHanded"
                                         />
@@ -199,9 +231,11 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     controlId="battingOrder"
                                     label="Batting order*"
                                     name="battingOrder"
-                                    value={formik.values.battingOrder} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="battingOrder" ref={batOrderReset}>
+                                    <Form.Select aria-label="battingOrder" ref={batOrderReset}
+                                        value={formik.values.battingOrder} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('battingOrder', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="top">TOP ORDER</option>
                                         <option value="middle">MIDDLE ORDER</option>
@@ -235,7 +269,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 id={`inline-${type}-rightarm`}
                                                 value='RightArm'
                                                 ref={armRightReset}
-                                                defaultChecked={true}
+                                            // defaultChecked={true}
                                             />
                                         </span>
                                     </div>
@@ -248,12 +282,11 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     controlId="bowlingType"
                                     label="Bowling Style*"
                                     name="bowlingType"
-                                    value={formik.values.bowlingType} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
-                                    <Form.Select aria-label="bowlingType" ref={bowlStyleReset} onChange={(e) => {
-                                        formik.setFieldValue('bowlingType', e.target.value);
+                                    <Form.Select aria-label="bowlingType" ref={bowlStyleReset}
+                                        value={formik.values.bowlingType} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('bowlingType', e.target.value)}
 
-                                    }}>
+                                    >
                                         <option value="none">Select Type</option>
                                         <option value="Fast">FAST</option>
                                         <option value="Spin">SPIN</option>
@@ -266,17 +299,20 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     controlId="bowlingSpecification"
                                     label="Bowling Specification*"
                                     name="bowlingSpecification"
-                                    value={formik.values.bowlingSpecification} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 >
-                                    <Form.Select aria-label="bowlingSpecification" ref={bowlSpecsReset} disabled={formik.values.bowlingType === 'none'}>
+                                    <Form.Select aria-label="bowlingSpecification" ref={bowlSpecsReset} disabled={formik.values.bowlingType === 'none'}
+                                        value={formik.values.bowlingSpecification} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('bowlingSpecification', e.target.value)}
+
+                                    >
                                         <option value="none">Select Type</option>
-                                        <option value="Fast" disabled={formik.values.bowlingType !== 'Fast'}>Fast</option>
-                                        <option value="Medium Fast" disabled={formik.values.bowlingType !== 'Fast'}>Medium Fast</option>
-                                        <option value="Fast Medium" disabled={formik.values.bowlingType !== 'Fast'}>Fast Medium</option>
-                                        <option value="Off Spin" disabled={formik.values.bowlingType !== 'Spin'}>Off Spin</option>
-                                        <option value="Orthodox" disabled={formik.values.bowlingType !== 'Spin'}>Orthodox</option>
-                                        <option value="Chinaman" disabled={formik.values.bowlingType !== 'Spin'}>Chinaman</option>
-                                        <option value="Leg Spin" disabled={formik.values.bowlingType !== 'Spin'}>Leg Spin</option>
+                                        <option value="Fast" disabled={formik.values.bowlingType !== 'Fast'}>FAST</option>
+                                        <option value="Medium Fast" disabled={formik.values.bowlingType !== 'Fast'}>MEDIUM FAST</option>
+                                        <option value="Fast Medium" disabled={formik.values.bowlingType !== 'Fast'}>FAST MEDIUM</option>
+                                        <option value="Off Spin" disabled={formik.values.bowlingType !== 'Spin'}>OFF SPIN</option>
+                                        <option value="Orthodox" disabled={formik.values.bowlingType !== 'Spin'}>ORTHODOX</option>
+                                        <option value="Chinaman" disabled={formik.values.bowlingType !== 'Spin'}>CHINAMAN</option>
+                                        <option value="Leg Spin" disabled={formik.values.bowlingType !== 'Spin'}>LEG SPIN</option>
                                     </Form.Select>
                                     {formik.touched.bowlingSpecification && formik.errors.bowlingSpecification ? <span className='span'>{formik.errors.bowlingSpecification}</span> : null}
                                 </FloatingLabel>
@@ -291,8 +327,11 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
                             <Col xs={12} lg={12} className='my-4 col'>
                                 <Button variant="primary" className='mb-2' style={{ width: "130px" }} onClick={() => handlePreviousButton()}>PREVIOUS</Button>
-                                <Button variant="success" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} type="submit" value="submit" className='mx-3 mb-2' style={{ width: "130px" }}>Save and Next</Button>
+                                {showSaveBtn && <Button variant="success" type="submit" value="submit" className='mx-3 mb-2' style={{ width: "130px" }}>Save and Next</Button>}
                                 <Button variant="warning" className='mx-1 text-white mb-2' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                                {!showSaveBtn && <Button variant="info" className='me-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+
                             </Col>
                         </Row>
                     </Form>

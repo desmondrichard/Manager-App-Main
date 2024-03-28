@@ -14,7 +14,7 @@ import ProgressBarWithLabel from '../ProgressBarWithLabel';
 import axios from 'axios';
 import { useFormik } from 'formik';
 
-function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) {
+function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, showPutData, showSaveBtn }) {
     //close modal:
     const [modalClose, setModalClose] = useState(false)
     // reset form start: 
@@ -89,12 +89,12 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
 
     const formik = useFormik({
         initialValues: {
-            facebookId: '',
-            facebookLink: '',
-            instagramId: '',
-            instagramLink: '',
-            twitterId: '',
-            twitterLink: ''
+            facebookId: showPutData?.facebookId || '',
+            facebookLink: showPutData?.facebookLink || '',
+            instagramId: showPutData?.instagramId || '',
+            instagramLink: showPutData?.instagramLink || '',
+            twitterId: showPutData?.twitterId || '',
+            twitterLink: showPutData?.twitterLink || ''
 
         },
         onSubmit: values => {
@@ -115,6 +115,34 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
 
         }
     });
+
+    console.log("showPutDataBank", showPutData)
+
+    //update Method:
+    function handleUpdate() {
+
+        axios.put(`/${showPutData.alldataplayerId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
+
 
     // alert(`clicked submit`);
     // notify();
@@ -141,7 +169,8 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
                                         placeholder="fbid"
                                         ref={fbidReset}
                                         name='facebookId'
-                                        onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.facebookId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
                                     <label htmlFor="facebookId" className='text-muted'>Facebook ID</label>
                                 </Form.Floating>
@@ -155,7 +184,8 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
                                         ref={fblinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         name='facebookLink'
-                                        onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.facebookLink} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
                                     <label htmlFor="facebookLink" className='text-muted'>Facebook Link</label>
                                 </Form.Floating>
@@ -168,7 +198,8 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
                                         placeholder="instagramid"
                                         ref={instagramidReset}
                                         name='instagramId'
-                                        onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.instagramId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
                                     <label htmlFor="instagramId" className='text-muted'>Instagram ID</label>
                                 </Form.Floating>
@@ -182,7 +213,8 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
                                         ref={instagramlinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         name='instagramLink'
-                                        onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.instagramLink} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
                                     <label htmlFor="instagramLink" className='text-muted'>Instagram Link</label>
                                 </Form.Floating>
@@ -195,7 +227,8 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
                                         placeholder="twitterid"
                                         ref={twitteridReset}
                                         name='twitterId'
-                                        onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.twitterId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
                                     <label htmlFor="twitterId" className='text-muted'>Twitter ID</label>
                                 </Form.Floating>
@@ -209,7 +242,8 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
                                         ref={twitterlinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         name='twitterLink'
-                                        onChange={(e) => { formik.handleChange(e) }}
+                                        value={formik.values.twitterLink} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                     />
                                     <label htmlFor="twitterLink" className='text-muted'>Twitter Link</label>
                                 </Form.Floating>
@@ -218,8 +252,10 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData }) 
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>
-                            <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                            <Button variant="warning" className='text-white mb-2 mx-1' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                            {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+
                         </Col>
                     </Form>
                 </Container>

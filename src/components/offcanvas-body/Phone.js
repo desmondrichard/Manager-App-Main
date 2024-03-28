@@ -38,6 +38,7 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId,sh
         }
     }, [phoneValue])
 
+    //useEffect is used to preload phone number in update method:
     useEffect(()=>{
         if(showPutData?.mobileNo){
             setPhoneNumber(showPutData.mobileNo)
@@ -59,7 +60,7 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId,sh
                     name: dynamicName,
                     id: dynamicId,
                     // valid:valid
-                }}
+                }} style={{zIndex:'100'}}
             />
             
         </div>
