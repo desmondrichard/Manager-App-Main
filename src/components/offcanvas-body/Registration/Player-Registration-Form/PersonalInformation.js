@@ -153,24 +153,25 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
     }
     // reset form end: 
 
+    const [initialValues, setInitialValues] = useState({
+        playerName: '',
+        middleName: '',
+        lastName: '',
+        initials: '',
+        displayName: '',
+        fatherName: '',
+        motherName: '',
+        dateOfBirth: '',
+        bloodGroup: '',
+        emailId: '',
+        gender: '',
+        secondNumber: null,
+        mobileNo: null,
+        team: '',
+        year: ''
+    })
     const formik = useFormik({
-        initialValues: {
-            playerName: '',
-            middleName: '',
-            lastName: '',
-            initials: '',
-            displayName: '',
-            fatherName: '',
-            motherName: '',
-            dateOfBirth: '',
-            bloodGroup: '',
-            emailId: '',
-            gender: '',
-            secondNumber: null,
-            mobileNo: null,
-            team: '',
-            year: ''
-        },
+        initialValues: initialValues,
         validate,
         onSubmit: (values, { setSubmitting }) => {
             //Default year:
@@ -196,7 +197,6 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
             formData.append('bloodGroup', values.bloodGroup);
             formData.append('emailId', values.emailId);
             formData.append('gender', values.gender);
-            // formData.append('mobileNo', JSON.stringify(values.mobileNo));
             formData.append('mobileNo', values.mobileNo);
             formData.append('secondNumber', values.secondNumber);
             formData.append('ImageData', values.ImageData);
@@ -309,9 +309,96 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
     }
 
     //update:
-    function handleUpdate() {
+    const [initialValuesLoaded, setInitialValuesLoaded] = useState(false);//for loading initial values
+    console.log('showPutDataPlayerPersonal', showPutData)
+    console.log('updateMethodDataIDPlayer:', showPutData.alldataplayerId)
 
+    function handleUpdate() {
+        alert("update executed");
+        console.log("formikVals", formik.values, ImageData)
+
+        const formData = new FormData();
+        formData.append('playerName', formik.values.playerName);
+        formData.append('middleName', formik.values.middleName);
+        formData.append('lastName', formik.values.lastName);
+        formData.append('initials', formik.values.initials);
+        formData.append('displayName', formik.values.displayName);
+        formData.append('fatherName', formik.values.fatherName);
+        formData.append('motherName', formik.values.motherName);
+        formData.append('dateOfBirth', formik.values.dateOfBirth);
+        formData.append('bloodGroup', formik.values.bloodGroup);
+        formData.append('emailId', formik.values.emailId);
+        formData.append('mobileNo', formik.values.mobileNo);
+        formData.append('secondNumber', formik.values.secondNumber)
+        formData.append('ImageData', ImageData);
+        formData.append('team', formik.values.team);
+        formData.append('year', formik.values.year);
+        formData.append('gender', formik.values.gender);
+
+        console.log("form", formData)
+        axios.put(`https://localhost:7097/UpdatePlayer/${showPutData.alldataplayerId}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey); //to navigate to next tab
+
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch((error) => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+
+            });
     }
+
+    useEffect(() => {
+        setInitialValues({
+            playerName: showPutData.playerName,
+            middleName: showPutData.middleName,
+            lastName: showPutData.lastName,
+            designation: showPutData.designation,
+            specialization: showPutData.specialization,
+            initials: showPutData.initials,
+            displayName: showPutData.displayName,
+            fatherName: showPutData.fatherName,
+            motherName: showPutData.motherName,
+            dateOfBirth: showPutData.dateOfBirth,
+            bloodGroup: showPutData.bloodGroup,
+            emailId: showPutData.emailId,
+            gender: showPutData.gender,
+            mobileNo: showPutData.mobileNo,
+            secondNumber: showPutData.secondNumber,
+            year: showPutData.year,
+            team: showPutData.team,
+            imageData: showPutData.imageData
+        });
+        setInitialValuesLoaded(true);
+        if (showPutData.mobileNo) {
+            setMobileValueClear(false);
+        }
+
+        //added:
+        if (showPutData.imageData) {
+            setImageValue(false);
+        }
+    }, [showPutData]);
+
+    useEffect(() => {
+        if (initialValuesLoaded) {
+            formik.setValues(initialValues);
+        }
+    }, [initialValuesLoaded]);
+
 
     useEffect(() => {
         handleProgress();
@@ -335,7 +422,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         placeholder="first name"
                                         ref={firstNameReset}
                                         name="playerName"
-                                        value={formik.values.playerName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.playerName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('playerName', e.target.value)
+                                        }}
                                     />
                                     {
                                         formik.touched.playerName && formik.errors.playerName ? <span className='span'>{formik.errors.playerName}</span> : null
@@ -343,6 +432,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                     <label htmlFor="playerName" className='text-muted'>Player First Name*</label>
                                 </Form.Floating>
                             </Col>
+
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
@@ -402,6 +492,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                             type={type}
                                             id={`inline-${type}-Male`}
                                             // defaultChecked={true}
+                                            checked={formik.values.gender === 'Male'} //to preload in update request
                                             ref={genderMaleReset}
                                             value="Male"
                                             style={{ marginRight: '-25px' }}
@@ -413,6 +504,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                             type={type}
                                             id={`inline-${type}-Female`}
                                             // defaultChecked={false}
+                                            checked={formik.values.gender === 'Female'}
                                             ref={genderFemaleReset}
                                             value="Female"
                                             style={{ marginRight: '-40px' }}
@@ -491,10 +583,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                     controlId="bloodGroup"
                                     label="BloodGroup*"
                                     name="bloodGroup"
-                                    value={formik.values.bloodGroup} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 >
 
-                                    <Form.Select aria-label="bloodGroup" className='' ref={bloodgrpReset}>
+                                    <Form.Select aria-label="bloodGroup" className='' ref={bloodgrpReset} value={formik.values.bloodGroup} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('bloodGroup', e.target.value)}>
                                         <option value="none">Select Type</option>
                                         <option value="O+">O+</option>
                                         <option value="O-">O-</option>
@@ -511,7 +602,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" showPutData={showPutData}
 
                                 />
                                 {formik.touched.mobileNo && formik.errors.mobileNo ? (
@@ -520,9 +611,10 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             </Col>
                             {/* second mobile */}
                             <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValueClear1} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp1} dynamicName="secondNumber" dynamicId="secondNumberId"
+                                <Phone isClear={mobileValueClear1} onValidate={validateForm} onChange={(e) => formik.handleChange(e)} onActivateProgressBar={ActivateProgressBar} samp={Samp1} dynamicName="secondNumber" dynamicId="secondNumberId" showPutData={showPutData}
 
                                 />
+
                                 {formik.touched.secondNumber && formik.errors.secondNumber ? (
                                     <span className="span">{formik.errors.secondNumber}</span>
                                 ) : null}
@@ -550,7 +642,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
 
 
                             {/* Temporary Field: */}
-                            <Col xs={12} lg={4} className='py-3 c1'>
+                            <Col xs={12} lg={4} className='pt-4 c1'>
                                 <Form.Floating className="mb-5">
                                     <Form.Control
                                         id="team"
@@ -568,7 +660,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                                 {showSaveBtn && <Button variant="success" type='submit' disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} >Save and Next</Button>}
-                                {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleUpdate}>Update</Button>}
                                 {!showSaveBtn && <Button variant="dark" className='' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>

@@ -127,7 +127,8 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
             bankContactNo: showPutData?.bankContactNo || '',
             bankCountry: showPutData?.bankCountry || '',
             bankAddress: showPutData?.bankAddress || '',
-            bankAddress2: showPutData?.bankAddress2 || ''
+            bankAddress2: showPutData?.bankAddress2 || '',
+            acType: showPutData?.acType || ''
         },
         validate,
         onSubmit: values => {
@@ -192,7 +193,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
     //update Method:
     function handleUpdate() {
 
-        axios.put(`/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`https://localhost:7097/bankModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -319,6 +320,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                                 name="acType"
                                                 type={type}
                                                 id={`inline-${type}-savings`}
+                                                checked={formik.values.acType === 'savings'}
                                                 value='savings'
                                                 ref={savingsReset}
                                                 style={{ marginRight: '-5px' }}
@@ -329,6 +331,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                                 name="acType"
                                                 type={type}
                                                 id={`inline-${type}-current`}
+                                                checked={formik.values.acType === 'current'}
                                                 value='current'
                                                 ref={currentReset}
                                                 style={{ marginRight: '-30px' }}
@@ -483,8 +486,8 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

@@ -73,8 +73,9 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
             specialization: showPutData?.specialization || '',
             battingOrder: showPutData?.battingOrder || '',
             bowlingType: showPutData?.bowlingType || '',
-            bowlingSpecification: showPutData?.bowlingSpecification || ''
-
+            bowlingSpecification: showPutData?.bowlingSpecification || '',
+            battingStyle: showPutData?.battingStyle || '',
+            bowlerType: showPutData?.bowlerType || ''
         },
         validate,
         onSubmit: values => {
@@ -210,7 +211,8 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                             name="battingStyle"
                                             type={type}
                                             ref={batLeftReset}
-                                            id={`inline-${type}-left`}
+                                            checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-leftHanded`}
                                             value='leftHanded'
                                         />
                                         <Form.Check
@@ -218,7 +220,8 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                             label="Right Hand"
                                             name="battingStyle"
                                             type={type}
-                                            id={`inline-${type}-right`}
+                                            id={`inline-${type}-rightHanded`}
+                                            checked={formik.values.battingStyle === 'rightHanded'}
                                             // defaultChecked={true}
                                             ref={batRightReset}
                                             value="rightHanded"
@@ -260,6 +263,8 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 id={`inline-${type}-leftarm`}
                                                 value='LeftArm'
                                                 ref={armLeftReset}
+                                                checked={formik.values.bowlerType === 'LeftArm'}
+
                                             />
                                             <Form.Check
                                                 inline
@@ -269,6 +274,8 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 id={`inline-${type}-rightarm`}
                                                 value='RightArm'
                                                 ref={armRightReset}
+                                                checked={formik.values.bowlerType === 'RightArm'}
+
                                             // defaultChecked={true}
                                             />
                                         </span>
@@ -329,8 +336,8 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                 <Button variant="primary" className='mb-2' style={{ width: "130px" }} onClick={() => handlePreviousButton()}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" type="submit" value="submit" className='mx-3 mb-2' style={{ width: "130px" }}>Save and Next</Button>}
                                 <Button variant="warning" className='mx-1 text-white mb-2' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                {!showSaveBtn && <Button variant="info" className='me-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="info" className='me-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

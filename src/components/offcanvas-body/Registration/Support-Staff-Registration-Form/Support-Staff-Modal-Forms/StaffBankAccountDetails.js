@@ -321,6 +321,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                             id={`inline-${type}-savings`}
                                             // defaultChecked={true}
                                             ref={savings1}
+                                            checked={formik.values.acType === 'savings'}
                                             value="savings"
                                             style={{ marginRight: '-5px' }}
                                         />
@@ -331,6 +332,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                             type={type}
                                             id={`inline-${type}-current`}
                                             ref={current1}
+                                            checked={formik.values.acType === 'current'}
                                             value="current"
                                             style={{ marginRight: '-30px' }}
                                         />
@@ -482,8 +484,8 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                                 {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

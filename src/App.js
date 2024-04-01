@@ -87,7 +87,6 @@ function App() {
             <Route index element={<Accreditationcard />} />
             <Route path='accreadiationform' exact element={<AccreditionForm />} />
             <Route path='accreadiationViewCard' exact element={<AccreadiationViewCard />} />
-
           </Route>
 
 

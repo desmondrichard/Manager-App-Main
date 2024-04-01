@@ -84,12 +84,12 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
     //Formik:
     const formik = useFormik({
         initialValues: {
-            foodtype: '',
-            eggiterian: '',
-            seafood: '',
-            redMeat: '',
-            allergyIfAny: '',
-            allergy: '',
+            foodtype: showPutData?.foodtype || '',
+            eggiterian: showPutData?.eggiterian || '',
+            seafood: showPutData?.seafood || '',
+            redMeat: showPutData?.redMeat || '',
+            allergyIfAny: showPutData?.allergyIfAny || '',
+            allergy: showPutData?.allergy || '',
 
         },
         onSubmit: values => {
@@ -177,6 +177,31 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         onActivationKeyChild(childNextKey)
     }
 
+    //update Method:
+    function handleUpdate() {
+
+        axios.put(`https://localhost:7097/FoodInformationModel/${showPutData.alldataplayerId}`, formik.values, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log("Updation Data: ", response.data);
+                    onActivationKeyChild(childNextKey);
+                } else {
+                    console.log("Unexpected response status: ", response.status);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data) {
+                    console.log("Error Updating User: ", error.response.data);
+                } else {
+                    console.log("Error Updating User: ", error.message);
+                }
+            });
+    }
+
     useEffect(() => {
         handleProgress();
     }, [formik.values])
@@ -195,8 +220,8 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
 
                                     <label htmlFor='foodType'>Food Type<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
-                                            <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
-                                            <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
+                                            <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' checked={formik.values.foodtype === 'veg' ? formik.values.eggiterian === 'Yes' : formik.values.eggiterian === 'No'} value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
+                                            <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} checked={formik.values.foodtype === 'nonveg' ? formik.values.seafood === 'Yes' : formik.values.seafood === 'No'} />
                                         </div>
                                     </label>
 
@@ -295,8 +320,9 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                             <Col lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
-                                <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                <Button variant="warning" className='text-white mb-2' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>
+                                {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='mx-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

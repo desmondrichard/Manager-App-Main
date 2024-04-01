@@ -52,6 +52,9 @@ function SupportStaffRegistration(props) {
         });
     }
 
+    //hide save button:
+    const [hideSaveButton, setHideSaveButton] = useState(false);
+
     //updateBtnClicked:
     const [updateClicked, setUpdateClicked] = useState(false)
 
@@ -281,11 +284,11 @@ function SupportStaffRegistration(props) {
                                 {/* Accordion:5 */}
                                 <StaffFoodInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                                 {/* Accordion:6 */}
-                                <StaffTravelInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn}/>
+                                <StaffTravelInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                                 {/* Accordion:7 */}
-                                <StaffPreviousRepresentation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn}/>
+                                <StaffPreviousRepresentation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                                 {/* Accordion:8 */}
-                                <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} updateClicked={updateClicked}/>
+                                <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} updateClicked={updateClicked} />
                                 {/* Accordion:9 */}
                                 <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} />
                             </Accordion>
@@ -458,5 +461,8 @@ function Apps() {
         </>
     );
 }
+
+
+
 
 <Apps />

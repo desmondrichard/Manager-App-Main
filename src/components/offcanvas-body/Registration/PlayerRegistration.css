@@ -48,4 +48,10 @@ td{
     background-color: rgb(245, 242, 242) !important;
 }
 
+/* styling updatye,skip btns: */
+@media (min-width:300px) and (max-width: 992px) {
+    .update,.skip {
+      margin-top: 5px !important;
+    }
+  }
 

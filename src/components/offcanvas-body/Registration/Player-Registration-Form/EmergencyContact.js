@@ -41,21 +41,22 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         initialValues: {
             emergencyContactPerson: showPutData?.emergencyContactPerson || '',
             emergContactPersonRelationship: showPutData?.emergContactPersonRelationship || '',
+            emergencyContactPersonNo: showPutData?.emergencyContactPersonNo || ''
         },
         // validate,
         onSubmit: (values, { setSubmitting }) => {  //to add emergencyContactPersonNo along with values
-            const newValues = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
+            values = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
             // console.log("newValues", newValues)
-            axios.post('https://localhost:7097/playerEmergencycontactmodel', newValues)
+            axios.post('https://localhost:7097/playerEmergencycontactmodel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
-                    console.log("newvalues", newValues)
+                    console.log("emergvalues", values)
                     setSubmitting(false);
                 })
                 .catch(error => {
                     console.error(error.message);
-                    console.log("newvalues", newValues)
+                    console.log("values", values)
                     setSubmitting(false);
                 });
         }
@@ -138,7 +139,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
     //update Method:
     function handleUpdate() {
 
-        axios.put(`/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`https://localhost:7097/playerEmergencycontactmodel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -230,8 +231,8 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                             {showSaveBtn && <Button variant="success" type="submit" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                            {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                            {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                            {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                         </Col>
                     </Form>

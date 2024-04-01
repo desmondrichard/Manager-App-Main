@@ -57,7 +57,7 @@ function PlayerRegistration(props) {
   }
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("1");
+  const [parentkey, setParentKey] = useState("0");
 
   //Data Binding GET:
   const [showData, setShowData] = useState(null);

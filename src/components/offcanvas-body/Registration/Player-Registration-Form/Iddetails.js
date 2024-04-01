@@ -131,7 +131,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             panCardNo: showPutData?.panCardNo || '',
             passportExpDate: showPutData?.passportExpDate || '',
             birthCertificate: showPutData?.birthCertificate || '',
-            visacheck: visaChecked || '',
+            visacheck: showPutData?.visacheck || '',
             address: showPutData?.address || '',
             addressLine1: showPutData?.addressLine1 || '',
             addressLine2: showPutData?.addressLine2 || '',
@@ -312,7 +312,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                     <Form.Control
                                         id="passportExpDate"
                                         type="date"
-                                        placeholder="passexp"
+                                        // placeholder="passexp"
                                         name="passportExpDate"
                                         ref={passexpReset}
                                         min={new Date().toISOString().split('T')[0]}
@@ -345,16 +345,17 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                 <label className='text-muted' htmlFor="visacheck">DO YOU HAVE VISA</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} onChange={(e) => { formik.handleChange(e) }}>
-                                        <Form.Check style={{
-
-                                        }}
+                                        <Form.Check
                                             inline
                                             label="Yes"
                                             name="visacheck"
                                             type={type}
-                                            id={`inline-${type}-provided`}
+                                            id={`inline-${type}-yes`}
                                             ref={visaYesReset}
+                                            checked={formik.values.visacheck === 'yes'}
+
                                             value="yes"
+
                                         // onChange={(e) => {
                                         //     setVisaChecked(e.target.value);
                                         //     formik.setFieldValue('visacheck', e.target.value);
@@ -365,14 +366,17 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                             label="No"
                                             name="visacheck"
                                             type={type}
-                                            id={`inline-${type}-notprovided`}
+                                            id={`inline-${type}-no`}
                                             // defaultChecked={true}
                                             ref={visaNoReset}
+                                            checked={formik.values.visacheck === 'no'}
+
                                             value="no"
-                                            onChange={(e) => {
-                                                setVisaChecked(e.target.value);
-                                                formik.setFieldValue('visacheck', e.target.value);
-                                            }}
+
+                                        // onChange={(e) => {
+                                        //     setVisaChecked(e.target.value);
+                                        //     formik.setFieldValue('visacheck', e.target.value);
+                                        // }}
                                         />
                                     </div>
                                 ))}
@@ -524,8 +528,8 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" type='submit' className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
-                                {!showSaveBtn && <Button variant="info" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 mt-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

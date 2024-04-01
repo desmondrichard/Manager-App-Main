@@ -114,7 +114,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
 
     //Dynamic button hiding:
 
-
     // reset form start: 
     const firstName = useRef("");
     const middleName = useRef("");
@@ -154,17 +153,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         setImageProgress("");
         setMobileValueClear(true);//means after reset clear field(clear-true)
         setPhoneProgress("");
-        //
 
         // console.log("Ref",genderMale);
         formik.resetForm();
-
 
         //after clicking reset btn progress bar should be 0:
         setProgress(0);
         // console.log("setprogress after reset", progress)
     }
-
 
     //
     const [initialValues, setInitialValues] = useState({
@@ -356,7 +352,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         formData.append('ImageData', ImageData);
         formData.append('team', formik.values.team);
         formData.append('year', formik.values.year);
-        // formData.append('gender', formik.values.gender);
+        formData.append('gender', formik.values.gender);
 
         console.log("form", formData)
         axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, formData, {
@@ -421,13 +417,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     }, [showPutData]);
 
 
-
-
     useEffect(() => {
         if (initialValuesLoaded) {
             formik.setValues(initialValues);
         }
     }, [initialValuesLoaded]);
+    
     return (
         <Accordion.Item eventKey="0">
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span> <ProgressBarWithLabel progressValue={progress} /> </Accordion.Header>
@@ -524,9 +519,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                             id={`inline-${type}-male`}
                                             // defaultChecked={true}
                                             ref={genderMaleReset}
+                                            checked={formik.values.gender === 'Male'} 
                                             value="Male"
                                             style={{ marginRight: '-15px' }}
-                                            checked={formik.values.gender === "Male"}
                                             onChange={(e) => {
                                                 formik.setFieldValue('gender', e.target.value);
                                             }}
@@ -538,6 +533,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                             type="radio"
                                             id={`inline-${type}-female`}
                                             ref={genderFemaleReset}
+                                            checked={formik.values.gender === 'Female'} 
                                             value="Female"
                                             style={{ marginRight: '-30px' }}
 
@@ -729,12 +725,9 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     <span className="span">{formik.errors.mobileNo}</span>
                                 ) : null}
                             </Col>
-                      
-{/* showPutData contains all datas from parent and sent to phone component */}
-
 
                             {/* Temporary Field: */}
-                            <Col xs={12} lg={4} className='py-3 c1'>
+                            <Col xs={12} lg={4} className='py-4 c1'>
                                 <Form.Floating className="mb-2 mt-2">
                                     <Form.Control
                                         id="team"
@@ -761,7 +754,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                 {showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
                                 {/* only when showSaveBtn is false update btn will be displayed: */}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 text-white' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="dark"  style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>
                         </Row>
                     </Form>
