@@ -54,7 +54,7 @@ const validate = values => {
         errors.micrCode = "enter valid micr code";
     }
 
-    if (!/^[0-9a-zA-Z]{0,15}$/.test(values.gstNumber)) {
+    if (!/\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/.test(values.gstNumber)) {
         errors.gstNumber = "enter valid GST number";
     }
 

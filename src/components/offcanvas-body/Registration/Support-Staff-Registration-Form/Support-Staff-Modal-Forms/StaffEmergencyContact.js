@@ -55,7 +55,8 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
     const formik = useFormik({
         initialValues: {
             emergencyContactPerson: showPutData?.emergencyContactPerson || '',
-            emergContactPersonRelationship: showPutData?.emergContactPersonRelationship || ''
+            emergContactPersonRelationship: showPutData?.emergContactPersonRelationship || '',
+            emergencyContactPersonNo: showPutData?.emergencyContactPersonNo || ''
         },
         // validate,
         onSubmit: (values, { setSubmitting }) => {

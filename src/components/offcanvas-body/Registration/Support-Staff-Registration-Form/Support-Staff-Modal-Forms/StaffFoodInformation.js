@@ -104,12 +104,12 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
-                    console.log("newvalues", newValues)
+                    console.log("newvaluesFoodsuccess", newValues)
 
                 })
                 .catch(error => {
                     console.error(error.message);
-                    console.log("newvalues", newValues)
+                    console.log("newvaluesFoodfail", newValues)
 
                 });
 
@@ -183,9 +183,16 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
             allergyIfAny: showPutData.allergyIfAny,
             allergy: showPutData.allergy,
         };
-        formik.setValues(newFormikValues);
+
         //
-        axios.put(`https://localhost:7097/StaffFoodInformationModel/${showPutData.alldataStaffId}`, newFormikValues, {
+        formik.setFieldValue("foodtype", newFormikValues.foodtype);
+        formik.setFieldValue("eggiterian", newFormikValues.eggiterian);
+        formik.setFieldValue("seafood", newFormikValues.seafood);
+        formik.setFieldValue("redMeat", newFormikValues.redMeat);
+        formik.setFieldValue("allergyIfAny", newFormikValues.allergyIfAny);
+        formik.setFieldValue("allergy", newFormikValues.allergy);
+
+        axios.put(`https://localhost:7097/StaffFoodInformationModel/${showPutData.alldataStaffId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -201,6 +208,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
             .catch(error => {
                 if (error.response && error.response.data) {
                     console.log("Error Updating User: ", error.response.data);
+
                 } else {
                     console.log("Error Updating User: ", error.message);
                 }

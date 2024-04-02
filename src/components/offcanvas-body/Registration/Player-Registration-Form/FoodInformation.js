@@ -10,12 +10,16 @@ import { useRef } from 'react';
 import ProgressBarWithLabel from '../ProgressBarWithLabel';
 import axios from 'axios';
 import { useFormik } from 'formik';
-function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData }) {
+
+function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
+
+
     //state for food type:
     const [foodType, setFoodType] = useState(null);
 
     const handleFoodTypeChange = (e) => {
         setFoodType(e.target.value);
+
     };
 
     //state for allergy field visibility
@@ -25,16 +29,15 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         setShowAllergyField(e.target.value === 'Yes')
     }
 
-
-    //next btn:
+    //next Btn:
     const [childNextKey, setChildNextKey] = useState("6");
+
     //ref hook:
     const foodTypeRef = useRef(null);
     const seaFoodRef = useRef(null);
     const redMeatRef = useRef(null);
     const eggiterianRef = useRef(null);
     const allergyRef = useRef(null);
-
 
     function handleReset() {
         const foodTypeRadios = document.getElementsByName('foodtype');  //getElementsByName:must be same as db name else null error
@@ -63,7 +66,6 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
             allergyRadios[i].checked = false;
         }
 
-        //
         setFoodType(null);
         setShowAllergyField(false);
         formik.resetForm();
@@ -71,48 +73,44 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
     }
 
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     alert('submitted');
-    //     onActivationKeyChild(childNextKey)
-    // }
-
     const handlePreviousButton = () => {
         onPreviousActivationKey("4")
     }
 
     //Formik:
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            foodtype: showPutData?.foodtype || '',
-            eggiterian: showPutData?.eggiterian || '',
-            seafood: showPutData?.seafood || '',
-            redMeat: showPutData?.redMeat || '',
-            allergyIfAny: showPutData?.allergyIfAny || '',
-            allergy: showPutData?.allergy || '',
+            foodtype: '',
+            eggiterian: '',
+            seafood: '',
+            redMeat: '',
+            allergyIfAny: '',
+            allergy: '',
 
         },
         onSubmit: values => {
             // alert('clicked next');
             const newValues = {
-                'foodtype': values.foodtype,
+                'foodType': values.foodtype,
                 'eggiterian': values.eggiterian,
                 'seafood': values.seafood,
                 'redMeat': values.redMeat,
                 'allergyIfAny': values.allergyIfAny,
                 'allergy': values.allergy
             };
-
+            // Log the values variable
+            console.log('Values11:', newValues);
             axios.post('https://localhost:7097/FoodInformationModel', newValues)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
-                    console.log("newvalues", newValues)
+                    console.log("newvaluesFoodsuccess", newValues)
 
                 })
                 .catch(error => {
                     console.error(error.message);
-                    console.log("newvalues", newValues)
+                    console.log("newvaluesFoodfail", newValues)
 
                 });
 
@@ -121,7 +119,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
     })
 
     // Log the values variable
-    //   console.log('Values11:', newValues);
+    //   console.log('Values11:', newVal);
     //   onActivationKeyChild(childNextKey);
 
     // progress Bar for static fields:
@@ -138,6 +136,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         console.log("Progress", newProgress)
         setProgress(newProgress);
     }
+
 
     function countKeysWithNonEmptyValues(obj) {
         let count = 0;
@@ -157,13 +156,12 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                 }
 
         }
-
         //To dynamically remove progress count and set eggiterian as empty if nonveg is selected:
         if (obj.foodtype === 'nonveg' && (obj.eggiterian === 'Yes' || obj.eggiterian === 'No')) {
             obj.eggiterian = "";
             count = count - 1;
         }
-        else if (obj.foodtype === 'veg' && (obj.seafood === 'Yes' || obj.seafood === 'No') && (obj.redMeat === 'Yes' || obj.redMeat === 'No')) {
+        if (obj.foodtype === 'veg' && (obj.seafood === 'Yes' || obj.seafood === 'No') && (obj.redMeat === 'Yes' || obj.redMeat === 'No')) {
             obj.seafood = "";
             obj.redMeat = "";
             count = count - 1;
@@ -177,9 +175,30 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         onActivationKeyChild(childNextKey)
     }
 
-    //update Method:
+    //update
     function handleUpdate() {
 
+
+
+        const newFormikValues = {
+            foodtype: showPutData.foodType,
+            eggiterian: showPutData.eggiterian,
+            seafood: showPutData.seafood,
+            redMeat: showPutData.redMeat,
+            allergyIfAny: showPutData.allergyIfAny,
+            allergy: showPutData.allergy,
+        };
+
+        //
+        formik.setFieldValue("foodtype", newFormikValues.foodtype);
+        formik.setFieldValue("eggiterian", newFormikValues.eggiterian);
+        formik.setFieldValue("seafood", newFormikValues.seafood);
+        formik.setFieldValue("redMeat", newFormikValues.redMeat);
+        formik.setFieldValue("allergyIfAny", newFormikValues.allergyIfAny);
+        formik.setFieldValue("allergy", newFormikValues.allergy);
+
+
+        
         axios.put(`https://localhost:7097/FoodInformationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
@@ -196,6 +215,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
             .catch(error => {
                 if (error.response && error.response.data) {
                     console.log("Error Updating User: ", error.response.data);
+
                 } else {
                     console.log("Error Updating User: ", error.message);
                 }
@@ -205,6 +225,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
     useEffect(() => {
         handleProgress();
     }, [formik.values])
+
 
     return (
 
@@ -220,8 +241,8 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
 
                                     <label htmlFor='foodType'>Food Type<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
-                                            <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' checked={formik.values.foodtype === 'veg' ? formik.values.eggiterian === 'Yes' : formik.values.eggiterian === 'No'} value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
-                                            <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} checked={formik.values.foodtype === 'nonveg' ? formik.values.seafood === 'Yes' : formik.values.seafood === 'No'} />
+                                            <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
+                                            <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
                                         </div>
                                     </label>
 
@@ -263,7 +284,6 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                 )}
                                 {foodType === 'nonveg' && (
                                     <>
-
                                         <Col xs={12} className='inlineText mt-4'>
                                             <label htmlFor='seaFood'>Sea Food<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
@@ -320,16 +340,18 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                             <Col lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
-                                <Button variant="warning" className='text-white mb-2' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>
+                                <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+
 
                             </Col>
                         </Row>
+
                     </Form>
                 </Container>
-            </Accordion.Body >
-        </Accordion.Item >
+            </Accordion.Body>
+        </Accordion.Item>
 
     )
 }

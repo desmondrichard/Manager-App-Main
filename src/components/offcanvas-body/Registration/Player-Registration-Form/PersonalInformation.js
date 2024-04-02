@@ -183,11 +183,10 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
 
             values = { ...values, mobileNo, secondNumber, ImageData, year: year }
 
-
             const formData = new FormData();
             // Append form data fields
             formData.append('playerName', values.playerName);
-            formData.append('middleName', values.middleName);
+            formData.append('middleName', values.middleName);  
             formData.append('lastName', values.lastName);
             formData.append('initials', values.initials);
             formData.append('displayName', values.displayName);

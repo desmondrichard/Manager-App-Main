@@ -38,7 +38,7 @@ const validate = values => {
 
 
 function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
-
+    const modalContentRef = useRef(null);
     // reset form start: 
     const specsReset = useRef("");
     const batLeftReset = useRef(false);
@@ -51,9 +51,9 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
     //
     const [teamName, setteamName] = useState("");
-    //
 
     function handleReset() {
+        alert("reset")
         specsReset.current.value = "none";
         batLeftReset.current.checked = false;
         batRightReset.current.checked = false;
@@ -140,6 +140,10 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        if (modalContentRef.current) {
+            modalContentRef.current.scrollTop = 0;
+        }
+
     }
 
     //update Method:
@@ -165,7 +169,8 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                 }
             });
     }
-
+    //
+    const targetElement = useRef(null);
 
     useEffect(() => {
         handleProgress();
@@ -176,7 +181,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         <Accordion.Item eventKey="1">
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PROFICIENCY INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
-                <Container>
+                <Container ref={modalContentRef}>
                     {/* <p>{activationKey}</p> */}
                     <Form onSubmit={formik.handleSubmit}>
                         <Row>
@@ -325,19 +330,18 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                 </FloatingLabel>
                             </Col>
 
-                            {/*  */}
-                            {/* <Col xs={12}>
-                                <label htmlFor='team name'></label>
-                                <input type="text" id="teamName" value={teamName} onChange={(e) => setteamName(e.target.value)} />
-                            </Col> */}
-
-
                             <Col xs={12} lg={12} className='my-4 col'>
                                 <Button variant="primary" className='mb-2' style={{ width: "130px" }} onClick={() => handlePreviousButton()}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" type="submit" value="submit" className='mx-3 mb-2' style={{ width: "130px" }}>Save and Next</Button>}
                                 <Button variant="warning" className='mx-1 text-white mb-2' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
                                 {!showSaveBtn && <Button variant="info" className='me-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={() => {
+                                    handleSkip();
+                                    window.scrollTo({
+                                        top: targetElement.current?.offsetTop || 0,
+                                        behavior: "smooth"
+                                    });
+                                }}>Skip</Button>}
 
                             </Col>
                         </Row>

@@ -221,7 +221,6 @@ function PlayerRegistration(props) {
     setUpdateClicked(true) //set to true if update btn is clicked
   }
 
-
   // Filter:
   const [search, setSearch] = useState('');
 
@@ -242,7 +241,9 @@ function PlayerRegistration(props) {
             ADD PLAYERS
           </Button>
 
-          <Modal centered
+          <Modal
+            // scrollable={true}
+            // centered
             show={show}
             onHide={handleClose}
             backdrop="static"
@@ -252,7 +253,7 @@ function PlayerRegistration(props) {
             <Modal.Header closeButton style={{ backgroundColor: 'black' }}>
               <Modal.Title className='text-white'><h5>PLAYERS FORM</h5></Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className='modalBody' style={{ maxHeight: '60vh', overflowY: 'auto' }}>
               <p>{parentkey}</p>
               <Accordion activeKey={parentkey}>
                 {/* <RegistrationForm /> */}

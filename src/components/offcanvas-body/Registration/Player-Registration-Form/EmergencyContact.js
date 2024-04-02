@@ -165,7 +165,6 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         onActivationKeyChild(childNextKey)
     }
 
-
     useEffect(() => {
         handleProgress();
     }, [formik.values, phoneProgress])
