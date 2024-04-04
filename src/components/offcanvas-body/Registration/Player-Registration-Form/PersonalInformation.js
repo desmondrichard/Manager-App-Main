@@ -94,7 +94,7 @@ const validate = values => {
 }
 
 
-function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn }) {
+function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, showClearBtn }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
     const [mobileValueClear1, setMobileValueClear1] = useState(false);//for clearing mobile no ..false-no clear
 
@@ -186,7 +186,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
             const formData = new FormData();
             // Append form data fields
             formData.append('playerName', values.playerName);
-            formData.append('middleName', values.middleName);  
+            formData.append('middleName', values.middleName);
             formData.append('lastName', values.lastName);
             formData.append('initials', values.initials);
             formData.append('displayName', values.displayName);
@@ -657,7 +657,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                 </Form.Floating>
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
-                                <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                                {showClearBtn && <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {showSaveBtn && <Button variant="success" type='submit' disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} >Save and Next</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleUpdate}>Update</Button>}
                                 {!showSaveBtn && <Button variant="dark" className='' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleSkip}>Skip</Button>}

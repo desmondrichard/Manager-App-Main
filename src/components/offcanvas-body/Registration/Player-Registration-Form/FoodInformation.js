@@ -11,8 +11,7 @@ import ProgressBarWithLabel from '../ProgressBarWithLabel';
 import axios from 'axios';
 import { useFormik } from 'formik';
 
-function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
-
+function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
 
     //state for food type:
     const [foodType, setFoodType] = useState(null);
@@ -114,7 +113,6 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
 
                 });
 
-
         }
     })
 
@@ -178,8 +176,6 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
     //update
     function handleUpdate() {
 
-
-
         const newFormikValues = {
             foodtype: showPutData.foodType,
             eggiterian: showPutData.eggiterian,
@@ -197,8 +193,6 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         formik.setFieldValue("allergyIfAny", newFormikValues.allergyIfAny);
         formik.setFieldValue("allergy", newFormikValues.allergy);
 
-
-        
         axios.put(`https://localhost:7097/FoodInformationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
@@ -223,12 +217,10 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
     }
 
     useEffect(() => {
-        handleProgress();
+        handleProgress();// whenever formik values changes  run this handleProgress() function
     }, [formik.values])
 
-
     return (
-
         <Accordion.Item eventKey="5">
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>FOOD INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
@@ -340,7 +332,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                             <Col lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
-                                <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
                                 {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 

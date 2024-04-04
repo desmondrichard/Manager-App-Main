@@ -72,7 +72,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData }) {
+function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData, showClearBtn }) {
     //reset address:
     const [clearValue, setClearValue] = useState(false);
 
@@ -229,6 +229,11 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
             }
         }
         console.log("count", count)
+
+        //dynamic visaNumber field:
+        if (formik.values.visacheck === 'No') {
+            count++;
+        }
         return count;
     }
 
@@ -427,6 +432,8 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                             // defaultChecked={true}
                                             ref={visaNo}
                                             value="No"
+                                            checked={formik.values.visacheck === "No"}
+
                                         />
                                     </div>
                                 ))}
@@ -440,7 +447,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="visano"
                                         name="visaNumber"
                                         ref={visaNumber}
-                                        value={formik.values.visaNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.visaNumber} onBlur={formik.handleBlur} onChange={formik.handleChange} disabled={formik.values.visacheck === 'No'}
                                     />
                                     {
                                         formik.touched.visaNumber && formik.errors.visaNumber ? <span className='span'>{formik.errors.visaNumber}</span> : null
@@ -460,6 +467,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         onBlur={formik.handleBlur}
                                         // min={new Date().toISOString().split('T')[0]}
                                         onChange={(e) => { formik.handleChange(e) }}
+
                                     />
                                     {
                                         formik.touched.visaValidity && formik.errors.visaValidity ? <span className='span'>{formik.errors.visaValidity}</span> : null
@@ -597,7 +605,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" type='submit' className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                                <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
                                 {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 

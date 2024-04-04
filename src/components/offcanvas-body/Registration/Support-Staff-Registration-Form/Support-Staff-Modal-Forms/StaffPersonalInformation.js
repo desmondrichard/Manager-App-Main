@@ -94,7 +94,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, toggleSaveUpdateButtons, updateClicked }) {
+function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, toggleSaveUpdateButtons, updateClicked, showClearBtn }) {
     console.log("showSaveBtnNew", showSaveBtn)
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
 
@@ -422,7 +422,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             formik.setValues(initialValues);
         }
     }, [initialValuesLoaded]);
-    
+
     return (
         <Accordion.Item eventKey="0">
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>PERSONAL INFORMATION </span> <ProgressBarWithLabel progressValue={progress} /> </Accordion.Header>
@@ -519,7 +519,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                             id={`inline-${type}-male`}
                                             // defaultChecked={true}
                                             ref={genderMaleReset}
-                                            checked={formik.values.gender === 'Male'} 
+                                            checked={formik.values.gender === 'Male'}
                                             value="Male"
                                             style={{ marginRight: '-15px' }}
                                             onChange={(e) => {
@@ -533,7 +533,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                             type="radio"
                                             id={`inline-${type}-female`}
                                             ref={genderFemaleReset}
-                                            checked={formik.values.gender === 'Female'} 
+                                            checked={formik.values.gender === 'Female'}
                                             value="Female"
                                             style={{ marginRight: '-30px' }}
 
@@ -749,12 +749,12 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                 <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
-                                <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                                {showClearBtn && <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {/*only when showSaveBtn is true saveandnext btn will be displayed:  */}
                                 {showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
                                 {/* only when showSaveBtn is false update btn will be displayed: */}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 text-white' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark"  style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="dark" style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>
                         </Row>
                     </Form>

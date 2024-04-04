@@ -69,7 +69,7 @@ const validate = values => {
 }
 
 
-function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData }) {
+function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData, showClearBtn }) {
     //next btn:
     const [childNextKey, setChildNextKey] = useState("3")
     // reset form start: 
@@ -174,7 +174,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         const totalFilledFields = result;
 
         //calc formula
-        let newProgress = ((totalFilledFields / 10) * 100).toFixed();
+        let newProgress = ((totalFilledFields / 22) * 100).toFixed();
         console.log("Progress", newProgress)
         setProgress(newProgress);
     }
@@ -458,64 +458,473 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                             </Col>
                         </Row>
 
+                        {/* Row 1 */}
                         <Row>
-                            {/* <Col className='col radioFields'>
-                                <label className='text-muted' htmlFor="battingpads" style={{ whiteSpace: 'nowrap' }}>BATTING PADS</label>
+                            {/* Dynamic Form: */}
+                            {/* <Col xs={12} lg={{ span: 12 }} className='col'>
+                                <DynamicFields onDataUpdate={handleDataUpdate} isClear={dynamicFieldsClear} />
+                            </Col> */}
+
+                            {/* Field:1 */}
+                            <Col md={9} xl={4} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">BATTING PADS</label>
                                 {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} style={{ whiteSpace: 'nowrap' }}>
-                                        <Form.Check style={{
-                                            padding: '20px'
-                                        }}
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
                                             inline
-                                            label="Yes"
-                                            name="group1"
+                                            label="Provided"
+                                            name="battingPads"
                                             type={type}
-                                            id={`inline-${type}-yes`}
-                                            ref={bowlerA}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
                                         />
                                         <Form.Check
                                             inline
-                                            label="No"
-                                            name="group1"
+                                            label="Not Provided"
+                                            name="battingPads"
                                             type={type}
-                                            id={`inline-${type}-no`}
-                                            defaultChecked={true}
-                                            ref={bowlerB}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
                                         />
                                     </div>
                                 ))}
-                            </Col> */}
-                            {/* <Col className='col QtyMainMargin'>
-                                <div>
-                                    <Form.Label htmlFor="qty" style={{ color: '#7C7F81' }}>QUANTITY</Form.Label>
-                                    <Form.Control size="md"
-                                        type="number"
-                                        id="qty"
-                                        ref={qty}
-                                        style={{ width: '80px' }}
-                                        min="0"
-                                        max="2"
-                                        onChange={(e) => {
-                                            if (e.target.value > 0) {
-                                                bowlerA.current.checked = true;
-                                            } else {
-                                                bowlerB.current.checked = true;
-                                            }
-                                        }}
-                                    />
-                                </div>
-                            </Col> */}
-                            {/* Dynamic Form: */}
-                            <Col xs={12} lg={{ span: 12 }} className='col'>
-                                <DynamicFields onDataUpdate={handleDataUpdate} isClear={dynamicFieldsClear} />
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name='battinpadqty'
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+
+                            {/* Field:2 */}
+                            <Col md={9} xl={{ span: 3, offset: 1 }} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">BATTING GLOVES</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="battingGloves"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="battingGloves"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="battinggloveqty"
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
                             </Col>
                         </Row>
-                        {/* <Row> */}
+                        {/* Row 2 */}
+                        <Row>
+                            {/* Field:1 */}
+                            <Col md={9} xl={4} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads" style={{ whiteSpace: 'nowrap' }}>WICKETKEEPING GLOVES</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="wkGloves"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="wkGloves"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name='wkGlovesqty'
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+
+                            {/* Field:2 */}
+                            <Col md={9} xl={{ span: 3, offset: 1 }} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads" style={{ whiteSpace: 'nowrap' }}>WICKETKEEPING PADS</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="wkPad"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="wkPad"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="wkpadqty"
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+                        </Row>
+                        {/* Row 3 */}
+                        <Row>
+                            {/* Field:1 */}
+                            <Col md={9} xl={4} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">SHOULDER BAG</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="shoulderBag"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="shoulderBag"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name='shoulderbagqty'
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+
+                            {/* Field:2 */}
+                            <Col md={9} xl={{ span: 3, offset: 1 }} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">SHOE BAG</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="shoeBag"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="shoeBag"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="shoebagqty"
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+                        </Row>
+                        {/* Row 4 */}
+                        <Row>
+                            {/* Field:1 */}
+                            <Col md={9} xl={4} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">PLAYER KIT BAG</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="playingkitBag"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="playingkitBag"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name='playerbagqty'
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+
+                            {/* Field:2 */}
+                            <Col md={9} xl={{ span: 3, offset: 1 }} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">PRACTICE JERSEY</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="practicsJersey"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="practicsJersey"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="practisejerseyqty"
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+                        </Row>
+                        {/* Row 5 */}
+                        <Row>
+                            {/* Field:1 */}
+                            <Col md={9} xl={4} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">FAMILY JERSEY</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="familyJersey"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="familyJersey"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name='familyjerseyqty'
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+
+                            {/* Field:2 */}
+                            <Col md={9} xl={{ span: 3, offset: 1 }} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">ARM GUARD</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="armGuard"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="armGuard"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="armguardyqty"
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+                        </Row>
+                        {/* Row 6 */}
+                        <Row>
+                            {/* Field:1 */}
+                            <Col md={9} xl={4} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">THIGH GUARD</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="thighGaurad"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="thighGaurad"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name='thighguardyqty'
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+
+                            {/* Field:2 */}
+                            <Col md={9} xl={{ span: 3, offset: 1 }} className='mt-3'>
+                                <label className='text-muted' htmlFor="battingPads">ABDOMINAL GUARD</label>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className="mb-3" style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
+                                        <Form.Check className='mt-3'
+                                            inline
+                                            label="Provided"
+                                            name="abdominalGaurad"
+                                            type={type}
+                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            id={`inline-${type}-Provided`}
+                                            value='Provided'
+                                        />
+                                        <Form.Check
+                                            inline
+                                            label="Not Provided"
+                                            name="abdominalGaurad"
+                                            type={type}
+                                            id={`inline-${type}-NotProvided`}
+                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            // defaultChecked={true}
+                                            value="NotProvided"
+                                        />
+                                    </div>
+                                ))}
+                            </Col>
+                            <Col md={{ span: 1, offset: 2 }} xl={{ span: 1, offset: 1 }} className='mt-3'>
+                                <Form.Label style={{ color: '#6F7275' }}>QTY</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="abdominalguardyqty"
+                                    style={{ width: '80px' }}
+                                    min="0"
+                                />
+                            </Col>
+                        </Row>
+
 
                         <Col lg={12} className='my-4 col'>
                             <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                             {showSaveBtn && <Button variant="success" type="submit" value="submit" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                            <Button variant="warning" type="button" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                            {showClearBtn && <Button variant="warning" type="button" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                             {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
                             {!showSaveBtn && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 

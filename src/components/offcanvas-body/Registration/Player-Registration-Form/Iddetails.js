@@ -79,7 +79,7 @@ const validate = values => {
 
     return errors;
 }
-function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
+function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
     // next btn:
     const [childNextKey, setChildNextKey] = useState("4");
 
@@ -212,6 +212,12 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             }
         }
         console.log("count", count)
+
+        //dynamic field values:
+        if (formik.values.visacheck === 'no') {
+            count++;
+        }
+
         return count;
     }
 
@@ -370,7 +376,6 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                             // defaultChecked={true}
                                             ref={visaNoReset}
                                             checked={formik.values.visacheck === 'no'}
-
                                             value="no"
 
                                         // onChange={(e) => {
@@ -389,7 +394,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         placeholder="visaNumber"
                                         name="visaNumber"
                                         ref={visaNumber}
-                                        value={formik.values.visaNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.visaNumber} onBlur={formik.handleBlur} onChange={formik.handleChange} disabled={formik.values.visacheck === 'no'}
                                     />
                                     {
                                         formik.touched.visaNumber && formik.errors.visaNumber ? <span className='span'>{formik.errors.visaNumber}</span> : null
@@ -527,7 +532,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                             <Col xs={12} lg={12} className='my-4 col'>
                                 <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" type='submit' className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                                <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
                                 {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 

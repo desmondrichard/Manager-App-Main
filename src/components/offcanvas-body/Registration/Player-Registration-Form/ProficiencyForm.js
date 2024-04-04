@@ -37,7 +37,7 @@ const validate = values => {
 }
 
 
-function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn }) {
+function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
     const modalContentRef = useRef(null);
     // reset form start: 
     const specsReset = useRef("");
@@ -331,17 +331,11 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                             </Col>
 
                             <Col xs={12} lg={12} className='my-4 col'>
-                                <Button variant="primary" className='mb-2' style={{ width: "130px" }} onClick={() => handlePreviousButton()}>PREVIOUS</Button>
+                                <Button variant="primary" className='mb-2 me-1' style={{ width: "130px" }} onClick={() => handlePreviousButton()}>PREVIOUS</Button>
                                 {showSaveBtn && <Button variant="success" type="submit" value="submit" className='mx-3 mb-2' style={{ width: "130px" }}>Save and Next</Button>}
-                                <Button variant="warning" className='mx-1 text-white mb-2' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>
+                                {showClearBtn && <Button variant="warning" className='mx-1 text-white mb-2' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='me-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={() => {
-                                    handleSkip();
-                                    window.scrollTo({
-                                        top: targetElement.current?.offsetTop || 0,
-                                        behavior: "smooth"
-                                    });
-                                }}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>
