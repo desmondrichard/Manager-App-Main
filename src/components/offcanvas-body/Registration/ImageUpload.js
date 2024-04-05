@@ -13,14 +13,30 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, sh
     }
 
     // console.log("updateClickedChild", updateClicked)
-    //Image without converting to Base64:
+    //Image without converting to Base64:  post
+    // const handleImageChange = async (e) => {
+    //     const file = e.target.files[0];
+    //     setImage(file);
+    //     onActivateProgressBar(1);
+    //     dynamicImageName(file);
+
+    // }
+
     const handleImageChange = async (e) => {
         const file = e.target.files[0];
-        setImage(file);
-        onActivateProgressBar(1);
-        dynamicImageName(file);
-
-    }
+        const reader = new FileReader();
+      
+        reader.onload = (event) => {
+          const binaryString = event.target.result;
+          const base64String = btoa(binaryString);
+          setImage(file);
+          setBaseImage(base64String);
+          onActivateProgressBar(1);
+          dynamicImageName(file);
+        };
+      
+        reader.readAsBinaryString(file);
+      };
 
     // Helper function to get the URL from the image file
     const getImageUrl = (file) => {

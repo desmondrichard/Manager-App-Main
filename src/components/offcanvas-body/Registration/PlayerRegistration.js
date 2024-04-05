@@ -57,7 +57,7 @@ function PlayerRegistration(props) {
   }
   const handleShow = () => setShow(true);
   //Next Btn:
-  const [parentkey, setParentKey] = useState("2");
+  const [parentkey, setParentKey] = useState("0");
 
   //Data Binding GET:
   const [showData, setShowData] = useState(null);
@@ -257,7 +257,8 @@ function PlayerRegistration(props) {
             <Modal.Header closeButton style={{ backgroundColor: 'black' }}>
               <Modal.Title className='text-white'><h5>PLAYERS FORM</h5></Modal.Title>
             </Modal.Header>
-            <Modal.Body className='modalBody' style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+            {/* <Modal.Body className='modalBody' style={{ maxHeight: '60vh', overflowY: 'auto' }}> */}
+            <Modal.Body className='modalBody'>
               <p>{parentkey}</p>
               <Accordion activeKey={parentkey}>
                 {/* <RegistrationForm /> */}

@@ -144,10 +144,10 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const passportExpDate = new Date(values.passportExpDate);
-            const formattedPassportExpDate = `${passportExpDate.getDate()}/${passportExpDate.getMonth() + 1}/${passportExpDate.getFullYear()}`;
-            const dob = formattedPassportExpDate;
-            const newValues = { ...values, passportExpDate: dob };
+            // const passportExpDate = new Date(values.passportExpDate);
+            // const formattedPassportExpDate = `${passportExpDate.getDate()}/${passportExpDate.getMonth() + 1}/${passportExpDate.getFullYear()}`;
+            // const dob = formattedPassportExpDate;
+            const newValues = { ...values };
 
             axios.post('https://localhost:7097/IDCardDetailsModel', newValues)
                 .then(response => {
@@ -223,10 +223,24 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
 
     console.log("showPutDataProf", showPutData)
 
+    // Function to format dates as "yyyy-MM-dd"
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     //update Method:
     function handleUpdate() {
+        // Convert the date strings to Date objects
+        const passportExpDate = new Date(formik.values.passportExpDate);
+        // Format dates as "yyyy-MM-dd"
+        const formattedPassportExpDate = formatDate(passportExpDate);
 
-        axios.put(`https://localhost:7097/PlayerIDcardModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`https://localhost:7097/PlayerIDcardModel/${showPutData.alldataplayerId}`, {
+            ...formik.values, passportExpDate: formattedPassportExpDate,
+        }, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -322,7 +336,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         name="passportExpDate"
                                         ref={passexpReset}
                                         min={new Date().toISOString().split('T')[0]}
-                                        value={formik.values.passportExpDate} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.passportExpDate} onBlur={formik.handleBlur} onChange={(e) => { formik.handleChange(e) }}
                                     />
                                     {
                                         formik.touched.passportExpDate && formik.errors.passportExpDate ? <span className='span'>{formik.errors.passportExpDate}</span> : null

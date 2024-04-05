@@ -85,8 +85,55 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
     const familyjerseynoReset = useRef("");
     const bowlerA = useRef(false);
     const bowlerB = useRef(false);
-    // const qty = useRef("");
 
+    const battingPadsProvidedReset = useRef(false);
+    const battingPadsNotProvidedReset = useRef(false);
+    const QtyBattingPadsReset = useRef("");
+
+    const battingGlovesProvidedReset = useRef(false);
+    const battingGlovesNotProvidedReset = useRef(false);
+    const QtyBattingGlovesReset = useRef("");
+
+    const wkGlovesProvidedReset = useRef(false);
+    const wkGlovesNotProvidedReset = useRef(false);
+    const QtywkGlovesReset = useRef("");
+
+    const wkPadProvidedReset = useRef(false);
+    const wkPadNotProvidedReset = useRef(false);
+    const QtywkPadReset = useRef("");
+
+    const shoulderBagProvidedReset = useRef(false);
+    const shoulderBagNotProvidedReset = useRef(false);
+    const QtyshoulderBagReset = useRef("");
+
+    const shoeBagProvidedReset = useRef(false);
+    const shoeBagNotProvidedReset = useRef(false);
+    const QtyshoeBagReset = useRef("");
+
+    const playingkitBagProvidedReset = useRef(false);
+    const playingkitBagNotProvidedReset = useRef(false);
+    const QtyplayingkitBagReset = useRef("");
+
+
+    const practicsJerseyProvidedReset = useRef(false);
+    const practicsJerseyNotProvidedReset = useRef(false);
+    const QtypracticsJerseyReset = useRef("");
+
+    const familyJerseyProvidedReset = useRef(false);
+    const familyJerseyNotProvidedReset = useRef(false);
+    const familyJerseyReset = useRef("");
+
+    const armGuardProvidedReset = useRef(false);
+    const armGuardNotProvidedReset = useRef(false);
+    const QtyarmGuardReset = useRef("");
+
+    const thighGauradProvidedReset = useRef(false);
+    const thighGauradNotProvidedReset = useRef(false);
+    const QtythighGauradReset = useRef("");
+
+    const abdominalGauradProvidedReset = useRef(false);
+    const abdominalGauradNotProvidedReset = useRef(false);
+    const QtyabdominalGauradReset = useRef("");
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
@@ -100,6 +147,55 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         circkethelmetReset.current.value = "none";
         travelpoloReset.current.value = "none";
         familyjerseynoReset.current.value = "";
+
+        battingPadsProvidedReset.current.checked = false;
+        battingPadsNotProvidedReset.current.checked = false;
+        QtyBattingPadsReset.current.value = '';
+
+        battingGlovesProvidedReset.current.checked = false;
+        battingGlovesNotProvidedReset.current.checked = false;
+        QtyBattingGlovesReset.current.value = '';
+
+        wkGlovesProvidedReset.current.checked = false;
+        wkGlovesNotProvidedReset.current.checked = false;
+        QtywkGlovesReset.current.value = '';
+
+        wkPadProvidedReset.current.checked = false;
+        wkPadNotProvidedReset.current.checked = false;
+        QtywkPadReset.current.value = '';
+
+        shoulderBagProvidedReset.current.checked = false;
+        shoulderBagNotProvidedReset.current.checked = false;
+        QtyshoulderBagReset.current.value = '';
+
+        shoeBagProvidedReset.current.checked = false;
+        shoeBagNotProvidedReset.current.checked = false;
+        QtyshoeBagReset.current.value = '';
+
+        playingkitBagProvidedReset.current.checked = false;
+        playingkitBagNotProvidedReset.current.checked = false;
+        QtyplayingkitBagReset.current.value = '';
+
+        practicsJerseyProvidedReset.current.checked = false;
+        practicsJerseyNotProvidedReset.current.checked = false;
+        QtypracticsJerseyReset.current.value = '';
+
+        familyJerseyProvidedReset.current.checked = false;
+        familyJerseyNotProvidedReset.current.checked = false;
+        familyJerseyReset.current.value = '';
+
+        armGuardProvidedReset.current.checked = false;
+        armGuardNotProvidedReset.current.checked = false;
+        QtyarmGuardReset.current.value = '';
+
+        thighGauradProvidedReset.current.checked = false;
+        thighGauradNotProvidedReset.current.checked = false;
+        QtythighGauradReset.current.value = '';
+
+        abdominalGauradProvidedReset.current.checked = false;
+        abdominalGauradNotProvidedReset.current.checked = false;
+        QtyabdominalGauradReset.current.value = '';
+
 
         if (bowlerA?.current) {
             bowlerA.current.checked = false;
@@ -129,7 +225,32 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
             trackSuit: showPutData?.trackSuit || '',
             helmet: showPutData?.helmet || '',
             travelPolo: showPutData?.travelPolo || '',
-            familyJerseyNo: showPutData?.familyJerseyNo || ''
+            familyJerseyNo: showPutData?.familyJerseyNo || '',
+
+            battingPads: showPutData?.battingPads || '',
+            battinpadqty: showPutData?.battinpadqty || 0,
+            battingGloves: showPutData?.battingGloves || '',
+            battinggloveqty: showPutData?.battinggloveqty || 0,
+            wkGloves: showPutData?.wkGloves || '',
+            wkGlovesqty: showPutData?.wkGlovesqty || 0,
+            wkPad: showPutData?.wkPad || '',
+            wkpadqty: showPutData?.wkpadqty || 0,
+            shoulderBag: showPutData?.shoulderBag || '',
+            shoulderbagqty: showPutData?.shoulderbagqty || 0,
+            shoeBag: showPutData?.shoeBag || '',
+            shoebagqty: showPutData?.shoebagqty || 0,
+            playingkitBag: showPutData?.playingkitBag || '',
+            playerbagqty: showPutData?.playerbagqty || 0,
+            practicsJersey: showPutData?.practicsJersey || '',
+            practisejerseyqty: showPutData?.practisejerseyqty || 0,
+            familyJersey: showPutData?.familyJersey || '',
+            familyjerseyqty: showPutData?.familyjerseyqty || 0,
+            armGuard: showPutData?.armGuard || '',
+            armguardyqty: showPutData?.armguardyqty || 0,
+            thighGaurad: showPutData?.thighGaurad || '',
+            thighguardyqty: showPutData?.thighguardyqty || 0,
+            abdominalGaurad: showPutData?.abdominalGaurad || '',
+            abdominalguardyqty: showPutData?.abdominalguardyqty || 0,
 
         },
         validate,
@@ -147,11 +268,13 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                     console.log("newvalues", newValues);
                     setSubmitting(false);
                 });
+
         }
     });
 
     //getting dynamicfield values here:
     const [dynamicValues, setDynamicValues] = useState({});
+
     function handleDataUpdate(dynamicValues) {
         console.log("Data", dynamicValues)
         setDynamicValues(dynamicValues)
@@ -475,7 +598,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="battingPads"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={battingPadsProvidedReset}
+                                            checked={formik.values.battingPads === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -484,8 +608,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="battingPads"
                                             type={type}
+                                            ref={battingPadsNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.battingPads === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -499,6 +624,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name='battinpadqty'
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtyBattingPadsReset}
+                                    value={formik.values.battinpadqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 />
                             </Col>
 
@@ -512,7 +639,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="battingGloves"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={battingGlovesProvidedReset}
+                                            checked={formik.values.battingGloves === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -521,8 +649,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="battingGloves"
                                             type={type}
+                                            ref={battingGlovesNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.battingGloves === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -536,6 +665,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name="battinggloveqty"
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtyBattingGlovesReset}
+                                    value={formik.values.battinggloveqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
                                 />
                             </Col>
                         </Row>
@@ -551,7 +682,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="wkGloves"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={wkGlovesProvidedReset}
+                                            checked={formik.values.wkGloves === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -560,8 +692,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="wkGloves"
                                             type={type}
+                                            ref={wkGlovesNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.wkGloves === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -575,6 +708,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name='wkGlovesqty'
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtywkGlovesReset}
+                                    value={formik.values.wkGlovesqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
 
@@ -588,7 +724,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="wkPad"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={wkPadProvidedReset}
+                                            checked={formik.values.wkPad === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -597,8 +734,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="wkPad"
                                             type={type}
+                                            ref={wkPadNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.wkPad === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -612,6 +750,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name="wkpadqty"
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtywkPadReset}
+                                    value={formik.values.wkpadqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
                         </Row>
@@ -627,7 +768,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="shoulderBag"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={shoulderBagProvidedReset}
+                                            checked={formik.values.shoulderBag === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -636,8 +778,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="shoulderBag"
                                             type={type}
+                                            ref={shoulderBagNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.shoulderBag === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -651,6 +794,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name='shoulderbagqty'
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtyshoulderBagReset}
+                                    value={formik.values.shoulderbagqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
 
@@ -664,7 +810,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="shoeBag"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={shoeBagProvidedReset}
+                                            checked={formik.values.shoeBag === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -673,8 +820,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="shoeBag"
                                             type={type}
+                                            ref={shoeBagNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.shoeBag === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -688,6 +836,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name="shoebagqty"
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtyshoeBagReset}
+                                    value={formik.values.shoebagqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
                         </Row>
@@ -702,8 +853,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             inline
                                             label="Provided"
                                             name="playingkitBag"
+                                            ref={playingkitBagProvidedReset}
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            checked={formik.values.playingkitBag === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -712,8 +864,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="playingkitBag"
                                             type={type}
+                                            ref={playingkitBagNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.playingkitBag === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -726,7 +879,10 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     type="number"
                                     name='playerbagqty'
                                     style={{ width: '80px' }}
+                                    ref={QtyplayingkitBagReset}
                                     min="0"
+                                    value={formik.values.playerbagqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
 
@@ -740,7 +896,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="practicsJersey"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={practicsJerseyProvidedReset}
+                                            checked={formik.values.practicsJersey === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -749,8 +906,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="practicsJersey"
                                             type={type}
+                                            ref={practicsJerseyNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.practicsJersey === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -764,6 +922,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name="practisejerseyqty"
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtypracticsJerseyReset}
+                                    value={formik.values.practisejerseyqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
                         </Row>
@@ -779,7 +940,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="familyJersey"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={familyJerseyProvidedReset}
+                                            checked={formik.values.familyJersey === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -788,8 +950,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="familyJersey"
                                             type={type}
+                                            ref={familyJerseyNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.familyJersey === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -803,6 +966,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name='familyjerseyqty'
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={familyJerseyReset}
+                                    value={formik.values.familyjerseyqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
 
@@ -815,8 +981,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             inline
                                             label="Provided"
                                             name="armGuard"
+                                            ref={armGuardProvidedReset}
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            checked={formik.values.armGuard === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -825,8 +992,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="armGuard"
                                             type={type}
+                                            ref={armGuardNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.armGuard === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -840,6 +1008,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name="armguardyqty"
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtyarmGuardReset}
+                                    value={formik.values.armguardyqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
                         </Row>
@@ -855,7 +1026,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="thighGaurad"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={thighGauradProvidedReset}
+                                            checked={formik.values.thighGaurad === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -864,8 +1036,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="thighGaurad"
                                             type={type}
+                                            ref={thighGauradNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.thighGaurad === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -879,6 +1052,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name='thighguardyqty'
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtythighGauradReset}
+                                    value={formik.values.thighguardyqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
 
@@ -892,7 +1068,8 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Provided"
                                             name="abdominalGaurad"
                                             type={type}
-                                            // checked={formik.values.battingStyle === 'leftHanded'}
+                                            ref={abdominalGauradProvidedReset}
+                                            checked={formik.values.abdominalGaurad === 'Provided'}
                                             id={`inline-${type}-Provided`}
                                             value='Provided'
                                         />
@@ -901,8 +1078,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                             label="Not Provided"
                                             name="abdominalGaurad"
                                             type={type}
+                                            ref={abdominalGauradNotProvidedReset}
                                             id={`inline-${type}-NotProvided`}
-                                            // checked={formik.values.battingStyle === 'rightHanded'}
+                                            checked={formik.values.abdominalGaurad === 'NotProvided'}
                                             // defaultChecked={true}
                                             value="NotProvided"
                                         />
@@ -916,6 +1094,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                     name="abdominalguardyqty"
                                     style={{ width: '80px' }}
                                     min="0"
+                                    ref={QtyabdominalGauradReset}
+                                    value={formik.values.abdominalguardyqty} onBlur={formik.handleBlur} onChange={formik.handleChange}
+
                                 />
                             </Col>
                         </Row>

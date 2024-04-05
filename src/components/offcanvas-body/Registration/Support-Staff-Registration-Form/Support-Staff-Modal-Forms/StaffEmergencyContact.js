@@ -38,6 +38,8 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
     const [mobileValueClear, setMobileValueClear] = useState(false);
     const [childNextKey, setChildNextKey] = useState("8");
     const [emergencyContactPersonNo, setEmergencyContactNo] = useState("");
+   
+   
     // reset form start: 
     const emgcontactperson1 = useRef("");
     const emgcontactrel1 = useRef("");
@@ -128,6 +130,11 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         return count;
     }
 
+    const [errors, setErrors] = useState({});
+    const validateForm = (validationErrors) => {
+        setErrors(validationErrors);
+    };
+
     const Samp = (s) => {
         console.log("sample1", s)
         setEmergencyContactNo(s);
@@ -169,7 +176,6 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
     useEffect(() => {
         handleProgress();
     }, [formik.values, handleMobileProgress]); // Ensure that the effect is triggered when form values change
-
 
 
     // 
@@ -227,7 +233,10 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" showPutData={showPutData} />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" value={showPutData.emergencyContactPersonNo}  />
+                                {formik.touched.emergencyContactPersonNo && formik.errors.emergencyContactPersonNo ? (
+                                    <span className="span">{formik.errors.emergencyContactPersonNo}</span>
+                                ) : null}
                             </Col>
                         </Row>
 

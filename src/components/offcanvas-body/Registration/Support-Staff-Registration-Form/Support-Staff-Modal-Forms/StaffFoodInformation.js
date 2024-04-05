@@ -15,11 +15,22 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
 
     //state for food type:
     const [foodType, setFoodType] = useState(null);
+    const [egg, setEgg] = useState(null);
+    const [seaFood, setSeaFood] = useState(null);
+    const [redMeat, setReadMeat] = useState(null);
 
     const handleFoodTypeChange = (e) => {
         setFoodType(e.target.value);
 
     };
+
+    const handleSeaFood = (e) => {
+        setSeaFood(e.target.value);
+    }
+
+    const handleRedMeat = (e) => {
+        setReadMeat(e.target.value);
+    }
 
     //state for allergy field visibility
     const [showAllergyField, setShowAllergyField] = useState(false)
@@ -27,6 +38,10 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     const handleAllergyIfAnyChange = (e) => {
         setShowAllergyField(e.target.value === 'Yes')
     }
+
+    const handleEggiterian = (e) => {
+        setEgg(e.target.value);
+    };
 
     //ref hook:
     const foodTypeRef = useRef(null);
@@ -235,8 +250,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
 
                                     <label htmlFor='foodType'>Food Type<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
-                                            <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
-                                            <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} />
+                                            <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} checked={foodType === 'veg'} />
+                                            <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} checked={foodType === 'nonveg'} />
                                         </div>
                                     </label>
 
@@ -248,8 +263,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                         <Col xs={12} className='inlineText mt-4'>
                                             <label htmlFor='eggiterian'>Eggiterian<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
-                                                    <Form.Check type='radio' id={`eggiterianYes`} name='eggiterian' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={eggiterianRef} />
-                                                    <Form.Check type='radio' id={`eggiterianNo`} name='eggiterian' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={eggiterianRef} />
+                                                    <Form.Check type='radio' id={`eggiterianYes`} name='eggiterian' label='Yes' value='Yes' inline onChange={handleEggiterian} ref={eggiterianRef} checked={showPutData.eggIterian === 'Yes' || egg === 'Yes'} />
+                                                    <Form.Check type='radio' id={`eggiterianNo`} name='eggiterian' label='No' value='No' inline onChange={handleEggiterian} ref={eggiterianRef} checked={showPutData.eggIterian === 'No' || egg === 'No'} />
                                                 </div>
                                             </label>
                                         </Col>
@@ -258,8 +273,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                         <Col xs={12} className='inlineText mt-4 d-none'>
                                             <label htmlFor='seaFood'>Sea Food<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
-                                                    <Form.Check type='radio' id={`seaFoodVeg`} name='seafood' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={seaFoodRef} />
-                                                    <Form.Check type='radio' id={`seaFoodNonVeg`} name='seafood' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={seaFoodRef} />
+                                                    <Form.Check type='radio' id={`seaFoodVeg`} name='seafood' label='Yes' value='Yes' inline onChange={handleSeaFood} ref={seaFoodRef} checked={showPutData.seafood === 'Yes' || seaFood === 'Yes'} />
+                                                    <Form.Check type='radio' id={`seaFoodNonVeg`} name='seafood' label='No' value='No' inline onChange={handleSeaFood} ref={seaFoodRef} checked={showPutData.seafood === 'No' || seaFood === 'No'} />
                                                 </div>
                                             </label>
                                         </Col>
@@ -268,8 +283,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                         <Col xs={12} className='inlineText mt-4 d-none'>
                                             <label htmlFor='redMeat'>Red Meat<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
-                                                    <Form.Check type='radio' id={`redMeatYes`} name='redMeat' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={redMeatRef} />
-                                                    <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={redMeatRef} />
+                                                    <Form.Check type='radio' id={`redMeatYes`} name='redMeat' label='Yes' value='Yes' inline onChange={handleRedMeat} ref={redMeatRef} checked={showPutData.redMeat === 'Yes' || redMeat === 'Yes'} />
+                                                    <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={handleRedMeat} ref={redMeatRef} checked={showPutData.redMeat === 'No' || redMeat === 'No'} />
                                                 </div>
                                             </label>
                                         </Col>
@@ -282,8 +297,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                         <Col xs={12} className='inlineText mt-4'>
                                             <label htmlFor='seaFood'>Sea Food<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
-                                                    <Form.Check type='radio' id={`seaFoodVeg`} name='seafood' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={seaFoodRef} />
-                                                    <Form.Check type='radio' id={`seaFoodNonVeg`} name='seafood' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={seaFoodRef} />
+                                                    <Form.Check type='radio' id={`seaFoodVeg`} name='seafood' label='Yes' value='Yes' inline onChange={handleSeaFood} ref={seaFoodRef} checked={showPutData.seafood === 'Yes' || seaFood === 'Yes'} />
+                                                    <Form.Check type='radio' id={`seaFoodNonVeg`} name='seafood' label='No' value='No' inline onChange={handleSeaFood} ref={seaFoodRef} checked={showPutData.seafood === 'No' || seaFood === 'No'} />
                                                 </div>
                                             </label>
                                         </Col>
@@ -292,8 +307,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                         <Col xs={12} className='inlineText mt-4'>
                                             <label htmlFor='redMeat'>Red Meat<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
-                                                    <Form.Check type='radio' id={`redMeatYes`} name='redMeat' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={redMeatRef} />
-                                                    <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={redMeatRef} />
+                                                    <Form.Check type='radio' id={`redMeatYes`} name='redMeat' label='Yes' value='Yes' inline onChange={handleRedMeat} ref={redMeatRef} checked={showPutData.redMeat === 'Yes' || redMeat === 'Yes'} />
+                                                    <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={handleRedMeat} ref={redMeatRef} checked={showPutData.redMeat === 'No' || redMeat === 'No'} />
                                                 </div>
                                             </label>
                                         </Col>
@@ -302,8 +317,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                         <Col xs={12} className='inlineText mt-4 d-none'>
                                             <label htmlFor='eggiterian'>Eggiterian<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
-                                                    <Form.Check type='radio' id={`eggiterianYes`} name='eggiterian' label='Yes' value='Yes' inline onChange={(e) => console.log(e.target.value)} ref={eggiterianRef} />
-                                                    <Form.Check type='radio' id={`eggiterianNo`} name='eggiterian' label='No' value='No' inline onChange={(e) => console.log(e.target.value)} ref={eggiterianRef} />
+                                                    <Form.Check type='radio' id={`eggiterianYes`} name='eggiterian' label='Yes' value='Yes' inline onChange={handleEggiterian} ref={eggiterianRef} checked={showPutData.eggiterian === 'Yes' || egg === 'Yes'} />
+                                                    <Form.Check type='radio' id={`eggiterianNo`} name='eggiterian' label='No' value='No' inline onChange={handleEggiterian} ref={eggiterianRef} checked={showPutData.eggiterian === 'No' || egg === 'No'} />
                                                 </div>
                                             </label>
                                         </Col>
@@ -316,8 +331,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                 <Col xs={12} className='inlineText allergyMargin'>
                                     <label htmlFor='allergyIfany'>Allergy If Any<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
-                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} />
-                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} />
+                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} checked={showPutData.allergyIfAny === 'Yes'} />
+                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} checked={showPutData.allergyIfAny === 'No'} />
                                         </div>
                                     </label>
                                 </Col>

@@ -219,7 +219,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                                 }
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" showPutData={showPutData} />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" value={showPutData.emergencyContactPersonNo} />
                                 {formik.touched.emergencyContactPersonNo && formik.errors.emergencyContactPersonNo ? (
                                     <span className="span">{formik.errors.emergencyContactPersonNo}</span>
                                 ) : null}

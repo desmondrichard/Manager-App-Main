@@ -286,7 +286,6 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         <option value="usdollar">US Dollar</option>
                                         <option value="euro">Euro</option>
                                         <option value="swissfranc">Swiss Franc</option>
-                                        <option value="singaporedollar">Singapore Dollar</option>
                                         <option value="poundsterling">Pound Sterling</option>
                                         <option value="others">Others</option>
                                     </Form.Select>

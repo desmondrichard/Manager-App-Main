@@ -133,7 +133,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     // progressbar:
     const [progress, setProgress] = useState(0);
 
-
     function handleReset() {
         firstName.current.value = "";
         middleName.current.value = "";
@@ -329,43 +328,52 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     console.log('showPutData1', showPutData)
     console.log('updateMethodDataID:', showPutData.alldataStaffId)
 
-
-
     function handleUpdate() {
         alert("update executed");
-        console.log("formikVals", formik.values, ImageData)
-        //
-        const formData = new FormData();
-        formData.append('supportStaffName', formik.values.supportStaffName);
-        formData.append('middleName', formik.values.middleName);
-        formData.append('lastName', formik.values.lastName);
-        formData.append('designation', formik.values.designation);
-        formData.append('specialization', formik.values.specialization);
-        formData.append('initials', formik.values.initials);
-        formData.append('displayName', formik.values.displayName);
-        formData.append('fatherName', formik.values.fatherName);
-        formData.append('motherName', formik.values.motherName);
-        formData.append('dateOfBirth', formik.values.dateOfBirth);
-        formData.append('bloodGroup', formik.values.bloodGroup);
-        formData.append('emailId', formik.values.emailId);
-        formData.append('mobileNo', formik.values.mobileNo);
-        formData.append('ImageData', ImageData);
-        formData.append('team', formik.values.team);
-        formData.append('year', formik.values.year);
-        formData.append('gender', formik.values.gender);
+        console.log("formikValsImageData", formik.values, ImageData)
+        console.log("ImageDataUpdate", ImageData)
 
-        console.log("form", formData)
-        axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, formData, {
+        // Convert the image file to a byte array
+        // const byteNumbers = new Array(ImageData.length);
+        // for (let i = 0; i < ImageData.length; i++) {
+        //     byteNumbers[i] = ImageData.charCodeAt(i);
+        // }
+        // const byteArray = new Uint8Array(byteNumbers);
+
+        // console.log("ImageDataUpdate", byteArray)
+        
+
+        const dataToSubmit = {
+            supportStaffName: formik.values.supportStaffName,
+            middleName: formik.values.middleName,
+            lastName: formik.values.lastName,
+            designation: formik.values.designation,
+            specialization: formik.values.specialization,
+            initials: formik.values.initials,
+            displayName: formik.values.displayName,
+            fatherName: formik.values.fatherName,
+            motherName: formik.values.motherName,
+            dateOfBirth: formik.values.dateOfBirth,
+            bloodGroup: formik.values.bloodGroup,
+            emailId: formik.values.emailId,
+            mobileNo: formik.values.mobileNo,
+            ImageData: ImageData,
+            team: formik.values.team,
+            year: formik.values.year,
+            gender: formik.values.gender,
+        };
+
+        console.log("dataToSubmit", dataToSubmit);
+
+        axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, dataToSubmit, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json'
             }
-
         })
             .then((response) => {
                 if (response.status === 200) {
                     console.log("Updation Data: ", response.data);
                     onActivationKeyChild(childNextKey); //to navigate to next tab
-
                 } else {
                     console.log("Unexpected response status: ", response.status);
                 }
@@ -376,7 +384,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                 } else {
                     console.log("Error Updating User: ", error.message);
                 }
-
             });
     }
 
@@ -589,7 +596,6 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     label="specialization*"
                                     name="specialization"
                                 >
-
                                     <Form.Select aria-label="specialization" ref={spec} disabled={formik.values.designation === 'none'} value={formik.values.specialization} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('specialization', e.target.value)}>
                                         <option value="none">Select Type</option>
 
@@ -720,7 +726,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                             </Col>
 
                             <Col className='col' lg={4}>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" showPutData={showPutData} />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" value={showPutData.mobileNo} />
                                 {formik.touched.mobileNo && formik.errors.mobileNo ? (
                                     <span className="span">{formik.errors.mobileNo}</span>
                                 ) : null}

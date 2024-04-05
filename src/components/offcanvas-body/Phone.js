@@ -3,7 +3,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './Phone.css';
 // import Col from 'react-bootstrap/Col';
-function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId, showPutData, samp1 }) {
+function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId, samp1,value }) {
     const [phoneValue, setPhoneValue] = useState('');
 
     const [phoneNumber, setPhoneNumber] = useState('');//to fetch 0 or 1
@@ -23,7 +23,7 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId, s
         samp(value)
     };
 
-    console.log("showPutDataPhone", showPutData)
+    // console.log("showPutDataPhone", showPutData)
     const validatePhoneNumber = (phoneNumber) => {
         const phoneNumberPattern = /^\+?[1-9]\d{1,14}$/;
         return phoneNumberPattern.test(phoneNumber);
@@ -39,11 +39,11 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId, s
     }, [phoneValue])
 
     //useEffect is used to preload phone number in update method:
-    useEffect(() => {
-        if (showPutData?.mobileNo) {
-            setPhoneNumber(showPutData.mobileNo)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (showPutData?.mobileNo) {
+    //         setPhoneNumber(showPutData.mobileNo)
+    //     }
+    // }, [])
 
     return (
         <div>
@@ -51,7 +51,7 @@ function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId, s
             {console.log('name:', isClear, phoneNumber)}
             <PhoneInput className='phone'
                 country={'in'}
-                value={isClear ? "" : phoneNumber}
+                value={isClear ? "" : value}
                 // value={"919898989898"} 
                 onChange={handleChange}
                 inputProps={{

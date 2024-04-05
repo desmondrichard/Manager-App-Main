@@ -69,7 +69,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn,showClearBtn }) {
+function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
     const [childNextKey, setChildNextKey] = useState("4");
 
     // reset form start: 
@@ -310,7 +310,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col colAccount acTypeAlign'>
-                                <label className='text-muted' htmlFor="battingpads">Account Type*</label>
+                                <label className='text-muted' htmlFor="battingpads">Account Type</label>
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} style={{ whiteSpace: 'nowrap' }} onChange={(e) => { formik.handleChange(e) }}>
                                         <Form.Check
