@@ -34,12 +34,12 @@ import axios from 'axios';
 // }
 
 
-function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
+function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);
     const [childNextKey, setChildNextKey] = useState("8");
     const [emergencyContactPersonNo, setEmergencyContactNo] = useState("");
-   
-   
+
+
     // reset form start: 
     const emgcontactperson1 = useRef("");
     const emgcontactrel1 = useRef("");
@@ -85,6 +85,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("6")
+        handlePrevClick(true)
     }
 
     //mobile Progress Bar:
@@ -145,8 +146,11 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
     //update:
     function handleUpdate() {
+        //added line 150 to update emergencyContactPersonNo and sent newValues in put request
+        const newValues = { ...formik.values, emergencyContactPersonNo };
+        console.log("showPutDataa", formik.values)
 
-        axios.put(`https://localhost:7097/StaffEmergencycontactmodel/${showPutData.alldataStaffId}`, formik.values, {
+        axios.put(`https://localhost:7097/StaffEmergencycontactmodel/${showPutData.alldataStaffId}`, newValues, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -170,6 +174,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        handlePrevClick(true)
     }
 
     //useEffect will be trigerred whenever formik.values has value
@@ -233,7 +238,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" value={showPutData.emergencyContactPersonNo}  />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" value={showPutData.emergencyContactPersonNo} />
                                 {formik.touched.emergencyContactPersonNo && formik.errors.emergencyContactPersonNo ? (
                                     <span className="span">{formik.errors.emergencyContactPersonNo}</span>
                                 ) : null}
@@ -241,11 +246,11 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
-                            <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} >Save and Next</Button>}
-                            {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                            {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                            {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                             {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                            {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                            {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
                         </Col>
                     </Form>
                 </Container>

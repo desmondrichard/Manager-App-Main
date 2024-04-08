@@ -24,7 +24,7 @@ const validate = values => {
     }
     return errors;
 }
-function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
+function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
     const [childNextKey, setChildNextKey] = useState("7");
 
     const formik = useFormik({
@@ -69,6 +69,8 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("5")
+        handlePrevClick(true)
+
     }
 
     // progress Bar for static fields:
@@ -132,6 +134,8 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        handlePrevClick(true)
+
     }
 
     useEffect(() => {
@@ -184,11 +188,12 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
-                            <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                            {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {console.log("previousClkBtn", previousClk, showSkipBtn)}
+                            {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                            {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                            {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                             {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                            {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                            {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                         </Col>
                     </Form>

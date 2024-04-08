@@ -71,7 +71,7 @@ const validate = values => {
 }
 
 
-function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
+function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
 
     // reset form start: 
     const beneficiarynameReset = useRef("");
@@ -158,6 +158,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("3")
+        handlePrevClick(true)
     }
 
     // progress Bar for static fields:
@@ -220,6 +221,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        handlePrevClick(true)
     }
 
     useEffect(() => {
@@ -485,11 +487,12 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 </Form.Floating>
                             </Col>
                             <Col lg={12} className='my-4 col'>
-                                <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
-                                {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                                {console.log("previousClkBtn", previousClk, showSkipBtn)}
+                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

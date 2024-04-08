@@ -20,11 +20,13 @@ function DashboardCard() {
         fetch('https://localhost:7097/api/playerimage/register/getTestingInformation')
             .then((data) => data.json())
             .then((data) => {
-                // console.log("data",data);
+                console.log("data",data);
                 // console.log("Success in getting players data", data);
                 setShowData(data);  // showData=data;
             })
     }, [])
+
+
     return (
         <div>
             <Header />
@@ -58,7 +60,7 @@ function DashboardCard() {
                                                             />
                                                             <Card.Body style={{ borderTop: '1px solid #DDDDDD' }}>
                                                                 <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Player ID:
-                                                                    {showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}
+                                                                    {showData.playerId ? showData.playerId : 'N/A'}
                                                                 </Card.Text>
                                                                 <Card.Text style={{ fontSize: '14px', fontWeight: '500' }}>Player Name: {showData.playerName ? showData.playerName : 'N/A'}</Card.Text>
                                                             </Card.Body>

@@ -10,7 +10,7 @@ import { useFormik } from 'formik';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 import axios from 'axios';
 
-function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
+function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
     const [childNextKey, setChildNextKey] = useState("5");
 
     //state for food type:
@@ -22,6 +22,10 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     const handleFoodTypeChange = (e) => {
         setFoodType(e.target.value);
 
+    };
+
+    const handleEggiterian = (e) => {
+        setEgg(e.target.value);
     };
 
     const handleSeaFood = (e) => {
@@ -39,9 +43,18 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         setShowAllergyField(e.target.value === 'Yes')
     }
 
-    const handleEggiterian = (e) => {
-        setEgg(e.target.value);
-    };
+
+    useEffect(() => {
+        console.log("foodType2", showPutData)
+        setFoodType(showPutData.foodtype)
+        setSeaFood(showPutData.seaFood)
+
+        formik.setFieldValue("allergy", showPutData.allergy);
+        if (showPutData.allergyIfAny === "Yes") {
+            setShowAllergyField(true)
+
+        }
+    }, [])
 
     //ref hook:
     const foodTypeRef = useRef(null);
@@ -87,8 +100,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("3")
+        handlePrevClick(true)
     }
-
 
 
     //Formik:
@@ -159,7 +172,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
                 obj[key] !== null &&
                 obj[key] !== undefined &&
-                obj[key] !== ''
+                obj[key] !== '' &&
+                obj[key] !== 0
             )
                 //incremented count by 2(40%) if foodtype='veg' [or] AllergyIfAny='No':
                 if ((key === 'foodtype' && obj[key] === 'veg') || (key === 'allergyIfAny' && obj[key] === 'No')) {
@@ -186,6 +200,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        handlePrevClick(true)
     }
 
     //update
@@ -245,12 +260,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>
                             <Col xs={12} md={6} style={{ marginRight: '50px' }}>
-
                                 <Col xs={12} className='inlineText'>
-
                                     <label htmlFor='foodType'>Food Type<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
                                             <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} checked={foodType === 'veg'} />
+                                            {console.log("foodType", foodType)}
                                             <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} checked={foodType === 'nonveg'} />
                                         </div>
                                     </label>
@@ -336,11 +350,12 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                         </div>
                                     </label>
                                 </Col>
-
+                                {console.log("showAllergyField", showAllergyField)}
                                 {showAllergyField && (
                                     <Col xs={12} className='inlineText'>
                                         <Form.Group as={Col} controlId="formText" >
-                                            <Form.Control type="text" placeholder="Allergy" name="allergy" onChange={(e) => { formik.handleChange(e) }} />
+                                            {/* formik.get or create state and set onchange*/}
+                                            <Form.Control type="text" placeholder="Allergy" name="allergy" onChange={(e) => { formik.handleChange(e) }} value={formik.values.allergy || ''} />
                                         </Form.Group>
                                     </Col>
                                 )}
@@ -348,12 +363,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                         </Row>
                         <Row>
                             <Col lg={12} className='my-4 col'>
-                                <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
-                                {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>}
+                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
-
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

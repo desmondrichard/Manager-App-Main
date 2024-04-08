@@ -37,7 +37,7 @@ const validate = values => {
 }
 
 
-function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
+function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
     const modalContentRef = useRef(null);
     // reset form start: 
     const specsReset = useRef("");
@@ -103,7 +103,11 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("0")
+        handlePrevClick(true)
     }
+
+
+
 
     // progress Bar for static fields:
     const [progress, setProgress] = useState(0);
@@ -140,9 +144,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
-        if (modalContentRef.current) {
-            modalContentRef.current.scrollTop = 0;
-        }
+        handlePrevClick(true)
 
     }
 
@@ -331,11 +333,12 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                             </Col>
 
                             <Col xs={12} lg={12} className='my-4 col'>
-                                <Button variant="primary" className='mb-2 me-1' style={{ width: "130px" }} onClick={() => handlePreviousButton()}>PREVIOUS</Button>
-                                {showSaveBtn && <Button variant="success" type="submit" value="submit" className='mx-3 mb-2' style={{ width: "130px" }}>Save and Next</Button>}
-                                {showClearBtn && <Button variant="warning" className='mx-1 text-white mb-2' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
-                                {!showSaveBtn && <Button variant="info" className='me-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {console.log("previousClkBtn", previousClk, showSkipBtn)}
+                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

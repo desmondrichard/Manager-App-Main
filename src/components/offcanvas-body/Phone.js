@@ -3,7 +3,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './Phone.css';
 // import Col from 'react-bootstrap/Col';
-function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId, samp1,value }) {
+function Phone({ isClear, onActivateProgressBar, samp, dynamicName, dynamicId, samp1, value }) {
     const [phoneValue, setPhoneValue] = useState('');
 
     const [phoneNumber, setPhoneNumber] = useState('');//to fetch 0 or 1

@@ -14,7 +14,7 @@ import ProgressBarWithLabel from '../ProgressBarWithLabel';
 import axios from 'axios';
 import { useFormik } from 'formik';
 
-function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, showPutData, showSaveBtn, showClearBtn }) {
+function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, showPutData, showSaveBtn, showClearBtn, handlePrevClick, updateBtnShow, previousClk }) {
     //close modal:
     const [modalClose, setModalClose] = useState(false)
     // reset form start: 
@@ -47,6 +47,7 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("8")
+        handlePrevClick(true)
     }
 
     //Toast msg:
@@ -251,9 +252,10 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
-                            <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                            {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {console.log('previousClk', previousClk)}
+                            {!previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                            {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                            {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                             {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
 
                         </Col>

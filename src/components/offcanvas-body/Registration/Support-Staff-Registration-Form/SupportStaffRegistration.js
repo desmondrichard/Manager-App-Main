@@ -58,8 +58,16 @@ function SupportStaffRegistration(props) {
     //updateBtnClicked:
     const [updateClicked, setUpdateClicked] = useState(false)
 
+    // reset modal after clicking update and then clicking add:
+
+
     // modal open:
-    const handleShow = () => setShow(true);
+    // const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true);
+
+
+    };
 
     //state to open/hide progressbar: defaultly set as true:
     // const [showProgressBar, setShowProgressBar] = useState(true);
@@ -67,6 +75,10 @@ function SupportStaffRegistration(props) {
     //state open/hide save/update button: defaultly set as true:
     const [showSaveBtn, setShowSaveBtn] = useState(true);
     const [showUpdateBtn, setShowUpdateBtn] = useState(true);
+
+    //to hide update btn in social media form alone:
+    const [updateBtnShow, setUpdateBtnShow] = useState(false)
+
 
     const [age, setAge] = useState('');
 
@@ -176,6 +188,7 @@ function SupportStaffRegistration(props) {
             })
     }
 
+
     //DELETE Method:
     function deleteUser(id) {
         Swal.fire({
@@ -234,14 +247,19 @@ function SupportStaffRegistration(props) {
         }
     };
 
+    //
+    const [showSkipBtn, setShowSkipBtn] = useState(false)
 
     const [showPutData, setShowPutData] = useState({})
 
     function handleUpdateButtonClick(data, id) {
         // console.log("progressBar", showProgressBar)
         // setShowProgressBar(false);//so progress bar wont open
+        setShowSkipBtn(true)//displayed
+        setUpdateBtnShow(true)//displayed
         setShowSaveBtn(false)//so  Save/update button will be disabled
         setShowClearBtn(false)//so clear button will be disabled
+        setPreviousClk(true)//displayed
         console.log("StaffDataforPUT: ", data, "ID: ", id)
         setShowPutData(data)
         setShow(true) //to open modal onclicking update button
@@ -250,6 +268,15 @@ function SupportStaffRegistration(props) {
 
     // show/hide clear btn:
     const [showClearBtn, setShowClearBtn] = useState(true);
+
+    //
+    const [previousClk, setPreviousClk] = useState(false)
+
+    function handlePrevClick(data) {
+        setPreviousClk(data)
+    }
+
+
     return (
         <div>
             <Header />
@@ -276,23 +303,23 @@ function SupportStaffRegistration(props) {
                             <p>{key}</p>
                             <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
-                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} toggleSaveUpdateButtons={toggleSaveUpdateButtons} updateClicked={updateClicked} showClearBtn={showClearBtn} />
+                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} toggleSaveUpdateButtons={toggleSaveUpdateButtons} updateClicked={updateClicked} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:2 */}
-                                <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} toggleSaveUpdateButtons={toggleSaveUpdateButtons} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} />
+                                <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} toggleSaveUpdateButtons={toggleSaveUpdateButtons} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:3 */}
-                                <StaffIDCardDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} />
+                                <StaffIDCardDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:4 */}
-                                <StaffBankAccountDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} />
+                                <StaffBankAccountDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:5 */}
-                                <StaffFoodInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} />
+                                <StaffFoodInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:6 */}
-                                <StaffTravelInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} />
+                                <StaffTravelInformation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:7 */}
-                                <StaffPreviousRepresentation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} />
+                                <StaffPreviousRepresentation activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:8 */}
-                                <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} updateClicked={updateClicked} showClearBtn={showClearBtn} />
+                                <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} updateClicked={updateClicked} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:9 */}
-                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} />
+                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} updateBtnShow={updateBtnShow} />
                             </Accordion>
                         </Modal.Body>
 

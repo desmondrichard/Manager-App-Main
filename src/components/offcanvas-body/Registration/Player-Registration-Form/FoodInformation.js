@@ -11,22 +11,18 @@ import ProgressBarWithLabel from '../ProgressBarWithLabel';
 import axios from 'axios';
 import { useFormik } from 'formik';
 
-function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
+function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
+    const [childNextKey, setChildNextKey] = useState("6");
 
     //state for food type:
     const [foodType, setFoodType] = useState(null);
-
     const [egg, setEgg] = useState(null);
     const [seaFood, setSeaFood] = useState(null);
     const [redMeat, setReadMeat] = useState(null);
 
-    useEffect(() => {
-        setFoodType(showPutData.foodType)
-        formik.setFieldValue("allergy", "showPutData.allergy");
-    }, [])
-
     const handleFoodTypeChange = (e) => {
         setFoodType(e.target.value);
+
     };
 
     const handleEggiterian = (e) => {
@@ -48,8 +44,19 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         setShowAllergyField(e.target.value === 'Yes')
     }
 
-    //next Btn:
-    const [childNextKey, setChildNextKey] = useState("6");
+
+
+    useEffect(() => {
+        console.log("foodType2", showPutData)
+        setFoodType(showPutData.foodtype)
+        setSeaFood(showPutData.seaFood)
+
+        formik.setFieldValue("allergy", showPutData.allergy);
+        if (showPutData.allergyIfAny === "Yes") {
+            setShowAllergyField(true)
+
+        }
+    }, [])
 
     //ref hook:
     const foodTypeRef = useRef(null);
@@ -85,6 +92,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
             allergyRadios[i].checked = false;
         }
 
+        //
         setFoodType(null);
         setShowAllergyField(false);
         formik.resetForm();
@@ -94,10 +102,14 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("4")
+        handlePrevClick(true)
+        // handlePrevClick(false)
     }
 
+
+
     //Formik:
-    const formik = useFormik({  //get Value in formik for input
+    const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
             foodtype: '',
@@ -125,12 +137,15 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
                     console.log("newvaluesFoodsuccess", newValues)
+
                 })
                 .catch(error => {
                     console.error(error.message);
                     console.log("newvaluesFoodfail", newValues)
 
                 });
+
+
         }
     })
 
@@ -153,7 +168,6 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
         setProgress(newProgress);
     }
 
-
     function countKeysWithNonEmptyValues(obj) {
         let count = 0;
 
@@ -162,7 +176,8 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                 obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
                 obj[key] !== null &&
                 obj[key] !== undefined &&
-                obj[key] !== ''
+                obj[key] !== '' &&
+                obj[key] !== 0
             )
                 //incremented count by 2(40%) if foodtype='veg' [or] AllergyIfAny='No':
                 if ((key === 'foodtype' && obj[key] === 'veg') || (key === 'allergyIfAny' && obj[key] === 'No')) {
@@ -189,11 +204,11 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        handlePrevClick(true)
     }
 
     //update
     function handleUpdate() {
-
         const newFormikValues = {
             foodtype: showPutData.foodType,
             eggiterian: showPutData.eggiterian,
@@ -234,11 +249,15 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
             });
     }
 
+
     useEffect(() => {
-        handleProgress();// whenever formik values changes  run this handleProgress() function
+        handleProgress();
     }, [formik.values])
 
+
+
     return (
+
         <Accordion.Item eventKey="5">
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>FOOD INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
@@ -246,18 +265,17 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>
                             <Col xs={12} md={6} style={{ marginRight: '50px' }}>
-
                                 <Col xs={12} className='inlineText'>
-
                                     <label htmlFor='foodType'>Food Type<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
                                             <Form.Check type='radio' id={`foodTypeVeg`} name='foodtype' label='Veg' value='veg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} checked={foodType === 'veg'} />
+                                            {console.log("foodType", foodType)}
                                             <Form.Check type='radio' id={`foodTypeNonVeg`} name='foodtype' label='Non-Veg' value='nonveg' inline onChange={handleFoodTypeChange} ref={foodTypeRef} checked={foodType === 'nonveg'} />
                                         </div>
                                     </label>
 
                                 </Col>
-                                {console.log('showPutDataD', showPutData, foodType)}
+
                                 {foodType === 'veg' && (
                                     <>
 
@@ -294,6 +312,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                 )}
                                 {foodType === 'nonveg' && (
                                     <>
+
                                         <Col xs={12} className='inlineText mt-4'>
                                             <label htmlFor='seaFood'>Sea Food<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
@@ -308,7 +327,7 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                             <label htmlFor='redMeat'>Red Meat<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
                                                     <Form.Check type='radio' id={`redMeatYes`} name='redMeat' label='Yes' value='Yes' inline onChange={handleRedMeat} ref={redMeatRef} checked={showPutData.redMeat === 'Yes' || redMeat === 'Yes'} />
-                                                    <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={handleRedMeat} ref={redMeatRef} checked={showPutData.redMeat === 'Yes' || redMeat === 'No'} />
+                                                    <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={handleRedMeat} ref={redMeatRef} checked={showPutData.redMeat === 'No' || redMeat === 'No'} />
                                                 </div>
                                             </label>
                                         </Col>
@@ -336,12 +355,12 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                                         </div>
                                     </label>
                                 </Col>
-
+                                {console.log("showAllergyField", showAllergyField)}
                                 {showAllergyField && (
                                     <Col xs={12} className='inlineText'>
                                         <Form.Group as={Col} controlId="formText" >
-                                            <Form.Control type="text" placeholder="Allergy" name="allergy" onChange={(e) => { formik.handleChange(e) }} value={formik.value} />
-                                            {/* set in value field here */}
+                                            {/* formik.get or create state and set onchange*/}
+                                            <Form.Control type="text" placeholder="Allergy" name="allergy" onChange={(e) => { formik.handleChange(e) }} value={formik.values.allergy || ''} />
                                         </Form.Group>
                                     </Col>
                                 )}
@@ -349,11 +368,13 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
                         </Row>
                         <Row>
                             <Col lg={12} className='my-4 col'>
-                                <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                {showSaveBtn && <Button variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} type='submit'>Save and Next</Button>}
-                                {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={handleReset}>CLEAR</Button>}
+                                {console.log("previousClkBtn", previousClk, showSkipBtn)}
+                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+
 
                             </Col>
                         </Row>
@@ -366,4 +387,4 @@ function FoodInformation({ activationKey, onActivationKeyChild, onPreviousActiva
     )
 }
 
-export default FoodInformation
+export default StaffFoodInformation

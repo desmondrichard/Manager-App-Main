@@ -69,7 +69,7 @@ const validate = values => {
 }
 
 
-function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData, showClearBtn }) {
+function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
     //next btn:
     const [childNextKey, setChildNextKey] = useState("3")
     // reset form start: 
@@ -208,7 +208,6 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         setDynamicFieldsClear(count => count + 1)
         formik.resetForm();
         setProgress(0);
-
     }
 
 
@@ -286,6 +285,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("1")
+        handlePrevClick(true)
     }
 
     // progress Bar for static fields:
@@ -298,7 +298,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
         //calc formula
         let newProgress = ((totalFilledFields / 22) * 100).toFixed();
-        console.log("Progress", newProgress)
+        console.log("ProgressK", newProgress, totalFilledFields)
         setProgress(newProgress);
     }
 
@@ -306,11 +306,13 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         let count = 0;
 
         for (const key in obj) {
+            console.log("obj1", obj, obj[key])
             if (
                 obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
                 obj[key] !== null &&
                 obj[key] !== undefined &&
-                obj[key] !== ''
+                obj[key] !== '' &&
+                obj[key] !== 0
             ) {
                 count++;
             }
@@ -346,6 +348,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        handlePrevClick(true)
     }
 
     //clearing DynamicFields:
@@ -1103,11 +1106,12 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
 
                         <Col lg={12} className='my-4 col'>
-                            <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            {showSaveBtn && <Button variant="success" type="submit" value="submit" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                            {showClearBtn && <Button variant="warning" type="button" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {console.log("previousClkBtn", previousClk, showSkipBtn)}
+                            {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                            {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                            {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                             {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                            {!showSaveBtn && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                            {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                         </Col>
                     </Form>

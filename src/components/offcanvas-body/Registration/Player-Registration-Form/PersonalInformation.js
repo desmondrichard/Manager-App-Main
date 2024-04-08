@@ -94,7 +94,7 @@ const validate = values => {
 }
 
 
-function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, showClearBtn }) {
+function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, showClearBtn, previousClk, showSkipBtn }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
     const [mobileValueClear1, setMobileValueClear1] = useState(false);//for clearing mobile no ..false-no clear
 
@@ -335,6 +335,8 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
         formData.append('gender', formik.values.gender);
 
         console.log("form", formData)
+        const newValues = { ...formik.values, secondNumber };
+
         axios.put(`https://localhost:7097/UpdatePlayer/${showPutData.alldataplayerId}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -656,11 +658,14 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                 </Form.Floating>
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
+                                {console.log('previousClkPer', previousClk)}
                                 {showClearBtn && <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
-                                {showSaveBtn && <Button variant="success" type='submit' disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} className='mx-3' style={{ whiteSpace: 'nowrap', width: '130px' }} >Save and Next</Button>}
-                                {!showSaveBtn && <Button variant="info" className='mx-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-2px' }} onClick={handleSkip}>Skip</Button>}
-
+                                {/*only when showSaveBtn is true saveandnext btn will be displayed:  */}
+                                {!previousClk && showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
+                                {/* only when showSaveBtn is false update btn will be displayed: */}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 text-white' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
+                                {console.log("previousClkBtn", previousClk, showSkipBtn)}
+                                {(previousClk || showSkipBtn) && <Button variant="dark" style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>
                         </Row>
                     </Form>

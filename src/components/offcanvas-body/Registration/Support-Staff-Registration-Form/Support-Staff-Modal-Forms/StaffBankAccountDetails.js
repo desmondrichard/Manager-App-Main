@@ -69,7 +69,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn }) {
+function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
     const [childNextKey, setChildNextKey] = useState("4");
 
     // reset form start: 
@@ -156,6 +156,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("2")
+        handlePrevClick(true)
     }
 
     //Progress Bar:
@@ -220,6 +221,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        handlePrevClick(true)
     }
 
     //useEffect will be trigerred whenever formik.values has value
@@ -282,9 +284,6 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                         <option value="rupees">Rupees</option>
                                         <option value="us dollar">US Dollar</option>
                                         <option value="euro">Euro</option>
-                                        <option value="swiss franc">Swiss Franc</option>
-                                        <option value="singapore dollar">Singapore Dollar</option>
-                                        <option value="pound sterling">Pound Sterling</option>
                                         <option value="others">Others</option>
                                     </Form.Select>
                                     {
@@ -481,12 +480,11 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                 </Form.Floating>
                             </Col>
                             <Col lg={12} className='my-4 col'>
-                                <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                                {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
-
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>
                         </Row>
 

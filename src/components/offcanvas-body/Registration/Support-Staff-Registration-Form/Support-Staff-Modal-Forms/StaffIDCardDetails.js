@@ -72,7 +72,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData, showClearBtn }) {
+function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousActivationKey, showSaveBtn, showPutData, showClearBtn, previousClk, showSkipBtn, handlePrevClick }) {
     //reset address:
     const [clearValue, setClearValue] = useState(false);
 
@@ -174,6 +174,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("1")
+        handlePrevClick(true)
     }
 
     //Progress Bar:
@@ -603,12 +604,11 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
 
                             <Col xs={12} lg={12} className='my-4 col'>
-                                <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                                {showSaveBtn && <Button variant="success" type='submit' className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                                {showClearBtn && <Button variant="warning" className='text-white mb-2 mx-1 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" className='mx-1 skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
-
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>
                         </Row>
 

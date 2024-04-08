@@ -94,7 +94,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, toggleSaveUpdateButtons, updateClicked, showClearBtn }) {
+function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, toggleSaveUpdateButtons, updateClicked, showClearBtn, previousClk, showSkipBtn }) {
     console.log("showSaveBtnNew", showSaveBtn)
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
 
@@ -255,6 +255,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
+        // handlePrevClick(true)
     }
 
     //phone value:
@@ -334,14 +335,15 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         console.log("ImageDataUpdate", ImageData)
 
         // Convert the image file to a byte array
-        // const byteNumbers = new Array(ImageData.length);
-        // for (let i = 0; i < ImageData.length; i++) {
-        //     byteNumbers[i] = ImageData.charCodeAt(i);
-        // }
-        // const byteArray = new Uint8Array(byteNumbers);
+        const byteNumbers = new Array(ImageData.length);
+        for (let i = 0; i < ImageData.length; i++) {
+            byteNumbers[i] = ImageData.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const base64String = btoa(String.fromCharCode.apply(null, byteArray));
 
         // console.log("ImageDataUpdate", byteArray)
-        
+
 
         const dataToSubmit = {
             supportStaffName: formik.values.supportStaffName,
@@ -357,7 +359,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             bloodGroup: formik.values.bloodGroup,
             emailId: formik.values.emailId,
             mobileNo: formik.values.mobileNo,
-            ImageData: ImageData,
+            ImageData: base64String,
             team: formik.values.team,
             year: formik.values.year,
             gender: formik.values.gender,
@@ -755,12 +757,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                 <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
+                                {console.log('previousClkPer', previousClk)}
                                 {showClearBtn && <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {/*only when showSaveBtn is true saveandnext btn will be displayed:  */}
-                                {showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
+                                {!previousClk && showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
                                 {/* only when showSaveBtn is false update btn will be displayed: */}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 text-white' style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleUpdate}>Update</Button>}
-                                {!showSaveBtn && <Button variant="dark" style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleSkip}>Skip</Button>}
+                                {console.log("previousClkBtn", previousClk, showSkipBtn)}
+                                {(previousClk || showSkipBtn) && <Button variant="dark" style={{ whiteSpace: 'nowrap', width: '130px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>
                         </Row>
                     </Form>

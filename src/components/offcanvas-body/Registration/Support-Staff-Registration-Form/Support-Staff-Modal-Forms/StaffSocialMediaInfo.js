@@ -13,7 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, showPutData, showSaveBtn, hideSaveButton, showClearBtn }) {
+function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, showPutData, showSaveBtn, hideSaveButton, showClearBtn, handlePrevClick, updateBtnShow, previousClk }) {
     console.log("showPutDataStar", showPutData)
 
     const [modalClose, setModalClose] = useState(false)
@@ -40,6 +40,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowDat
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("7")
+        handlePrevClick(true)
     }
 
     //Toast msg:
@@ -249,11 +250,11 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowDat
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
-                            <Button variant="primary" type="button" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>
-                            {showSaveBtn && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                            {showClearBtn && <Button variant="warning" className='text-white mb-2' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {console.log('previousClk', previousClk)}
+                            {!previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                            {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
+                            {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                             {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-
                         </Col>
                     </Form>
                 </Container>
