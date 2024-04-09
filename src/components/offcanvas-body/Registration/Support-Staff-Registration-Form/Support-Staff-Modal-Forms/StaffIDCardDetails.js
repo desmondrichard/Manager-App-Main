@@ -78,6 +78,16 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
     const [childNextKey, setChildNextKey] = useState("3");
 
+    //Country value setting for post and put*:
+    const [isPutRequest, setIsPutRequest] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState(showPutData ? Country.getAllCountries().find(option => option.name === showPutData.country) : null);
+
+    //State value setting for post and put*:
+    const [selectedState, setSelectedState] = useState(showPutData ? State.getAllStates().find(option => option.name === showPutData.state) : null);
+
+    //City value setting for post and put*:
+    const [selectedCity, setSelectedCity] = useState(showPutData ? City.getAllCities().find(option => option.name === showPutData.city) : null);
+
     // reset form start: 
     const aadharno1 = useRef("");
     const panno1 = useRef("");
@@ -291,21 +301,19 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
         return `${year}-${month}-${day}`;
     };
 
-    // country-state-city:
-    const [selectedCountry, setSelectedCountry] = useState(null);
-    const [selectedState, setSelectedState] = useState(null);
-    const [selectedCity, setSelectedCity] = useState(null);
-    // useEffect(() => {
-    //     console.log(selectedCountry);
-    //     console.log(selectedCountry?.isoCode);
-    //     console.log(State?.getStatesOfCountry(selectedCountry?.isoCode));
-    // }, [selectedCountry]);
+    // country-state-city: for POST not for PUT so we declared states dynamically for POST and PUT 
+    // const [selectedCountry, setSelectedCountry] = useState(null);
+    //const [selectedState, setSelectedState] = useState(null);
+    //const [selectedCity, setSelectedCity] = useState(null);
+
 
     //useEffect will be trigerred whenever formik.values has value
 
     function handleSkip() {
         onActivationKeyChild(childNextKey)
     }
+
+
 
     useEffect(() => {
         handleProgress();
@@ -316,6 +324,13 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
             formik.setFieldValue("visacheck", showPutData.visacheck);
         }
     }, [showPutData])
+
+    //Country value setting for post and put*:
+    useEffect(() => {
+        if (showPutData) {
+            setIsPutRequest(true);
+        }
+    }, [showPutData]);
     return (
 
         <Accordion.Item eventKey="2">

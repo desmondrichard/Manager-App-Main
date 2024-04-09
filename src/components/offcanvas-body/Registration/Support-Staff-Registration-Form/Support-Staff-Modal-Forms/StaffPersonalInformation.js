@@ -369,7 +369,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
 
         axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, dataToSubmit, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             }
         })
             .then((response) => {

@@ -175,9 +175,21 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         handlePrevClick(true)
     }
     // country-state-city:
-    const [selectedCountry, setSelectedCountry] = useState(null);
-    const [selectedState, setSelectedState] = useState(null);
-    const [selectedCity, setSelectedCity] = useState(null);
+    //const [selectedCountry, setSelectedCountry] = useState(null);
+    //const [selectedState, setSelectedState] = useState(null);
+    //const [selectedCity, setSelectedCity] = useState(null);
+
+    //Country value setting for post and put*:
+    const [isPutRequest, setIsPutRequest] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState(showPutData ? Country.getAllCountries().find(option => option.name === showPutData.country) : null);
+
+    //State value setting for post and put*:
+    const [selectedState, setSelectedState] = useState(showPutData ? State.getAllStates().find(option => option.name === showPutData.state) : null);
+
+    //City value setting for post and put*:
+    const [selectedCity, setSelectedCity] = useState(showPutData ? City.getAllCities().find(option => option.name === showPutData.city) : null);
+
+
     useEffect(() => {
         console.log(selectedCountry);
         console.log(selectedCountry?.isoCode);
@@ -198,6 +210,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         console.log("Progress", newProgress)
         setProgress(newProgress);
     }
+
 
     function countKeysWithNonEmptyValues(obj) {
         let count = 0;
@@ -272,6 +285,13 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
     useEffect(() => {
         handleProgress();   // uncomment while adding progress bar
     }, [formik.values, selectedCountry, selectedState, selectedCity]);
+
+    //Country value setting for post and put*:
+    useEffect(() => {
+        if (showPutData) {
+            setIsPutRequest(true);
+        }
+    }, [showPutData]);
     return (
 
         <Accordion.Item eventKey="3">

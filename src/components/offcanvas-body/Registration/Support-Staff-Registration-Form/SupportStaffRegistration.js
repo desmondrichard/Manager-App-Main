@@ -188,7 +188,6 @@ function SupportStaffRegistration(props) {
             })
     }
 
-
     //DELETE Method:
     function deleteUser(id) {
         Swal.fire({
@@ -319,7 +318,7 @@ function SupportStaffRegistration(props) {
                                 {/* Accordion:8 */}
                                 <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} updateClicked={updateClicked} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:9 */}
-                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} updateBtnShow={updateBtnShow} />
+                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} updateBtnShow={updateBtnShow} previousClk={previousClk}/>
                             </Accordion>
                         </Modal.Body>
 
