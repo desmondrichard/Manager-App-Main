@@ -299,7 +299,7 @@ function SupportStaffRegistration(props) {
                             <Modal.Title className='text-white'><h5>SUPPORT STAFFS FORM</h5></Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <p>{key}</p>
+                            {/* <p>{key}</p> */}
                             <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
                                 <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} toggleSaveUpdateButtons={toggleSaveUpdateButtons} updateClicked={updateClicked} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />

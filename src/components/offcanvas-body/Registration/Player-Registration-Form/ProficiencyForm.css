@@ -1,26 +1,33 @@
-.col{
-    margin-top: 30px;
+.col {
+  margin-top: 30px;
 }
 
-.row{
-    margin-right:30px;
+.row {
+  margin-right: 30px;
 }
 
-.form-check-input{
-	appearance: auto;
+.form-check-input {
+  appearance: auto;
 }
 
-.form-control:focus{
-    box-shadow:none !important;
-    border:2px solid black !important;
-  }
+.form-control:focus {
+  box-shadow: none !important;
+  border: 2px solid black !important;
+}
 
-  select:focus{
-    border:2px solid black !important;
-    box-shadow: none !important;
-  }
+select:focus {
+  border: 2px solid black !important;
+  box-shadow: none !important;
+}
 
-  /* dynamic dropdown: */
+/* dynamic dropdown: */
 option[disabled] {
   display: none;
+}
+
+@media (min-width:545px) and (max-width: 992px) {
+  .updateP {
+    margin-top: -7px;
+  }
+
 }

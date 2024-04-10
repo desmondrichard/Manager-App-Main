@@ -1,17 +1,45 @@
-.col{
-    margin-top: 30px;
+.col {
+  margin-top: 30px;
 }
 
-.row{
-    margin-right:30px;
+.row {
+  margin-right: 30px;
 }
 
-.form-control:focus{
-    box-shadow:none !important;
-    border:2px solid black !important;
+.form-control:focus {
+  box-shadow: none !important;
+  border: 2px solid black !important;
+}
+
+select:focus {
+  border: 2px solid black !important;
+  box-shadow: none !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .updateP {
+    margin-top: -7px;
+  }
+}
+
+/*  */
+@media (min-width:545px) and (max-width: 992px) {
+  .updateP {
+    margin-top: -7px;
   }
 
-  select:focus{
-    border:2px solid black !important;
-    box-shadow: none !important;
+  .previousP {
+    margin-bottom: 20px;
   }
+
+}
+
+@media (max-width: 495px) {
+  .updateP {
+    margin-top: 1px !important;
+  }
+
+  .previousP {
+    margin-left: 3px;
+  }
+}

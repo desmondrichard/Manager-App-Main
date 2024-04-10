@@ -270,7 +270,7 @@ function PlayerRegistration(props) {
             </Modal.Header>
             {/* <Modal.Body className='modalBody' style={{ maxHeight: '60vh', overflowY: 'auto' }}> */}
             <Modal.Body className='modalBody'>
-              <p>{parentkey}</p>
+              {/* <p>{parentkey}</p> */}
               <Accordion activeKey={parentkey}>
                 {/* <RegistrationForm /> */}
                 {/* Accordion:1 */}

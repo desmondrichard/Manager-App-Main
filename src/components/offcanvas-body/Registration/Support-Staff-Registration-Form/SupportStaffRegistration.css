@@ -25,8 +25,21 @@ select:focus {
 }
 
 /* styling updatye,skip btns: */
-@media (min-width:300px) and (max-width: 992px) {
+/* @media (min-width:300px) and (max-width: 992px) {
   .update,.skip {
     margin-top: 5px !important;
+  }
+} */
+
+@media (min-width:495px) and (max-width: 992px) {
+  .updates {
+    margin-top: -5px;
+  }
+ 
+}
+
+@media (min-width:300px) and (max-width:992px){
+  .previouss{
+    margin-bottom:2px;
   }
 }
