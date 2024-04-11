@@ -64,6 +64,9 @@ function PlayerRegistration(props) {
   //SkipBtn show/hide:
   const [showSkipBtn, setShowSkipBtn] = useState(false)
 
+  //clear image in post/put:
+  const [clearImageInPost, setClearImageInPost] = useState(true);
+
   function handlePrevClick(data) {
     setPreviousClk(data)
   }
@@ -213,6 +216,8 @@ function PlayerRegistration(props) {
       })
   }
 
+
+
   //updateBtnClicked:
   const [updateClicked, setUpdateClicked] = useState(false)
   //state open/hide save/update button: defaultly set as true:
@@ -227,6 +232,7 @@ function PlayerRegistration(props) {
     setShowClearBtn(false)//so clear button will be disabled
     setPreviousClk(true)//displayed
     setShowSkipBtn(true)//displayed
+    setClearImageInPost(false);
     console.log("StaffDataforPUT: ", data, "ID: ", id)
     setShowPutData(data)
     setShow(true) //to open modal onclicking update button
@@ -274,7 +280,7 @@ function PlayerRegistration(props) {
               <Accordion activeKey={parentkey}>
                 {/* <RegistrationForm /> */}
                 {/* Accordion:1 */}
-                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
+                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
                 {/* Accordion:2 */}
                 <ProficiencyForm activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:3 */}

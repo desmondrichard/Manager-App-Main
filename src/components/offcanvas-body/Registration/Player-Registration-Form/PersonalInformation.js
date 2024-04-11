@@ -94,7 +94,7 @@ const validate = values => {
 }
 
 
-function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, showClearBtn, previousClk, showSkipBtn }) {
+function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, showClearBtn, previousClk, showSkipBtn, updateClicked, clearImageInPost }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
     const [mobileValueClear1, setMobileValueClear1] = useState(false);//for clearing mobile no ..false-no clear
 
@@ -102,6 +102,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
     // const [mobileValue, setMobileValue] = useState(false);
     const [imageValue, setImageValue] = useState(false);
     // const [imageValue,setImageValue]=useState(false);
+
 
 
     // next btn:
@@ -202,7 +203,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
             formData.append('team', values.team);
             formData.append('year', values.year);
 
-            axios.post('https://localhost:7097/api/playerimage/PlayersTestingImage', formData, {
+            axios.post('https://localhost:7097/PersonalInformations', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -335,9 +336,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
         formData.append('gender', formik.values.gender);
 
         console.log("form", formData)
-        const newValues = { ...formik.values, secondNumber };
+        //const newValues = { ...formik.values, secondNumber };
 
-        axios.put(`https://localhost:7097/UpdatePlayer/${showPutData.alldataplayerId}`, formData, {
+        axios.put(`https://localhost:7097/PlayersTestingImage/${showPutData.alldataplayerId}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -637,7 +638,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             </Col>
 
                             <Col xs={5} lg={4} className='col'>
-                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
                             </Col>
 
 

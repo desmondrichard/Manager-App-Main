@@ -19,6 +19,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     const [egg, setEgg] = useState(null);
     const [seaFood, setSeaFood] = useState(null);
     const [redMeat, setReadMeat] = useState(null);
+    const [allergyIf, setAllergyIf] = useState(null);
 
     const handleFoodTypeChange = (e) => {
         setFoodType(e.target.value);
@@ -35,6 +36,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
 
     const handleRedMeat = (e) => {
         setReadMeat(e.target.value);
+    }
+
+    const handleAllergyIf = (e) => {
+        setAllergyIf(e.target.value)
+        handleAllergyIfAnyChange(e)
     }
 
     //state for allergy field visibility
@@ -254,8 +260,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         handleProgress();
     }, [formik.values])
 
-
-
     return (
 
         <Accordion.Item eventKey="5">
@@ -350,8 +354,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                 <Col xs={12} className='inlineText allergyMargin'>
                                     <label htmlFor='allergyIfany'>Allergy If Any<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
-                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} checked={showPutData.allergyIfAny === 'Yes'} />
-                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} checked={showPutData.allergyIfAny === 'No'} />
+                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIf} ref={allergyRef} checked={showPutData.allergyIfAny === 'Yes' || allergyIf === 'Yes'} />
+                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIf} ref={allergyRef} checked={showPutData.allergyIfAny === 'No' || allergyIf === 'No'} />
                                         </div>
                                     </label>
                                 </Col>
@@ -369,7 +373,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                         <Row>
                             <Col lg={12} className='my-4 col'>
                                 {console.log("previousClkBtn", previousClk, showSkipBtn)}
-                                {previousClk && <Button variant="primary" className='me-1 mx-1 previousP' style={{ width: "130px",marginTop:'-7px' }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {previousClk && <Button variant="primary" className='me-1 mx-1 previousP' style={{ width: "130px", marginTop: '-7px' }} onClick={handlePreviousButton}>PREVIOUS</Button>}
                                 {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 updateP' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}

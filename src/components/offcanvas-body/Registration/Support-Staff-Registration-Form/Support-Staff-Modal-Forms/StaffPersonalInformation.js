@@ -94,7 +94,7 @@ const validate = values => {
     return errors;
 }
 
-function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, toggleSaveUpdateButtons, updateClicked, showClearBtn, previousClk, showSkipBtn }) {
+function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, toggleSaveUpdateButtons, updateClicked, showClearBtn, previousClk, showSkipBtn, clearImageInPost }) {
     console.log("showSaveBtnNew", showSaveBtn)
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
 
@@ -754,7 +754,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                 </Form.Floating>
                             </Col>
                             <Col xs={5} lg={2} className='col'>
-                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
                             </Col>
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 {console.log('previousClkPer', previousClk)}

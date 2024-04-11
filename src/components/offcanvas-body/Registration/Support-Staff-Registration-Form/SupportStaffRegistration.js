@@ -88,6 +88,9 @@ function SupportStaffRegistration(props) {
     //next btn:
     const [key, setKey] = useState("0")
 
+    //clear image in post/put:
+    const [clearImageInPost, setClearImageInPost] = useState(true);
+
     //pdf:
     const [loader, setLoader] = useState(false);
 
@@ -259,6 +262,7 @@ function SupportStaffRegistration(props) {
         setShowSaveBtn(false)//so  Save/update button will be disabled
         setShowClearBtn(false)//so clear button will be disabled
         setPreviousClk(true)//displayed
+        setClearImageInPost(false);
         console.log("StaffDataforPUT: ", data, "ID: ", id)
         setShowPutData(data)
         setShow(true) //to open modal onclicking update button
@@ -302,7 +306,7 @@ function SupportStaffRegistration(props) {
                             {/* <p>{key}</p> */}
                             <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
-                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} toggleSaveUpdateButtons={toggleSaveUpdateButtons} updateClicked={updateClicked} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
+                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} toggleSaveUpdateButtons={toggleSaveUpdateButtons} updateClicked={updateClicked} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} clearImageInPost={clearImageInPost} />
                                 {/* Accordion:2 */}
                                 <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} toggleSaveUpdateButtons={toggleSaveUpdateButtons} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:3 */}
@@ -318,7 +322,7 @@ function SupportStaffRegistration(props) {
                                 {/* Accordion:8 */}
                                 <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} updateClicked={updateClicked} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:9 */}
-                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} updateBtnShow={updateBtnShow} previousClk={previousClk}/>
+                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} updateBtnShow={updateBtnShow} previousClk={previousClk} />
                             </Accordion>
                         </Modal.Body>
 

@@ -170,7 +170,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         const totalFilledFields = result;
 
         //calc formula
-        let newProgress = ((totalFilledFields / 14) * 100).toFixed();
+        let newProgress = ((totalFilledFields / 13) * 100).toFixed();
         console.log("Progress", newProgress)
         setProgress(newProgress);
     }
@@ -454,7 +454,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 </Form.Floating>
                             </Col>
 
-                            <Col xs={12} lg={4} className='col'>
+                            {/* <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
                                         id="bankAddress2"
@@ -467,7 +467,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                     />
                                     <label htmlFor="bankAddress2" className='text-muted'>Bank Address 2</label>
                                 </Form.Floating>
-                            </Col>
+                            </Col> */}
 
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
