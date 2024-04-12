@@ -29,6 +29,7 @@ import SuperAdminLogin from './components/SuperAdmin/SuperAdminLogin';
 import SuperAdminRegister from './components/SuperAdmin/SuperAdminRegister';
 import { Navigate } from 'react-router-dom';
 import LoginSignup from './components/LoginSignup';
+import SuperAdminDashboard from './components/SuperAdminDashboard';
 
 
 function App() {
@@ -45,7 +46,8 @@ function App() {
             <Route path='accessories' exact element={<Accessories />} />
             <Route path='playersauctionlist' exact element={<PlayersAuctionList />} />
             <Route path='fixtures' exact element={<Fixtures />} />
-            <Route path='admindashboard' exact element={<AdminDashboard />} />
+            <Route path='superadmindashboard' exact element={<SuperAdminDashboard />} />
+            <Route path='addclients' exact element={<AdminDashboard />} />
           </Route>
 
           {/*  */}

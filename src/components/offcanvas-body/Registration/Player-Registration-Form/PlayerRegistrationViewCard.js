@@ -59,7 +59,7 @@ function PlayerRegistrationViewCard() {
 
     };
 
-    const [age, setAge] =useState('');
+    const [age, setAge] = useState('');
 
     const handleChange = (event) => {
         setAge(event.target.value);
@@ -280,11 +280,13 @@ function PlayerRegistrationViewCard() {
                         <Card.Header className='todoHeader'>FOOD DETAILS</Card.Header>
                         <Card.Body>
                             <Row style={{ fontSize: '15px' }}>
-                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Non Veg: <span style={{ fontWeight: '400' }}>{location.state.showData.nonveg ? location.state.showData.nonveg : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Food Type: <span style={{ fontWeight: '400' }}>{location.state.showData.foodtype ? location.state.showData.foodtype : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Eggiterian: <span style={{ fontWeight: '400' }}>{location.state.showData.eggIterian ? location.state.showData.eggIterian : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Sea Food: <span style={{ fontWeight: '400' }}>{location.state.showData.seaFood ? location.state.showData.seaFood : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Red Meat: <span style={{ fontWeight: '400' }}>{location.state.showData.redMeat ? location.state.showData.redMeat : 'N/A'}</span></div></Col>
                                 <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Allergy: <span style={{ fontWeight: '400' }}>{location.state.showData.allergyIfAny ? location.state.showData.allergyIfAny : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Allergy In: <span style={{ fontWeight: '400' }}>{location.state.showData.allergy ? location.state.showData.allergy : 'N/A'}</span></div></Col>
+
                             </Row>
                         </Card.Body>
                     </Card>

@@ -46,8 +46,8 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, sh
     //get image url from backend for update request
     console.log("showPutDataImage", showPutData)
     //uncomment:
-    const putImageUrl = showPutData.imageData;
-    console.log("putImageUrl", putImageUrl)
+    // const putImageUrl = showPutData.imageData;
+    // console.log("putImageUrl", putImageUrl)
     return (
 
         <>
@@ -65,8 +65,8 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, sh
                             (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={URL.createObjectURL(image)}></Image>)
                             :
                             // (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={require('../../../assets/dummy_profile_img.png')}></Image>)
-                            (updateClicked && putImageUrl ?
-                                (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={`data:image/jpeg;base64,${putImageUrl}`}></Image>)
+                            (updateClicked && showPutData.imageData ?
+                                (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={`data:image/jpeg;base64,${showPutData.imageData}`}></Image>)
                                 :
                                 (<Image style={{ width: '150px', height: '110px', border: '1px solid #DEE2E6', marginBottom: '9px', cursor: 'pointer' }} src={require('../../../assets/dummy_profile_img.png')}></Image>)
                             )

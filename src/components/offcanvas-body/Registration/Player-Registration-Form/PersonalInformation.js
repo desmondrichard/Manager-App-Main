@@ -661,6 +661,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 {console.log('previousClkPer', previousClk)}
                                 {showClearBtn && <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                                {/* <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button> */}
                                 {/*only when showSaveBtn is true saveandnext btn will be displayed:  */}
                                 {!previousClk && showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
                                 {/* only when showSaveBtn is false update btn will be displayed: */}

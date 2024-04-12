@@ -56,9 +56,3 @@ select:focus {
     margin-top: 5px !important;
   }
 }
-
-/* @media (min-height:1000px) {
-  .modalBody {
-    max-height: '50vh';
-  }
-} */

@@ -14,6 +14,7 @@ function Menubar() {
     return (
         <div style={{ backgroundColor: 'black' }}>
             <ListGroup style={{ borderRadius: '0px' }} >
+                <NavLink className='nav-bar-link text' to='/superadmindashboard'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-person-lock" style={{ fontSize: '16px' }}></i> SUPER ADMIN DASHBOARD</ListGroup.Item></NavLink>
                 <NavLink className='nav-bar-link text' to='/dashboard'><ListGroup.Item action variant="secondary" className='py-3 a' ><i className="bi bi-grid-fill"></i> DASHBOARD</ListGroup.Item></NavLink>
 
                 {/*Sub dropdown using Accordion:  */}
@@ -34,8 +35,10 @@ function Menubar() {
                 <NavLink className='nav-bar-link text' to='/fixtures'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-geo-alt-fill"></i> FIXTURES</ListGroup.Item></NavLink>
                 <NavLink className='nav-bar-link text' to='/thingstodo'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-list-check"></i> THINGS TO DO</ListGroup.Item></NavLink>
                 <NavLink className='nav-bar-link text' to='/accreadiationcards'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-credit-card-2-back-fill"></i> ACCREADIATION CARDS</ListGroup.Item></NavLink>
-                <NavLink className='nav-bar-link text' to='/admindashboard'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-person-gear"></i> ADMIN DASHBOARD</ListGroup.Item></NavLink>
-                <ListGroup.Item action variant="secondary" onClick={handleLogout} className='py-2 a' style={{ position: 'absolute', bottom: 0 }}><i className="bi bi-box-arrow-left"></i> LOG OUT</ListGroup.Item>
+                <NavLink className='nav-bar-link text' to='/addclients'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-person-gear" style={{ fontSize: '16px' }}></i> ADD CLIENTS</ListGroup.Item></NavLink>
+
+                {/* superadmindashboard */}
+                <ListGroup.Item action variant="secondary" onClick={handleLogout} className='py-2 a' style={{ position: 'absolute', bottom: 0 }}><i className="bi bi-box-arrow-left" ></i> LOG OUT</ListGroup.Item>
             </ListGroup>
         </div>
     )
