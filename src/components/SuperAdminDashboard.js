@@ -88,7 +88,7 @@ function SuperAdminDashboard() {
                             <td>@mdo</td>
                             <td>@mdo</td>
                             <td>@mdo</td>
-                            <td>rerf</td>
+                            <td style={{ color: 'green' }}>Active</td>
                             <td>@mdo</td>
                             <td>@mdo</td>
                         </tr>
@@ -99,7 +99,7 @@ function SuperAdminDashboard() {
                             <td>@mdo</td>
                             <td>@mdo</td>
                             <td>@mdo</td>
-                            <td>@mdo</td>
+                            <td style={{ color: 'green' }}>Active</td>
                             <td>@mdo</td>
                             <td>@mdo</td>
                         </tr>

@@ -103,6 +103,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
     const [imageValue, setImageValue] = useState(false);
     // const [imageValue,setImageValue]=useState(false);
 
+    //m:
+    const [phNo, setphNo] = useState("");
+    const [secondPhNo, setSecondPhNo] = useState("");
 
 
     // next btn:
@@ -150,9 +153,26 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
         setPhoneProgress("");
         formik.resetForm();
         setProgress(0);
+        //m:
+        setphNo("")
+        formik.setFieldValue('mobileNo', "");
 
+        setSecondPhNo("")
+        formik.setFieldValue('secondNumber', "");
     }
     // reset form end: 
+
+    //m:
+    useEffect(() => {
+        if (showPutData.mobileNo) {
+            setphNo(showPutData.mobileNo)
+        }
+        if (showPutData.secondNumber) {
+            setSecondPhNo(showPutData.secondNumber)
+        }
+
+    }, [])
+
 
     const [initialValues, setInitialValues] = useState({
         playerName: '',
@@ -182,7 +202,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
             //const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             //values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
 
-            values = { ...values, mobileNo, secondNumber, ImageData, year: year }
+            values = { ...values, secondNumber, ImageData, year: year }
 
             const formData = new FormData();
             // Append form data fields
@@ -289,11 +309,13 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
     }
 
     //1st number phone value:
-    const [mobileNo, setMobileNo] = useState(null);
+    // const [mobileNo, setMobileNo] = useState(null);
     const Samp = (value) => {
-        setMobileNo(value);
+        // setMobileNo(value);
         formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component else submit wont be enabled
-        console.log("phonevalue", mobileNo)
+        // console.log("phonevalue", mobileNo)
+        //m:
+        setphNo(value)
     }
 
     //2nd number phone value:
@@ -302,6 +324,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
         setsecondNumber(value);
         formik.setFieldValue('secondNumber', value);// used to push value in formik dynamic child component else submit wont be enabled
         console.log("phone2value", secondNumber)
+        setSecondPhNo(value)
     }
 
     function handleSkip() {
@@ -342,7 +365,6 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -605,7 +627,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 {/* sent only particular phone value in value to Phone component since send entire data is throwing error */}
-                                <Phone isClear={mobileValueClear} value={showPutData.mobileNo} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
+                                <Phone isClear={mobileValueClear} value={phNo} onValidate={validateForm} onChange={(data) => setphNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
                                 />
                                 {formik.touched.mobileNo && formik.errors.mobileNo ? (
                                     <span className="span">{formik.errors.mobileNo}</span>
@@ -613,7 +635,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             </Col>
                             {/* second mobile */}
                             <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValueClear1} value={showPutData.secondNumber} onValidate={validateForm} onChange={(e) => formik.handleChange(e)} onActivateProgressBar={ActivateProgressBar} samp={Samp1} dynamicName="secondNumber" dynamicId="secondNumberId"
+                                <Phone isClear={mobileValueClear1} value={secondPhNo} onValidate={validateForm} onChange={(data) => setSecondPhNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp1} dynamicName="secondNumber" dynamicId="secondNumberId"
                                 />
 
                                 {formik.touched.secondNumber && formik.errors.secondNumber ? (
@@ -674,8 +696,6 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                 </Container>
             </Accordion.Body>
         </Accordion.Item>
-
-
 
     )
 }

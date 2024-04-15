@@ -98,6 +98,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     console.log("showSaveBtnNew", showSaveBtn)
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
 
+    const [phNo, setphNo] = useState("");
+
     console.log("updateClicked", updateClicked)
 
     //true-clear,false-not clear:
@@ -152,13 +154,13 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         setImageProgress("");
         setMobileValueClear(true);//means after reset clear field(clear-true)
         setPhoneProgress("");
-
         // console.log("Ref",genderMale);
         formik.resetForm();
-
         //after clicking reset btn progress bar should be 0:
         setProgress(0);
         // console.log("setprogress after reset", progress)
+        setphNo("")
+        formik.setFieldValue('mobileNo', "");
     }
 
     //
@@ -219,7 +221,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             formData.append('year', values.year);
             formData.append('gender', values.gender);
 
-            axios.post('https://localhost:7097/api/playerimage/StaffTestingImage', formData, {
+            axios.post('https://localhost:7097/StaffPersonal', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -264,7 +266,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         setMobileNo(value);
         formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component
         console.log("phonevalue", mobileNo)
-
+        setphNo(value)
     }
 
     //Dynamic Image upload progress Bar:
@@ -334,40 +336,28 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         console.log("formikValsImageData", formik.values, ImageData)
         console.log("ImageDataUpdate", ImageData)
 
-        // Convert the image file to a byte array
-        const byteNumbers = new Array(ImageData.length);
-        for (let i = 0; i < ImageData.length; i++) {
-            byteNumbers[i] = ImageData.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const base64String = btoa(String.fromCharCode.apply(null, byteArray));
+        const formData = new FormData();
 
-        // console.log("ImageDataUpdate", byteArray)
+        formData.append('supportStaffName', formik.values.supportStaffName);
+        formData.append('middleName', formik.values.middleName);
+        formData.append('lastName', formik.values.lastName);
+        formData.append('designation', formik.values.designation);
+        formData.append('specialization', formik.values.specialization);
+        formData.append('initials', formik.values.initials);
+        formData.append('displayName', formik.values.displayName);
+        formData.append('fatherName', formik.values.fatherName);
+        formData.append('motherName', formik.values.motherName);
+        formData.append('dateOfBirth', formik.values.dateOfBirth);
+        formData.append('bloodGroup', formik.values.bloodGroup);
+        formData.append('emailId', formik.values.emailId);
+        formData.append('mobileNo', formik.values.mobileNo);
+        formData.append('ImageData', ImageData);
+        formData.append('team', formik.values.team);
+        formData.append('year', formik.values.year);
+        formData.append('gender', formik.values.gender);
 
 
-        const dataToSubmit = {
-            supportStaffName: formik.values.supportStaffName,
-            middleName: formik.values.middleName,
-            lastName: formik.values.lastName,
-            designation: formik.values.designation,
-            specialization: formik.values.specialization,
-            initials: formik.values.initials,
-            displayName: formik.values.displayName,
-            fatherName: formik.values.fatherName,
-            motherName: formik.values.motherName,
-            dateOfBirth: formik.values.dateOfBirth,
-            bloodGroup: formik.values.bloodGroup,
-            emailId: formik.values.emailId,
-            mobileNo: formik.values.mobileNo,
-            ImageData: base64String,
-            team: formik.values.team,
-            year: formik.values.year,
-            gender: formik.values.gender,
-        };
-
-        console.log("dataToSubmit", dataToSubmit);
-
-        axios.put(`https://localhost:7097/api/playerimage/UpdateStafTesting/${showPutData.alldataStaffId}`, dataToSubmit, {
+        axios.put(`https://localhost:7097/UpdateStaffPersonal/${showPutData.alldataStaffId}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -431,6 +421,13 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             formik.setValues(initialValues);
         }
     }, [initialValuesLoaded]);
+
+    useEffect(() => {
+        if (showPutData.mobileNo) {
+            setphNo(showPutData.mobileNo)
+        }
+
+    }, [])
 
     return (
         <Accordion.Item eventKey="0">
@@ -728,7 +725,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                             </Col>
 
                             <Col className='col' lg={4}>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" value={showPutData.mobileNo} />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(data) => setphNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId" value={phNo} />
                                 {formik.touched.mobileNo && formik.errors.mobileNo ? (
                                     <span className="span">{formik.errors.mobileNo}</span>
                                 ) : null}

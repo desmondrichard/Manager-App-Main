@@ -170,7 +170,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
         console.log(result);  //returned count is stored in result variable
         //calc formula
-        let newProgress = ((result / 13) * 100).toFixed();
+        let newProgress = ((result / 12) * 100).toFixed();
         console.log("Progress", newProgress)
         //store result progress value
         setProgress(newProgress);
@@ -463,7 +463,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                 </Form.Floating>
                             </Col> */}
 
-                            <Col xs={12} lg={4} className='col'>
+                            {/* <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
                                         id="bankCountry"
@@ -478,7 +478,8 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                     }
                                     <label htmlFor="bankCountry" className='text-muted'>Bank Country</label>
                                 </Form.Floating>
-                            </Col>
+                            </Col> */}
+                            
                             <Col lg={12} className='my-4 col'>
                                 {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previouss' style={{ width: "130px", marginTop: '6px' }} onClick={handlePreviousButton}>Previous</Button>}
                                 {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}

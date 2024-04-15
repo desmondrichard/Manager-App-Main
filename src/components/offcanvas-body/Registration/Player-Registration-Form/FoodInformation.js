@@ -60,8 +60,24 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         formik.setFieldValue("allergy", showPutData.allergy);
         if (showPutData.allergyIfAny === "Yes") {
             setShowAllergyField(true)
-
         }
+        let countA = 0;
+        if (showPutData.allergy) {
+            countA += 1
+        }
+        if (showPutData.foodtype) {
+            countA += 1
+        }
+        if (showPutData.allergyIfAny) {
+            countA += 1
+        }
+        if (showPutData.redMeat) {
+            countA += 1
+        }
+        if (showPutData.seaFood) {
+            countA += 1
+        }
+        //add logic based percentage
     }, [])
 
     //ref hook:
@@ -163,10 +179,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     const [progress, setProgress] = useState(0);
 
     function handleProgress() {
-        console.log("formik values1", formik.values)
+        console.log("formikvalues1", formik.values)
         const result = countKeysWithNonEmptyValues(formik.values);
         console.log("result for formik values:", result)
         const totalFilledFields = result;
+        console.log("totalFilledFields", totalFilledFields)
 
         //calc formula
         let newProgress = ((totalFilledFields / 5) * 100).toFixed();
@@ -231,6 +248,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         formik.setFieldValue("redMeat", newFormikValues.redMeat);
         formik.setFieldValue("allergyIfAny", newFormikValues.allergyIfAny);
         formik.setFieldValue("allergy", newFormikValues.allergy);
+
 
         axios.put(`https://localhost:7097/FoodInformationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {

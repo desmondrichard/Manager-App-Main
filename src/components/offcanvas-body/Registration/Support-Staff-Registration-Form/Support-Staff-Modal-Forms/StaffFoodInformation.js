@@ -218,7 +218,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
             allergyIfAny: showPutData.allergyIfAny,
             allergy: showPutData.allergy,
         };
-
+            console.log('staffformik',formik.values)
         //
         formik.setFieldValue("foodtype", newFormikValues.foodtype);
         formik.setFieldValue("eggiterian", newFormikValues.eggiterian);

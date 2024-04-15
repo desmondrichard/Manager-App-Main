@@ -44,6 +44,8 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
     const emgcontactperson1 = useRef("");
     const emgcontactrel1 = useRef("");
 
+    const [phNo, setphNo] = useState("");
+
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
         emgcontactperson1.current.value = "";
@@ -52,6 +54,8 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         setmobileProgress("");
         formik.resetForm();
         setProgress(0);
+        setphNo("")
+        formik.setFieldValue('emergencyContactPersonNo', "");
     }
 
     const formik = useFormik({
@@ -140,6 +144,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         console.log("sample1", s)
         setEmergencyContactNo(s);
         console.log("emergencyContactPersonNo", emergencyContactPersonNo)
+        setphNo(s)
     }
 
     console.log('showPutDataKitting', showPutData)
@@ -182,8 +187,12 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         handleProgress();
     }, [formik.values, handleMobileProgress]); // Ensure that the effect is triggered when form values change
 
+    useEffect(() => {
+        if (showPutData.emergencyContactPersonNo) {
+            setphNo(showPutData.emergencyContactPersonNo)
+        }
 
-    // 
+    }, [])
 
     return (
 
@@ -238,7 +247,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
 
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" value={showPutData.emergencyContactPersonNo} />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} onChange={(data) => setphNo(data.target.name)} onActivateProgressBar={handleMobileProgress} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" value={phNo} />
                                 {formik.touched.emergencyContactPersonNo && formik.errors.emergencyContactPersonNo ? (
                                     <span className="span">{formik.errors.emergencyContactPersonNo}</span>
                                 ) : null}
@@ -246,7 +255,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                         </Row>
 
                         <Col lg={12} className='my-4 col'>
-                            {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previousp' style={{ width: "130px",marginTop:'6px' }} onClick={handlePreviousButton}>Previous</Button>}
+                            {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previousp' style={{ width: "130px", marginTop: '6px' }} onClick={handlePreviousButton}>Previous</Button>}
                             {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
                             {!showSaveBtn && <Button variant="info" className='mx-1 updates' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
