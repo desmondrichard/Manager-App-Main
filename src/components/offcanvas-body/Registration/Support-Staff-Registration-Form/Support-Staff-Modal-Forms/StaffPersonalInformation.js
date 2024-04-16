@@ -332,7 +332,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     console.log('updateMethodDataID:', showPutData.alldataStaffId)
 
     function handleUpdate() {
-        alert("update executed");
+        // alert("update executed");
         console.log("formikValsImageData", formik.values, ImageData)
         console.log("ImageDataUpdate", ImageData)
 

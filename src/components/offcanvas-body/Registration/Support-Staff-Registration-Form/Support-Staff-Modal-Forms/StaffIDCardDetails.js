@@ -255,7 +255,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
     console.log('updateMethodDataID:', showPutData.alldataStaffId)
     function handleUpdate() {
         console.log("showPutDataIDCard", showPutData);
-        alert("update executed");
+        // alert("update executed");
 
         // Convert the date strings to Date objects
         const passportExpDate = new Date(formik.values.passportExpDate);

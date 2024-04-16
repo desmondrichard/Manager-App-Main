@@ -50,6 +50,15 @@ function SupportStaffRegistration(props) {
                 setShow(false);
             }
         });
+        //after closing get api is called to show updated values in table:
+        axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
+            console.log("GET Success", response.data)
+            // Update the state with the new data
+            setShowData(response.data)
+        })
+            .catch((error) => {
+                console.log("Error Getting User", error)
+            })
     }
 
     //hide save button:
@@ -64,8 +73,15 @@ function SupportStaffRegistration(props) {
     // modal open:
     // const handleShow = () => setShow(true);
     const handleShow = () => {
+        setKey("0");//to open from starting accordion
+        setShowPutData({})//to  reset put data in form fields
+        //buttons:
+        setPreviousClk(false);//to disable previous btn
+        setShowSkipBtn(false);//to disable skip btn
+        setClearImageInPost(true);//for clearing image file
+        setShowSaveBtn(true)//to show save btn
+        setShowClearBtn(true)//to display clear btn
         setShow(true);
-
 
     };
 
@@ -257,6 +273,7 @@ function SupportStaffRegistration(props) {
     function handleUpdateButtonClick(data, id) {
         // console.log("progressBar", showProgressBar)
         // setShowProgressBar(false);//so progress bar wont open
+        setKey("0");//to open from starting accordion
         setShowSkipBtn(true)//displayed
         setUpdateBtnShow(true)//displayed
         setShowSaveBtn(false)//so  Save/update button will be disabled

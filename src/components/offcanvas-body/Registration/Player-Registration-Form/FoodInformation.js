@@ -128,8 +128,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         // handlePrevClick(false)
     }
 
-
-
     //Formik:
     const formik = useFormik({
         enableReinitialize: true,
@@ -152,6 +150,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 'allergyIfAny': values.allergyIfAny,
                 'allergy': values.allergy
             };
+
             // Log the values variable
             console.log('Values11:', newValues);
             axios.post('https://localhost:7097/FoodInformationModel', newValues)
@@ -257,7 +256,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         })
             .then(response => {
                 if (response.status === 200) {
-                    console.log("Updation Data: ", response.data);
+                    console.log("UpdationData: ", response.data);
                     onActivationKeyChild(childNextKey);
                 } else {
                     console.log("Unexpected response status: ", response.status);
