@@ -14,10 +14,10 @@
 .tab {
     overflow-x: auto;
     flex-wrap: nowrap;
-} 
+}
 
 /* Horizontal Scroll bar for tab:end */
- .nav-pills .nav-item:not(:nth-last-child(1)) .nav-link {
+.nav-pills .nav-item:not(:nth-last-child(1)) .nav-link {
     border-right: 1px solid white;
 }
 
@@ -38,10 +38,20 @@
     }
 }
 
-.tdTextAlign{
+.tdTextAlign {
     text-align: start !important;
 }
 
-.marginRight{
+.marginRight {
     margin-right: 10px !important;
+}
+
+/* defaultly pagination row size is aligned at bottom:to properly align: */
+.css-16c50h-MuiInputBase-root-MuiTablePagination-select {
+    margin-top: -15px !important;
+}
+
+/* defaultly arrows in pagination aligned bottom:to properly align: */
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
+    margin-top: -17px;
 }

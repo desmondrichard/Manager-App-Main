@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import FilterAccessories from './FilterAccessories';
 import format from 'date-fns/format';
-
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -22,6 +21,8 @@ import html2canvas from 'html2canvas';
 //search:
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import TablePagination from '@mui/material/TablePagination';
+
 function PlayersAuctionList() {
   var formattedDate = '';
   //Data Binding:
@@ -108,6 +109,20 @@ function PlayersAuctionList() {
   function isValidDate(date) {
     return new Date(date) !== "Invalid Date";
   }
+
+  //paginator:
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(2);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <div>
       <Header />
@@ -185,6 +200,7 @@ function PlayersAuctionList() {
         {showData
           &&
           showData
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .filter(item =>
               search.length < 2 || (item.playerName && item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2))
             )
@@ -210,6 +226,19 @@ function PlayersAuctionList() {
         }
 
       </Table>
+      {
+        showData && showData.length > 0 && (
+          <TablePagination
+            component="div"
+            count={showData.length}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={[2, 6, 8]}
+          />
+        )
+      }
       {
         showData ? ('') : (<div className='text-center'>
           <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>

@@ -35,11 +35,22 @@ select:focus {
   .updates {
     margin-top: -5px;
   }
- 
+
 }
 
-@media (min-width:300px) and (max-width:992px){
-  .previouss{
-    margin-bottom:2px;
+@media (min-width:300px) and (max-width:992px) {
+  .previouss {
+    margin-bottom: 2px;
   }
+}
+
+
+/* defaultly pagination row size is aligned at bottom:to properly align: */
+.css-16c50h-MuiInputBase-root-MuiTablePagination-select {
+  margin-top: -15px !important;
+}
+
+/* defaultly arrows in pagination aligned bottom:to properly align: */
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
+  margin-top: -17px;
 }

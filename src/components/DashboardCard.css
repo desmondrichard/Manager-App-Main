@@ -4,6 +4,7 @@
   box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 9px 9px 13px 0px rgba(0, 0, 0, 0.75);
+  
 }
 
 .zoom:hover {
@@ -15,9 +16,3 @@
 
 }
 
-.image-center {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-around;
-  padding: 50px 0;
-}

@@ -36,6 +36,7 @@ import html2canvas from 'html2canvas';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 // import './SearchButton.css';
+import TablePagination from '@mui/material/TablePagination';
 
 function PlayerRegistration(props) {
   const [show, setShow] = useState(false);
@@ -278,6 +279,20 @@ function PlayerRegistration(props) {
 
   //
   const [activeKey, setActiveKey] = useState('0');
+
+
+  //paginator:
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(2);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   return (
     <div>
       <Header />
@@ -420,6 +435,7 @@ function PlayerRegistration(props) {
             (<tbody className='table-light'>
               {
                 showData
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .filter(item =>
                     search.length < 2 || (item.playerName && item.playerName.slice(0, 2).toLowerCase() === search.slice(0, 2))
                   )
@@ -464,6 +480,19 @@ function PlayerRegistration(props) {
           // (<Skeleton variant="rectangular" width={100} height={240} style={{ marginTop: '22px' }} />)
         }
       </Table>
+      {
+        showData && showData.length > 0 && (
+          <TablePagination
+            component="div"
+            count={showData.length}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={[2, 6, 8]}
+          />
+        )
+      }
       {
         showData ? ('') : (<div className='text-center'>
           <NoDataImg src={require('./../../../assets/nodatafound.png')} ></NoDataImg>

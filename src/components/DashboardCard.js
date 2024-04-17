@@ -30,25 +30,25 @@ function DashboardCard() {
     return (
         <div>
             <Header />
-            <div className='text-center bg-primary my-3 p-2 text-white h4' style={{ width: '120px', borderRadius: '5px', margin: 'auto' }}>PLAYERS</div>
+            <div className='text-center bg-primary my-3 p-2 text-white h4' style={{ width: '120px', borderRadius: '5px',margin:'auto' }}>PLAYERS</div>
             <NavLink to='/dashboard' className='navLinks'><Button variant="primary" className='mt-3 addPlayers butn1'>
                 Go Back
             </Button>
             </NavLink>
 
             {/* Card: */}
-            <div className='my-3 p-2'>
-                <Container>
-                    <Card style={{ width: '100%' }}>
+            <div className='my-3 h'>
+                <Container >
+                    <Card style={{ width: '100%' }} className='mx-auto'>
                         <Card.Header style={{ fontWeight: 'bold', fontSize: '18px' }}>PLAYERS</Card.Header>
                         <ListGroup variant='flush'>
                             {
                                 showData !== null && showData.length ?
-                                    (<Row className='justify-content-center'>
+                                    (<Row className='d-flex justify-content-center'>
                                         {
                                             showData.map((showData, i) => {
                                                 return (
-                                                    <Col xs={12} md={6} xl={4} key={i} >
+                                                    <Col xs={12} md={6} xl={4} key={i} className='columnCard'>
                                                         <Card style={{ width: '15rem', cursor: 'pointer' }} className='m-4 zoom'>
                                                             <LazyLoadImage effect="blur" variant="top"
                                                                 src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data

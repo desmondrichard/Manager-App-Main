@@ -34,6 +34,8 @@ import * as XLSX from 'xlsx';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+//
+import TablePagination from '@mui/material/TablePagination';
 function SupportStaffRegistration(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => {
@@ -295,6 +297,19 @@ function SupportStaffRegistration(props) {
     function handlePrevClick(data) {
         setPreviousClk(data)
     }
+    
+    //paginator:
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(2);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
 
 
     return (
@@ -435,6 +450,7 @@ function SupportStaffRegistration(props) {
                                 {
 
                                     showData
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         .filter(item =>
                                             search.length < 2 || (item.supportStaffName && item.supportStaffName.slice(0, 2).toLowerCase() === search.slice(0, 2))
                                         )
@@ -479,16 +495,37 @@ function SupportStaffRegistration(props) {
                                             )
                                         })
                                 }
-                            </tbody>) : ('')
+                            </tbody>
+
+                        ) : ('')
                 }
+
             </Table>
             {
+                showData && showData.length > 0 && (
+                    <TablePagination
+                        component="div"
+                        count={showData.length}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        rowsPerPage={rowsPerPage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        rowsPerPageOptions={[2, 6, 8]}
+                    />
+                )
+            }
+            {
+                //if data is present added pagination:
                 showData ? ('') : (<div className='text-center'>
                     <NoDataImg src={require('./../../../../assets/nodatafound.png')} className='noDataStaffImg'></NoDataImg>
                 </div>)
+
+
             }
+
         </div>
     )
+
 }
 
 export default SupportStaffRegistration

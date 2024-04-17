@@ -15,7 +15,8 @@ import Swal from 'sweetalert2';
 //pdf:
 // import { jsPDF } from 'jspdf';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
-// import html2canvas from 'html2canvas';
+import TablePagination from '@mui/material/TablePagination';
+
 function Accreditationcard() {
   const [age, setAge] = React.useState('');
 
@@ -100,6 +101,19 @@ function Accreditationcard() {
     })
   }
 
+  //paginator:
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(2);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <div>
       <Header />
@@ -133,29 +147,44 @@ function Accreditationcard() {
                   </tr>
                 </thead>
                 {showData &&
-                  showData.map((showData, i) => {
-                    return (
-                      <tbody className='table-light' key={i}>
-                        <tr className='text-center fontBody'>
-                          <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                          <td>{showData.playersName ? showData.playersName : 'N/A'}</td>
-                          <td></td>
-                          <td>{showData.playersDesignation ? showData.playersDesignation : 'N/A'}</td>
-                          <td>{showData.playersMobilNo ? showData.playersMobilNo : 'N/A'}</td>
-                          <td>{showData.playersEmailId ? showData.playersEmailId : 'N/A'}</td>
-                          <td>{showData.playersDutyPass ? showData.playersDutyPass : 'N/A'}</td>
-                          <td style={{ whiteSpace: 'nowrap' }}>
-                            <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
-                              <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                            </NavLink>
-                            <Button variant="danger" style={{ marginTop: '-7px' }} onClick={() => deleteUser(showData.alldataAccreadiationId)}><i className="bi bi-trash"></i></Button> </td>
-                        </tr>
-                      </tbody>
-                    )
-                  })
+                  showData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((showData, i) => {
+                      return (
+                        <tbody className='table-light' key={i}>
+                          <tr className='text-center fontBody'>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
+                            <td>{showData.playersName ? showData.playersName : 'N/A'}</td>
+                            <td></td>
+                            <td>{showData.playersDesignation ? showData.playersDesignation : 'N/A'}</td>
+                            <td>{showData.playersMobilNo ? showData.playersMobilNo : 'N/A'}</td>
+                            <td>{showData.playersEmailId ? showData.playersEmailId : 'N/A'}</td>
+                            <td>{showData.playersDutyPass ? showData.playersDutyPass : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button variant="danger" style={{ marginTop: '-7px' }} onClick={() => deleteUser(showData.alldataAccreadiationId)}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        </tbody>
+                      )
+                    })
                 }
 
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -181,27 +210,42 @@ function Accreditationcard() {
                   </tr>
                 </thead>
                 {showData &&
-                  showData.map((showData, i) => {
-                    return (
-                      <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
-                        <tr className='text-center fontBody'>
-                          <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                          <td>{showData.staffName ? showData.staffName : 'N/A'}</td>
-                          <td>{showData.staffDesignation ? showData.staffDesignation : 'N/A'}</td>
-                          <td>{showData.staffMobilNo ? showData.staffMobilNo : 'N/A'}</td>
-                          <td>{showData.staffEmailId ? showData.staffEmailId : 'N/A'}</td>
-                          <td style={{ whiteSpace: 'nowrap' }}>
-                            <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
-                              <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                            </NavLink>
-                            <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                        </tr>
-                      </tbody>
-                    )
-                  })
+                  showData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((showData, i) => {
+                      return (
+                        <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
+                          <tr className='text-center fontBody'>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
+                            <td>{showData.staffName ? showData.staffName : 'N/A'}</td>
+                            <td>{showData.staffDesignation ? showData.staffDesignation : 'N/A'}</td>
+                            <td>{showData.staffMobilNo ? showData.staffMobilNo : 'N/A'}</td>
+                            <td>{showData.staffEmailId ? showData.staffEmailId : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        </tbody>
+                      )
+                    })
                 }
 
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -226,26 +270,41 @@ function Accreditationcard() {
                   </tr>
                 </thead>
                 {showData &&
-                  showData.map((showData, i) => {
-                    return (
-                      <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
-                        <tr className='text-center fontBody'>
-                          <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                          <td>{showData.ownerName ? showData.ownerName : 'N/A'}</td>
-                          <td>{showData.ownerDesignation ? showData.ownerDesignation : 'N/A'}</td>
-                          <td>{showData.ownerMobilNo ? showData.ownerMobilNo : 'N/A'}</td>
-                          <td>{showData.ownerEmailId ? showData.ownerEmailId : 'N/A'}</td>
-                          <td style={{ whiteSpace: 'nowrap' }}>
-                            <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
-                              <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                            </NavLink>
-                            <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                        </tr>
-                      </tbody>
-                    )
-                  })
+                  showData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((showData, i) => {
+                      return (
+                        <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
+                          <tr className='text-center fontBody'>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
+                            <td>{showData.ownerName ? showData.ownerName : 'N/A'}</td>
+                            <td>{showData.ownerDesignation ? showData.ownerDesignation : 'N/A'}</td>
+                            <td>{showData.ownerMobilNo ? showData.ownerMobilNo : 'N/A'}</td>
+                            <td>{showData.ownerEmailId ? showData.ownerEmailId : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        </tbody>
+                      )
+                    })
                 }
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -269,27 +328,42 @@ function Accreditationcard() {
                   </tr>
                 </thead>
                 {showData &&
-                  showData.map((showData, i) => {
-                    return (
-                      <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
-                        <tr className='text-center fontBody'>
-                          <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                          <td>{showData.officialName ? showData.officialName : 'N/A'}</td>
-                          <td>{showData.officialDesignation ? showData.officialDesignation : 'N/A'}</td>
-                          <td>{showData.officialMobilNo ? showData.officialMobilNo : 'N/A'}</td>
-                          <td>{showData.officialEmailId ? showData.officialEmailId : 'N/A'}</td>
-                          <td style={{ whiteSpace: 'nowrap' }}>
-                            <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
-                              <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                            </NavLink>
-                            <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                        </tr>
-                      </tbody>
-                    )
-                  })
+                  showData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((showData, i) => {
+                      return (
+                        <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
+                          <tr className='text-center fontBody'>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
+                            <td>{showData.officialName ? showData.officialName : 'N/A'}</td>
+                            <td>{showData.officialDesignation ? showData.officialDesignation : 'N/A'}</td>
+                            <td>{showData.officialMobilNo ? showData.officialMobilNo : 'N/A'}</td>
+                            <td>{showData.officialEmailId ? showData.officialEmailId : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        </tbody>
+                      )
+                    })
                 }
 
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -313,27 +387,42 @@ function Accreditationcard() {
                   </tr>
                 </thead>
                 {showData &&
-                  showData.map((showData, i) => {
-                    return (
-                      <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
-                        <tr className='text-center fontBody'>
-                          <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                          <td>{showData.sponsorName ? showData.sponsorName : 'N/A'}</td>
-                          <td>{showData.sponsorDesignation ? showData.sponsorDesignation : 'N/A'}</td>
-                          <td>{showData.sponsorMobilNo ? showData.sponsorMobilNo : 'N/A'}</td>
-                          <td>{showData.sponsorEmailId ? showData.sponsorEmailId : 'N/A'}</td>
-                          <td style={{ whiteSpace: 'nowrap' }}>
-                            <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
-                              <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
-                            </NavLink>
-                            <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
-                        </tr>
-                      </tbody>
-                    )
-                  })
+                  showData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((showData, i) => {
+                      return (
+                        <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
+                          <tr className='text-center fontBody'>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
+                            <td>{showData.sponsorName ? showData.sponsorName : 'N/A'}</td>
+                            <td>{showData.sponsorDesignation ? showData.sponsorDesignation : 'N/A'}</td>
+                            <td>{showData.sponsorMobilNo ? showData.sponsorMobilNo : 'N/A'}</td>
+                            <td>{showData.sponsorEmailId ? showData.sponsorEmailId : 'N/A'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
+                                <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button onClick={() => deleteUser(showData.alldataAccreadiationId)} variant="danger" style={{ marginTop: '-7px' }}><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        </tbody>
+                      )
+                    })
                 }
 
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>

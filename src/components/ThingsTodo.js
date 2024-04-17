@@ -17,6 +17,7 @@ import axios from 'axios';
 //Filter:
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import TablePagination from '@mui/material/TablePagination';
 
 function ThingsTodo() {
   let formattedDate = "";
@@ -50,30 +51,6 @@ function ThingsTodo() {
     }
   }
 
-  //DELETE MEthod using Axios:  alldataThingsId is an id from API DB so we need to match it and then perform delete:
-  // function deleteUser(id) {
-  //   axios.delete(`https://localhost:7097/Delete-AlldataThings/${id}`).then((response) => {
-  //     if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here
-  //       console.log("Deletion Success", response.data)
-  //     }
-  //     console.log("res", response.data)
-
-
-  //   //Call the GET method here:
-  //   axios.get(`https://localhost:7097/register/AllDataThingsToDo`).then((response) => {
-  //     console.log("GET Success", response.data)
-  //     // Update the state with the new data
-  //     setShowData(response.data)
-  //   })
-  //     .catch((error) => {
-  //       console.log("Error Getting User", error)
-  //     })
-  //     //GET ends here
-
-  //   }).catch((error) => {
-  //       console.log("Error Deleting User", error)
-  //     })
-  // }
 
   function deleteUser(id) {
     Swal.fire({
@@ -129,6 +106,19 @@ function ThingsTodo() {
 
   // Filter:
   const [search, setSearch] = useState('');
+
+  //paginator:
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(2);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <>
@@ -196,6 +186,7 @@ function ThingsTodo() {
                   {
                     showData &&
                     showData
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .filter(item =>
                         search.length < 2 || (item.representatives && item.representatives.slice(0, 2).toLowerCase() === search.slice(0, 2))
                       )
@@ -218,6 +209,19 @@ function ThingsTodo() {
                   }
                 </tbody>
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -245,31 +249,46 @@ function ThingsTodo() {
                 <tbody className='table-light' style={{ fontSize: '13px' }}>
                   {
                     showData &&
-                    showData.map((showData, i) => {
-                      return (
-                        <tr className='text-center font' key={i}>
-                          <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                          <td>{showData.teamLogo ? showData.teamLogo : 'N/A'}</td>
-                          <td>{showData.teamFlage ? showData.teamFlage : 'N/A'}</td>
-                          <td>{showData.sideFlages ? showData.sideFlages : 'N/A'}</td>
-                          <td>{showData.standees ? showData.standees : 'N/A'}</td>
-                          <td>{showData.busBranding ? showData.busBranding : 'N/A'}</td>
-                          <td>{showData.busBooking ? showData.busBooking : 'N/A'}</td>
-                          <td className='btnPadding' style={{ whiteSpace: 'nowrap' }}>
-                            <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks' >
-                              <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight'
-                                //cant set data in useState:
-                                onClick={() => handleClick1(showData)}
-                              ><i className="bi bi-eye-fill"></i></Button>
-                            </NavLink>
-                            <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }} ><i className="bi bi-trash"></i></Button> </td>
-                        </tr>
-                      )
-                    })
+                    showData
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((showData, i) => {
+                        return (
+                          <tr className='text-center font' key={i}>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td>{showData.teamLogo ? showData.teamLogo : 'N/A'}</td>
+                            <td>{showData.teamFlage ? showData.teamFlage : 'N/A'}</td>
+                            <td>{showData.sideFlages ? showData.sideFlages : 'N/A'}</td>
+                            <td>{showData.standees ? showData.standees : 'N/A'}</td>
+                            <td>{showData.busBranding ? showData.busBranding : 'N/A'}</td>
+                            <td>{showData.busBooking ? showData.busBooking : 'N/A'}</td>
+                            <td className='btnPadding' style={{ whiteSpace: 'nowrap' }}>
+                              <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks' >
+                                <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight'
+                                  //cant set data in useState:
+                                  onClick={() => handleClick1(showData)}
+                                ><i className="bi bi-eye-fill"></i></Button>
+                              </NavLink>
+                              <Button variant="danger" onClick={() => deleteUser(showData.alldataThingsId)} style={{ marginTop: '-7px' }} ><i className="bi bi-trash"></i></Button> </td>
+                          </tr>
+                        )
+                      })
                   }
                 </tbody>
 
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -295,6 +314,7 @@ function ThingsTodo() {
                   {
                     showData &&
                     showData
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .filter(item =>
                         search.length === 0
                           ? item
@@ -319,6 +339,19 @@ function ThingsTodo() {
                   }
                 </tbody>
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -348,6 +381,7 @@ function ThingsTodo() {
                   {
                     showData &&
                     showData
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .filter(item =>
                         search.length === 0
                           ? item
@@ -399,8 +433,20 @@ function ThingsTodo() {
                   }
                 </tbody>
 
-
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -432,6 +478,7 @@ function ThingsTodo() {
                 <tbody className='table-light' style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                   {showData &&
                     showData
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .filter(item =>
                         search.length === 0
                           ? item
@@ -465,6 +512,19 @@ function ThingsTodo() {
 
               </Table>
               {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
+              {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
                 </div>)
@@ -490,6 +550,7 @@ function ThingsTodo() {
                 <tbody className='table-light' style={{ fontSize: '13px' }}>
                   {showData &&
                     showData
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .filter(item =>
                         search.length === 0
                           ? item
@@ -516,8 +577,20 @@ function ThingsTodo() {
                   }
                 </tbody>
 
-
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
@@ -550,6 +623,7 @@ function ThingsTodo() {
                 <tbody className='table-light' style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                   {showData &&
                     showData
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .map((showData, i) => {
                         return (
                           <tr className='text-center font' key={i}>
@@ -577,6 +651,19 @@ function ThingsTodo() {
                 </tbody>
 
               </Table>
+              {
+                showData && showData.length > 0 && (
+                  <TablePagination
+                    component="div"
+                    count={showData.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    rowsPerPageOptions={[2, 6, 8]}
+                  />
+                )
+              }
               {
                 showData ? ('') : (<div className='text-center'>
                   <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
