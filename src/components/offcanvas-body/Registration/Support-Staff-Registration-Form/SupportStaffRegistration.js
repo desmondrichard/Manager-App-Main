@@ -50,6 +50,15 @@ function SupportStaffRegistration(props) {
                 setShow(false);
             }
         });
+        //after closing get api is called to show updated values in table:
+        axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
+            console.log("GET Success", response.data)
+            // Update the state with the new data
+            setShowData(response.data)
+        })
+            .catch((error) => {
+                console.log("Error Getting User", error)
+            })
     }
 
     //hide save button:
@@ -64,8 +73,15 @@ function SupportStaffRegistration(props) {
     // modal open:
     // const handleShow = () => setShow(true);
     const handleShow = () => {
+        setKey("0");//to open from starting accordion
+        setShowPutData({})//to  reset put data in form fields
+        //buttons:
+        setPreviousClk(false);//to disable previous btn
+        setShowSkipBtn(false);//to disable skip btn
+        setClearImageInPost(true);//for clearing image file
+        setShowSaveBtn(true)//to show save btn
+        setShowClearBtn(true)//to display clear btn
         setShow(true);
-
 
     };
 
@@ -87,6 +103,9 @@ function SupportStaffRegistration(props) {
     };
     //next btn:
     const [key, setKey] = useState("0")
+
+    //clear image in post/put:
+    const [clearImageInPost, setClearImageInPost] = useState(true);
 
     //pdf:
     const [loader, setLoader] = useState(false);
@@ -254,11 +273,13 @@ function SupportStaffRegistration(props) {
     function handleUpdateButtonClick(data, id) {
         // console.log("progressBar", showProgressBar)
         // setShowProgressBar(false);//so progress bar wont open
+        setKey("0");//to open from starting accordion
         setShowSkipBtn(true)//displayed
         setUpdateBtnShow(true)//displayed
         setShowSaveBtn(false)//so  Save/update button will be disabled
         setShowClearBtn(false)//so clear button will be disabled
         setPreviousClk(true)//displayed
+        setClearImageInPost(false);
         console.log("StaffDataforPUT: ", data, "ID: ", id)
         setShowPutData(data)
         setShow(true) //to open modal onclicking update button
@@ -299,10 +320,10 @@ function SupportStaffRegistration(props) {
                             <Modal.Title className='text-white'><h5>SUPPORT STAFFS FORM</h5></Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <p>{key}</p>
+                            {/* <p>{key}</p> */}
                             <Accordion activeKey={key} >
                                 {/* Accordion:1 */}
-                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} toggleSaveUpdateButtons={toggleSaveUpdateButtons} updateClicked={updateClicked} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
+                                <StaffPersonalInformation activationKey={key} onActivationKeyChild={getDataFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} toggleSaveUpdateButtons={toggleSaveUpdateButtons} updateClicked={updateClicked} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} clearImageInPost={clearImageInPost} />
                                 {/* Accordion:2 */}
                                 <StaffKittingDetails activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} toggleSaveUpdateButtons={toggleSaveUpdateButtons} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:3 */}
@@ -318,7 +339,7 @@ function SupportStaffRegistration(props) {
                                 {/* Accordion:8 */}
                                 <StaffEmergencyContact activationKey={key} onActivationKeyChild={getDataFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} updateClicked={updateClicked} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} previousClk={previousClk} showSkipBtn={showSkipBtn} />
                                 {/* Accordion:9 */}
-                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} updateBtnShow={updateBtnShow} previousClk={previousClk}/>
+                                <StaffSocialMediaInfo onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} handlePrevClick={handlePrevClick} updateBtnShow={updateBtnShow} previousClk={previousClk} />
                             </Accordion>
                         </Modal.Body>
 

@@ -164,9 +164,9 @@ function Dashboard() {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col xs={12}>
+                    {/* <Col xs={12}>
                         <Help />
-                    </Col>
+                    </Col> */}
                 </Row>
 
             </Container>

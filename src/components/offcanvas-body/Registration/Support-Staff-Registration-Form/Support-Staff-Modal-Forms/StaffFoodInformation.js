@@ -13,15 +13,16 @@ import axios from 'axios';
 function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
     const [childNextKey, setChildNextKey] = useState("5");
 
-    //state for food type:
+    //state for food type for PUT request:
     const [foodType, setFoodType] = useState(null);
     const [egg, setEgg] = useState(null);
     const [seaFood, setSeaFood] = useState(null);
     const [redMeat, setReadMeat] = useState(null);
+    const [allergyIf, setAllergyIf] = useState(null);
 
+    //For selecting Radio fields in PUT and POST Request:
     const handleFoodTypeChange = (e) => {
         setFoodType(e.target.value);
-
     };
 
     const handleEggiterian = (e) => {
@@ -36,13 +37,18 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         setReadMeat(e.target.value);
     }
 
+    const handleAllergyIf = (e) => {
+        setAllergyIf(e.target.value);
+        handleAllergyIfAnyChange(e); //If yes shows input box hence invoking the function
+
+    }
+
     //state for allergy field visibility
     const [showAllergyField, setShowAllergyField] = useState(false)
 
     const handleAllergyIfAnyChange = (e) => {
         setShowAllergyField(e.target.value === 'Yes')
     }
-
 
     useEffect(() => {
         console.log("foodType2", showPutData)
@@ -52,7 +58,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         formik.setFieldValue("allergy", showPutData.allergy);
         if (showPutData.allergyIfAny === "Yes") {
             setShowAllergyField(true)
-
         }
     }, [])
 
@@ -213,7 +218,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
             allergyIfAny: showPutData.allergyIfAny,
             allergy: showPutData.allergy,
         };
-
+            console.log('staffformik',formik.values)
         //
         formik.setFieldValue("foodtype", newFormikValues.foodtype);
         formik.setFieldValue("eggiterian", newFormikValues.eggiterian);
@@ -231,6 +236,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 if (response.status === 200) {
                     console.log("Updation Data: ", response.data);
                     onActivationKeyChild(childNextKey);
+                    handleProgress();
                 } else {
                     console.log("Unexpected response status: ", response.status);
                 }
@@ -248,7 +254,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     useEffect(() => {
         handleProgress();
     }, [formik.values])
-
 
 
     return (
@@ -345,8 +350,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                 <Col xs={12} className='inlineText allergyMargin'>
                                     <label htmlFor='allergyIfany'>Allergy If Any<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
-                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} checked={showPutData.allergyIfAny === 'Yes'} />
-                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} checked={showPutData.allergyIfAny === 'No'} />
+                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIf} ref={allergyRef} checked={showPutData.allergyIfAny === 'Yes' || allergyIf === 'Yes'} />
+                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIf} ref={allergyRef} checked={showPutData.allergyIfAny === 'No' || allergyIf === 'No'} />
                                         </div>
                                     </label>
                                 </Col>
@@ -363,11 +368,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                         </Row>
                         <Row>
                             <Col lg={12} className='my-4 col'>
-                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previouss' style={{ width: "130px", marginTop: '6px' }} onClick={handlePreviousButton}>Previous</Button>}
                                 {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
-                                {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 updates' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip ms-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                             </Col>
                         </Row>

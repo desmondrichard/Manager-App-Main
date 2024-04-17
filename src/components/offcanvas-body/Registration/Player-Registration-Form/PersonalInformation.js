@@ -94,7 +94,7 @@ const validate = values => {
 }
 
 
-function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, showClearBtn, previousClk, showSkipBtn }) {
+function PersonalInformation({ activationKey, onActivationKeyChild, showPutData, showSaveBtn, showClearBtn, previousClk, showSkipBtn, updateClicked, clearImageInPost }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);//for clearing mobile no ..false-no clear
     const [mobileValueClear1, setMobileValueClear1] = useState(false);//for clearing mobile no ..false-no clear
 
@@ -102,6 +102,10 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
     // const [mobileValue, setMobileValue] = useState(false);
     const [imageValue, setImageValue] = useState(false);
     // const [imageValue,setImageValue]=useState(false);
+
+    //m:
+    const [phNo, setphNo] = useState("");
+    const [secondPhNo, setSecondPhNo] = useState("");
 
 
     // next btn:
@@ -149,9 +153,26 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
         setPhoneProgress("");
         formik.resetForm();
         setProgress(0);
+        //m:
+        setphNo("")
+        formik.setFieldValue('mobileNo', "");
 
+        setSecondPhNo("")
+        formik.setFieldValue('secondNumber', "");
     }
     // reset form end: 
+
+    //m:
+    useEffect(() => {
+        if (showPutData.mobileNo) {
+            setphNo(showPutData.mobileNo)
+        }
+        if (showPutData.secondNumber) {
+            setSecondPhNo(showPutData.secondNumber)
+        }
+
+    }, [])
+
 
     const [initialValues, setInitialValues] = useState({
         playerName: '',
@@ -181,7 +202,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
             //const formattedDOB = `${dateOfBirth.getDate()}/${dateOfBirth.getMonth() + 1}/${dateOfBirth.getFullYear()}`;
             //values = { ...values, mobileNo, ImageData, dateOfBirth: formattedDOB }
 
-            values = { ...values, mobileNo, secondNumber, ImageData, year: year }
+            values = { ...values, secondNumber, ImageData, year: year }
 
             const formData = new FormData();
             // Append form data fields
@@ -202,7 +223,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
             formData.append('team', values.team);
             formData.append('year', values.year);
 
-            axios.post('https://localhost:7097/api/playerimage/PlayersTestingImage', formData, {
+            axios.post('https://localhost:7097/PersonalInformations', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -288,11 +309,13 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
     }
 
     //1st number phone value:
-    const [mobileNo, setMobileNo] = useState(null);
+    // const [mobileNo, setMobileNo] = useState(null);
     const Samp = (value) => {
-        setMobileNo(value);
+        // setMobileNo(value);
         formik.setFieldValue('mobileNo', value);// used to push value in formik dynamic child component else submit wont be enabled
-        console.log("phonevalue", mobileNo)
+        // console.log("phonevalue", mobileNo)
+        //m:
+        setphNo(value)
     }
 
     //2nd number phone value:
@@ -301,6 +324,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
         setsecondNumber(value);
         formik.setFieldValue('secondNumber', value);// used to push value in formik dynamic child component else submit wont be enabled
         console.log("phone2value", secondNumber)
+        setSecondPhNo(value)
     }
 
     function handleSkip() {
@@ -313,7 +337,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
     console.log('updateMethodDataIDPlayer:', showPutData.alldataplayerId)
 
     function handleUpdate() {
-        alert("update executed");
+        // alert("update executed");
         console.log("formikVals", formik.values, ImageData)
 
         const formData = new FormData();
@@ -335,13 +359,12 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
         formData.append('gender', formik.values.gender);
 
         console.log("form", formData)
-        const newValues = { ...formik.values, secondNumber };
+        //const newValues = { ...formik.values, secondNumber };
 
-        axios.put(`https://localhost:7097/UpdatePlayer/${showPutData.alldataplayerId}`, formData, {
+        axios.put(`https://localhost:7097/PlayersTestingImage/${showPutData.alldataplayerId}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -604,7 +627,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             </Col>
                             <Col xs={12} lg={4} className='col'>
                                 {/* sent only particular phone value in value to Phone component since send entire data is throwing error */}
-                                <Phone isClear={mobileValueClear} value={showPutData.mobileNo} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
+                                <Phone isClear={mobileValueClear} value={phNo} onValidate={validateForm} onChange={(data) => setphNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="mobileNo" dynamicId="mobileId"
                                 />
                                 {formik.touched.mobileNo && formik.errors.mobileNo ? (
                                     <span className="span">{formik.errors.mobileNo}</span>
@@ -612,7 +635,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             </Col>
                             {/* second mobile */}
                             <Col xs={12} lg={4} className='col'>
-                                <Phone isClear={mobileValueClear1} value={showPutData.secondNumber} onValidate={validateForm} onChange={(e) => formik.handleChange(e)} onActivateProgressBar={ActivateProgressBar} samp={Samp1} dynamicName="secondNumber" dynamicId="secondNumberId"
+                                <Phone isClear={mobileValueClear1} value={secondPhNo} onValidate={validateForm} onChange={(data) => setSecondPhNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp1} dynamicName="secondNumber" dynamicId="secondNumberId"
                                 />
 
                                 {formik.touched.secondNumber && formik.errors.secondNumber ? (
@@ -637,7 +660,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             </Col>
 
                             <Col xs={5} lg={4} className='col'>
-                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
+                                <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
                             </Col>
 
 
@@ -660,6 +683,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 {console.log('previousClkPer', previousClk)}
                                 {showClearBtn && <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                                {/* <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button> */}
                                 {/*only when showSaveBtn is true saveandnext btn will be displayed:  */}
                                 {!previousClk && showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
                                 {/* only when showSaveBtn is false update btn will be displayed: */}
@@ -672,8 +696,6 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                 </Container>
             </Accordion.Body>
         </Accordion.Item>
-
-
 
     )
 }

@@ -53,9 +53,31 @@ function PlayerRegistration(props) {
         setShow(false);
       }
     });
-
+    //after closing get api is called to show updated values in table:
+    axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
+      console.log("GET Success", response.data)
+      // Update the state with the new data
+      setShowData(response.data)
+    })
+      .catch((error) => {
+        console.log("Error Getting User", error)
+      })
   }
-  const handleShow = () => setShow(true);
+
+  const handleShow = () => {
+    //make setShowPutData as empty  object when handleShow is triggered when add players button is clicked
+    // Reset state variables related to modal content
+    setParentKey("0");//to open from starting accordion
+    setShowPutData({})//to  reset put data in form fields
+    //buttons:
+    setPreviousClk(false);//to disable previous btn
+    setShowSkipBtn(false);//to disable skip btn
+    setClearImageInPost(true);//for clearing image file
+    setShowSaveBtn(true)//to show save btn
+    setShowClearBtn(true)//to display clear btn
+    setShow(true);//to open modal on clicking add players btn
+  };
+
   //Next Btn:
   const [parentkey, setParentKey] = useState("0");
 
@@ -63,6 +85,9 @@ function PlayerRegistration(props) {
   const [previousClk, setPreviousClk] = useState(false)
   //SkipBtn show/hide:
   const [showSkipBtn, setShowSkipBtn] = useState(false)
+
+  //clear image in post/put:
+  const [clearImageInPost, setClearImageInPost] = useState(true);
 
   function handlePrevClick(data) {
     setPreviousClk(data)
@@ -84,6 +109,8 @@ function PlayerRegistration(props) {
     setParentKey(k);
     console.log("getkeyfromchild", k);
   }
+
+  //
 
   function getPreviousKeyFromChild(k) {
     setParentKey(k);
@@ -213,6 +240,8 @@ function PlayerRegistration(props) {
       })
   }
 
+
+
   //updateBtnClicked:
   const [updateClicked, setUpdateClicked] = useState(false)
   //state open/hide save/update button: defaultly set as true:
@@ -220,13 +249,20 @@ function PlayerRegistration(props) {
 
   const [showPutData, setShowPutData] = useState({})
 
+  //show/hide clear button:
+  const [showClearBtn, setShowClearBtn] = useState(true)
+
+
   function handleUpdateButtonClick(data, id) {
     // console.log("progressBar", showProgressBar)
     // setShowProgressBar(false);//so progress bar wont open
+    //
+    setParentKey("0");
     setShowSaveBtn(false)//so  Save/update button will be disabled
     setShowClearBtn(false)//so clear button will be disabled
     setPreviousClk(true)//displayed
     setShowSkipBtn(true)//displayed
+    setClearImageInPost(false);//to unclear image file
     console.log("StaffDataforPUT: ", data, "ID: ", id)
     setShowPutData(data)
     setShow(true) //to open modal onclicking update button
@@ -240,10 +276,8 @@ function PlayerRegistration(props) {
     setShow(false);
   }
 
-  //show/hide clear button:
-  const [showClearBtn, setShowClearBtn] = useState(true)
-
-
+  //
+  const [activeKey, setActiveKey] = useState('0');
   return (
     <div>
       <Header />
@@ -270,11 +304,11 @@ function PlayerRegistration(props) {
             </Modal.Header>
             {/* <Modal.Body className='modalBody' style={{ maxHeight: '60vh', overflowY: 'auto' }}> */}
             <Modal.Body className='modalBody'>
-              <p>{parentkey}</p>
+              {/* <p>{parentkey}</p> */}
               <Accordion activeKey={parentkey}>
                 {/* <RegistrationForm /> */}
                 {/* Accordion:1 */}
-                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
+                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
                 {/* Accordion:2 */}
                 <ProficiencyForm activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:3 */}
@@ -459,4 +493,3 @@ function Apps() {
 }
 
 <Apps />
-

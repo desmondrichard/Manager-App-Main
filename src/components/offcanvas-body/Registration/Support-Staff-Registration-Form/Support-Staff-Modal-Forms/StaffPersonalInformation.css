@@ -58,3 +58,8 @@ option[disabled] {
   display: none;
 }
 
+@media (max-width: 560px) {
+  #team{
+    margin-left:12px;
+  }
+}

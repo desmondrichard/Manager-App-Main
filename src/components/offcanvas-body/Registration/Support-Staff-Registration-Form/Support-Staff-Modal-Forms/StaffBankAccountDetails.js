@@ -170,7 +170,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         const result = countKeysWithNonEmptyValues(formik.values); //sending object as parameter which has all form fields
         console.log(result);  //returned count is stored in result variable
         //calc formula
-        let newProgress = ((result / 14) * 100).toFixed();
+        let newProgress = ((result / 12) * 100).toFixed();
         console.log("Progress", newProgress)
         //store result progress value
         setProgress(newProgress);
@@ -448,7 +448,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                 </Form.Floating>
                             </Col>
 
-                            <Col xs={12} lg={4} className='col'>
+                            {/* <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
                                         id="bankAddress2"
@@ -461,9 +461,9 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                     />
                                     <label htmlFor="bankAddress2" className='text-muted'>Bank Address 2</label>
                                 </Form.Floating>
-                            </Col>
+                            </Col> */}
 
-                            <Col xs={12} lg={4} className='col'>
+                            {/* <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
                                         id="bankCountry"
@@ -478,13 +478,14 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                     }
                                     <label htmlFor="bankCountry" className='text-muted'>Bank Country</label>
                                 </Form.Floating>
-                            </Col>
+                            </Col> */}
+                            
                             <Col lg={12} className='my-4 col'>
-                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previouss' style={{ width: "130px", marginTop: '6px' }} onClick={handlePreviousButton}>Previous</Button>}
                                 {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
-                                {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 updates' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip ms-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>
                         </Row>
 

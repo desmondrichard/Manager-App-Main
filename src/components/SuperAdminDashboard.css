@@ -1,0 +1,31 @@
+.glassCard {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media (max-width:600px) {
+    .glassCard {
+        margin: auto;
+    }
+}
+
+@media (min-width:730px) and (max-width:1100px) {
+    .glassCard {
+        margin-left: -25px !important;
+    }
+}
+
+.glassCard:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.tableAdmin {
+    --bs-table-bg: rgb(22,73,91);
+    --bs-table-color: white;
+
+}

@@ -87,6 +87,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
         console.log("formData value:", value);
       });
 
+      
       axios.post('https://localhost:7097/api/playerimage/FixturesTest', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'

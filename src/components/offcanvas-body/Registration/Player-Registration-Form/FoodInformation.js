@@ -19,6 +19,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     const [egg, setEgg] = useState(null);
     const [seaFood, setSeaFood] = useState(null);
     const [redMeat, setReadMeat] = useState(null);
+    const [allergyIf, setAllergyIf] = useState(null);
 
     const handleFoodTypeChange = (e) => {
         setFoodType(e.target.value);
@@ -35,6 +36,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
 
     const handleRedMeat = (e) => {
         setReadMeat(e.target.value);
+    }
+
+    const handleAllergyIf = (e) => {
+        setAllergyIf(e.target.value)
+        handleAllergyIfAnyChange(e)
     }
 
     //state for allergy field visibility
@@ -54,8 +60,24 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         formik.setFieldValue("allergy", showPutData.allergy);
         if (showPutData.allergyIfAny === "Yes") {
             setShowAllergyField(true)
-
         }
+        let countA = 0;
+        if (showPutData.allergy) {
+            countA += 1
+        }
+        if (showPutData.foodtype) {
+            countA += 1
+        }
+        if (showPutData.allergyIfAny) {
+            countA += 1
+        }
+        if (showPutData.redMeat) {
+            countA += 1
+        }
+        if (showPutData.seaFood) {
+            countA += 1
+        }
+        //add logic based percentage
     }, [])
 
     //ref hook:
@@ -106,8 +128,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         // handlePrevClick(false)
     }
 
-
-
     //Formik:
     const formik = useFormik({
         enableReinitialize: true,
@@ -130,6 +150,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 'allergyIfAny': values.allergyIfAny,
                 'allergy': values.allergy
             };
+
             // Log the values variable
             console.log('Values11:', newValues);
             axios.post('https://localhost:7097/FoodInformationModel', newValues)
@@ -157,10 +178,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     const [progress, setProgress] = useState(0);
 
     function handleProgress() {
-        console.log("formik values1", formik.values)
+        console.log("formikvalues1", formik.values)
         const result = countKeysWithNonEmptyValues(formik.values);
         console.log("result for formik values:", result)
         const totalFilledFields = result;
+        console.log("totalFilledFields", totalFilledFields)
 
         //calc formula
         let newProgress = ((totalFilledFields / 5) * 100).toFixed();
@@ -226,6 +248,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         formik.setFieldValue("allergyIfAny", newFormikValues.allergyIfAny);
         formik.setFieldValue("allergy", newFormikValues.allergy);
 
+
         axios.put(`https://localhost:7097/FoodInformationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
@@ -233,7 +256,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         })
             .then(response => {
                 if (response.status === 200) {
-                    console.log("Updation Data: ", response.data);
+                    console.log("UpdationData: ", response.data);
                     onActivationKeyChild(childNextKey);
                 } else {
                     console.log("Unexpected response status: ", response.status);
@@ -253,8 +276,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     useEffect(() => {
         handleProgress();
     }, [formik.values])
-
-
 
     return (
 
@@ -350,8 +371,8 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                 <Col xs={12} className='inlineText allergyMargin'>
                                     <label htmlFor='allergyIfany'>Allergy If Any<br /><br />
                                         <div onChange={(e) => { formik.handleChange(e) }}>
-                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} checked={showPutData.allergyIfAny === 'Yes'} />
-                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIfAnyChange} ref={allergyRef} checked={showPutData.allergyIfAny === 'No'} />
+                                            <Form.Check type='radio' id={`allergyIfanyY`} name='allergyIfAny' label='Yes' value='Yes' inline onChange={handleAllergyIf} ref={allergyRef} checked={showPutData.allergyIfAny === 'Yes' || allergyIf === 'Yes'} />
+                                            <Form.Check type='radio' id={`allergyIfanyN`} name='allergyIfAny' label='No' value='No' inline onChange={handleAllergyIf} ref={allergyRef} checked={showPutData.allergyIfAny === 'No' || allergyIf === 'No'} />
                                         </div>
                                     </label>
                                 </Col>
@@ -369,11 +390,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                         <Row>
                             <Col lg={12} className='my-4 col'>
                                 {console.log("previousClkBtn", previousClk, showSkipBtn)}
-                                {previousClk && <Button variant="primary" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }} onClick={handlePreviousButton}>PREVIOUS</Button>}
+                                {previousClk && <Button variant="primary" className='me-1 mx-1 previousP' style={{ width: "130px", marginTop: '-7px' }} onClick={handlePreviousButton}>PREVIOUS</Button>}
                                 {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
-                                {!showSaveBtn && <Button variant="info" className='mx-1 update' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
-                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
+                                {!showSaveBtn && <Button variant="info" className='mx-1 updateP' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
+                                {(previousClk || showSkipBtn) && <Button variant="dark" className='skip ms-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
 
                             </Col>
