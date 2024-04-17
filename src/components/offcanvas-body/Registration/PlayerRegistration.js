@@ -308,7 +308,7 @@ function PlayerRegistration(props) {
               <Accordion activeKey={parentkey}>
                 {/* <RegistrationForm /> */}
                 {/* Accordion:1 */}
-                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
+                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:2 */}
                 <ProficiencyForm activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:3 */}
