@@ -257,7 +257,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                         <Col lg={12} className='my-4 col'>
                             {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previousp' style={{ width: "130px", marginTop: '6px' }} onClick={handlePreviousButton}>Previous</Button>}
                             {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                            {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>Clear</Button>}
                             {!showSaveBtn && <Button variant="info" className='mx-1 updates' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
                             {(previousClk || showSkipBtn) && <Button variant="dark" className='skip ms-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
                         </Col>

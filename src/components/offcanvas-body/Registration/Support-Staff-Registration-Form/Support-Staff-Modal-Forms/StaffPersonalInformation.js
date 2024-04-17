@@ -750,12 +750,14 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     <label htmlFor="PlayersName" className='text-muted'>Team Name</label>
                                 </Form.Floating>
                             </Col>
+                            
                             <Col xs={5} lg={2} className='col'>
                                 <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
                             </Col>
+
                             <Col xs={{ span: 6, offset: 1 }} lg={{ span: 9, offset: 1 }} className='d-flex align-items-center col'>
                                 {console.log('previousClkPer', previousClk)}
-                                {showClearBtn && <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                                {showClearBtn && <Button variant="warning" style={{ color: "white", width: "130px" }} onClick={() => handleReset()}>Clear</Button>}
                                 {/*only when showSaveBtn is true saveandnext btn will be displayed:  */}
                                 {!previousClk && showSaveBtn && <Button variant="success" className='mx-1' type="submit" style={{ whiteSpace: 'nowrap', width: '130px' }}>Save and Next</Button>}
                                 {/* only when showSaveBtn is false update btn will be displayed: */}

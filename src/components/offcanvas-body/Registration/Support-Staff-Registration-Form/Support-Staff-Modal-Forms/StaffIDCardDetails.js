@@ -552,7 +552,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                 {/* country-state-city: */}
                                 <Col xs={12} lg={4} className='col'>
                                     {/* <label htmlFor="country">Country:</label> */}
-                                    {console.log("value", selectedCountry)}
+                                    {/* {console.log("value", selectedCountry)} */}
                                     <Select placeholder='country*' id='country' name='country'
                                         className="dynamicSelect" style={{ zIndex: 100, outline: 'none', border: 'none' }}
                                         options={Country.getAllCountries()} //filter 
@@ -561,15 +561,14 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                             return options["name"];
                                         }}
                                         getOptionValue={(options) => {
-                                            console.log("options", options, typeof selectedCountry, selectedCountry)
-
+                                            // console.log("options", options, typeof selectedCountry, selectedCountry)
                                             return options["name"];
                                         }}
                                         value={selectedCountry}
                                         onChange={(item) => {
                                             formik.setFieldValue("country", item.name);
                                             setSelectedCountry(item);
-                                            console.log("item", item)
+                                            // console.log("item", item)
                                         }}
 
                                     />
@@ -621,7 +620,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                             <Col xs={12} lg={12} className='my-4 col'>
                                 {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previouss' style={{ width: "130px",marginTop:'6px' }} onClick={handlePreviousButton}>Previous</Button>}
                                 {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
-                                {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>CLEAR</Button>}
+                                {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>Clear</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 updates' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
                                 {(previousClk || showSkipBtn) && <Button variant="dark" className='skip ms-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
                             </Col>

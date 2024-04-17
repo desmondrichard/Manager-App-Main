@@ -308,7 +308,8 @@ function PlayerRegistration(props) {
               <Accordion activeKey={parentkey}>
                 {/* <RegistrationForm /> */}
                 {/* Accordion:1 */}
-                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
+                {/* clearImageInPost-used to clear image in post method,updateClicked-when update  button is clicked in table*/}
+                <PersonalInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
                 {/* Accordion:2 */}
                 <ProficiencyForm activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:3 */}
@@ -324,7 +325,7 @@ function PlayerRegistration(props) {
                 {/* Accordion:8 */}
                 <RepresentationInfo activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:9 */}
-                <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
+                <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} />
                 {/* Accordion:10 */}
                 <SocialMediaInfo activationKey={parentkey} onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} />
               </Accordion>
