@@ -293,6 +293,9 @@ function PlayerRegistration(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  //
+  // const [phoneStyle, setPhoneStyle] = useState(false)
   return (
     <div>
       <Header />
@@ -340,7 +343,7 @@ function PlayerRegistration(props) {
                 {/* Accordion:8 */}
                 <RepresentationInfo activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:9 */}
-                <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} />
+                <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked}  />
                 {/* Accordion:10 */}
                 <SocialMediaInfo activationKey={parentkey} onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} />
               </Accordion>

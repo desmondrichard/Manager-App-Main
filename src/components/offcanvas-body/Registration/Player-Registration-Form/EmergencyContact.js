@@ -33,7 +33,7 @@ import ProgressBarWithLabel from '../ProgressBarWithLabel';
 
 //     return errors;
 // }
-function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn }) {
+function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActivationKey, showPutData, showSaveBtn, showClearBtn, handlePrevClick, previousClk, showSkipBtn, phoneStyle, setPhoneStyle }) {
     const [mobileValueClear, setMobileValueClear] = useState(false);
     const [childNextKey, setChildNextKey] = useState("9");
     const [emergencyContactPersonNo, setEmergencyContactNo] = useState("");
@@ -97,6 +97,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         setErrors(validationErrors);
     };
 
+    setPhoneStyle(true)
     //Dynamic phone progress Bar:
     const [phoneProgress, setPhoneProgress] = useState(0);
     function ActivateProgressBar(val) {
@@ -189,6 +190,8 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         }
     }, [])
 
+
+
     return (
 
         <Accordion.Item eventKey="8">
@@ -239,7 +242,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                                 }
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} value={phNo} onChange={(data) => setphNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} value={phNo} onChange={(data) => setphNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" className='emergPhone' phoneStyle={phoneStyle} />
                                 {formik.touched.emergencyContactPersonNo && formik.errors.emergencyContactPersonNo ? (
                                     <span className="span">{formik.errors.emergencyContactPersonNo}</span>
                                 ) : null}
