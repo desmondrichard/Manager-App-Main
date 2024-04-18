@@ -429,7 +429,6 @@ function Accreditationcard() {
                 </div>)
               }
             </Tab>
-
           </Tabs>
         </Row>
       </Container>

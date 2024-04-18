@@ -51,7 +51,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     }
 
 
-
     useEffect(() => {
         console.log("foodType2", showPutData)
         setFoodType(showPutData.foodtype)
@@ -165,8 +164,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                     console.log("newvaluesFoodfail", newValues)
 
                 });
-
-
         }
     })
 
@@ -241,6 +238,11 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         };
 
         //
+        if (newFormikValues.allergyIfAny === 'No') {
+            newFormikValues.allergy = 'None';
+        }
+
+        //
         formik.setFieldValue("foodtype", newFormikValues.foodtype);
         formik.setFieldValue("eggiterian", newFormikValues.eggiterian);
         formik.setFieldValue("seafood", newFormikValues.seafood);
@@ -271,7 +273,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                 }
             });
     }
-
 
     useEffect(() => {
         handleProgress();
