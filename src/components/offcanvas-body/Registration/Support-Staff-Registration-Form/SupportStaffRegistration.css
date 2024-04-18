@@ -16,20 +16,15 @@ select:focus {
   width: 50%;
 }
 
-@media (max-width:450px) {
+/* @media (max-width:450px) {
 
   img,
   svg {
     width: 300px;
   }
-}
-
-/* styling updatye,skip btns: */
-/* @media (min-width:300px) and (max-width: 992px) {
-  .update,.skip {
-    margin-top: 5px !important;
-  }
 } */
+
+
 
 @media (min-width:495px) and (max-width: 992px) {
   .updates {
@@ -53,4 +48,9 @@ select:focus {
 /* defaultly arrows in pagination aligned bottom:to properly align: */
 .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
   margin-top: -17px;
+}
+
+/* To align pagination (build issue) */
+.css-1chpzqh {
+  margin-top: 17px;
 }

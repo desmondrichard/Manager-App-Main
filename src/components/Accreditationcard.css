@@ -38,9 +38,14 @@
 /* defaultly pagination row size is aligned at bottom:to properly align: */
 .css-16c50h-MuiInputBase-root-MuiTablePagination-select {
     margin-top: -15px !important;
-  }
-  
-  /* defaultly arrows in pagination aligned bottom:to properly align: */
-  .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
+}
+
+/* defaultly arrows in pagination aligned bottom:to properly align: */
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
     margin-top: -17px;
-  }
+}
+
+/* To align pagination (build issue) */
+.css-1chpzqh {
+    margin-top: 17px;
+}

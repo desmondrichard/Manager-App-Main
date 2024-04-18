@@ -1,8 +1,8 @@
 .react-tel-input .form-control {
     font-size: 17px;
     height: 58px;
-   
 }
+
 /* 
 @media only screen and (min-width: 1200px) {
     .react-tel-input .form-control {
@@ -32,4 +32,41 @@
     .react-tel-input .form-control {
         min-width: 300px !important;
     }
-} */
+} 
+*/
+
+@media only screen and (max-width: 361px) {
+    .react-tel-input .form-control {
+        width: 196px !important;
+    }
+}
+
+@media (min-width:362px) and (max-width: 376px) {
+    .react-tel-input .form-control {
+        width: 210px !important;
+    }
+}
+
+@media (min-width:377px) and (max-width: 400px) {
+    .react-tel-input .form-control {
+        width: 226px !important;
+    }
+}
+
+@media (min-width:401px) and (max-width: 427px) {
+    .react-tel-input .form-control {
+        width: 248px !important;
+    }
+}
+
+@media (min-width:428px) and (max-width: 530px) {
+    .react-tel-input .form-control {
+        width: 264px !important;
+    }
+}
+
+@media (min-width:531px) and (max-width: 600px) {
+    .react-tel-input .form-control {
+        width: 375px !important;
+    }
+}

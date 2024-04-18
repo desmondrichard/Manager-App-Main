@@ -7,3 +7,8 @@
   .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
     margin-top: -17px;
   }
+
+  /* To align pagination (build issue) */
+.css-1chpzqh {
+  margin-top: 17px;
+}

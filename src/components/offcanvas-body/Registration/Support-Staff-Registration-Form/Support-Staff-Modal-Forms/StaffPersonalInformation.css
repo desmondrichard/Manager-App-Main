@@ -17,7 +17,7 @@ select:focus {
   width: 100%;
 }
 
-@media (max-width: 361px) {
+/* @media (max-width: 361px) {
   .react-tel-input .form-control {
     width: 212px;
   }
@@ -51,7 +51,7 @@ select:focus {
   .react-tel-input .form-control {
     width: 392px !important;
   }
-}
+} */
 
 /* dynamic dropdown: */
 option[disabled] {
