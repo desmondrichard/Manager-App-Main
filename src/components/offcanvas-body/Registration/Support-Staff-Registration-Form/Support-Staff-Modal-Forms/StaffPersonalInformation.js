@@ -131,7 +131,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
     const genderFemaleReset = useRef(false);
     const desig = useRef("");
     const spec = useRef("");
-
+    const bowlingcoachSpecialReset = useRef("");
+    const teamName = useRef("");
     // progressbar:
     const [progress, setProgress] = useState(0);
 
@@ -150,17 +151,20 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         genderFemaleReset.current.checked = false;
         desig.current.value = "none";
         spec.current.value = "none";
+        bowlingcoachSpecialReset.current.value = "none";
+        teamName.current.value = "";
         setImageValue(true);//means clears the image
         setImageProgress("");
         setMobileValueClear(true);//means after reset clear field(clear-true)
         setPhoneProgress("");
+        formik.setFieldValue('mobileNo', "");
         // console.log("Ref",genderMale);
         formik.resetForm();
         //after clicking reset btn progress bar should be 0:
         setProgress(0);
         // console.log("setprogress after reset", progress)
         setphNo("")
-        formik.setFieldValue('mobileNo', "");
+
     }
 
     //
@@ -180,7 +184,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         gender: '',
         mobileNo: null,
         year: '',
-        team: ''
+        team: '',
+        bowlingcoachSpecial: '',
     });
 
 
@@ -220,6 +225,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             formData.append('team', values.team);
             formData.append('year', values.year);
             formData.append('gender', values.gender);
+            formData.append('bowlingcoachSpecial', values.bowlingcoachSpecial)
 
             axios.post('https://localhost:7097/StaffPersonal', formData, {
                 headers: {
@@ -315,7 +321,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                 obj.hasOwnProperty(key) &&    //hasOwnProperty is used to check any value present in obj
                 obj[key] !== null &&
                 obj[key] !== undefined &&
-                obj[key] !== ''
+                obj[key] !== '' &&
+                key !== 'bowlingcoachSpecial'
             ) {
                 count++;
             }
@@ -355,6 +362,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         formData.append('team', formik.values.team);
         formData.append('year', formik.values.year);
         formData.append('gender', formik.values.gender);
+        formData.append('bowlingcoachSpecial', formik.values.bowlingcoachSpecial)
 
 
         axios.put(`https://localhost:7097/UpdateStaffPersonal/${showPutData.alldataStaffId}`, formData, {
@@ -402,7 +410,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             mobileNo: showPutData.mobileNo,
             year: showPutData.year,
             team: showPutData.team,
-            imageData: showPutData.imageData
+            imageData: showPutData.imageData,
+            bowlingcoachSpecial: showPutData.bowlingcoachSpecial
         });
         setInitialValuesLoaded(true);
         if (showPutData.mobileNo) {
@@ -415,6 +424,8 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         }
     }, [showPutData]);
 
+    //state for dynamically setting coach in Designation field:
+    const [isCoach, setIsCoach] = useState(false);
 
     useEffect(() => {
         if (initialValuesLoaded) {
@@ -577,7 +588,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                         onChange={(e) => formik.setFieldValue('designation', e.target.value)}>
                                         <option value="none">Select Type</option>
                                         <option value="management">Management</option>
-                                        <option value="coach">Coaching</option>
+                                        <option value="coach">Coach</option>
                                         <option value="analyst">Analyst</option>
                                         <option value="fitness">Fitness/Nutrition</option>
                                         <option value="medical">Medical</option>
@@ -589,50 +600,103 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     }
                                 </FloatingLabel>
                             </Col>
+
+
+
                             <Col xs={12} lg={4} className='col'>
                                 <FloatingLabel className='mb-2'
                                     controlId="specialization"
                                     label="specialization*"
                                     name="specialization"
                                 >
-                                    <Form.Select aria-label="specialization" ref={spec} disabled={formik.values.designation === 'none'} value={formik.values.specialization} onBlur={formik.handleBlur} onChange={(e) => formik.setFieldValue('specialization', e.target.value)}>
-                                        <option value="none">Select Type</option>
+                                    {formik.values.designation === 'others' ? (
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="specialization"
+                                            name="specialization"
+                                            ref={spec}
+                                            value={formik.values.specialization}
+                                            onBlur={formik.handleBlur}
+                                            onChange={(e) => formik.setFieldValue('specialization', e.target.value)}
+                                        />
+                                    ) : (
+                                        //setIsCoach if matches value then it becomes true:
+                                        <Form.Select aria-label="specialization" ref={spec} disabled={formik.values.designation === 'none'} value={formik.values.specialization} onBlur={formik.handleBlur} onChange={(e) => { formik.setFieldValue('specialization', e.target.value); setIsCoach(e.target.value === 'battingcoach' || e.target.value === 'bowlingcoach') }}>
+                                            <option value="none">Select Type</option>
+                                            <option value="ceo" disabled={formik.values.designation !== 'management'}>CEO</option>
+                                            <option value="manager" disabled={formik.values.designation !== 'management'}>Manager</option>
+                                            <option value="headofoperations" disabled={formik.values.designation !== 'management'}>Head Of Operations</option>
 
-                                        <option value="ceo" disabled={formik.values.designation !== 'management'}>CEO</option>
-                                        <option value="manager" disabled={formik.values.designation !== 'management'}>Manager</option>
-                                        <option value="headofoperations" disabled={formik.values.designation !== 'management'}>Head Of Operations</option>
+                                            <option value="headcoach" disabled={formik.values.designation !== 'coach'}>Head Coach</option>
+                                            <option value="battingcoach" disabled={formik.values.designation !== 'coach'}>Batting Coach</option>
+                                            <option value="bowlingcoach" disabled={formik.values.designation !== 'coach'}>Bowling Coach</option>
+                                            <option value="fieldingcoach" disabled={formik.values.designation !== 'coach'}>Fielding Coach</option>
+                                            <option value="assistantcoach" disabled={formik.values.designation !== 'coach'}>Assistant Coach</option>
 
-                                        <option value="headcoach" disabled={formik.values.designation !== 'coach'}>Head Coach</option>
-                                        <option value="battingcoach" disabled={formik.values.designation !== 'coach'}>Batting Coach</option>
-                                        <option value="bowlingcoach" disabled={formik.values.designation !== 'coach'}>Bowling Coach</option>
-                                        <option value="fieldingcoach" disabled={formik.values.designation !== 'coach'}>Fielding Coach</option>
-                                        <option value="assistantcoach" disabled={formik.values.designation !== 'coach'}>Assistant Coach</option>
+                                            <option value="videoanalyst" disabled={formik.values.designation !== 'analyst'}>Video Ananlyst</option>
+                                            <option value="performanceanalyst" disabled={formik.values.designation !== 'analyst'}>Performance Analyst</option>
+                                            <option value="dataanalyst" disabled={formik.values.designation !== 'analyst'}>Data Analyst</option>
 
-                                        <option value="videoanalyst" disabled={formik.values.designation !== 'analyst'}>Video Ananlyst</option>
-                                        <option value="performanceanalyst" disabled={formik.values.designation !== 'analyst'}>Performance Analyst</option>
-                                        <option value="dataanalyst" disabled={formik.values.designation !== 'analyst'}>Data Analyst</option>
+                                            <option value="physio" disabled={formik.values.designation !== 'fitness'}>Physio</option>
+                                            <option value="strength" disabled={formik.values.designation !== 'fitness'}>Strength & Conditioning</option>
+                                            <option value="nutritionist" disabled={formik.values.designation !== 'fitness'}>Nutritionist</option>
+                                            <option value="masseur" disabled={formik.values.designation !== 'fitness'}>Masseur</option>
 
-                                        <option value="physio" disabled={formik.values.designation !== 'fitness'}>Physio</option>
-                                        <option value="strength" disabled={formik.values.designation !== 'fitness'}>Strength & Conditioning</option>
-                                        <option value="nutritionist" disabled={formik.values.designation !== 'fitness'}>Nutritionist</option>
-                                        <option value="masseur" disabled={formik.values.designation !== 'fitness'}>Masseur</option>
+                                            <option value="teamdoctor" disabled={formik.values.designation !== 'medical'}>Team Doctor</option>
+                                            <option value="mentalcoach" disabled={formik.values.designation !== 'medical'}>Mental & Conditioning Coach</option>
 
-                                        <option value="teamdoctor" disabled={formik.values.designation !== 'medical'}>Team Doctor</option>
-                                        <option value="mentalcoach" disabled={formik.values.designation !== 'medical'}>Mental & Conditioning Coach</option>
+                                            <option value="media" disabled={formik.values.designation !== 'media'}>Media Manager</option>
+                                            <option value="pr manager" disabled={formik.values.designation !== 'media'}>PR Manager</option>
 
-                                        <option value="media" disabled={formik.values.designation !== 'media'}>Media Manager</option>
-                                        <option value="pr" disabled={formik.values.designation !== 'media'}>PR Manager</option>
+                                            <option value="others" disabled={formik.values.designation !== 'others'}>Others</option>
 
-                                        <option value="others" disabled={formik.values.designation !== 'others'}>Others</option>
+                                            {/* <option value="Fast" disabled={formik.values.bowlingstyle !== 'Fast'}>Fast</option> */}
 
-                                        {/* <option value="Fast" disabled={formik.values.bowlingstyle !== 'Fast'}>Fast</option> */}
+                                        </Form.Select>
+                                    )}
 
-                                    </Form.Select>
                                     {
                                         formik.touched.specialization && formik.errors.specialization ? <span className='span'>{formik.errors.specialization}</span> : null
                                     }
                                 </FloatingLabel>
                             </Col>
+
+                            {/*  */}
+                            {
+                                isCoach && (
+                                    <Col xs={12} lg={4} className='col'>
+                                        <FloatingLabel className='mb-2'
+                                            controlId="bowlingcoachSpecial"
+                                            label="Bowling Coach Special"
+                                            name="bowlingcoachSpecial"
+                                            ref={bowlingcoachSpecialReset}
+                                        >
+
+                                            <Form.Select aria-label="bowlingcoachSpecial" value={formik.values.bowlingcoachSpecial} onBlur={formik.handleBlur}
+                                                //onChange={(e) => formik.setFieldValue('bowlingcoachSpecial', e.target.value)}
+                                                onChange={(e) => {
+                                                    //here to remove progressbar for this field we added if-else:
+                                                    formik.setFieldValue('bowlingcoachSpecial', e.target.value);
+                                                    if (e.target.value) {
+                                                        // If a value is selected, increment the progress bar
+                                                        handleProgress();
+                                                    } else {
+                                                        // If the value is removed, decrement the progress bar
+                                                        setProgress(progress => progress - 1);
+                                                    }
+                                                }}
+                                            >
+                                                <option value="none">Select Type</option>
+                                                <option value="Fast Bowling">Fast Bowling</option>
+                                                <option value="Spin Bowling">Spin Bowling</option>
+                                            </Form.Select>
+                                            {
+                                                formik.touched.bowlingcoachSpecial && formik.errors.bowlingcoachSpecial ? <span className='span'>{formik.errors.bowlingcoachSpecial}</span> : null
+                                            }
+                                        </FloatingLabel>
+                                    </Col>
+                                )
+                            }
 
                             <Col xs={12} lg={4} className='col'>
                                 <Form.Floating className="mb-2">
@@ -738,6 +802,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                         id="team"
                                         type="text"
                                         placeholder="name"
+                                        ref={teamName}
                                         name="team"
                                         value={formik.values.team} onBlur={formik.handleBlur}
                                         onChange={(e) => {
@@ -747,10 +812,10 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
                                     {
                                         formik.touched.team && formik.errors.team ? <span className='span'>{formik.errors.team}</span> : null
                                     }
-                                    <label htmlFor="PlayersName" className='text-muted'>Team Name</label>
+                                    <label htmlFor="team" className='text-muted'>Team Name</label>
                                 </Form.Floating>
                             </Col>
-                            
+
                             <Col xs={5} lg={2} className='col'>
                                 <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} showPutData={showPutData} updateClicked={updateClicked} clearImageInPost={clearImageInPost} />
                             </Col>

@@ -123,7 +123,7 @@ function SupportStaffRegistration(props) {
                 setShowData(data);  // showData=data;
             })
     }, [])
-
+console.log("showData",showData)
     // download excel:
     const handleDownloadExcel = async () => {
         try {
