@@ -123,7 +123,7 @@ function SupportStaffRegistration(props) {
                 setShowData(data);  // showData=data;
             })
     }, [])
-console.log("showData",showData)
+    console.log("showData", showData)
     // download excel:
     const handleDownloadExcel = async () => {
         try {
@@ -297,7 +297,7 @@ console.log("showData",showData)
     function handlePrevClick(data) {
         setPreviousClk(data)
     }
-    
+
     //paginator:
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(2);

@@ -62,9 +62,9 @@ const validate = values => {
         errors.bankContactNo = "enter valid contact number";
     }
 
-    if (!/^[a-zA-Z]{0,20}$/.test(values.bankCountry)) {
-        errors.bankCountry = "Country Name should be between 3 to 20 characters long or only letters allowed";
-    }
+    // if (!/^[a-zA-Z]{0,20}$/.test(values.bankCountry)) {
+    //     errors.bankCountry = "Country Name should be between 3 to 20 characters long or only letters allowed";
+    // }
 
     return errors;
 }
@@ -86,13 +86,15 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
     const gst1 = useRef("");
     const bankcontact1 = useRef("");
     const bankaddress1 = useRef("");
-    const bankaddress2 = useRef("");
-    const bankcountry1 = useRef("");
+    // const bankaddress2 = useRef("");
+    // const bankcountry1 = useRef("");
 
-
+    //Progress Bar:
+    const [progress, setProgress] = useState(0);
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
     function handleReset() {
+        // console.log("Resetting");
         beneficiaryname1.current.value = "";
         bankname1.current.value = "";
         currencytype1.current.value = "none";
@@ -103,15 +105,15 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         swiftbic1.current.value = "";
         micr1.current.value = "";
         iban1.current.value = "";
-        gst1.current.checked = "";
+        gst1.current.value = "";
         bankcontact1.current.value = "";
         bankaddress1.current.value = "";
-        bankaddress2.current.value = "";
-        bankcountry1.current.value = "";
-
+        // bankaddress2.current.value = "";
+        // bankcountry1.current.value = "";
         // console.log("Ref",genderMale);
         formik.resetForm();
         setProgress(0);
+        // alert("reset exectuted ")
     }
     // reset form end: 
     // 
@@ -128,9 +130,9 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
             ibanCode: showPutData?.ibanCode || '',
             gstNumber: showPutData?.gstNumber || '',
             bankAddress: showPutData?.bankAddress || '',
-            bankAddress2: showPutData?.bankAddress2 || '',
+            // bankAddress2: showPutData?.bankAddress2 || '',
             bankContactNo: showPutData?.bankContactNo || '',
-            bankCountry: showPutData?.bankCountry || '',
+            // bankCountry: showPutData?.bankCountry || '',
             switchbicNumber: showPutData?.switchbicNumber || ''
 
         },
@@ -159,8 +161,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         handlePrevClick(true)
     }
 
-    //Progress Bar:
-    const [progress, setProgress] = useState(0);
+
 
     function handleProgress() {
         //check form values or formik values:
@@ -479,7 +480,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
                                     <label htmlFor="bankCountry" className='text-muted'>Bank Country</label>
                                 </Form.Floating>
                             </Col> */}
-                            
+
                             <Col lg={12} className='my-4 col'>
                                 {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previouss' style={{ width: "130px", marginTop: '6px' }} onClick={handlePreviousButton}>Previous</Button>}
                                 {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}

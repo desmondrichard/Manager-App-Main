@@ -14,7 +14,6 @@ import { useRef } from 'react';
 import ProgressBarWithLabel from '../../ProgressBarWithLabel';
 import axios from 'axios';
 
-
 // validation:
 const validate = values => {
     const errors = {};
@@ -151,7 +150,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         genderFemaleReset.current.checked = false;
         desig.current.value = "none";
         spec.current.value = "none";
-        bowlingcoachSpecialReset.current.value = "none";
+        // bowlingcoachSpecialReset.current.value = "none";
         teamName.current.value = "";
         setImageValue(true);//means clears the image
         setImageProgress("");

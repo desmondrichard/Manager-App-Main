@@ -60,22 +60,22 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         if (showPutData.allergyIfAny === "Yes") {
             setShowAllergyField(true)
         }
-        let countA = 0;
-        if (showPutData.allergy) {
-            countA += 1
-        }
-        if (showPutData.foodtype) {
-            countA += 1
-        }
-        if (showPutData.allergyIfAny) {
-            countA += 1
-        }
-        if (showPutData.redMeat) {
-            countA += 1
-        }
-        if (showPutData.seaFood) {
-            countA += 1
-        }
+        // let countA = 0;
+        // if (showPutData.allergy) {
+        //     countA += 1
+        // }
+        // if (showPutData.foodtype) {
+        //     countA += 1
+        // }
+        // if (showPutData.allergyIfAny) {
+        //     countA += 1
+        // }
+        // if (showPutData.redMeat) {
+        //     countA += 1
+        // }
+        // if (showPutData.seaFood) {
+        //     countA += 1
+        // }
         //add logic based percentage
     }, [])
 
@@ -229,27 +229,48 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     //update
     function handleUpdate() {
         const newFormikValues = {
-            foodtype: showPutData.foodType,
-            eggiterian: showPutData.eggiterian,
-            seafood: showPutData.seafood,
-            redMeat: showPutData.redMeat,
-            allergyIfAny: showPutData.allergyIfAny,
-            allergy: showPutData.allergy,
+            // foodtype: formik.values.foodtype || showPutData.foodType,
+            // eggiterian: formik.values.eggiterian || showPutData.eggiterian,
+            // seafood: formik.values.seafood || showPutData.seafood,
+            // redMeat: formik.values.redMeat || showPutData.redMeat,
+            // allergyIfAny: formik.values.allergyIfAny || showPutData.allergyIfAny,
+            // allergy: formik.values.allergy || showPutData.allergy,
+
+            foodtype: formik.values.foodtype ? formik.values.foodtype : showPutData.foodType,
+            eggiterian: formik.values.eggiterian ? formik.values.eggiterian : showPutData.eggiterian,
+            seafood: formik.values.seafood ? formik.values.seafood : showPutData.seafood,
+            redMeat: formik.values.redMeat ? formik.values.redMeat : showPutData.redMeat,
+            allergyIfAny: formik.values.allergyIfAny ? formik.values.allergyIfAny : showPutData.allergyIfAny,
+            allergy: formik.values.allergy ? formik.values.allergy : showPutData.allergy,
         };
 
         //
-        if (newFormikValues.allergyIfAny === 'No') {
+        if (formik.values.allergyIfAny === 'No') {
             newFormikValues.allergy = 'None';
+        } else if (formik.values.allergyIfAny === 'Yes' && formik.values.allergy === '') {
+            // Preserve existing allergy value if allergyIfAny is Yes but allergy field is empty
+            formik.values.allergy = showPutData.allergy;
+        }
+
+        // Update redMeat field only if foodType is nonveg
+        if (formik.values.foodtype === 'veg') {
+            newFormikValues.redMeat = showPutData.redMeat;
         }
 
         //
-        formik.setFieldValue("foodtype", newFormikValues.foodtype);
-        formik.setFieldValue("eggiterian", newFormikValues.eggiterian);
-        formik.setFieldValue("seafood", newFormikValues.seafood);
-        formik.setFieldValue("redMeat", newFormikValues.redMeat);
-        formik.setFieldValue("allergyIfAny", newFormikValues.allergyIfAny);
-        formik.setFieldValue("allergy", newFormikValues.allergy);
-
+        // formik.setFieldValue("foodtype", newFormikValues.foodtype);
+        // formik.setFieldValue("eggiterian", newFormikValues.eggiterian);
+        // formik.setFieldValue("seafood", newFormikValues.seafood);
+        // formik.setFieldValue("redMeat", newFormikValues.redMeat);
+        // formik.setFieldValue("allergyIfAny", newFormikValues.allergyIfAny);
+        // formik.setFieldValue("allergy", newFormikValues.allergy);
+        // Update formik values with the new values
+        formik.setValues({
+            ...formik.values,
+            ...formik.values.allergyIfAny === 'No' ? { allergy: 'None' } : {},
+            ...formik.values.foodtype === 'veg' ? { redMeat: newFormikValues.redMeat } : {},
+            ...formik.values.allergyIfAny === 'Yes' && formik.values.allergy === '' ? { allergy: showPutData.allergy } : {},
+        });
 
         axios.put(`https://localhost:7097/FoodInformationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
@@ -334,7 +355,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                 )}
                                 {foodType === 'nonveg' && (
                                     <>
-
                                         <Col xs={12} className='inlineText mt-4'>
                                             <label htmlFor='seaFood'>Sea Food<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
@@ -343,7 +363,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                                 </div>
                                             </label>
                                         </Col>
-
 
                                         <Col xs={12} className='inlineText mt-4'>
                                             <label htmlFor='redMeat'>Red Meat<br /><br />
@@ -354,7 +373,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                             </label>
                                         </Col>
 
-
                                         <Col xs={12} className='inlineText mt-4 d-none'>
                                             <label htmlFor='eggiterian'>Eggiterian<br /><br />
                                                 <div onChange={(e) => { formik.handleChange(e) }}>
@@ -363,7 +381,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                                 </div>
                                             </label>
                                         </Col>
-
                                     </>
                                 )}
                             </Col>
@@ -396,7 +413,6 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                 {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>Clear</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 updateP' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}
                                 {(previousClk || showSkipBtn) && <Button variant="dark" className='skip ms-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
-
 
                             </Col>
                         </Row>

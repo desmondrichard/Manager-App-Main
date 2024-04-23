@@ -88,7 +88,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
     const bankcontact1 = useRef("");
     const bankaddressReset = useRef("");
     const bankcountryReset = useRef("");
-    const bankaddressReset2 = useRef("");
+    // const bankaddressReset2 = useRef("");
 
 
     // for npm custom component dont use useRef instead use useState i.e for phone component
@@ -103,11 +103,11 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         swiftbicReset.current.value = "";
         micrReset.current.value = "";
         ibanReset.current.value = "";
-        gstReset.current.checked = "";
+        gstReset.current.value = "";
         bankcontact1.current.value = "";
         bankaddressReset.current.value = "";
         bankcountryReset.current.value = "";
-        bankaddressReset2.current.value = "";
+        // bankaddressReset2.current.value = "";
         // console.log("Ref",genderMale);
         formik.resetForm();
         setProgress(0);
@@ -130,7 +130,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
             bankContactNo: showPutData?.bankContactNo || '',
             bankCountry: showPutData?.bankCountry || '',
             bankAddress: showPutData?.bankAddress || '',
-            bankAddress2: showPutData?.bankAddress2 || '',
+            // bankAddress2: showPutData?.bankAddress2 || '',
             acType: showPutData?.acType || ''
         },
         validate,
