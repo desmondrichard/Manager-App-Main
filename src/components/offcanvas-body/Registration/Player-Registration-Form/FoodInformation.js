@@ -229,19 +229,14 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
     //update
     function handleUpdate() {
         const newFormikValues = {
-            // foodtype: formik.values.foodtype || showPutData.foodType,
-            // eggiterian: formik.values.eggiterian || showPutData.eggiterian,
-            // seafood: formik.values.seafood || showPutData.seafood,
-            // redMeat: formik.values.redMeat || showPutData.redMeat,
-            // allergyIfAny: formik.values.allergyIfAny || showPutData.allergyIfAny,
-            // allergy: formik.values.allergy || showPutData.allergy,
+            foodtype: formik.values.foodtype || showPutData.foodType,
+            eggiterian: formik.values.eggiterian || showPutData.eggiterian,
+            seafood: formik.values.seafood || showPutData.seafood,
+            redMeat: formik.values.redMeat || showPutData.redMeat,
+            allergyIfAny: formik.values.allergyIfAny || showPutData.allergyIfAny,
+            allergy: formik.values.allergy || showPutData.allergy,
 
-            foodtype: formik.values.foodtype ? formik.values.foodtype : showPutData.foodType,
-            eggiterian: formik.values.eggiterian ? formik.values.eggiterian : showPutData.eggiterian,
-            seafood: formik.values.seafood ? formik.values.seafood : showPutData.seafood,
-            redMeat: formik.values.redMeat ? formik.values.redMeat : showPutData.redMeat,
-            allergyIfAny: formik.values.allergyIfAny ? formik.values.allergyIfAny : showPutData.allergyIfAny,
-            allergy: formik.values.allergy ? formik.values.allergy : showPutData.allergy,
+            
         };
 
         //
