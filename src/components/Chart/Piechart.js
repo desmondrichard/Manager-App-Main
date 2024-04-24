@@ -11,7 +11,7 @@ function Piechart() {
     const [totalPlayers, setTotalPlayers] = useState(0)////created a state for players total count
 
     useEffect(() => {
-        fetch('https://localhost:7097/api/playerimage/register/getTestingInformation')
+        fetch('https://localhost:7097/getAllPlayers')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("total players:", data.length);

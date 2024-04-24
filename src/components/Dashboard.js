@@ -22,7 +22,7 @@ function Dashboard() {
     //Data Binding for player registration:
     const [showData, setShowData] = useState([]);
     useEffect(() => {
-        fetch('https://localhost:7097/api/playerimage/register/getTestingInformation')
+        fetch('https://localhost:7097/getAllPlayers')
             .then((data) => data.json())
             .then((data) => {
                 console.log("data in dashboard for players:", data);
