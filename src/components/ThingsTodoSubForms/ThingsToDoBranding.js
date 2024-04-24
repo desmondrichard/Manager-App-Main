@@ -35,6 +35,7 @@ function ThingsToDoBranding({ activationKey, onChildNextActivationKey, onPreviou
 
   const [childNextKey, setChildNextKey] = useState("2");
 
+  const [saveBtnClicked, setSaveBtnClicked] = useState(true)
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   onChildNextActivationKey(childNextKey)
@@ -58,6 +59,7 @@ function ThingsToDoBranding({ activationKey, onChildNextActivationKey, onPreviou
           console.log(response.data);
           onChildNextActivationKey(childNextKey)
           console.log("values", values)
+          setSaveBtnClicked(false)
         })
         .catch(error => {
           console.error(error.message);
@@ -65,6 +67,12 @@ function ThingsToDoBranding({ activationKey, onChildNextActivationKey, onPreviou
         });
     }
   });
+
+  function handleSkip() {
+    onChildNextActivationKey(childNextKey)
+  }
+
+
 
   // alert(`clicked next tab`);
   // onChildNextActivationKey(childNextKey)
@@ -98,9 +106,12 @@ function ThingsToDoBranding({ activationKey, onChildNextActivationKey, onPreviou
           </Row>
           <Row>
             <Col className='end btns'>
+              {console.log("saveBtn2", saveBtnClicked)}
               <Button variant="danger" className='mx-2' style={{ color: 'white' }} onClick={handlePreviousButton}>BACK</Button>
-              <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-              <Button variant="success" className='mx-2' type="submit">SAVE AND NEXT</Button>
+              {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+              {saveBtnClicked && <Button variant="success" className='mx-2' type="submit">SAVE AND NEXT</Button>}
+              <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={() => handleSkip()}>SKIP</Button>
+
             </Col>
           </Row>
         </Form>

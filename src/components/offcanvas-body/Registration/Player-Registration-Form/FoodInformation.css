@@ -34,8 +34,8 @@ select:focus {
 
 /*  */
 @media (min-width:545px) and (max-width: 992px) {
-  .updateP {
-    margin-top: -7px;
+  .updatePi {
+    margin-top: -25px !important;
   }
 
   .previousP {
@@ -45,7 +45,7 @@ select:focus {
 }
 
 @media (max-width: 495px) {
-  .updateP {
+  .updatePi {
     margin-top: 1px !important;
   }
   .previousP{

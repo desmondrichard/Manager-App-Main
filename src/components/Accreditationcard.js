@@ -121,7 +121,7 @@ function Accreditationcard() {
         <div className='playersList'>ACCREADIATION LIST</div>
         <>
           <NavLink to='/accreadiationcards/accreadiationform' className='navLinks'><Button variant="primary" className='mt-3 addPlayers'>
-            ADD PLAYERS
+            ADD
           </Button>
           </NavLink>
         </>

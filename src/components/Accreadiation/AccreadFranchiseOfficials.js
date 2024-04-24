@@ -49,6 +49,9 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
     const email1 = useRef("");
     const dutypass1 = useRef("");
 
+    const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+
+
     function handleReset() {
         name1.current.value = "";
         desig1.current.value = "";
@@ -74,6 +77,7 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                     onChildNextActivationKey(childNextKey);
                     console.log("newvalues", newValues)
                     setSubmitting(false);
+                    setSaveBtnClicked(false)
                 })
                 .catch(error => {
                     console.error(error.message);
@@ -106,6 +110,10 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
         console.log(val)
         setMobValue(false)
 
+    }
+
+    function handleSkip() {
+        onChildNextActivationKey(childNextKey);
     }
 
     //mobile validation:
@@ -195,8 +203,9 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
                     <Row>
                         <Col className='end btns'>
                             <Button variant="dark" className='mx-2' onClick={handlePreviousButton}>BACK</Button>
-                            <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-                            <Button variant="success" className='mx-2' type='submit' disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} >SAVE AND NEXT</Button>
+                            {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {saveBtnClicked && <Button variant="success" className='mx-2' type='submit' disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} >SAVE AND NEXT</Button>}
+                            <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={handleSkip}>SKIP</Button>
 
                         </Col>
 

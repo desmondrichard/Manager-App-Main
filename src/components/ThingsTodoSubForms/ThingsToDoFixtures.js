@@ -33,6 +33,7 @@ const validate = values => {
 }
 function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviousActivationKey }) {
 
+  const [saveBtnClicked, setSaveBtnClicked] = useState(true)
 
   //reset:
   const name1 = useRef("");
@@ -87,7 +88,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
         console.log("formData value:", value);
       });
 
-      
+
       axios.post('https://localhost:7097/api/playerimage/FixturesTest', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -98,6 +99,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
           onChildNextActivationKey(childNextKey)
           console.log("newvalues", newValues)
           setSubmitting(false);
+          setSaveBtnClicked(false)
         })
         .catch(error => {
           console.error(error.message);
@@ -121,6 +123,9 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
     onPreviousActivationKey("2")
   }
 
+  function handleSkip() {
+    onChildNextActivationKey(childNextKey)
+  }
 
   return (
     <div>
@@ -251,14 +256,16 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
               <img src={formik.values.teamImagePreview2} alt="Team Image Preview" className="img-fluid mt-2" style={{ height: '200px', width: '150px' }} />
             )}
           </Col>
-          <Col xs={12} className='mt-2'><p style={{ color: 'red' }}>Note*:Image should be uploaded in .JPEG/.PNG format and size must not exceed 1MB.</p></Col>
+          {/* <Col xs={12} className='mt-2'><p style={{ color: 'red' }}>Note*:Image should be uploaded in .JPEG/.PNG format and size must not exceed 1MB.</p></Col> */}
 
         </Row>
         <Row>
           <Col className='end btns'>
             <Button variant="danger" className='mx-2' style={{ color: 'white' }} onClick={handlePreviousButton}>BACK</Button>
-            <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-            <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.groundName === ''}>SAVE AND NEXT</Button>
+            {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+            {saveBtnClicked && <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.groundName === ''}>SAVE AND NEXT</Button>}
+            <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={() => handleSkip()}>SKIP</Button>
+
           </Col>
         </Row>
       </Form>

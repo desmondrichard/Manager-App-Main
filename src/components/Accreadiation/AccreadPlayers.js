@@ -55,6 +55,8 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
 
     const [mobValue, setMobValue] = useState(false);
 
+    const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+
     //reset:
     const name1 = useRef("");
     const desig1 = useRef("");
@@ -91,6 +93,7 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                     onChildNextActivationKey(childNextKey);
                     console.log("newvalues", newValues)
                     setSubmitting(false);
+                    setSaveBtnClicked(false)
                 })
                 .catch(error => {
                     console.log(error.message);
@@ -129,6 +132,11 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
     function handleProgress() {
         console.log("formik values1", formik.values)
     }
+
+    function handleSkip() {
+        onChildNextActivationKey(childNextKey)
+    }
+
     useEffect(() => {
         handleProgress();
     }, [formik.values])
@@ -227,8 +235,9 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                 </Row>
                 <Row>
                     <Col className='end btns'>
-                        <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-                        <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>
+                        {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+                        {saveBtnClicked && <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>}
+                        <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={() => handleSkip()}>SKIP</Button>
 
                     </Col>
 

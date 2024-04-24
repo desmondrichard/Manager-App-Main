@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -32,9 +32,9 @@ const validate = values => {
     errors.noOfSeatsBooked = "enter a valid number";
   }
 
-  if (!/^\d{0,3}$/.test(values.seatNumbers)) {
-    errors.seatNumbers = "enter a valid number";
-  }
+  // if (!/^\d{0,3}$/.test(values.seatNumbers)) {
+  //   errors.seatNumbers = "enter a valid number";
+  // }
 
   // if (!values.transportType) {
   //   errors.transportType = "*Required";
@@ -62,6 +62,9 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
   const transportTypeReset = useRef("");
   const travelType = useRef("");
   const busType = useRef("");
+
+  const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+
 
   function handleReset() {
     leavingFrom.current.value = "";
@@ -118,6 +121,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
           console.log(response.data);
           console.log("newvalues", newValues)
           setSubmitting(false);
+          setSaveBtnClicked(false)
           Swal.fire({
             position: "top-center",
             icon: "success",
@@ -351,7 +355,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
           <Col className='end btns'>
             <Button variant="danger" className='mx-2' style={{ color: 'white' }} onClick={handlePreviousButton}>BACK</Button>
             <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-            <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.leavingFrom === '' || formik.values.goingTo === ''}>SAVE</Button>
+            {saveBtnClicked && <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.leavingFrom === '' || formik.values.goingTo === ''}>SAVE</Button>}
           </Col>
         </Row>
       </Form>

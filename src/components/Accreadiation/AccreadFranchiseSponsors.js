@@ -55,6 +55,8 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
     const email1 = useRef("");
     const dutypass1 = useRef("");
 
+    const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+
 
     function handleReset() {
         name1.current.value = "";
@@ -70,7 +72,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
             SponsorName: '',
             SponsorEmailId: '',
             SponsorDesignation: '',
-            SponsorMobilNo:null
+            SponsorMobilNo: null
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
@@ -80,6 +82,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
                     console.log(response.data);
                     console.log("newvalues", newValues)
                     setSubmitting(false);
+                    setSaveBtnClicked(false)
                     Swal.fire({
                         position: "top-center",
                         icon: "success",
@@ -111,6 +114,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
     const handlePreviousButton = () => {
         onPreviousActivationKey("3")
     }
+
 
     //Toast msg:
     // const notify = () => {
@@ -221,8 +225,9 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
                     <Row>
                         <Col className='text-end btns'>
                             <Button variant="dark" className='mx-2' onClick={handlePreviousButton}>BACK</Button>
-                            <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-                            <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} >SAVE </Button> <ToastContainer />
+                            {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {saveBtnClicked && <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''} >SAVE </Button>}
+                            <ToastContainer />
                         </Col>
 
                     </Row>

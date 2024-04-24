@@ -26,11 +26,13 @@ const validate = values => {
 function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) {
   const [childNextKey, setChildNextKey] = useState("1");
 
+  // console.log("handleSaveBtn", handleSaveBtn)
   //reset:
   const name1 = useRef("");
   // const uniformChecked = useRef({ checked: false });
   // const tshirtChecked = useRef({ checked: false });
 
+  const [saveBtnClicked, setSaveBtnClicked] = useState(true)
 
   function handleReset() {
     name1.current.value = "";
@@ -57,6 +59,7 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
           console.log(response.data);
           onChildNextActivationKey(childNextKey)
           console.log("values", values)
+          setSaveBtnClicked(false)
         })
         .catch(error => {
           console.log("values", values)
@@ -66,6 +69,11 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
     }
   });
 
+
+  function handleSkip() {
+    //handleSaveBtnClick(true) //after clicking skip button in previous component then clicking back btn goes to previous component,which then on clicking skip btn hides save btn to avoid this we set to true
+    onChildNextActivationKey(childNextKey)
+  }
   // alert(`clicked next tab`);
   // onChildNextActivationKey(childNextKey)
   // console.log("values", values)
@@ -122,8 +130,11 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
           </Row>
           <Row>
             <Col className='end btns'>
-              <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-              <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>
+              {console.log("saveBtn1", saveBtnClicked)}
+              {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+              {saveBtnClicked && <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>}
+              <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={() => handleSkip()}>SKIP</Button>
+
             </Col>
           </Row>
         </Form>

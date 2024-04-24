@@ -34,6 +34,9 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
   const equip1 = useRef("");
   const equipType = useRef("");
 
+  const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+
+
   function handleReset() {
     name1.current.value = "";
     equip1.current.value = "";
@@ -54,6 +57,7 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
           console.log(response.data);
           onChildNextActivationKey(childNextKey)
           console.log("values", values)
+          setSaveBtnClicked(false)
         })
         .catch(error => {
           console.error(error.message);
@@ -71,6 +75,10 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
   }
 
   const [childNextKey, setChildNextKey] = useState("6");
+
+  function handleSkip() {
+    onChildNextActivationKey(childNextKey)
+  }
 
   return (
     <div>
@@ -128,8 +136,10 @@ function ThingsToDoMatchEquipments({ activationKey, onChildNextActivationKey, on
         <Row>
           <Col className='end btns'>
             <Button variant="danger" className='mx-2' style={{ color: 'white' }} onClick={handlePreviousButton}>BACK</Button>
-            <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-            <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>
+            {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+            {saveBtnClicked && <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>}
+            <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={() => handleSkip()}>SKIP</Button>
+
           </Col>
         </Row>
       </Form>

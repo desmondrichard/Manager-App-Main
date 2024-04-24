@@ -32,6 +32,9 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
     desig.current.value = "";
     formik.resetForm();
   }
+
+  const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -40,15 +43,16 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
     validate,
     onSubmit: values => {
       axios.post('https://localhost:7097/register/Coach_Physiotherapist', values)
-      .then(response => {
+        .then(response => {
           console.log(response.data);
           onChildNextActivationKey(childNextKey)
           console.log("values", values)
-      })
-      .catch(error => {
+          setSaveBtnClicked(false)
+        })
+        .catch(error => {
           console.error(error.message);
           console.log("values", values)
-      });
+        });
     }
   });
 
@@ -61,6 +65,11 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
   const handlePreviousButton = () => {
     onPreviousActivationKey("1")
   }
+
+  function handleSkip() {
+    onChildNextActivationKey(childNextKey)
+  }
+
   return (
     <div>
       <Form onSubmit={formik.handleSubmit}>
@@ -105,8 +114,10 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
           <Row>
             <Col className='end btns'>
               <Button variant="danger" className='mx-2' style={{ color: 'white' }} onClick={handlePreviousButton}>BACK</Button>
-              <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-              <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>
+              {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+              {saveBtnClicked && <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>}
+              <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={() => handleSkip()}>SKIP</Button>
+
             </Col>
           </Row>
 

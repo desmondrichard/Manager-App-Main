@@ -77,6 +77,9 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
         noOfPeople.current.value = "";
         formik.resetForm();
     }
+    const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+
+
     const formik = useFormik({
         initialValues: {
             hotelName: '',
@@ -104,6 +107,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                     onChildNextActivationKey(childNextKey)
                     console.log("newvalues", newValues)
                     setSubmitting(false);
+                    setSaveBtnClicked(false)
                 })
                 .catch(error => {
                     console.error(error.message);
@@ -138,6 +142,10 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
 
     const handlePreviousButton = () => {
         onPreviousActivationKey("3")
+    }
+
+    function handleSkip() {
+        onChildNextActivationKey(childNextKey)
     }
     return (
         <div>
@@ -276,8 +284,10 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
                 <Row>
                     <Col className='end btns'>
                         <Button variant="danger" className='mx-2' style={{ color: 'white' }} onClick={handlePreviousButton}>BACK</Button>
-                        <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-                        <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.hotelName === '' || formik.values.cityName === ''}>SAVE AND NEXT</Button>
+                        {saveBtnClicked && <Button variant="warning" className='mx-2' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+                        {saveBtnClicked && <Button variant="success" className='mx-2' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.hotelName === '' || formik.values.cityName === ''}>SAVE AND NEXT</Button>}
+                        <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={() => handleSkip()}>SKIP</Button>
+
                     </Col>
                 </Row>
             </Form>

@@ -50,6 +50,9 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
     const email1 = useRef("");
     const dutypass1 = useRef("");
 
+    const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+
+
     function handleReset() {
         name1.current.value = "";
         desig1.current.value = "";
@@ -75,6 +78,7 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                     onChildNextActivationKey(childNextKey);
                     console.log("newvalues", newValues)
                     setSubmitting(false);
+                    setSaveBtnClicked(false)
                 })
                 .catch(error => {
                     console.error(error.message);
@@ -83,6 +87,10 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                 });
         }
     });
+
+    function handleSkip() {
+        onChildNextActivationKey(childNextKey);
+    }
 
     // alert(`Hello! ,${values.name} you have successfully signed up`);
     // const newValues = { ...values, OwnerMobilNo }
@@ -197,8 +205,9 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
                     <Row>
                         <Col className='end btns'>
                             <Button variant="dark" className='me-1' onClick={handlePreviousButton}>BACK</Button>
-                            <Button variant="warning" className='me-1' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>
-                            <Button variant="success" className='me-1' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>
+                            {saveBtnClicked && <Button variant="warning" className='me-1' style={{ color: 'white' }} onClick={() => handleReset()}>CLEAR</Button>}
+                            {saveBtnClicked && <Button variant="success" className='me-1' type="submit" disabled={Object.keys(formik.errors).length > 0 || formik.values.name === ''}>SAVE AND NEXT</Button>}
+                            <Button variant="info" className='mx-2' style={{ color: 'white' }} onClick={handleSkip}>SKIP</Button>
 
                         </Col>
 

@@ -27,7 +27,7 @@ option[disabled] {
 
 @media (min-width:545px) and (max-width: 992px) {
   .updateP {
-    margin-top: -7px;
+    margin-top: -10px !important;
   }
 
 }

@@ -10,7 +10,7 @@ function AccreditionForm() {
         <div>
             <Header />
             <div className='text-center'>
-                <div className='playersList' style={{ whiteSpace: 'nowrap', width: '300px' }}>ACCREADIATION FORM1</div>
+                <div className='playersList' style={{ whiteSpace: 'nowrap', width: '300px' }}>ACCREADIATION FORM</div>
             </div>
             <NavLink to='/accreadiationcards' className='navLinks'><Button variant="primary" className='mt-3 addPlayers butn1'>
                 Go Back
