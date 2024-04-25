@@ -79,7 +79,7 @@ function SuperAdminLogin() {
 
             // Authentication successful, redirect or show success message
             console.log("login response:", response.data.message);
-            if (response.data.message === 'Admin login success!') { //print message received in above console in if condition else wont be navigated to dashboard
+            if (response.data.message === 'SuperAdmin login success!') { //print message received in above console in if condition else wont be navigated to dashboard
                 console.log('Login success');
                 setsuccessMessage('Login success!');
                 // setButtonVariant("outline-success")
@@ -111,10 +111,10 @@ function SuperAdminLogin() {
             <Container>
                 <Card className='verticalAlign'>
                     <Row className='row1parent'>
-                        <Col md={7} className='d-none d-md-block'>
+                        <Col md={12} className='d-none d-md-block'>
                             <Image style={{ height: '100%' }} src={require('../../assets/mountain1.jpeg')} fluid className='borderRadius image-fluid'></Image>
                         </Col>
-                        <Col md={5}>
+                        <Col md={12}>
                             <Container className='pt-4 '>
                                 {/* condition to navigate: */}
 

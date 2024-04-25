@@ -15,18 +15,30 @@ import { useRef } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import Image1 from 'react-bootstrap/Image';
+import Image2 from 'react-bootstrap/Image';
 
 //validation:
 const validate = values => {
     const errors = {};
 
-    if (!values.teamName) {
-        errors.teamName = "*Required";
+    if (!values.ClientName) {
+        errors.ClientName = "*Required";
     }
 
-    if (!values.seasonYear) {
-        errors.seasonYear = "*Required";
+    if (!values.UserName) {
+        errors.UserName = "*Required";
     }
+
+    if (!values.LoginId) {
+        errors.LoginId = "*Required";
+    }
+
+    if (!values.Password) {
+        errors.Password = "*Required";
+      } else if (values.Password.length < 8) {
+        errors.Password = "Password must be at least 8 characters long.";
+      }
 
     return errors;
 }
@@ -47,7 +59,7 @@ function AdminDashboard() {
     }, [])
 
     // function ResetFields() {
-    //     teamNameReset.current.value = "";
+    //     ClientNameReset.current.value = "";
     //     formik.resetForm();
     //     setImageProgress(""); // to reset image
     //     setImageValue(true); // to reset image
@@ -69,11 +81,11 @@ function AdminDashboard() {
 
     }
 
-    const teamNameReset = useRef("")
+    const ClientNameReset = useRef("")
 
     const formik = useFormik({
         initialValues: {
-            teamName: '',
+            ClientName: '',
             seasonYear: '',
 
 
@@ -89,7 +101,7 @@ function AdminDashboard() {
 
             // POST method:
             const formData = new FormData();
-            formData.append('teamName', values.teamName);
+            formData.append('ClientName', values.ClientName);
             formData.append('seasonYear', values.seasonYear);
             formData.append('imageData', ImageData);
 
@@ -190,6 +202,10 @@ function AdminDashboard() {
     //since in ImageUpload component setted clearImageInPost as true,we just setted it as true here and sending it as props:
     const [clearImageInPost, setClearImageInPost] = useState(true)
 
+    // password show/hide:
+    const [visible, setVisible] = useState(true);
+
+    const [password, setPwd] = useState('');
     useEffect(() => {
     }, [formik.values])
 
@@ -202,17 +218,138 @@ function AdminDashboard() {
             <br />
             <Container>
                 <Row>
-                    <Col lg={8}>
+                    <Col xs={12} className='mt-2'>
+                        <h5 className='text-center' style={{ color: '#595c5f' }}>ADD TEAMS</h5>
+                        <Card style={{ border: '3px outset #2885D7' }}>
+                            <Form className='p-3' onSubmit={formik.handleSubmit}>
+                                <Row>
+                                    <Col md={4}>
+                                        <Form.Floating className="mb-2" >
+                                            <Form.Control
+                                                id="ClientName"
+                                                type="text"
+                                                placeholder="enter client name"
+                                                name="ClientName"
+                                                value={formik.values.ClientName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            />
+                                            {
+                                                formik.touched.ClientName && formik.errors.ClientName ? <span className='span'>{formik.errors.ClientName}</span> : null
+                                            }
+                                            <label htmlFor="ClientName" className='text-muted'>Client Name*</label>
+                                        </Form.Floating>
+                                    </Col>
+
+                                    <Col md={4}>
+                                        <Form.Floating className="mb-2" >
+                                            <Form.Control
+                                                id="UserName"
+                                                type="text"
+                                                placeholder="enter user name"
+                                                name="UserName"
+                                                value={formik.values.UserName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            />
+                                            {
+                                                formik.touched.UserName && formik.errors.UserName ? <span className='span'>{formik.errors.UserName}</span> : null
+                                            }
+                                            <label htmlFor="UserName" className='text-muted'>User Name*</label>
+                                        </Form.Floating>
+                                    </Col>
+
+                                    <Col md={4}>
+                                        <Form.Floating className="mb-2" >
+                                            <Form.Control
+                                                id="LoginId"
+                                                type="text"
+                                                placeholder="enter Login ID"
+                                                name="LoginId"
+                                                value={formik.values.LoginId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            />
+                                            {
+                                                formik.touched.LoginId && formik.errors.LoginId ? <span className='span'>{formik.errors.LoginId}</span> : null
+                                            }
+                                            <label htmlFor="LoginId" className='text-muted'>Login ID*</label>
+                                        </Form.Floating>
+                                    </Col>
+
+
+                                    <Col md={4}>
+                                        <Form.Floating className="mb-2" >
+                                            <Form.Control
+                                                id="EmailId"
+                                                type="text"
+                                                placeholder="enter Email"
+                                                name="EmailId"
+                                                value={formik.values.EmailId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            />
+                                            {
+                                                formik.touched.EmailId && formik.errors.EmailId ? <span className='span'>{formik.errors.EmailId}</span> : null
+                                            }
+                                            <label htmlFor="EmailId" className='text-muted'>Email ID</label>
+                                        </Form.Floating>
+                                    </Col>
+
+                                    <Col md={4}>
+                                        <Form.Floating className="mb-2" >
+                                            <Form.Control
+                                                id="ContactNumber"
+                                                type="text"
+                                                placeholder="enter Contact Number"
+                                                name="ContactNumber"
+                                                value={formik.values.ContactNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            />
+                                            {
+                                                formik.touched.ContactNumber && formik.errors.ContactNumber ? <span className='span'>{formik.errors.ContactNumber}</span> : null
+                                            }
+                                            <label htmlFor="ContactNumber" className='text-muted'>Contact Number</label>
+                                        </Form.Floating>
+                                    </Col>
+
+                                    <Col md={4}>
+                                        <Form.Group className="mb-2" controlId="Passwords " >
+                                            {/* <Form.Label className='fontLogin'>Password</Form.Label> */}
+                                            <div className='number' >
+                                                <Form.Control className='input shadow-none n' value={password} type={
+                                                    visible ? "password" : "text"}
+                                                    placeholder="Password" onChange={(e) => setPwd(e.target.value)} />
+                                                <div className='p-2 pwd-toggle' onClick={() => setVisible(!visible)}>
+                                                    {visible ? <Image1 className='img11' style={{ height: '18px' }} src={require('../assets/eye-close.png')}></Image1>
+                                                        : <Image2 className='img11' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>}
+                                                </div>
+                                            </div>
+                                            {
+                                                formik.touched.Password && formik.errors.Password ? <span className='span'>{formik.errors.Password}</span> : null
+                                            }
+                                        </Form.Group>
+                                    </Col>
+
+                                </Row>
+                                <div className='text-center mb-3'>
+                                    <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} clearImageInPost={clearImageInPost} />
+                                </div>
+
+                                <div className="d-grid gap-2">
+                                    <Button type="submit" variant="outline-success" >SUBMIT</Button>
+                                </div>
+                            </Form>
+                        </Card>
+                    </Col>
+
+
+                    <Col xs={12}>
                         <Table responsive striped className='caption-top'>
                             <caption style={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}>TEAMS OVERVIEW</caption>
                             <thead>
-                                <tr style={{ backgroundColor: 'red' }} className='admintr'>
-                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>TEAM NAME</th>
-                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>TEAM CODE</th>
-                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>SEASON YEAR</th>
+                                <tr style={{ backgroundColor: 'red' }} className='admintr text-center'>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>S.No</th>
                                     <th style={{ whiteSpace: 'nowrap', color: 'white' }}>TEAM LOGO</th>
-                                    <th style={{ color: 'white' }}>LOGIN</th>
-                                    <th style={{ color: 'white' }}>DELETE</th>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>CLIENT NAME</th>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }} >CREATED DATE</th>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>USER NAME</th>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>LOGIN ID</th>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>PASSWORD</th>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>EMAIL ID</th>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>CONTACT No</th>
+                                    <th style={{ color: 'white' }}>STATUS</th>
                                 </tr>
                             </thead>
                             {/* {console.log("imageFile1:", imageData)} */}
@@ -226,19 +363,23 @@ function AdminDashboard() {
                                                     console.log("ShowData", showData)
                                                     return (
                                                         <tr key={i}>
-                                                            <td style={{ whiteSpace: 'nowrap' }} className='pt-3 text-center'>{showData.teamName ? showData.teamName : 'N/A'}</td>
-                                                            <td className='pt-3 text-center'>{showData.teamCode ? showData.teamCode : 'N/A'}</td>
-                                                            <td className='pt-3 text-center'>{showData.seasonYear ? showData.seasonYear : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>{showData.sno ? showData.sno : 'N/A'}</td>
                                                             <td className='pt-3 text-center'>
                                                                 {/* {showData.imageData ? <img src={`data:image/jpeg;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px' }} /> : ""} */}
-                                                                {showData.imageData ? (
-                                                                    <img src={`data:image/jpeg;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px', marginTop: '-8px' }} />
+                                                                {showData.clientLogo ? (
+                                                                    <img src={`data:image/jpeg;base64,${showData.clientLogo}`} alt="img" style={{ width: '37px', height: '37px', marginTop: '-8px' }} />
                                                                 ) : (
                                                                     <img src={require('./../assets/noimage.jpg')} alt="default" style={{ width: '37px', height: '37px', marginTop: '-8px' }} />
                                                                 )}
                                                             </td>
-                                                            <td><Button variant="success" onClick={HandleLoginTeam}>LOGIN</Button></td>
-                                                            <td><Button variant="danger" onClick={() => deleteTeam(showData.teamCode)}>REMOVE</Button></td>
+                                                            <td style={{ whiteSpace: 'nowrap' }} className='pt-3 text-center'>{showData.clientName ? showData.clientName : 'N/A'}</td>
+                                                            <td style={{ whiteSpace: 'nowrap' }} className='pt-3 text-center'>{showData.createdDate ? showData.createdDate : 'N/A'}</td>
+                                                            <td style={{ whiteSpace: 'nowrap' }} className='pt-3 text-center'>{showData.userName ? showData.userName : 'N/A'}</td>
+                                                            <td style={{ whiteSpace: 'nowrap' }} className='pt-3 text-center'>{showData.loginId ? showData.loginId : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>{showData.password ? showData.password : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>{showData.emailId ? showData.emailId : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>{showData.contactNumber ? showData.contactNumber : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>{showData.status ? showData.status : 'N/A'}</td>
 
                                                         </tr>
                                                     )
@@ -251,48 +392,7 @@ function AdminDashboard() {
                         </Table>
                     </Col>
 
-                    <Col lg={4} className='mt-2'>
-                        <h5 className='text-center' style={{ color: '#595c5f' }}>ADD TEAMS</h5>
-                        <Card style={{ border: '3px outset #2885D7' }}>
-                            <Form className='p-3' onSubmit={formik.handleSubmit}>
 
-                                <Form.Floating className="mb-2" >
-                                    <Form.Control
-                                        id="teamName"
-                                        type="text"
-                                        placeholder="enter team name"
-                                        name="teamName"
-                                        value={formik.values.teamName} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                    />
-                                    {
-                                        formik.touched.teamName && formik.errors.teamName ? <span className='span'>{formik.errors.teamName}</span> : null
-                                    }
-                                    <label htmlFor="teamName" className='text-muted'>Team Name*</label>
-                                </Form.Floating>
-
-                                <Form.Floating className="mb-2" >
-                                    <Form.Control
-                                        id="seasonYear"
-                                        type="text"
-                                        placeholder="year"
-                                        name="seasonYear"
-                                        value={formik.values.seasonYear} onBlur={formik.handleBlur} onChange={formik.handleChange}
-                                    />
-                                    {
-                                        formik.touched.seasonYear && formik.errors.seasonYear ? <span className='span'>{formik.errors.seasonYear}</span> : null
-                                    }
-                                    <label htmlFor="seasonYear" className='text-muted'>Season Year*</label>
-                                </Form.Floating>
-                                <div className='text-center mb-3'>
-                                    <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} clearImageInPost={clearImageInPost} />
-                                </div>
-
-                                <div className="d-grid gap-2">
-                                    <Button type="submit" variant="outline-success" >SUBMIT</Button>
-                                </div>
-                            </Form>
-                        </Card>
-                    </Col>
                 </Row>
             </Container>
         </div>

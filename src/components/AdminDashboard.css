@@ -1,4 +1,8 @@
-.admintr{
---bs-table-bg:#2885d7;
-color:white;
+.admintr {
+    --bs-table-bg: #2885d7;
+    color: white;
+}
+
+.n {
+    height: 58px;
 }

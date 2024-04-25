@@ -30,8 +30,8 @@ function Accreditationcard() {
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
-        console.log("Success in getting Accreadiation data", data);
-        setShowData(data);  // showData=data;
+        console.log("Success in getting Accreadiation data", data.accreadiationData);
+        setShowData(data.accreadiationData);  // showData=data;
       })
   }, [])
 
@@ -77,7 +77,7 @@ function Accreditationcard() {
           axios.get(`https://localhost:7097/AllDataAccreadiation`).then((response) => {
             console.log("GET Success", response.data)
             // Update the state with the new data
-            setShowData(response.data)
+            setShowData(response.data.accreadiationData)
           })
             .catch((error) => {
               console.log("Error Getting User", error)

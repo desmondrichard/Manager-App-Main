@@ -35,7 +35,7 @@ function Dashboard() {
 
     const [showData1, setShowData1] = useState([]);
     useEffect(() => {
-        fetch('https://localhost:7097/GetStaffAllDataAndImages')
+        fetch('https://localhost:7097/GETalldata-Staffs')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("data",data);

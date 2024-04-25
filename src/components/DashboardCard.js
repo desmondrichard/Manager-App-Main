@@ -20,7 +20,7 @@ function DashboardCard() {
         fetch('https://localhost:7097/getAllPlayers')
             .then((data) => data.json())
             .then((data) => {
-                console.log("data",data);
+                console.log("data", data);
                 // console.log("Success in getting players data", data);
                 setShowData(data);  // showData=data;
             })
@@ -30,7 +30,7 @@ function DashboardCard() {
     return (
         <div>
             <Header />
-            <div className='text-center bg-primary my-3 p-2 text-white h4' style={{ width: '120px', borderRadius: '5px',margin:'auto' }}>PLAYERS</div>
+            <div className='text-center bg-primary my-3 p-2 text-white h4' style={{ width: '120px', borderRadius: '5px', margin: 'auto' }}>PLAYERS</div>
             <NavLink to='/dashboard' className='navLinks'><Button variant="primary" className='mt-3 addPlayers butn1'>
                 Go Back
             </Button>
@@ -49,7 +49,7 @@ function DashboardCard() {
                                             showData.map((showData, i) => {
                                                 return (
                                                     <Col xs={12} md={6} xl={4} key={i} className='columnCard'>
-                                                        <Card style={{ width: '15rem', cursor: 'pointer' }} className='m-4 zoom'>
+                                                        <Card style={{ width: '15rem', cursor: 'pointer'}} className='m-4 zoom'>
                                                             <LazyLoadImage effect="blur" variant="top"
                                                                 src={showData ? `data:image;base64,${showData.imageData}` :  //checks for data
                                                                     require('./../assets/dummy_profile_img.png')}   //default img 

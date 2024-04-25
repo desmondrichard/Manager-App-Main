@@ -48,6 +48,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
     const armRightReset = useRef(false);
     const bowlStyleReset = useRef("");
     const bowlSpecsReset = useRef("");
+    
 
     //
     const [teamName, setteamName] = useState("");

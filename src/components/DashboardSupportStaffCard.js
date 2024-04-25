@@ -18,7 +18,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 function DashboardSupportStaffCard() {
     //Data Binding:
     const [showData, setShowData] = useState(null);
-    useEffect(() => {
+    useEffect(() => {     
         fetch('https://localhost:7097/GETalldata-Staffs')
             .then((data) => data.json())
             .then((data) => {
