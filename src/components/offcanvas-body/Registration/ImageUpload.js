@@ -59,7 +59,7 @@ function ImageUpload({ isClearImage, onActivateProgressBar, dynamicImageName, sh
             </label>
 
             <div onClick={() => handleImageClick()}>
-                {/* {console.log("ddd:",isClearImage, updateClicked, clearImageInPost)} */}
+                {console.log("ddd",isClearImage, clearImageInPost)}
                 {
                     !clearImageInPost ? (
                         //uncomment:

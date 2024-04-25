@@ -187,6 +187,9 @@ function AdminDashboard() {
         navigate("/teamslogin")
     }
 
+    //since in ImageUpload component setted clearImageInPost as true,we just setted it as true here and sending it as props:
+    const [clearImageInPost, setClearImageInPost] = useState(true)
+
     useEffect(() => {
     }, [formik.values])
 
@@ -281,7 +284,7 @@ function AdminDashboard() {
                                     <label htmlFor="seasonYear" className='text-muted'>Season Year*</label>
                                 </Form.Floating>
                                 <div className='text-center mb-3'>
-                                    <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} />
+                                    <ImageUpload isClearImage={imageValue} onActivateProgressBar={handleImageUploadProgress} dynamicImageName={dynamicImageNameFn} clearImageInPost={clearImageInPost} />
                                 </div>
 
                                 <div className="d-grid gap-2">

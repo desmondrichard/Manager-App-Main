@@ -364,7 +364,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
                                                     <Form.Check type='radio' id={`redMeatNo`} name='redMeat' label='No' value='No' inline onChange={handleRedMeat} ref={redMeatRef} checked={showPutData.redMeat === 'No' || redMeat === 'No'} />
                                                 </div>
                                             </label>
-                                        </Col>
+                                        </Col>                                    
 
                                         <Col xs={12} className='inlineText mt-4 d-none'>
                                             <label htmlFor='eggiterian'>Eggiterian<br /><br />
