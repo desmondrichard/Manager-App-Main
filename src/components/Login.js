@@ -21,9 +21,9 @@ function Login() {
     const navigate = useNavigate();
 
     // Getting input from user:
-    const [userName, setUsername] = useState('');
+    const [LoginId, setLoginId] = useState('');
     const [password, setPwd] = useState('');
-    const [team, setTeam] = useState('');
+    // const [team, setTeam] = useState('');
 
     // Error message display:
     const [errorMessage, seterrorMessage] = useState('');
@@ -55,16 +55,16 @@ function Login() {
         seterrorMessage('')
 
         try {
-            const response = await axios.post('https://localhost:7097/Signup/Authenticate', {
-                userName: userName,
+            const response = await axios.post('https://localhost:7097/Teams/Authenticate', {
+                LoginId: LoginId,
                 password: password,
-                team: team
+                // team: team
             });
 
             // Authentication successful, redirect or show success message
 
             console.log("login response:", response.data.message);
-            if (response.data.message === 'Signup login success!') {
+            if (response.data.message === 'Teams login success!') {
                 console.log('Login success');
                 setsuccessMessage('Login success!');
                 notify();
@@ -110,9 +110,9 @@ function Login() {
                                     )}
 
                                     {/* username: */}
-                                    <Form.Group className="mb-2" controlId="UsernameLogin" >
-                                        <Form.Label className='fontLogin'>Username</Form.Label>
-                                        <Form.Control className='shadow-none' type="text" placeholder="Enter username" value={userName} onChange={(e) => setUsername(e.target.value)} />
+                                    <Form.Group className="mb-2" controlId="LoginId" >
+                                        <Form.Label className='fontLogin'>Login ID</Form.Label>
+                                        <Form.Control className='shadow-none' type="text" placeholder="Enter Login ID" value={LoginId} onChange={(e) => setLoginId(e.target.value)} />
                                     </Form.Group>
 
                                     {/* password: */}
@@ -130,10 +130,10 @@ function Login() {
                                     </Form.Group>
 
                                     {/* team name: */}
-                                    <Form.Group className="mb-1" controlId="teamname" >
+                                    {/* <Form.Group className="mb-1" controlId="teamname" >
                                         <Form.Label className='fontLogin'>Teamname</Form.Label>
                                         <Form.Control className='shadow-none' type="text" placeholder="Enter teamname" value={team} onChange={(e) => setTeam(e.target.value)} />
-                                    </Form.Group>
+                                    </Form.Group> */}
 
                                     <div className="d-grid gap-2 my-2 btn1">
                                         {/* <NavLink to='/dashboard' className='navLinks'> */}
@@ -144,9 +144,9 @@ function Login() {
                                     </div>
                                 </Form>
 
-                                <div className='text-center py-2'>
+                                {/* <div className='text-center py-2'>
                                     <p style={{ fontWeight: '500' }}>Not Registered ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/teamssignup'>Sign Up</Link>  </span></p>
-                                </div>
+                                </div> */}
                                 <div className='text-center'>
                                     <Image3 className='logo' src={require('../assets/login-pow-logo.png')} ></Image3>
                                 </div>

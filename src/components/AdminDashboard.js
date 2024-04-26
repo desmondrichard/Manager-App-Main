@@ -34,6 +34,13 @@ const validate = values => {
         errors.LoginId = "*Required";
     }
 
+    if (!values.EmailId) {
+        errors.EmailId = "*Required";
+    }
+    else if (!/^([a-zA-Z][\w+-]+(?:\.\w+)?)@([\w-]+(?:\.[a-zA-Z]{2,10})+)$/.test(values.EmailId)) {
+        errors.EmailId = "*Invalid email address";
+    }
+
     if (!values.Password) {
         errors.Password = "*Required";
     } else if (values.Password.length < 8) {
@@ -65,13 +72,13 @@ function AdminDashboard() {
     //     setImageValue(true); // to reset image
     // }
 
-    const [ImageData, setImageData] = useState("");
+    const [clientLogo, setClientLogo] = useState("");
     const [imgProgress, setImageProgress] = useState(0);
     const [imageValue, setImageValue] = useState(false);
 
     const dynamicImageNameFn = (val) => {
         console.log("imagevalues: ", val)
-        setImageData(val)
+        setClientLogo(val)
     }
 
     function handleImageUploadProgress(value) {
@@ -81,19 +88,23 @@ function AdminDashboard() {
 
     }
 
-    const ClientNameReset = useRef("")
+    // const ClientNameReset = useRef("")
 
     const formik = useFormik({
         initialValues: {
             ClientName: '',
-            seasonYear: '',
-
+            UserName: '',
+            LoginId: '',
+            EmailId: '',
+            ContactNumber: '',
+            Password: '',
+            clientLogo: ''
 
         },
         validate,
         onSubmit: (values, { setSubmitting }) => {
-            const newValues = { ...values, imageData: ImageData }
-            console.log("newvalues", newValues)
+            const newValues = { ...values, clientLogo: clientLogo }
+            console.log("newvaluesClient", newValues)
             formik.resetForm();//to reset text fields
             setImageProgress(""); // to reset image
             setImageValue(true); // to reset image
@@ -102,8 +113,12 @@ function AdminDashboard() {
             // POST method:
             const formData = new FormData();
             formData.append('ClientName', values.ClientName);
-            formData.append('seasonYear', values.seasonYear);
-            formData.append('imageData', ImageData);
+            formData.append('UserName', values.UserName);
+            formData.append('clientLogo', clientLogo);
+            formData.append('LoginId', values.LoginId);
+            formData.append('EmailId', values.EmailId);
+            formData.append('ContactNumber', values.ContactNumber);
+            formData.append('Password', values.Password);
 
             //Looping:
             formData.forEach((value, key) => {
@@ -125,7 +140,6 @@ function AdminDashboard() {
                         console.log("GET Success", response.data)
                         // Update the state with the new data
                         setShowData(response.data)
-
                     })
                         .catch((error) => {
                             console.log("Error Getting User", error)
@@ -203,7 +217,8 @@ function AdminDashboard() {
     // password show/hide:
     const [visible, setVisible] = useState(true);
 
-    const [password, setPwd] = useState('');
+    const [Password, setPwd] = useState('');
+
     useEffect(() => {
     }, [formik.values])
 
@@ -282,7 +297,7 @@ function AdminDashboard() {
                                             {
                                                 formik.touched.EmailId && formik.errors.EmailId ? <span className='span'>{formik.errors.EmailId}</span> : null
                                             }
-                                            <label htmlFor="EmailId" className='text-muted'>Email ID</label>
+                                            <label htmlFor="EmailId" className='text-muted'>Email ID*</label>
                                         </Form.Floating>
                                     </Col>
 
@@ -303,21 +318,19 @@ function AdminDashboard() {
                                     </Col>
 
                                     <Col md={4}>
-                                        <Form.Group className="mb-2" controlId="Passwords " >
-                                            {/* <Form.Label className='fontLogin'>Password</Form.Label> */}
-                                            <div className='number' >
-                                                <Form.Control className='input shadow-none n' value={password} type={
-                                                    visible ? "password" : "text"}
-                                                    placeholder="Password" onChange={(e) => setPwd(e.target.value)} />
-                                                <div className='p-2 pwd-toggle' onClick={() => setVisible(!visible)}>
-                                                    {visible ? <Image1 className='img11' style={{ height: '18px' }} src={require('../assets/eye-close.png')}></Image1>
-                                                        : <Image2 className='img11' style={{ height: '14px' }} src={require('../assets/eye-open.png')}></Image2>}
-                                                </div>
-                                            </div>
+                                        <Form.Floating className="mb-2" >
+                                            <Form.Control
+                                                id="Password"
+                                                type="password"
+                                                placeholder="enter password"
+                                                name="Password"
+                                                value={formik.values.Password} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            />
                                             {
                                                 formik.touched.Password && formik.errors.Password ? <span className='span'>{formik.errors.Password}</span> : null
                                             }
-                                        </Form.Group>
+                                            <label htmlFor="Password" className='text-muted'>Password</label>
+                                        </Form.Floating>
                                     </Col>
 
                                 </Row>
@@ -377,8 +390,14 @@ function AdminDashboard() {
                                                             <td className='pt-3 text-center'>{showData.password ? showData.password : 'N/A'}</td>
                                                             <td className='pt-3 text-center'>{showData.emailId ? showData.emailId : 'N/A'}</td>
                                                             <td className='pt-3 text-center'>{showData.contactNumber ? showData.contactNumber : 'N/A'}</td>
-                                                            <td className='pt-3 text-center'>{showData.status ? showData.status : 'N/A'}</td>
+                                                            <td style={{ whiteSpace: 'nowrap' }} className={`pt-3 text-center ${showData.recordStatus === "MSC001" ? "text-success" : "text-danger"}`}>
+                                                                <label className="switch">
+                                                                    <input type="checkbox" checked={showData.recordStatus === "MSC001" ? true : false} />
+                                                                    <span className="slider round"></span>
+                                                                </label>
 
+                                                                {showData.recordStatus === "MSC001" ? "ACTIVE" : "INACTIVE"}
+                                                            </td>
                                                         </tr>
                                                     )
                                                 })
