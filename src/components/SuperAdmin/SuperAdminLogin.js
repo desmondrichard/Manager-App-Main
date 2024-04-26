@@ -111,10 +111,10 @@ function SuperAdminLogin() {
             <Container>
                 <Card className='verticalAlign'>
                     <Row className='row1parent'>
-                        <Col md={12} className='d-none d-md-block'>
+                        <Col md={7} className='d-none d-md-block'>
                             <Image style={{ height: '100%' }} src={require('../../assets/mountain1.jpeg')} fluid className='borderRadius image-fluid'></Image>
                         </Col>
-                        <Col md={12}>
+                        <Col md={5}>
                             <Container className='pt-4 '>
                                 {/* condition to navigate: */}
 

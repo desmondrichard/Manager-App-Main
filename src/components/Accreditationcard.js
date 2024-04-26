@@ -25,6 +25,7 @@ function Accreditationcard() {
   };
   //Data Binding:GET Method using Fetch API
   const [showData, setShowData] = useState(null);
+  
   useEffect(() => {
     fetch('https://localhost:7097/AllDataAccreadiation')
       .then((data) => data.json())
@@ -72,7 +73,7 @@ function Accreditationcard() {
             console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
-
+          alert("after delete get called")
           //Call the GET method here:
           axios.get(`https://localhost:7097/AllDataAccreadiation`).then((response) => {
             console.log("GET Success", response.data)
@@ -153,13 +154,13 @@ function Accreditationcard() {
                       return (
                         <tbody className='table-light' key={i}>
                           <tr className='text-center fontBody'>
-                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                            <td>{showData.playersName ? showData.playersName : 'N/A'}</td>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : '-'}</td>
+                            <td>{showData.playersName ? showData.playersName : '-'}</td>
                             <td></td>
-                            <td>{showData.playersDesignation ? showData.playersDesignation : 'N/A'}</td>
-                            <td>{showData.playersMobilNo ? showData.playersMobilNo : 'N/A'}</td>
-                            <td>{showData.playersEmailId ? showData.playersEmailId : 'N/A'}</td>
-                            <td>{showData.playersDutyPass ? showData.playersDutyPass : 'N/A'}</td>
+                            <td>{showData.playersDesignation ? showData.playersDesignation : '-'}</td>
+                            <td>{showData.playersMobilNo ? showData.playersMobilNo : '-'}</td>
+                            <td>{showData.playersEmailId ? showData.playersEmailId : '-'}</td>
+                            <td>{showData.playersDutyPass ? showData.playersDutyPass : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
@@ -216,11 +217,11 @@ function Accreditationcard() {
                       return (
                         <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
                           <tr className='text-center fontBody'>
-                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                            <td>{showData.staffName ? showData.staffName : 'N/A'}</td>
-                            <td>{showData.staffDesignation ? showData.staffDesignation : 'N/A'}</td>
-                            <td>{showData.staffMobilNo ? showData.staffMobilNo : 'N/A'}</td>
-                            <td>{showData.staffEmailId ? showData.staffEmailId : 'N/A'}</td>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : '-'}</td>
+                            <td>{showData.staffName ? showData.staffName : '-'}</td>
+                            <td>{showData.staffDesignation ? showData.staffDesignation : '-'}</td>
+                            <td>{showData.staffMobilNo ? showData.staffMobilNo : '-'}</td>
+                            <td>{showData.staffEmailId ? showData.staffEmailId : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
@@ -276,11 +277,11 @@ function Accreditationcard() {
                       return (
                         <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
                           <tr className='text-center fontBody'>
-                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                            <td>{showData.ownerName ? showData.ownerName : 'N/A'}</td>
-                            <td>{showData.ownerDesignation ? showData.ownerDesignation : 'N/A'}</td>
-                            <td>{showData.ownerMobilNo ? showData.ownerMobilNo : 'N/A'}</td>
-                            <td>{showData.ownerEmailId ? showData.ownerEmailId : 'N/A'}</td>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : '-'}</td>
+                            <td>{showData.ownerName ? showData.ownerName : '-'}</td>
+                            <td>{showData.ownerDesignation ? showData.ownerDesignation : '-'}</td>
+                            <td>{showData.ownerMobilNo ? showData.ownerMobilNo : '-'}</td>
+                            <td>{showData.ownerEmailId ? showData.ownerEmailId : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
@@ -334,11 +335,11 @@ function Accreditationcard() {
                       return (
                         <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
                           <tr className='text-center fontBody'>
-                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                            <td>{showData.officialName ? showData.officialName : 'N/A'}</td>
-                            <td>{showData.officialDesignation ? showData.officialDesignation : 'N/A'}</td>
-                            <td>{showData.officialMobilNo ? showData.officialMobilNo : 'N/A'}</td>
-                            <td>{showData.officialEmailId ? showData.officialEmailId : 'N/A'}</td>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : '-'}</td>
+                            <td>{showData.officialName ? showData.officialName : '-'}</td>
+                            <td>{showData.officialDesignation ? showData.officialDesignation : '-'}</td>
+                            <td>{showData.officialMobilNo ? showData.officialMobilNo : '-'}</td>
+                            <td>{showData.officialEmailId ? showData.officialEmailId : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
@@ -393,11 +394,11 @@ function Accreditationcard() {
                       return (
                         <tbody className='table-light' style={{ fontSize: '13px' }} key={i}>
                           <tr className='text-center fontBody'>
-                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : 'N/A'}</td>
-                            <td>{showData.sponsorName ? showData.sponsorName : 'N/A'}</td>
-                            <td>{showData.sponsorDesignation ? showData.sponsorDesignation : 'N/A'}</td>
-                            <td>{showData.sponsorMobilNo ? showData.sponsorMobilNo : 'N/A'}</td>
-                            <td>{showData.sponsorEmailId ? showData.sponsorEmailId : 'N/A'}</td>
+                            <td>{showData.alldataAccreadiationId ? showData.alldataAccreadiationId : '-'}</td>
+                            <td>{showData.sponsorName ? showData.sponsorName : '-'}</td>
+                            <td>{showData.sponsorDesignation ? showData.sponsorDesignation : '-'}</td>
+                            <td>{showData.sponsorMobilNo ? showData.sponsorMobilNo : '-'}</td>
+                            <td>{showData.sponsorEmailId ? showData.sponsorEmailId : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/accreadiationcards/accreadiationViewCard' className='navLinks me-2'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>

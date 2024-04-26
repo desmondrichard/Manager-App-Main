@@ -208,16 +208,16 @@ function PlayersAuctionList() {
               return (
                 <tbody className='table-light' key={i}>
                   <tr className='text-center'>
-                    <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
-                    <td>{showData.playerName ? showData.playerName : 'N/A'}</td>
+                    <td>{showData.alldataplayerId ? showData.alldataplayerId : '-'}</td>
+                    <td>{showData.playerName ? showData.playerName : '-'}</td>
                     <td>
                       {/* {showData.dateOfBirth ? formattedDate = format(new Date(showData.dateOfBirth),
                         'MMMM dd yyyy') : 'N/A'} */}
                       {formattedDate = showData.dateOfBirth ? format(new Date(showData.dateOfBirth), 'MMMM dd yyyy') : (isValidDate(showData.dateOfBirth) ? 'N/A' : '-')}
                     </td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
                     {/* <th>7</th> */}
                   </tr>
                 </tbody>

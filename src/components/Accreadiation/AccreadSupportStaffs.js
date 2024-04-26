@@ -41,7 +41,11 @@ const validate = values => {
 
 function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPreviousActivationKey }) {
     const [childNextKey, setChildNextKey] = useState("2");
+
+//mobile clear
+const [StaffMobilNo, setStaffMobilNo] = useState("null");
     const [mobValue, setMobValue] = useState(false);
+
     //reset:
     const name1 = useRef("");
     const desig1 = useRef("");
@@ -52,10 +56,11 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
 
     function handleReset() {
         name1.current.value = "";
-        desig1.current.value = "";
+        desig1.current.value = "none";
         email1.current.value = "";
-        dutypass1.current.value = "";
+        dutypass1.current.value = "none";
         setMobValue(true);
+        setStaffMobilNo("")
         formik.resetForm();
     }
 
@@ -94,13 +99,13 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
     // setSubmitting(false);
 
     //phone value:
-    const [StaffMobilNo, setStaffMobilNo] = useState(null);
     const Samp = (val) => {
         console.log("sample1", val)
         setStaffMobilNo(val);
         formik.setFieldValue('StaffMobilNo', val);// used to push value in formik dynamic child component else submit wont be enabled
         console.log("PlayersMobilNo", StaffMobilNo)
     }
+
     function Sample(val) {
         console.log("val", val);
         setMobValue(false);
@@ -167,7 +172,7 @@ function AccreadSupportStaffs({ activationKey, onChildNextActivationKey, onPrevi
                             </FloatingLabel>
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} samp={Samp} onActivateProgressBar={Sample} dynamicName="StaffMobilNo" />
+                            <Phone isClear={mobValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} samp={Samp} onActivateProgressBar={Sample} dynamicName="StaffMobilNo" value={StaffMobilNo}/>
                             {formik.touched.StaffMobilNo && formik.errors.StaffMobilNo ? (
                                 <span className="span">{formik.errors.StaffMobilNo}</span>
                             ) : null}

@@ -53,24 +53,28 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
     //next btn:
     const [childNextKey, setChildNextKey] = useState("1");
 
+    //mobile clear:
     const [mobValue, setMobValue] = useState(false);
+    const [PlayersMobilNo, setPlayersMobilNo] = useState("");
 
     const [saveBtnClicked, setSaveBtnClicked] = useState(true)
+    
 
     //reset:
     const name1 = useRef("");
     const desig1 = useRef("");
     const email1 = useRef("");
     const dutypass1 = useRef("");
-    const team1 = useRef("");
+    // const team1 = useRef("");
 
     function handleReset() {
         name1.current.value = "";
-        desig1.current.value = "";
+        desig1.current.value = "none";
         email1.current.value = "";
-        team1.current.value = "";
-        dutypass1.current.value = "";
+        // team1.current.value = "";
+        dutypass1.current.value = "none";
         setMobValue(true);
+        setPlayersMobilNo("");
         formik.resetForm();
     }
 
@@ -110,7 +114,7 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
     });
 
     //phone value:
-    const [PlayersMobilNo, setPlayersMobilNo] = useState(null);
+    
     const Samp = (value) => {
         console.log("sample1", value)
         setPlayersMobilNo(value);
@@ -178,7 +182,7 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
                     </Col>
 
                     <Col xs={12} md={4} className='py-3 c1'>
-                        <Phone isClear={mobValue} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={Sample} dynamicId="mobileId" samp={Samp} dynamicName="PlayersMobilNo" />
+                        <Phone isClear={mobValue} value={PlayersMobilNo} onValidate={validateForm} onChange={formik.handleChange} onActivateProgressBar={Sample} dynamicId="mobileId" samp={Samp} dynamicName="PlayersMobilNo" />
 
                         {formik.touched.PlayersMobilNo && formik.errors.PlayersMobilNo ? (
                             <span className="span">{formik.errors.PlayersMobilNo}</span>

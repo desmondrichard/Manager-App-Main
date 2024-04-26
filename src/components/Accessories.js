@@ -27,7 +27,7 @@ function Accessories() {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-     
+
 
 
 
@@ -211,19 +211,19 @@ function Accessories() {
               return (
                 < tbody className='table-light' key={i} >
                   <tr className='text-center'>
-                    <td>{showData.alldataplayerId ? showData.alldataplayerId : 'N/A'}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : 'N/A'}</td>
-                    <td>{showData.jerseyNo ? showData.jerseyNo : 'N/A'}</td>
-                    <td>{showData.trouserLength ? showData.trouserLength : 'N/A'}</td>
-                    <td>{showData.shortsSize ? showData.shortsSize : 'N/A'}</td>
-                    <td>{showData.trackSuit ? showData.trackSuit : 'N/A'}</td>
-                    <td>{showData.travelPolo ? showData.travelPolo : 'N/A'}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{showData.helmet ? showData.helmet : 'N/A'}</td>
-                    <td>{showData.battingPads ? showData.battingPads : 'N/A'}</td>
-                    <td>{showData.battingGloves ? showData.battingGloves : 'N/A'}</td>
-                    <td>{showData.wkGloves ? showData.wkGloves : 'N/A'}</td>
-                    <td>{showData.wkPad ? showData.wkPad : 'N/A'}</td>
-                    <td>{showData.shoulderBag ? showData.shoulderBag : 'N/A'}</td>
+                    <td>{showData.alldataplayerId ? showData.alldataplayerId : '-'}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : '-'}</td>
+                    <td>{showData.jerseyNo ? showData.jerseyNo : '-'}</td>
+                    <td>{showData.trouserLength ? showData.trouserLength : '-'}</td>
+                    <td>{showData.shortsSize ? showData.shortsSize : '-'}</td>
+                    <td>{showData.trackSuit ? showData.trackSuit : '-'}</td>
+                    <td>{showData.travelPolo ? showData.travelPolo : '-'}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{showData.helmet ? showData.helmet : '-'}</td>
+                    <td>{showData.battingPads ? showData.battingPads : '-'}</td>
+                    <td>{showData.battingGloves ? showData.battingGloves : '-'}</td>
+                    <td>{showData.wkGloves ? showData.wkGloves : '-'}</td>
+                    <td>{showData.wkPad ? showData.wkPad : '-'}</td>
+                    <td>{showData.shoulderBag ? showData.shoulderBag : '-'}</td>
 
                   </tr>
 

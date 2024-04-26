@@ -41,8 +41,8 @@ function App() {
           <Route path='/'>
             <Route index element={<LoginSignup />} />
             <Route path='/teamslogin' exact element={<Login />} />
-            <Route path='teamssignup' exact element={<Register />} />
-            <Route path='superadminsignup' exact element={<SuperAdminRegister />} />
+            {/* <Route path='teamssignup' exact element={<Register />} /> */}
+            {/* <Route path='superadminsignup' exact element={<SuperAdminRegister />} /> */}
             <Route path='accessories' exact element={<Accessories />} />
             <Route path='playersauctionlist' exact element={<PlayersAuctionList />} />
             <Route path='fixtures' exact element={<Fixtures />} />

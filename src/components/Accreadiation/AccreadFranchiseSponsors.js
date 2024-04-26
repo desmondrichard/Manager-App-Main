@@ -48,6 +48,9 @@ const validate = values => {
 
 function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
     const navigate = useNavigate()
+
+    //mobile clear:
+    const [SponsorMobilNo, setSponsorMobilNo] = useState("");
     const [mobValue, setMobValue] = useState(false);
     //reset:
     const name1 = useRef("");
@@ -60,10 +63,11 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
 
     function handleReset() {
         name1.current.value = "";
-        desig1.current.value = "";
+        desig1.current.value = "none";
         email1.current.value = "";
-        dutypass1.current.value = "";
+        dutypass1.current.value = "none";
         setMobValue(true);
+        setSponsorMobilNo("");
         formik.resetForm();
     }
 
@@ -123,7 +127,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
     //     });
     // }
 
-    const [SponsorMobilNo, setSponsorMobilNo] = useState(null);
+
     const Samp = (val) => {
         console.log("sample1", val)
         setSponsorMobilNo(val);
@@ -190,7 +194,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
                         </Col>
 
                         <Col xs={12} md={4} className='py-3 c1'>
-                            <Phone isClear={mobValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="SponsorMobilNo" onActivateProgressBar={Sample} />
+                            <Phone isClear={mobValue} onValidate={validateForm} onChange={(e) => { formik.handleChange(e) }} samp={Samp} dynamicName="SponsorMobilNo" onActivateProgressBar={Sample} value={SponsorMobilNo} />
                         </Col>
                         <Col xs={12} md={4} className='py-3 c1'>
                             <Form.Floating className="mb-2">

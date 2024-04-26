@@ -195,11 +195,11 @@ function ThingsTodo() {
                       .map((showData, i) => {
                         return (
                           <tr className='text-center font' key={i}>
-                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                            <td>{showData.team ? showData.team : 'N/A'}</td>
-                            <td>{showData.representatives ? showData.representatives : 'N/A'}</td>
-                            <td>{showData.teamUniform ? showData.teamUniform : 'N/A'}</td>
-                            <td>{showData.teamTshirt ? showData.teamTshirt : 'N/A'}</td>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : '-'}</td>
+                            <td>{showData.team ? showData.team : '-'}</td>
+                            <td>{showData.representatives ? showData.representatives : '-'}</td>
+                            <td>{showData.teamUniform ? showData.teamUniform : '-'}</td>
+                            <td>{showData.teamTshirt ? showData.teamTshirt : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight' onClick={() => handleClick1(showData)}><i className="bi bi-eye-fill"></i></Button>
@@ -256,13 +256,13 @@ function ThingsTodo() {
                       .map((showData, i) => {
                         return (
                           <tr className='text-center font' key={i}>
-                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                            <td>{showData.teamLogo ? showData.teamLogo : 'N/A'}</td>
-                            <td>{showData.teamFlage ? showData.teamFlage : 'N/A'}</td>
-                            <td>{showData.sideFlages ? showData.sideFlages : 'N/A'}</td>
-                            <td>{showData.standees ? showData.standees : 'N/A'}</td>
-                            <td>{showData.busBranding ? showData.busBranding : 'N/A'}</td>
-                            <td>{showData.busBooking ? showData.busBooking : 'N/A'}</td>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : '-'}</td>
+                            <td>{showData.teamLogo ? showData.teamLogo : '-'}</td>
+                            <td>{showData.teamFlage ? showData.teamFlage : '-'}</td>
+                            <td>{showData.sideFlages ? showData.sideFlages : '-'}</td>
+                            <td>{showData.standees ? showData.standees : '-'}</td>
+                            <td>{showData.busBranding ? showData.busBranding : '-'}</td>
+                            <td>{showData.busBooking ? showData.busBooking : '-'}</td>
                             <td className='btnPadding' style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks' >
                                 <Button variant="primary" style={{ marginTop: '-7px' }} className='marginRight'
@@ -327,9 +327,9 @@ function ThingsTodo() {
                       .map((showData, i) => {
                         return (
                           <tr className='text-center font' key={i}>
-                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                            <td>{showData.name ? showData.name : 'N/A'}</td>
-                            <td>{showData.designation ? showData.designation : 'N/A'}</td>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : '-'}</td>
+                            <td>{showData.name ? showData.name : '-'}</td>
+                            <td>{showData.designation ? showData.designation : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
@@ -395,14 +395,14 @@ function ThingsTodo() {
                         console.log("FixturesShowData:", showData)
                         return (
                           <tr className='text-center font' key={i}>
-                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : '-'}</td>
                             <td>{showData.dateTime ? formattedDate = format(
                               new Date(showData.dateTime),
                               'dd/MM/yyyy'
                             ) : 'N/A'}</td>
-                            <td>{showData.groundName ? showData.groundName : 'N/A'}</td>
-                            <td>{showData.teamA ? showData.teamA : 'N/A'}</td>
-                            <td>{showData.teamB ? showData.teamB : 'N/A'}</td>
+                            <td>{showData.groundName ? showData.groundName : '-'}</td>
+                            <td>{showData.teamA ? showData.teamA : '-'}</td>
+                            <td>{showData.teamB ? showData.teamB : '-'}</td>
                             {/* LOGO: */}
                             <td>
                               <img
@@ -491,15 +491,15 @@ function ThingsTodo() {
                       .map((showData, i) => {
                         return (
                           <tr className='text-center font' key={i}>
-                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                            <td>{showData.hotelName ? showData.hotelName : 'N/A'}</td>
-                            <td>{showData.cityName ? showData.cityName : 'N/A'}</td>
-                            <td>{showData.noOfRooms ? showData.noOfRooms : 'N/A'}</td>
-                            <td>{showData.roomsNo ? showData.roomsNo : 'N/A'}</td>
-                            <td>{showData.checkIn ? showData.checkIn : 'N/A'}</td>
-                            <td>{showData.checkOut ? showData.checkOut : 'N/A'}</td>
-                            <td>{showData.daysStayed ? showData.daysStayed : 'N/A'}</td>
-                            <td>{showData.noOfPeople ? showData.noOfPeople : 'N/A'}</td>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : '-'}</td>
+                            <td>{showData.hotelName ? showData.hotelName : '-'}</td>
+                            <td>{showData.cityName ? showData.cityName : '-'}</td>
+                            <td>{showData.noOfRooms ? showData.noOfRooms : '-'}</td>
+                            <td>{showData.roomsNo ? showData.roomsNo : '-'}</td>
+                            <td>{showData.checkIn ? showData.checkIn : '-'}</td>
+                            <td>{showData.checkOut ? showData.checkOut : '-'}</td>
+                            <td>{showData.daysStayed ? showData.daysStayed : '-'}</td>
+                            <td>{showData.noOfPeople ? showData.noOfPeople : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
@@ -563,10 +563,10 @@ function ThingsTodo() {
                       .map((showData, i) => {
                         return (
                           <tr className='text-center font' key={i}>
-                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                            <td style={{ whiteSpace: 'nowrap' }}>{showData.name ? showData.name : 'N/A'}</td>
-                            <td>{showData.equipments ? showData.equipments : 'N/A'}</td>
-                            <td>{showData.equipmentsType ? showData.equipmentsType : 'N/A'}</td>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : '-'}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>{showData.name ? showData.name : '-'}</td>
+                            <td>{showData.equipments ? showData.equipments : '-'}</td>
+                            <td>{showData.equipmentsType ? showData.equipmentsType : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>
@@ -629,17 +629,17 @@ function ThingsTodo() {
                       .map((showData, i) => {
                         return (
                           <tr className='text-center font' key={i}>
-                            <td>{showData.alldataThingsId ? showData.alldataThingsId : 'N/A'}</td>
-                            <td>{showData.leavingFrom ? showData.leavingFrom : 'N/A'}</td>
-                            <td>{showData.goingTo ? showData.goingTo : 'N/A'}</td>
-                            <td>{showData.dateOfJourney ? showData.dateOfJourney : 'N/A'}</td>
-                            <td>{showData.returnDate ? showData.returnDate : 'N/A'}</td>
-                            <td>{showData.busType ? showData.busType : 'N/A'}</td>
-                            <td>{showData.travelType ? showData.travelType : 'N/A'}</td>
-                            <td>{showData.transportType ? showData.transportType : 'N/A'}</td>
-                            <td>{showData.timeSlot ? showData.timeSlot : 'N/A'}</td>
-                            <td>{showData.noOfSeatsBooked ? showData.noOfSeatsBooked : 'N/A'}</td>
-                            <td>{showData.seatNumbers ? showData.seatNumbers : 'N/A'}</td>
+                            <td>{showData.alldataThingsId ? showData.alldataThingsId : '-'}</td>
+                            <td>{showData.leavingFrom ? showData.leavingFrom : '-'}</td>
+                            <td>{showData.goingTo ? showData.goingTo : '-'}</td>
+                            <td>{showData.dateOfJourney ? showData.dateOfJourney : '-'}</td>
+                            <td>{showData.returnDate ? showData.returnDate : '-'}</td>
+                            <td>{showData.busType ? showData.busType : '-'}</td>
+                            <td>{showData.travelType ? showData.travelType : '-'}</td>
+                            <td>{showData.transportType ? showData.transportType : '-'}</td>
+                            <td>{showData.timeSlot ? showData.timeSlot : '-'}</td>
+                            <td>{showData.noOfSeatsBooked ? showData.noOfSeatsBooked : '-'}</td>
+                            <td>{showData.seatNumbers ? showData.seatNumbers : '-'}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                               <NavLink state={{ showData }} to='/thingstodo/thingstodoviewcard' className='navLinks'>
                                 <Button onClick={() => handleClick1(showData)} variant="primary" className='marginRight' style={{ marginTop: '-7px' }}><i className="bi bi-eye-fill"></i></Button>

@@ -36,9 +36,9 @@ const validate = values => {
 
     if (!values.Password) {
         errors.Password = "*Required";
-      } else if (values.Password.length < 8) {
+    } else if (values.Password.length < 8) {
         errors.Password = "Password must be at least 8 characters long.";
-      }
+    }
 
     return errors;
 }
@@ -142,8 +142,6 @@ function AdminDashboard() {
 
     // setSubmitting(false);
     // ResetFields();
-
-    //DELETE Request:  https://localhost:7097/deleteTeam/TNPL03
 
 
 
@@ -340,7 +338,7 @@ function AdminDashboard() {
                             <caption style={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}>TEAMS OVERVIEW</caption>
                             <thead>
                                 <tr style={{ backgroundColor: 'red' }} className='admintr text-center'>
-                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>S.No</th>
+                                    <th style={{ whiteSpace: 'nowrap', color: 'white' }}>CLIENT CODE</th>
                                     <th style={{ whiteSpace: 'nowrap', color: 'white' }}>TEAM LOGO</th>
                                     <th style={{ whiteSpace: 'nowrap', color: 'white' }}>CLIENT NAME</th>
                                     <th style={{ whiteSpace: 'nowrap', color: 'white' }} >CREATED DATE</th>
@@ -363,7 +361,7 @@ function AdminDashboard() {
                                                     console.log("ShowData", showData)
                                                     return (
                                                         <tr key={i}>
-                                                            <td className='pt-3 text-center'>{showData.sno ? showData.sno : 'N/A'}</td>
+                                                            <td className='pt-3 text-center'>{showData.clientCode ? showData.clientCode : 'N/A'}</td>
                                                             <td className='pt-3 text-center'>
                                                                 {/* {showData.imageData ? <img src={`data:image/jpeg;base64,${showData.imageData}`} alt="img" style={{ width: '37px', height: '37px' }} /> : ""} */}
                                                                 {showData.clientLogo ? (
