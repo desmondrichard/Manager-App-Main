@@ -347,8 +347,8 @@ function AdminDashboard() {
 
 
                     <Col xs={12}>
-                        <Table responsive striped className='caption-top'>
-                            <caption style={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}>TEAMS OVERVIEW</caption>
+                        <div style={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center', whitespace: 'nowrap',color:'rgb(91,94,97)' }} className='my-2'>TEAMS OVERVIEW</div>
+                        <Table responsive striped>
                             <thead>
                                 <tr style={{ backgroundColor: 'red' }} className='admintr text-center'>
                                     <th style={{ whiteSpace: 'nowrap', color: 'white' }}>CLIENT CODE</th>

@@ -73,7 +73,7 @@ function Accreditationcard() {
             console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
-          alert("after delete get called")
+          // alert("after delete get called")
           //Call the GET method here:
           axios.get(`https://localhost:7097/AllDataAccreadiation`).then((response) => {
             console.log("GET Success", response.data)
