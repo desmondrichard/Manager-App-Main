@@ -226,7 +226,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
             formData.append('gender', values.gender);
             formData.append('bowlingcoachSpecial', values.bowlingcoachSpecial)
 
-            axios.post('https://localhost:7097/StaffPersonal', formData, {
+            axios.post('http://192.168.1.134/MA-APP/StaffPersonal', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -364,7 +364,7 @@ function StaffPersonalInformation({ activationKey, onActivationKeyChild, showPut
         formData.append('bowlingcoachSpecial', formik.values.bowlingcoachSpecial)
 
 
-        axios.put(`https://localhost:7097/UpdateStaffPersonal/${showPutData.alldataStaffId}`, formData, {
+        axios.put(`http://192.168.1.134/MA-APP/UpdateStaffPersonal/${showPutData.alldataStaffId}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

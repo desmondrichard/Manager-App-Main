@@ -42,7 +42,7 @@ function ThingsToDoPhysiotherapist({ activationKey, onChildNextActivationKey, on
     },
     validate,
     onSubmit: values => {
-      axios.post('https://localhost:7097/register/Coach_Physiotherapist', values)
+      axios.post('http://192.168.1.134/MA-APP/register/Coach_Physiotherapist', values)
         .then(response => {
           console.log(response.data);
           onChildNextActivationKey(childNextKey)

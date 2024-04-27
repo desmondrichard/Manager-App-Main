@@ -149,7 +149,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             // const dob = formattedPassportExpDate;
             const newValues = { ...values };
 
-            axios.post('https://localhost:7097/IDCardDetailsModel', newValues)
+            axios.post('http://192.168.1.134/MA-APP/IDCardDetailsModel', newValues)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
@@ -252,7 +252,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         // Format dates as "yyyy-MM-dd"
         const formattedPassportExpDate = formatDate(passportExpDate);
 
-        axios.put(`https://localhost:7097/PlayerIDcardModel/${showPutData.alldataplayerId}`, {
+        axios.put(`http://192.168.1.134/MA-APP/PlayerIDcardModel/${showPutData.alldataplayerId}`, {
             ...formik.values, passportExpDate: formattedPassportExpDate,
         }, {
             headers: {

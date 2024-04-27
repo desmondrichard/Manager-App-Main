@@ -68,7 +68,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         onSubmit: (values, { setSubmitting }) => {
             // alert("you have successfully signed up");
             const newValues = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
-            axios.post('https://localhost:7097/StaffEmergencycontactmodel', newValues)
+            axios.post('http://192.168.1.134/MA-APP/StaffEmergencycontactmodel', newValues)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -155,7 +155,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
         const newValues = { ...formik.values, emergencyContactPersonNo };
         console.log("showPutDataa", formik.values)
 
-        axios.put(`https://localhost:7097/StaffEmergencycontactmodel/${showPutData.alldataStaffId}`, newValues, {
+        axios.put(`http://192.168.1.134/MA-APP/StaffEmergencycontactmodel/${showPutData.alldataStaffId}`, newValues, {
             headers: {
                 'Content-Type': 'application/json'
             }

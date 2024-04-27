@@ -55,7 +55,7 @@ function PlayerRegistration(props) {
       }
     });
     //after closing get api is called to show updated values in table:
-    axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
+    axios.get(`http://192.168.1.134/MA-APP/getAllPlayers`).then((response) => {
       console.log("GET Success", response.data)
       // Update the state with the new data
       setShowData(response.data)
@@ -97,7 +97,7 @@ function PlayerRegistration(props) {
   //Data Binding GET:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('https://localhost:7097/getAllPlayers')
+    fetch('http://192.168.1.134/MA-APP/getAllPlayers')
       .then((data) => data.json())
       .then((data) => {
         console.log("data", data);
@@ -151,7 +151,7 @@ function PlayerRegistration(props) {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('https://localhost:7097/getAllPlayers');
+      const response = await fetch('http://192.168.1.134/MA-APP/getAllPlayers');
       const data = await response.json();
       console.log("response", data);
 
@@ -195,14 +195,14 @@ function PlayerRegistration(props) {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
+        axios.delete(`http://192.168.1.134/MA-APP/Delete-Alldataplayers/${id}`).then((response) => {
           if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here 
             console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
 
           //Call the GET method here:
-          axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
+          axios.get(`http://192.168.1.134/MA-APP/getAllPlayers`).then((response) => {
             console.log("GET Success", response.data)
             // Update the state with the new data
             setShowData(response.data)
@@ -231,7 +231,7 @@ function PlayerRegistration(props) {
 
   function handleShowData() {
     //Call the GET method here:
-    axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
+    axios.get(`http://192.168.1.134/MA-APP/getAllPlayers`).then((response) => {
       console.log("GET Success", response.data)
       // Update the state with the new data
       setShowData(response.data)

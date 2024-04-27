@@ -35,7 +35,7 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
         validate,
         onSubmit: values => {
 
-            axios.post('https://localhost:7097/TravelInformationModel', values)
+            axios.post('http://192.168.1.134/MA-APP/TravelInformationModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -110,7 +110,7 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
     //update Method:
     function handleUpdate() {
 
-        axios.put(`https://localhost:7097/TravelInformationModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`http://192.168.1.134/MA-APP/TravelInformationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

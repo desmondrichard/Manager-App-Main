@@ -91,7 +91,7 @@ function AccreadPlayers({ activationKey, onChildNextActivationKey }) {
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, PlayersMobilNo }
             console.log("new values", newValues)
-            axios.post('https://localhost:7097/register/AccreadiationPlayers', newValues)
+            axios.post('http://192.168.1.134/MA-APP/register/AccreadiationPlayers', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);

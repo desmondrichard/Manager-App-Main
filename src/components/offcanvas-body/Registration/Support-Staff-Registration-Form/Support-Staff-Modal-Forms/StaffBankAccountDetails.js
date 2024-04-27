@@ -138,7 +138,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
         },
         validate,
         onSubmit: values => {
-            axios.post('https://localhost:7097/StaffbankModel', values)
+            axios.post('http://192.168.1.134/MA-APP/StaffbankModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -198,7 +198,7 @@ function StaffBankAccountDetails({ activationKey, onActivationKeyChild, onPrevio
 
     function handleUpdate() {
 
-        axios.put(`https://localhost:7097/StaffbankModel/${showPutData.alldataStaffId}`, formik.values, {
+        axios.put(`http://192.168.1.134/MA-APP/StaffbankModel/${showPutData.alldataStaffId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

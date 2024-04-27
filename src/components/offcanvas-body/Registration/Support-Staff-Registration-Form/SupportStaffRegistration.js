@@ -53,7 +53,7 @@ function SupportStaffRegistration(props) {
             }
         });
         //after closing get api is called to show updated values in table:
-        axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
+        axios.get(`http://192.168.1.134/MA-APP/GETalldata-Staffs`).then((response) => {
             console.log("GET Success", response.data)
             // Update the state with the new data
             setShowData(response.data)
@@ -115,7 +115,7 @@ function SupportStaffRegistration(props) {
     //Data Binding GET:
     const [showData, setShowData] = useState(null);
     useEffect(() => {
-        fetch('https://localhost:7097/GETalldata-Staffs')
+        fetch('http://192.168.1.134/MA-APP/GETalldata-Staffs')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("data",data);
@@ -127,7 +127,7 @@ function SupportStaffRegistration(props) {
     // download excel:
     const handleDownloadExcel = async () => {
         try {
-            const response = await fetch('https://localhost:7097/GETalldata-Staffs');
+            const response = await fetch('http://192.168.1.134/MA-APP/GETalldata-Staffs');
             const data = await response.json();
             console.log("response", data);
 
@@ -199,7 +199,7 @@ function SupportStaffRegistration(props) {
 
     function handleShowData() {
         //Call the GET method here:
-        axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
+        axios.get(`http://192.168.1.134/MA-APP/GETalldata-Staffs`).then((response) => {
             console.log("GET Success", response.data)
             // Update the state with the new data
             setShowData(response.data)
@@ -221,14 +221,14 @@ function SupportStaffRegistration(props) {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://localhost:7097/Delete-AlldataStaff/${id}`).then((response) => {
+                axios.delete(`http://192.168.1.134/MA-APP/Delete-AlldataStaff/${id}`).then((response) => {
                     if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
                         console.log("Deletion Success", response.data)
                     }
                     console.log("res", response.data)
 
                     //Call the GET method here:
-                    axios.get(`https://localhost:7097/GETalldata-Staffs`).then((response) => {
+                    axios.get(`http://192.168.1.134/MA-APP/GETalldata-Staffs`).then((response) => {
                         console.log("GET Success", response.data)
                         // Update the state with the new data
                         setShowData(response.data)

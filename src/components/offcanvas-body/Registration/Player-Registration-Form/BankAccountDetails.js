@@ -135,7 +135,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         },
         validate,
         onSubmit: values => {
-            axios.post('https://localhost:7097/bankModel', values)
+            axios.post('http://192.168.1.134/MA-APP/bankModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
@@ -197,7 +197,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
     //update Method:
     function handleUpdate() {
 
-        axios.put(`https://localhost:7097/bankModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`http://192.168.1.134/MA-APP/bankModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

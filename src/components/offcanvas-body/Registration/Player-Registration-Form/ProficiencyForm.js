@@ -80,7 +80,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         },
         validate,
         onSubmit: values => {
-            axios.post('https://localhost:7097/playerSpecializationModel', values)
+            axios.post('http://192.168.1.134/MA-APP/playerSpecializationModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
@@ -151,7 +151,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
     //update Method:
     function handleUpdate() {
-        axios.put(`https://localhost:7097/SpecializationModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`http://192.168.1.134/MA-APP/SpecializationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

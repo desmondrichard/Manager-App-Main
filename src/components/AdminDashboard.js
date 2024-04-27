@@ -56,7 +56,7 @@ function AdminDashboard() {
     //GET method:
     const [showData, setShowData] = useState(null);
     useEffect(() => {
-        fetch('https://localhost:7097/getTeams')
+        fetch('http://192.168.1.134/MA-APP/getTeams')
             .then((data) => data.json())
             .then((data) => {
                 console.log("data", data);
@@ -126,7 +126,7 @@ function AdminDashboard() {
                 console.log("formData value:", value);
             });
 
-            axios.post('https://localhost:7097/AddTeams', formData, {
+            axios.post('http://192.168.1.134/MA-APP/AddTeams', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -136,7 +136,7 @@ function AdminDashboard() {
                     setSubmitting(false);
 
                     //GET Request recalling:
-                    axios.get(`https://localhost:7097/getTeams`).then((response) => {
+                    axios.get(`http://192.168.1.134/MA-APP/getTeams`).then((response) => {
                         console.log("GET Success", response.data)
                         // Update the state with the new data
                         setShowData(response.data)

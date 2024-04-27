@@ -54,7 +54,7 @@ function ThingsToDoRepresentatives({ activationKey, onChildNextActivationKey }) 
     },
     validate,
     onSubmit: values => {
-      axios.post('https://localhost:7097/register/AuctionRepresentatives', values)
+      axios.post('http://192.168.1.134/MA-APP/register/AuctionRepresentatives', values)
         .then(response => {
           console.log(response.data);
           onChildNextActivationKey(childNextKey)

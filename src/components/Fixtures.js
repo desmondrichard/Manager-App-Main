@@ -11,7 +11,7 @@ function Fixtures() {
   //Data Binding:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('https://localhost:7097/api/playerimage/register/getTestingInformation')
+    fetch('http://192.168.1.134/MA-APP/api/playerimage/register/getTestingInformation')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
