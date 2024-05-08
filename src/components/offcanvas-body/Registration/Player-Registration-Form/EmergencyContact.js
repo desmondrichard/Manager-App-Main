@@ -200,8 +200,8 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                 <Container >
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>
-                            <Col xs={12} lg={4} className='col'>
-                                <Form.Floating className="mb-2">
+                            <Col xs={12} lg={4} className='col '>
+                                <Form.Floating className="mb-2 emerGroup">
                                     <Form.Control
                                         id="emergencyContactPerson"
                                         type="text"
@@ -216,8 +216,8 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                                     <label htmlFor="emergencyContactPerson" className='text-muted fontSize'>Emg.Contact Name</label>
                                 </Form.Floating>
                             </Col>
-                            <Col xs={12} lg={4} className='col'>
-                                <FloatingLabel className='mb-2'
+                            <Col xs={12} lg={4} className='col '>
+                                <FloatingLabel className='mb-2 emerGroup'
                                     controlId="emergContactPersonRelationship"
                                     label="Emg.Contact Relation"
                                     name="emergContactPersonRelationship"
@@ -242,7 +242,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
                                 }
                             </Col>
                             <Col xs={12} lg={4} className='col '>
-                                <Phone isClear={mobileValueClear} onValidate={validateForm} value={phNo} onChange={(data) => setphNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" className='emergPhone' />
+                                <Phone isClear={mobileValueClear} onValidate={validateForm} value={phNo} onChange={(data) => setphNo(data.target.name)} onActivateProgressBar={ActivateProgressBar} samp={Samp} dynamicName="emergencyContactPersonNo" dynamicId="emergencyContactPersonId" />
                                 {formik.touched.emergencyContactPersonNo && formik.errors.emergencyContactPersonNo ? (
                                     <span className="span">{formik.errors.emergencyContactPersonNo}</span>
                                 ) : null}

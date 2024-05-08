@@ -47,44 +47,48 @@ select:focus {
 }
 
 /*  */
-.react-tel-input .form-control {
+/* .react-tel-input .form-control {
   font-size: 17px;
   height: 58px;
-}
+} */
 
 
 @media only screen and (max-width: 361px) {
-  .react-tel-input .form-control {
-    width: 211px !important;
+  .emerGroup {
+    width: 194px;
   }
 }
 
 @media (min-width:362px) and (max-width: 376px) {
-  .react-tel-input .form-control {
-    width: 167px !important;
+  .emerGroup {
+    width: 210px;
   }
+
 }
 
 @media (min-width:377px) and (max-width: 400px) {
-  .react-tel-input .form-control {
-    width: 242px !important;
+  .emerGroup {
+    width: 230px;
   }
 }
+
 
 @media (min-width:401px) and (max-width: 427px) {
-  .react-tel-input .form-control {
-    width: 268px !important;
+  .emerGroup {
+    width: 250px;
   }
 }
 
+
 @media (min-width:428px) and (max-width: 530px) {
-  .react-tel-input .form-control {
-    width: 280px !important;
+  .emerGroup {
+    width: 264px;
   }
 }
 
 @media (min-width:531px) and (max-width: 600px) {
-  .react-tel-input .form-control {
-    width: 393px !important;
+  .emerGroup {
+    width: 375px;
   }
 }
+

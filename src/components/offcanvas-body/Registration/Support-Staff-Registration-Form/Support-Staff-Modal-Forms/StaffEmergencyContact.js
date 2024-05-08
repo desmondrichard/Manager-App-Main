@@ -203,7 +203,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>
                             <Col xs={12} lg={4} className='col'>
-                                <Form.Floating className="mb-2">
+                                <Form.Floating className="mb-2 emerGroup">
                                     <Form.Control
                                         id="emergencyContactPerson"
                                         type="text"
@@ -220,7 +220,7 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                                 </Form.Floating>
                             </Col>
                             <Col xs={12} lg={4} className='col'>
-                                <FloatingLabel className='mb-2'
+                                <FloatingLabel className='mb-2 emerGroup'
                                     controlId="emergContactPersonRelationship"
                                     label="Emg.Contact Relation"
                                     name="emergContactPersonRelationship"
