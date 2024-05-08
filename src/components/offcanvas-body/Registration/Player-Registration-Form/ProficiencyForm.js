@@ -48,7 +48,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
     const armRightReset = useRef(false);
     const bowlStyleReset = useRef("");
     const bowlSpecsReset = useRef("");
-    
+
 
     //
     const [teamName, setteamName] = useState("");
@@ -332,6 +332,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                     {formik.touched.bowlingSpecification && formik.errors.bowlingSpecification ? <span className='span'>{formik.errors.bowlingSpecification}</span> : null}
                                 </FloatingLabel>
                             </Col>
+
 
                             <Col xs={12} lg={12} className='my-4 col'>
                                 {console.log("previousClkBtn", previousClk, showSkipBtn)}

@@ -38,36 +38,36 @@ option[disabled] {
 
 @media only screen and (max-width: 361px) {
   .react-tel-input .form-control {
-      width: 211px !important;
+      width: 196px !important;
   }
 }
 
 @media (min-width:362px) and (max-width: 376px) {
   .react-tel-input .form-control {
-      width: 230px !important;
+      width: 210px !important;
   }
 }
 
 @media (min-width:377px) and (max-width: 400px) {
   .react-tel-input .form-control {
-      width: 242px !important;
+      width: 227px !important;
   }
 }
 
 @media (min-width:401px) and (max-width: 427px) {
   .react-tel-input .form-control {
-      width: 268px !important;
+      width: 250px !important;
   }
 }
 
 @media (min-width:428px) and (max-width: 530px) {
   .react-tel-input .form-control {
-      width: 280px !important;
+      width: 265px !important;
   }
 }
 
 @media (min-width:531px) and (max-width: 600px) {
   .react-tel-input .form-control {
-      width: 393px !important;
+      width: 376px !important;
   }
 }

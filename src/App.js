@@ -3,7 +3,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import Register from './components/Register';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Accessories from './components/Accessories';
 import PlayersAuctionList from './components/PlayersAuctionList';
 import Fixtures from './components/Fixtures';
@@ -36,67 +36,66 @@ function App() {
   const getUserName = sessionStorage.getItem("userName");
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/'>
-            <Route index element={<LoginSignup />} />
-            <Route path='/teamslogin' exact element={<Login />} />
-            {/* <Route path='teamssignup' exact element={<Register />} /> */}
-            {/* <Route path='superadminsignup' exact element={<SuperAdminRegister />} /> */}
-            <Route path='accessories' exact element={<Accessories />} />
-            <Route path='playersauctionlist' exact element={<PlayersAuctionList />} />
-            <Route path='fixtures' exact element={<Fixtures />} />
-            <Route path='superadmindashboard' exact element={<SuperAdminDashboard />} />
-            <Route path='addclients' exact element={<AdminDashboard />} />
-          </Route>
 
-          {/*  */}
-          {/* <Route path='/teamssignup' exact element={<Register />} /> */}
+      <Routes>
+        <Route path='/'>
+          <Route index element={<LoginSignup />} />
+          <Route path='/teamslogin' exact element={<Login />} />
+          {/* <Route path='teamssignup' exact element={<Register />} /> */}
+          {/* <Route path='superadminsignup' exact element={<SuperAdminRegister />} /> */}
+          <Route path='accessories' exact element={<Accessories />} />
+          <Route path='playersauctionlist' exact element={<PlayersAuctionList />} />
+          <Route path='fixtures' exact element={<Fixtures />} />
+          <Route path='superadmindashboard' exact element={<SuperAdminDashboard />} />
+          <Route path='addclients' exact element={<AdminDashboard />} />
+        </Route>
 
-          {/* <Route path='/' exact element={<SuperAdminLogin />} /> */}
-          {/* <Route path='/superadminsignup' exact element={<SuperAdminRegister />} /> */}
+        {/*  */}
+        {/* <Route path='/teamssignup' exact element={<Register />} /> */}
 
-          {/* Nested Routes for Dashboard: */}
-          <Route path='dashboard'>
-            <Route index element={<App1 />} />
-            <Route path='dashboardplayerscard' exact element={<DashboardCard />} />
-            <Route path='dashboardstaffcard' exact element={<DashboardSupportStaffCard />} />
-            <Route path='playgroundcard' exact element={<DashboardPlayGroundViewCard />} />
-            <Route path='sponsorscard' exact element={<SponsorsViewCard />} />
-          </Route>
+        {/* <Route path='/' exact element={<SuperAdminLogin />} /> */}
+        {/* <Route path='/superadminsignup' exact element={<SuperAdminRegister />} /> */}
 
-          <Route path='playerregister'>
-            <Route index element={<PlayerRegistration />} />
-            <Route path='playerdetails' exact element={<PlayerRegistrationViewCard />} />
-          </Route>
-          {/* <Route path='/playerregister' exact element={<PlayerRegistration />} /> */}
+        {/* Nested Routes for Dashboard: */}
+        <Route path='dashboard'>
+          <Route index element={<App1 />} />
+          <Route path='dashboardplayerscard' exact element={<DashboardCard />} />
+          <Route path='dashboardstaffcard' exact element={<DashboardSupportStaffCard />} />
+          <Route path='playgroundcard' exact element={<DashboardPlayGroundViewCard />} />
+          <Route path='sponsorscard' exact element={<SponsorsViewCard />} />
+        </Route>
 
-          <Route path='staffregister'>
-            <Route index element={<SupportStaffRegistration />} />
-            <Route path='staffdetails' exact element={<StaffRegistrationViewCard />} />
-          </Route>
+        <Route path='playerregister'>
+          <Route index element={<PlayerRegistration />} />
+          <Route path='playerdetails' exact element={<PlayerRegistrationViewCard />} />
+        </Route>
+        {/* <Route path='/playerregister' exact element={<PlayerRegistration />} /> */}
+
+        <Route path='staffregister'>
+          <Route index element={<SupportStaffRegistration />} />
+          <Route path='staffdetails' exact element={<StaffRegistrationViewCard />} />
+        </Route>
+
+        {/* Nested Routes: */}
+        <Route path='thingstodo'>
+          <Route index element={<ThingsTodo />} />
+          <Route path='thingstodoviewcard' exact element={<ThingsToDoViewCard />} />
+          <Route path='thingstodoaddlist' exact element={<ThingsToDoAddList />} />
+        </Route>
+
+        {/* Nested Routes for Accreadiation: */}
+        <Route path="accreadiationcards">
+          <Route index element={<Accreditationcard />} />
+          <Route path='accreadiationform' exact element={<AccreditionForm />} />
+          <Route path='accreadiationViewCard' exact element={<AccreadiationViewCard />} />
+        </Route>
 
 
-          {/* Nested Routes: */}
-          <Route path='thingstodo'>
-            <Route index element={<ThingsTodo />} />
-            <Route path='thingstodoviewcard' exact element={<ThingsToDoViewCard />} />
-            <Route path='thingstodoaddlist' exact element={<ThingsToDoAddList />} />
-          </Route>
+        {/* <Route path='/thingstodoform' exact element={<ThingsTodoForm />} /> */}
+        {/* Page Not Found: */}
+        <Route path='*' element={<PageNotFound />} />
+      </Routes>
 
-          {/* Nested Routes for Accreadiation: */}
-          <Route path="accreadiationcards">
-            <Route index element={<Accreditationcard />} />
-            <Route path='accreadiationform' exact element={<AccreditionForm />} />
-            <Route path='accreadiationViewCard' exact element={<AccreadiationViewCard />} />
-          </Route>
-
-
-          {/* <Route path='/thingstodoform' exact element={<ThingsTodoForm />} /> */}
-          {/* Page Not Found: */}
-          <Route path='*' element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
     </div>
   );
 }

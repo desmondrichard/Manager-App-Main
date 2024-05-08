@@ -45,7 +45,7 @@
 
 /* npm country-state-city (build align issue) */
 .css-13cymwt-control {
-  height: 56px;
+  height: 56px !important;
 }
 
 @media (min-width:200px) and (max-width:451px) {
