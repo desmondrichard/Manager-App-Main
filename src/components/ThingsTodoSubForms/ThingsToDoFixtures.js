@@ -89,7 +89,7 @@ function ThingsToDoFixtures({ activationKey, onChildNextActivationKey, onPreviou
       });
 
 
-      axios.post('http://192.168.1.134/MA-APP/api/playerimage/FixturesTest', formData, {
+      axios.post('http://192.168.1.135/Manager-App-API/api/playerimage/FixturesTest', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

@@ -223,7 +223,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
             formData.append('team', values.team);
             formData.append('year', values.year);
 
-            axios.post('http://192.168.1.134/MA-APP/PersonalInformations', formData, {
+            axios.post('http://192.168.1.135/Manager-App-API/PersonalInformations', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -361,7 +361,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
         console.log("form", formData)
         //const newValues = { ...formik.values, secondNumber };
 
-        axios.put(`http://192.168.1.134/MA-APP/PlayersTestingImage/${showPutData.alldataplayerId}`, formData, {
+        axios.put(`http://192.168.1.135/Manager-App-API/PlayersTestingImage/${showPutData.alldataplayerId}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

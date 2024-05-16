@@ -133,7 +133,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
             };
             // Log the values variable
             console.log('Values11:', newValues);
-            axios.post('http://192.168.1.134/MA-APP/StaffFoodInformationModel', newValues)
+            axios.post('http://192.168.1.135/Manager-App-API/StaffFoodInformationModel', newValues)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
@@ -227,7 +227,7 @@ function StaffFoodInformation({ activationKey, onActivationKeyChild, onPreviousA
         formik.setFieldValue("allergyIfAny", newFormikValues.allergyIfAny);
         formik.setFieldValue("allergy", newFormikValues.allergy);
 
-        axios.put(`http://192.168.1.134/MA-APP/StaffFoodInformationModel/${showPutData.alldataStaffId}`, formik.values, {
+        axios.put(`http://192.168.1.135/Manager-App-API/StaffFoodInformationModel/${showPutData.alldataStaffId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

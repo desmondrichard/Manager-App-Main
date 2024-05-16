@@ -116,7 +116,7 @@ function ThingsToDoTransport({ activationKey, onPreviousActivationKey }) {
 
       const newValues = { ...values }
       // notify();
-      axios.post('http://192.168.1.134/MA-APP/register/Transport', newValues)
+      axios.post('http://192.168.1.135/Manager-App-API/register/Transport', newValues)
         .then(response => {
           console.log(response.data);
           console.log("newvalues", newValues)

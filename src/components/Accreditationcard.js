@@ -25,9 +25,9 @@ function Accreditationcard() {
   };
   //Data Binding:GET Method using Fetch API
   const [showData, setShowData] = useState(null);
-  
+
   useEffect(() => {
-    fetch('http://192.168.1.134/MA-APP/AllDataAccreadiation')
+    fetch('http://192.168.1.135/Manager-App-API/AllDataAccreadiation')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -68,14 +68,14 @@ function Accreditationcard() {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://192.168.1.134/MA-APP/Delete-AlldataAccreadiation/${id}`).then((response) => {
+        axios.delete(`http://192.168.1.135/Manager-App-API/Delete-AlldataAccreadiation/${id}`).then((response) => {
           if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
             console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
-          alert("after delete get called")
+          // alert("after delete get called")
           //Call the GET method here:
-          axios.get(`http://192.168.1.134/MA-APP/AllDataAccreadiation`).then((response) => {
+          axios.get(`http://192.168.1.135/Manager-App-API/AllDataAccreadiation`).then((response) => {
             console.log("GET Success", response.data)
             // Update the state with the new data
             setShowData(response.data.accreadiationData)
@@ -104,7 +104,7 @@ function Accreditationcard() {
 
   //paginator:
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(2);
+  const [rowsPerPage, setRowsPerPage] = useState(6);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

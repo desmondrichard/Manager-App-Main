@@ -101,7 +101,7 @@ function ThingsToDoHotelAccomodation({ activationKey, onChildNextActivationKey, 
 
             const newValues = { ...values }
 
-            axios.post('http://192.168.1.134/MA-APP/register/HotelAccomodation', newValues)
+            axios.post('http://192.168.1.135/Manager-App-API/register/HotelAccomodation', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey)

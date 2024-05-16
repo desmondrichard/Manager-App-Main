@@ -76,7 +76,7 @@ function AccreadOwners({ activationKey, onChildNextActivationKey, onPreviousActi
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, OwnerMobilNo }
-            axios.post('http://192.168.1.134/MA-APP/register/OwnersManagement', newValues)
+            axios.post('http://192.168.1.135/Manager-App-API/register/OwnersManagement', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);

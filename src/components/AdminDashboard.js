@@ -56,7 +56,7 @@ function AdminDashboard() {
     //GET method:
     const [showData, setShowData] = useState(null);
     useEffect(() => {
-        fetch('http://192.168.1.134/MA-APP/getTeams')
+        fetch('http://192.168.1.135/Manager-App-API/getTeams')
             .then((data) => data.json())
             .then((data) => {
                 console.log("data", data);
@@ -126,7 +126,7 @@ function AdminDashboard() {
                 console.log("formData value:", value);
             });
 
-            axios.post('http://192.168.1.134/MA-APP/AddTeams', formData, {
+            axios.post('http://192.168.1.135/Manager-App-API/AddTeams', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -136,7 +136,7 @@ function AdminDashboard() {
                     setSubmitting(false);
 
                     //GET Request recalling:
-                    axios.get(`http://192.168.1.134/MA-APP/getTeams`).then((response) => {
+                    axios.get(`http://192.168.1.135/Manager-App-API/getTeams`).then((response) => {
                         console.log("GET Success", response.data)
                         // Update the state with the new data
                         setShowData(response.data)
@@ -171,14 +171,14 @@ function AdminDashboard() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://localhost:7097/deleteTeam/${id}`).then((response) => {
+                axios.delete(`http://192.168.1.135/Manager-App-API/deleteTeam/${id}`).then((response) => {
                     if (response.data.TeamCode === id) {   //check how to use alldataThingsId here 
                         console.log("Deletion Success", response.data)
                     }
                     console.log("res", response.data)
 
                     //Call the GET method here:
-                    axios.get(`https://localhost:7097/getTeams`).then((response) => {
+                    axios.get(`http://192.168.1.135/Manager-App-API/getTeams`).then((response) => {
                         console.log("GET Success", response.data)
                         // Update the state with the new data
                         setShowData(response.data)

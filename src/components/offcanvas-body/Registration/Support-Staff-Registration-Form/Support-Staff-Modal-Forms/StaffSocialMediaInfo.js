@@ -94,7 +94,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowDat
 
         },
         onSubmit: values => {
-            axios.post('http://192.168.1.134/MA-APP/StaffSocialMediaModel', values)
+            axios.post('http://192.168.1.135/Manager-App-API/StaffSocialMediaModel', values)
                 .then(response => {
                     console.log(response.data);
                     console.log("values", values)
@@ -124,7 +124,7 @@ function StaffSocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowDat
     console.log('showPutDataSoc', showPutData)
     function handleUpdate() {
 
-        axios.put(`http://192.168.1.134/MA-APP/StaffSocialMediaModel/${showPutData.alldataStaffId}`, formik.values, {
+        axios.put(`http://192.168.1.135/Manager-App-API/StaffSocialMediaModel/${showPutData.alldataStaffId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

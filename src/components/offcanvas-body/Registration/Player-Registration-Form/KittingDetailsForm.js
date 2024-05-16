@@ -255,7 +255,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, ...dynamicValues };
-            axios.post('http://192.168.1.134/MA-APP/playerkittingModel', values)
+            axios.post('http://192.168.1.135/Manager-App-API/playerkittingModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
@@ -324,7 +324,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
     //update Method:
     function handleUpdate() {
 
-        axios.put(`http://192.168.1.134/MA-APP/kittingModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`http://192.168.1.135/Manager-App-API/kittingModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

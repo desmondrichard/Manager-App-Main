@@ -161,7 +161,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
             const newValues = { ...values }
 
-            axios.post('http://192.168.1.134/MA-APP/StaffIDCardDetails', newValues)
+            axios.post('http://192.168.1.135/Manager-App-API/StaffIDCardDetails', newValues)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -265,7 +265,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
         const formattedPassportExpDate = formatDate(passportExpDate);
         const formattedVisaValidity = formatDate(visaValidity);
 
-        axios.put(`http://192.168.1.134/MA-APP/StaffIdcard/${showPutData.alldataStaffId}`, {
+        axios.put(`http://192.168.1.135/Manager-App-API/StaffIdcard/${showPutData.alldataStaffId}`, {
             ...formik.values, passportExpDate: formattedPassportExpDate,
             visaValidity: formattedVisaValidity
         },

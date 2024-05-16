@@ -101,7 +101,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
         },
         validate,
         onSubmit: values => {
-            axios.post('http://192.168.1.134/MA-APP/StaffplayerkittingModel', values)
+            axios.post('http://192.168.1.135/Manager-App-API/StaffplayerkittingModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -164,7 +164,7 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
 
     //update:
     function handleUpdate() {
-        axios.put(`http://192.168.1.134/MA-APP/StaffkittingModel/${showPutData.alldataStaffId}`, formik.values, {
+        axios.put(`http://192.168.1.135/Manager-App-API/StaffkittingModel/${showPutData.alldataStaffId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

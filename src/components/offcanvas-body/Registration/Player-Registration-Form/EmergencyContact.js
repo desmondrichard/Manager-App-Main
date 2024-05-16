@@ -50,7 +50,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
         onSubmit: (values, { setSubmitting }) => {  //to add emergencyContactPersonNo along with values
             values = { ...values, emergencyContactPersonNo }//adding emergencyContactPersonNo
             // console.log("newValues", newValues)
-            axios.post('http://192.168.1.134/MA-APP/playerEmergencycontactmodel', values)
+            axios.post('http://192.168.1.135/Manager-App-API/playerEmergencycontactmodel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -150,7 +150,7 @@ function EmergencyContact({ activationKey, onActivationKeyChild, onPreviousActiv
     function handleUpdate() {
         //added next line to update emergencyContactPersonNo and sent newValues in put request
         const newValues = { ...formik.values, emergencyContactPersonNo };
-        axios.put(`http://192.168.1.134/MA-APP/playerEmergencycontactmodel/${showPutData.alldataplayerId}`, newValues, {
+        axios.put(`http://192.168.1.135/Manager-App-API/playerEmergencycontactmodel/${showPutData.alldataplayerId}`, newValues, {
             headers: {
                 'Content-Type': 'application/json'
             }

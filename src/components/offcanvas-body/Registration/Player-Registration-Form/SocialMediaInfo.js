@@ -99,7 +99,7 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
 
         },
         onSubmit: values => {
-            axios.post('http://192.168.1.134/MA-APP/SocialMediaModel', values)
+            axios.post('http://192.168.1.135/Manager-App-API/SocialMediaModel', values)
                 .then(response => {
                     notify(); //not working
                     console.log(response.data);
@@ -122,7 +122,7 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
     //update Method:
     function handleUpdate() {
 
-        axios.put(`http://192.168.1.134/MA-APP/SocialMediaModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`http://192.168.1.135/Manager-App-API/SocialMediaModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

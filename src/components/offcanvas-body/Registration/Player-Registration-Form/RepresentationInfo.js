@@ -49,7 +49,7 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
         },
         validate,
         onSubmit: values => {
-            axios.post('http://192.168.1.134/MA-APP/RepresentationinformationModel', values)
+            axios.post('http://192.168.1.135/Manager-App-API/RepresentationinformationModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -130,7 +130,7 @@ function RepresentationInfo({ activationKey, onActivationKeyChild, onPreviousAct
     //update Method:
     function handleUpdate() {
 
-        axios.put(`http://192.168.1.134/MA-APP/RepresentationinformationModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`http://192.168.1.135/Manager-App-API/RepresentationinformationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

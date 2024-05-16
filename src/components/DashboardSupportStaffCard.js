@@ -19,7 +19,7 @@ function DashboardSupportStaffCard() {
     //Data Binding:
     const [showData, setShowData] = useState(null);
     useEffect(() => {     
-        fetch('http://192.168.1.134/MA-APP/GETalldata-Staffs')
+        fetch('http://192.168.1.135/Manager-App-API/GETalldata-Staffs')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("data",data);

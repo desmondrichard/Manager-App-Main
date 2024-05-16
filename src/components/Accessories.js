@@ -31,7 +31,7 @@ function Accessories() {
 
 
 
-    fetch('http://192.168.1.134/MA-APP/getAllPlayers')
+    fetch('http://192.168.1.135/Manager-App-API/getAllPlayers')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -75,7 +75,7 @@ function Accessories() {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('http://192.168.1.134/MA-APP/getAllPlayers');
+      const response = await fetch('http://192.168.1.135/Manager-App-API/getAllPlayers');
       const data = await response.json();
       console.log("response", data);
 
@@ -111,7 +111,7 @@ function Accessories() {
 
   //paginator:
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(2);
+  const [rowsPerPage, setRowsPerPage] = useState(6);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

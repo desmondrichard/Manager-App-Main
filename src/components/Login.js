@@ -55,7 +55,7 @@ function Login() {
         seterrorMessage('')
 
         try {
-            const response = await axios.post('http://192.168.1.134/MA-APP/Teams/Authenticate', {
+            const response = await axios.post('http://192.168.1.135/Manager-App-API/Teams/Authenticate', {
                 LoginId: LoginId,
                 password: password,
                 // team: team
