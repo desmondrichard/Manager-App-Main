@@ -94,8 +94,8 @@ function Login() {
             <Container>
                 <Card className='verticalAlign'>
                     <Row className='row1parent'>
-                        <Col md={7} className='d-none d-md-block'>
-                            <Image style={{ height: '100%' }} src={require('../assets/mountain1.jpeg')} fluid className='borderRadius image-fluid'></Image>
+                        <Col md={7} className='d-none d-md-block '>
+                            <Image style={{ height: '100%', width: '100vw' }} src={require('../assets/CricWallpaper.jpeg')} fluid className='borderRadius image-fluid loginImage'></Image>
                         </Col>
                         <Col md={5}>
                             <Container className='pt-4 '>
@@ -110,13 +110,13 @@ function Login() {
                                     )}
 
                                     {/* username: */}
-                                    <Form.Group className="mb-2" controlId="LoginId" >
+                                    <Form.Group className="mb-4" controlId="LoginId" >
                                         <Form.Label className='fontLogin'>Login ID</Form.Label>
                                         <Form.Control className='shadow-none' type="text" placeholder="Enter Login ID" value={LoginId} onChange={(e) => setLoginId(e.target.value)} />
                                     </Form.Group>
 
                                     {/* password: */}
-                                    <Form.Group className="mb-2" controlId="PasswordLogin" >
+                                    <Form.Group className="mb-4" controlId="PasswordLogin" >
                                         <Form.Label className='fontLogin'>Password</Form.Label>
                                         <div className='number' >
                                             <Form.Control className='input shadow-none' value={password} type={
@@ -147,7 +147,7 @@ function Login() {
                                 {/* <div className='text-center py-2'>
                                     <p style={{ fontWeight: '500' }}>Not Registered ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/teamssignup'>Sign Up</Link>  </span></p>
                                 </div> */}
-                                <div className='text-center'>
+                                <div className='text-center my-3'>
                                     <Image3 className='logo' src={require('../assets/login-pow-logo.png')} ></Image3>
                                 </div>
                             </Container>

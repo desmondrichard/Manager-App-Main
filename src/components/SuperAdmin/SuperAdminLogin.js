@@ -112,7 +112,7 @@ function SuperAdminLogin() {
                 <Card className='verticalAlign'>
                     <Row className='row1parent'>
                         <Col md={7} className='d-none d-md-block'>
-                            <Image style={{ height: '100%' }} src={require('../../assets/mountain1.jpeg')} fluid className='borderRadius image-fluid'></Image>
+                            <Image style={{ height: '100%', width: '100vw' }} src={require('../../assets/CricWallpaper.jpeg')} fluid className='borderRadius image-fluid'></Image>
                         </Col>
                         <Col md={5}>
                             <Container className='pt-4 '>
@@ -127,13 +127,13 @@ function SuperAdminLogin() {
                                     )}
 
                                     {/* username: */}
-                                    <Form.Group className="mb-2" controlId="Username1" >
+                                    <Form.Group className="mb-3" controlId="Username1" >
                                         <Form.Label className='fontLogin'>Username</Form.Label>
                                         <Form.Control className='shadow-none' value={userName} type="text" placeholder="Enter username" onChange={(e) => setUsername(e.target.value)} />
                                     </Form.Group>
 
                                     {/* password: */}
-                                    <Form.Group className="mb-2" controlId="Passwords" >
+                                    <Form.Group className="mb-4" controlId="Passwords" >
                                         <Form.Label className='fontLogin'>Password</Form.Label>
                                         <div className='number' >
                                             <Form.Control className='input shadow-none' value={password} type={
@@ -159,7 +159,7 @@ function SuperAdminLogin() {
                                 {/* <div className='text-center py-2'>
                                     <p style={{ fontWeight: '500' }}>Not Registered ? <span className='text-danger signUp' style={{ fontSize: '19px', fontWeight: '500' }}><Link to='/superadminsignup'>Sign Up</Link>  </span></p>
                                 </div> */}
-                                <div className='text-center'>
+                                <div className='text-center mt-4'>
                                     <Image3 className='logo' src={require('../../assets/login-pow-logo.png')} ></Image3>
                                 </div>
                             </Container>
