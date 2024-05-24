@@ -21,15 +21,15 @@ const validate = values => {
     if (!values.beneficiaryName) {
         errors.beneficiaryName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,20}$/.test(values.beneficiaryName)) {
-        errors.beneficiaryName = "Beneficiary Name should be between 3 to 20 characters long or only letters allowed";
+    else if (!/^[a-zA-Z\s]{3,25}$/.test(values.beneficiaryName)) {
+        errors.beneficiaryName = "Beneficiary Name should be between 3 to 25 characters long or only letters allowed";
     }
 
     if (!values.bankName) {
         errors.bankName = "*Required";
     }
-    else if (!/^[a-zA-Z]{2,15}$/.test(values.bankName)) {
-        errors.bankName = "Bank Name should be between 2 to 15 characters long or only letters allowed";
+    else if (!/^[a-zA-Z\s]{2,25}$/.test(values.bankName)) {
+        errors.bankName = "Bank Name should be between 2 to 25 characters long or only letters allowed";
     }
 
     if (!values.bankAccountNo) {
@@ -246,7 +246,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="bankname"
                                         name="bankName"
                                         ref={banknameReset}
-                                        value={formik.values.bankName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.bankName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('bankName', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.bankName && formik.errors.bankName ? <span className='span'>{formik.errors.bankName}</span> : null
@@ -264,7 +266,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         name="beneficiaryName"
                                         ref={beneficiarynameReset}
                                         style={{ zIndex: -1 }}
-                                        value={formik.values.beneficiaryName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.beneficiaryName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('beneficiaryName', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.beneficiaryName && formik.errors.beneficiaryName ? <span className='span'>{formik.errors.beneficiaryName}</span> : null
@@ -352,7 +356,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="ifsc"
                                         name="ifscCode"
                                         ref={ifscReset}
-                                        value={formik.values.ifscCode} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.ifscCode} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('ifscCode', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.ifscCode && formik.errors.ifscCode ? <span className='span'>{formik.errors.ifscCode}</span> : null
@@ -368,7 +374,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="swiftbic"
                                         name="switchbicNumber"
                                         ref={swiftbicReset}
-                                        value={formik.values.switchbicNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.switchbicNumber} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('switchbicNumber', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {/*  */}
                                     <label htmlFor="switchbicNumber" className='text-muted '>Swift/Bic No Type</label>
@@ -382,7 +390,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="micr"
                                         name="micrCode"
                                         ref={micrReset}
-                                        value={formik.values.micrCode} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.micrCode} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('micrCode', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     {
@@ -399,7 +409,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="iban"
                                         name="ibanCode"
                                         ref={ibanReset}
-                                        value={formik.values.ibanCode} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.ibanCode} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('ibanCode', e.target.value.toUpperCase())
+                                        }}
 
                                     />
 
@@ -414,7 +426,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="gst"
                                         name="gstNumber"
                                         ref={gstReset}
-                                        value={formik.values.gstNumber} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.gstNumber} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('gstNumber', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.gstNumber && formik.errors.gstNumber ? <span className='span'>{formik.errors.gstNumber}</span> : null
@@ -447,7 +461,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="bankaddress"
                                         name="bankAddress"
                                         ref={bankaddressReset}
-                                        value={formik.values.bankAddress} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.bankAddress} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('bankAddress', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     <label htmlFor="bankAddress" className='text-muted'>Bank Address 1</label>
@@ -477,7 +493,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="bankcountry"
                                         name="bankCountry"
                                         ref={bankcountryReset}
-                                        value={formik.values.bankCountry} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.bankCountry} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('bankCountry', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.bankCountry && formik.errors.bankCountry ? <span className='span'>{formik.errors.bankCountry}</span> : null

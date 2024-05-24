@@ -170,7 +170,9 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
                                         placeholder="fbid"
                                         ref={fbidReset}
                                         name='facebookId'
-                                        value={formik.values.facebookId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.facebookId} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('facebookId', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     <label htmlFor="facebookId" className='text-muted'>Facebook ID</label>
@@ -185,7 +187,9 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
                                         ref={fblinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         name='facebookLink'
-                                        value={formik.values.facebookLink} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.facebookLink} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('facebookLink', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     <label htmlFor="facebookLink" className='text-muted'>Facebook Link</label>
@@ -199,7 +203,9 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
                                         placeholder="instagramid"
                                         ref={instagramidReset}
                                         name='instagramId'
-                                        value={formik.values.instagramId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.instagramId} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('instagramId', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     <label htmlFor="instagramId" className='text-muted'>Instagram ID</label>
@@ -214,7 +220,9 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
                                         ref={instagramlinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         name='instagramLink'
-                                        value={formik.values.instagramLink} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.instagramLink} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('instagramLink', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     <label htmlFor="instagramLink" className='text-muted'>Instagram Link</label>
@@ -228,7 +236,9 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
                                         placeholder="twitterid"
                                         ref={twitteridReset}
                                         name='twitterId'
-                                        value={formik.values.twitterId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.twitterId} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('twitterId', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     <label htmlFor="twitterId" className='text-muted'>Twitter ID</label>
@@ -243,7 +253,9 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
                                         ref={twitterlinkReset}
                                         style={{ color: 'blue', cursor: 'pointer' }}
                                         name='twitterLink'
-                                        value={formik.values.twitterLink} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.twitterLink} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('twitterLink', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     <label htmlFor="twitterLink" className='text-muted'>Twitter Link</label>

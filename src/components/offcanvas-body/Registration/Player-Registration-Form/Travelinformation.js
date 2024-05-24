@@ -159,7 +159,9 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
                                         placeholder="travelfrom"
                                         name="travelFrom"
                                         ref={fromReset}
-                                        value={formik.values.travelFrom} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.travelFrom} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('travelFrom', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.travelFrom && formik.errors.travelFrom ? <span className='span'>{formik.errors.travelFrom}</span> : null
@@ -176,7 +178,9 @@ function Travelinformation({ activationKey, onActivationKeyChild, onPreviousActi
                                         name="returnDestination"
                                         ref={toReset}
 
-                                        value={formik.values.returnDestination} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.returnDestination} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('returnDestination', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.returnDestination && formik.errors.returnDestination ? <span className='span'>{formik.errors.returnDestination}</span> : null

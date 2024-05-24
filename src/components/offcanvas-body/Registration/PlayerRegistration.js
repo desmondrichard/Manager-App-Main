@@ -68,7 +68,7 @@ function PlayerRegistration(props) {
   const handleShow = () => {
     //make setShowPutData as empty  object when handleShow is triggered when add players button is clicked
     // Reset state variables related to modal content
-    setParentKey("0");//to open from starting accordion
+    setParentKey("1");//to open from starting accordion
     setShowPutData({})//to  reset put data in form fields
     //buttons:
     setPreviousClk(false);//to disable previous btn
@@ -80,7 +80,7 @@ function PlayerRegistration(props) {
   };
 
   //Next Btn:
-  const [parentkey, setParentKey] = useState("0");
+  const [parentkey, setParentKey] = useState("1");
 
   //PreviousBtn show/hide:
   const [previousClk, setPreviousClk] = useState(false)

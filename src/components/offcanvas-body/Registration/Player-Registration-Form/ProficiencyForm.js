@@ -219,20 +219,20 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                             name="battingStyle"
                                             type={type}
                                             ref={batLeftReset}
-                                            checked={formik.values.battingStyle === 'leftHanded'}
-                                            id={`inline-${type}-leftHanded`}
-                                            value='leftHanded'
+                                            checked={formik.values.battingStyle === 'LEFT HAND'}
+                                            id={`inline-${type}-LEFT HAND`}
+                                            value='LEFT HAND'
                                         />
                                         <Form.Check
                                             inline
                                             label="Right Hand"
                                             name="battingStyle"
                                             type={type}
-                                            id={`inline-${type}-rightHanded`}
-                                            checked={formik.values.battingStyle === 'rightHanded'}
+                                            id={`inline-${type}-RIGHT HAND`}
+                                            checked={formik.values.battingStyle === 'RIGHT HAND'}
                                             // defaultChecked={true}
                                             ref={batRightReset}
-                                            value="rightHanded"
+                                            value="RIGHT HAND"
                                         />
                                     </div>
                                 ))}
@@ -268,10 +268,10 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 label="Left Arm"
                                                 name="bowlerType"
                                                 type={type}
-                                                id={`inline-${type}-leftarm`}
-                                                value='LeftArm'
+                                                id={`inline-${type}-LEFT ARM`}
+                                                value='LEFT ARM'
                                                 ref={armLeftReset}
-                                                checked={formik.values.bowlerType === 'LeftArm'}
+                                                checked={formik.values.bowlerType === 'LEFT ARM'}
 
                                             />
                                             <Form.Check
@@ -279,10 +279,10 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
                                                 label="Right Arm"
                                                 name="bowlerType"
                                                 type={type}
-                                                id={`inline-${type}-rightarm`}
-                                                value='RightArm'
+                                                id={`inline-${type}-RIGHT ARM`}
+                                                value='RIGHT ARM'
                                                 ref={armRightReset}
-                                                checked={formik.values.bowlerType === 'RightArm'}
+                                                checked={formik.values.bowlerType === 'RIGHT ARM'}
 
                                             // defaultChecked={true}
                                             />

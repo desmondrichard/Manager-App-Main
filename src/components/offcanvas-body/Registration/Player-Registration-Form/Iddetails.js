@@ -325,7 +325,9 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         placeholder="panno"
                                         name="panCardNo"
                                         ref={pannoReset}
-                                        value={formik.values.panCardNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.panCardNo} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('panCardNo', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.panCardNo && formik.errors.panCardNo ? <span className='span'>{formik.errors.panCardNo}</span> : null
@@ -341,7 +343,9 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         placeholder="passportNo"
                                         name="passportNo"
                                         ref={passnoReset}
-                                        value={formik.values.passportNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.passportNo} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('passportNo', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.passportNo && formik.errors.passportNo ? <span className='span'>{formik.errors.passportNo}</span> : null
@@ -448,7 +452,9 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         placeholder="address"
                                         name="address"
                                         ref={address0}
-                                        value={formik.values.address} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.address} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('address', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.address && formik.errors.address ? <span className='span'>{formik.errors.address}</span> : null
@@ -470,7 +476,9 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         //     isClearAddress1 ? "" : value1
                                         // }
                                         // onChange={e => setValue1(e.target.value)}
-                                        value={formik.values.addressLine1} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.addressLine1} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('addressLine1', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.addressLine1 && formik.errors.addressLine1 ? <span className='span'>{formik.errors.addressLine1}</span> : null
@@ -491,7 +499,9 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
                                         //     isClearAddress2 ? "" : value2
                                         // }
                                         // onChange={e => setValue2(e.target.value)}
-                                        value={formik.values.addressLine2} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.addressLine2} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('addressLine2', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.addressLine2 && formik.errors.addressLine2 ? <span className='span'>{formik.errors.addressLine2}</span> : null

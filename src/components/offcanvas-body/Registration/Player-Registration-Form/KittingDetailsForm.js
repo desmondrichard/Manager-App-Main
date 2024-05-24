@@ -19,8 +19,8 @@ const validate = values => {
     if (!values.jerseyName) {
         errors.jerseyName = "*Required";
     }
-    else if (!/^[a-zA-Z]{2,10}$/.test(values.jerseyName)) {
-        errors.jerseyName = "Jersey Name should be between 2 to 10 characters long or only letters allowed";
+    else if (!/^[a-zA-Z\s]{2,25}$/.test(values.jerseyName)) {
+        errors.jerseyName = "Jersey Name should be between 2 to 25 characters long or only letters allowed";
     }
 
     if (!values.jerseyNo) {
@@ -374,7 +374,9 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="JerseyName"
                                         name="jerseyName"
                                         ref={JerseyNameReset}
-                                        value={formik.values.jerseyName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.jerseyName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('jerseyName', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.jerseyName && formik.errors.jerseyName ? <span className='span'>{formik.errors.jerseyName}</span> : null
@@ -1110,7 +1112,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
                             {previousClk && <Button variant="primary" className='me-1 mb-2 previousP' style={{ width: "130px" }} onClick={handlePreviousButton}>Previous</Button>}
                             {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>Clear</Button>}
-                            {!showSaveBtn && <Button variant="info" className='mx-1 updateP' style={{ whiteSpace: 'nowrap', width: '130px',marginTop:'-9px' }} onClick={handleUpdate}>Update</Button>}
+                            {!showSaveBtn && <Button variant="info" className='mx-1 updateP' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-9px' }} onClick={handleUpdate}>Update</Button>}
                             {(previousClk || showSkipBtn) && <Button variant="dark" className='skip ms-1' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleSkip}>Skip</Button>}
 
                         </Col>

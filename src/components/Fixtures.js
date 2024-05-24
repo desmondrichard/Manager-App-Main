@@ -1,101 +1,109 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Fixtures.css';
 import Header from './Header';
-import Table from 'react-bootstrap/Table';
-import format from 'date-fns/format';
-import NoDataImg from 'react-bootstrap/Image';
-import TablePagination from '@mui/material/TablePagination';
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
 function Fixtures() {
-  let formattedDate = '';
-  //Data Binding:
+  // Filtering Year:
+  const years = [];
+  const startYear = 2023;
+  const currentYear = new Date().getFullYear();
+  for (let i = startYear; i <= currentYear; i++) {
+    years.push(i)
+  }
+  console.log("years", years)
+
+  // GET Request:
   const [showData, setShowData] = useState(null);
+
   useEffect(() => {
-    fetch('http://192.168.1.135/Manager-App-API/api/playerimage/register/getTestingInformation')
+    fetch('http://192.168.1.135/Manager-App-API/register/AllDataThingsToDo')
       .then((data) => data.json())
       .then((data) => {
-        // console.log("data",data);
+        console.log("dataFixtures", data);
         // console.log("Success in getting data", data);
         setShowData(data);  // showData=data;
       })
   }, [])
 
-  //paginator:
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(2);
+  //Date Formatting:
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
   return (
-    <div>
+    <>
       <Header />
       <div className='text-center'>
-        <div className='playersList'>FIXTURES LIST</div>
+        <div className='playersList'>FIXTURES</div>
       </div>
+      <div>
+        <Row>
+          <Col>
+            <Form.Select aria-label="Default select example" className='year'>
+              <option value="none">Select Year</option>
+              {
+                years.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))
+              }
+            </Form.Select>
+          </Col>
+        </Row>
+      </div>
+      <Container fluid className='my-4'>
+        {
+          showData && showData.map((showData, i) => {
+            return (
+              <Card className='border border-primary rounded border-2 fixturesCard my-3' key={i}>
+                <Card.Body>
+                  <Row>
+                    <Col md={2}><h5>DATE</h5></Col>
+                    <Col md={8}><p className='district'>{showData.groundName}</p></Col>
+                    <Col md={2}><p className='time'>TIME: frefefr</p></Col>
+                    <Col md={2}></Col>
+                    <Col md={8} style={{ textAlign: 'center' }}>
+                      <Row>
+                        <Col md={5}>
+                          <img
+                            src={showData ? `data:image/*;base64,${showData.teamAImage}` :  //checks for data
+                              require('./../assets/noimage.jpg')}   //default img 
+                            alt="img" style={{ width: '50px', height: '50px' }}
+                            onError={(e) => {
+                              e.target.src = require('./../assets/noimage.jpg');
+                            }}
+                          />
+                          <br />
+                          <p style={{ fontWeight: 'bold' }}>{showData.teamA}</p>
+                        </Col>
+                        <Col md={2} ><h5 className='vs'>VS</h5></Col>
+                        <Col md={5}>
+                          <img
+                            src={showData ? `data:image/*;base64,${showData.teamBImage}` :  //checks for data
+                              require('./../assets/noimage.jpg')}   //default img 
+                            alt="img" style={{ width: '50px', height: '50px' }}
+                            onError={(e) => {
+                              e.target.src = require('./../assets/noimage.jpg');
+                            }}
+                          />
+                          <br />
+                          <p style={{ fontWeight: 'bold' }}>{showData.teamB}</p>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col md={2}></Col>
 
-      <Table striped hover responsive className='tableHead my-3 table-dark'
-      >
-        <thead>
-          <tr className='text-center thead' style={{ whiteSpace: 'nowrap', fontSize: '14px' }}>
-            <th >DATE</th>
-            <th>GROUND NAME</th>
-            <th>TEAM A</th>
-            <th>Team A Logo</th>
-            <th>TEAM B</th>
-            <th>Team B Logo</th>
-
-          </tr>
-        </thead>
-        {showData &&
-          showData
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((showData, i) => {
-              console.log("showData", showData)
-              return (
-                <tbody className='table-light' key={i}>
-                  <tr className='text-center'>
-                    <td>{showData.dateTime ? formattedDate = format(
-                      new Date(showData.dateTime),
-                      'dd/MM/yyyy'
-                    ) : 'N/A'}</td>
-                    <td>{showData.groundName ? showData.groundName : 'N/A'}</td>
-                    <td>{showData.teamA ? showData.teamA : 'N/A'}</td>
-                    <td>Logo A</td>
-                    <td>{showData.teamB ? showData.teamB : 'N/A'}</td>
-                    <td>Logo B</td>
-                  </tr>
-                </tbody>
-              )
-            })
+                  </Row>
+                </Card.Body>
+              </Card>
+            )
+          })
         }
 
-      </Table>
-      {
-        showData && showData.length > 0 && (
-          <TablePagination
-            component="div"
-            count={showData.length}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[2, 6, 8]}
-          />
-        )
-      }
-      {
-        showData ? ('') : (<div className='text-center'>
-          <NoDataImg src={require('./../assets/nodatafound.png')} ></NoDataImg>
-        </div >)
-      }
-
-    </div>
+      </Container>
+    </>
   )
 }
 

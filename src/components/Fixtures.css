@@ -1,14 +1,53 @@
-/* defaultly pagination row size is aligned at bottom:to properly align: */
-.css-16c50h-MuiInputBase-root-MuiTablePagination-select {
-    margin-top: -15px !important;
-  }
-  
-  /* defaultly arrows in pagination aligned bottom:to properly align: */
-  .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
-    margin-top: -17px;
-  }
+.year {
+  background-color: #DBDBDB;
+  width: 140px;
+}
 
-  /* To align pagination (build issue) */
-.css-1chpzqh {
-  margin-top: 17px;
+.form-select {
+  border: none !important;
+}
+
+.date {
+  font-weight: 700;
+  font-size: 19px;
+}
+
+.time {
+  font-weight: 600;
+  font-size: 16px;
+  text-align: right;
+}
+
+.district {
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+}
+
+.ground {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.card-body {
+  padding-top: 5px !important;
+}
+
+
+.fixturesCard {
+  cursor: pointer;
+  box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -4px 2px 16px 0px rgba(0, 0, 0, 0.75);
+}
+
+.vs {
+  font-size: 15px;
+  margin-top: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  .vs {
+    margin-top: -7px;
+  }
 }

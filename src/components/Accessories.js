@@ -186,6 +186,7 @@ function Accessories() {
           <tr className='text-center thead' style={{ whiteSpace: 'nowrap', fontSize: '14px' }}>
             <th >S.NO</th>
             <th>PLAYER NAME</th>
+            <th>PLAYER TYPE</th>
             <th>JERSEY NO</th>
             <th>TROUSER LENGTH</th>
             <th>SHORTS SIZE</th>
@@ -213,6 +214,8 @@ function Accessories() {
                   <tr className='text-center'>
                     <td>{showData.alldataplayerId ? showData.alldataplayerId : '-'}</td>
                     <td style={{ whiteSpace: 'nowrap' }}>{showData.playerName ? showData.playerName : '-'}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{showData.specialization ? showData.specialization : '-'} {showData.battingStyle ? showData.battingStyle === 'LEFT HAND' ? '(LHB)' : '(RHB)' : '-'} {showData.bowlerType ? showData.bowlerType === 'LEFT ARM' ? '(LA)' : '(RA)' : '-'}</td>
+
                     <td>{showData.jerseyNo ? showData.jerseyNo : '-'}</td>
                     <td>{showData.trouserLength ? showData.trouserLength : '-'}</td>
                     <td>{showData.shortsSize ? showData.shortsSize : '-'}</td>

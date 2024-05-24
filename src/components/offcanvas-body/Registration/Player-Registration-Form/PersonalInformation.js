@@ -22,19 +22,19 @@ const validate = values => {
     if (!values.playerName) {
         errors.playerName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.playerName)) {
-        errors.playerName = "First name should be between 3 to 10 characters long or only letters allowed";
+    else if (!/^[a-zA-Z\s]{3,25}$/.test(values.playerName)) {
+        errors.playerName = "First name should be between 3 to 25 characters long or only letters allowed";
     }
 
-    if (!/^[a-zA-Z]{0,10}$/.test(values.middleName)) {
-        errors.middleName = "Middle name should be maximum 10 characters long or only letters allowed";
+    if (!/^[a-zA-Z\s]{0,25}$/.test(values.middleName)) {
+        errors.middleName = "Middle name should be maximum 25 characters long or only letters allowed";
     }
 
     if (!values.lastName) {
         errors.lastName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.lastName)) {
-        errors.lastName = "Last Name should be between 3 to 10 characters long or only letters allowed";
+    else if (!/^[a-zA-Z\s]{3,25}$/.test(values.lastName)) {
+        errors.lastName = "Last Name should be between 3 to 25 characters long or only letters allowed";
     }
 
     if (!values.bloodGroup) {
@@ -44,26 +44,26 @@ const validate = values => {
     if (!values.initials) {
         errors.initials = "*Required";
     }
-    else if (!/^[a-zA-Z]{0,4}$/.test(values.initials)) {
-        errors.initials = "Initial can only contain letters upto four characters only"
+    else if (!/^[a-zA-Z_\-.]{0,5}$/.test(values.initials)) {
+        errors.initials = "Invalid Initial"
     }
 
     if (!values.displayName) {
         errors.displayName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.displayName)) {
-        errors.displayName = 'Display Name must be alphanumeric and have length between 3 to 10 or only letters allowed'
+    else if (!/^[a-zA-Z_\-.\s]{3,30}$/.test(values.displayName)) {
+        errors.displayName = 'Display Name must be alphanumeric and have length between 3 to 30 or only letters allowed'
     }
 
     if (!values.fatherName) {
         errors.fatherName = "*Required";
     }
-    else if (!/^[a-zA-Z]{3,10}$/.test(values.fatherName)) {
-        errors.fatherName = "Father Name should be maximum 10 characters long or only letters allowed";
+    else if (!/^[a-zA-Z_\-.\s]{3,30}$/.test(values.fatherName)) {
+        errors.fatherName = "Father Name should be maximum 30 characters long or only letters allowed";
     }
 
-    if (!/^[a-zA-Z]{0,10}$/.test(values.motherName)) {
-        errors.motherName = "Mother Name should be maximum 10 characters long or only letters allowed"
+    if (!/^[a-zA-Z_\-.\s]{0,30}$/.test(values.motherName)) {
+        errors.motherName = "Mother Name should be maximum 30 characters long or only letters allowed"
     }
 
     if (!values.dateOfBirth) {
@@ -447,7 +447,7 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         ref={firstNameReset}
                                         name="playerName"
                                         value={formik.values.playerName} onBlur={formik.handleBlur} onChange={(e) => {
-                                            formik.setFieldValue('playerName', e.target.value)
+                                            formik.setFieldValue('playerName', e.target.value.toUpperCase())
                                         }}
                                     />
                                     {
@@ -465,7 +465,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         placeholder="middle name"
                                         ref={middleNameReset}
                                         name="middleName"
-                                        value={formik.values.middleName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.middleName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('middleName', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.middleName && formik.errors.middleName ? <span className='span'>{formik.errors.middleName}</span> : null
@@ -481,7 +483,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         placeholder="last name"
                                         ref={lastNameReset}
                                         name="lastName"
-                                        value={formik.values.lastName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.lastName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('lastName', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.lastName && formik.errors.lastName ? <span className='span'>{formik.errors.lastName}</span> : null
@@ -497,7 +501,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         placeholder="initials"
                                         ref={initialsReset}
                                         name="initials"
-                                        value={formik.values.initials} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.initials} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('initials', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.initials && formik.errors.initials ? <span className='span'>{formik.errors.initials}</span> : null
@@ -544,7 +550,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         placeholder="display name"
                                         ref={displayNameReset}
                                         name="displayName"
-                                        value={formik.values.displayName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.displayName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('displayName', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.displayName && formik.errors.displayName ? <span className='span'>{formik.errors.displayName}</span> : null
@@ -560,7 +568,10 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         placeholder="father name"
                                         ref={fathersNameReset}
                                         name="fatherName"
-                                        value={formik.values.fatherName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.fatherName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('fatherName', e.target.value.toUpperCase())
+                                        }}
+
                                     />
                                     {
                                         formik.touched.fatherName && formik.errors.fatherName ? <span className='span'>{formik.errors.fatherName}</span> : null
@@ -576,7 +587,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         placeholder="mother name"
                                         ref={mothersNameReset}
                                         name="motherName"
-                                        value={formik.values.motherName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.motherName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('motherName', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.motherName && formik.errors.motherName ? <span className='span'>{formik.errors.motherName}</span> : null
@@ -650,7 +663,9 @@ function PersonalInformation({ activationKey, onActivationKeyChild, showPutData,
                                         placeholder="email"
                                         ref={emailReset}
                                         name="emailId"
-                                        value={formik.values.emailId} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.emailId} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('emailId', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.emailId && formik.errors.emailId ? <span className='span'>{formik.errors.emailId}</span> : null
