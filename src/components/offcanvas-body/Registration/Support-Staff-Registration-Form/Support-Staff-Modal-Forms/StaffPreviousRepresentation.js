@@ -171,7 +171,9 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                                         placeholder="division"
                                         ref={division1}
                                         name="division"
-                                        value={formik.values.division} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.division} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('division', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.division && formik.errors.division ? <span className='span'>{formik.errors.division}</span> : null
@@ -187,7 +189,9 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                                         placeholder="city"
                                         name="cityDistrict"
                                         ref={city1}
-                                        value={formik.values.cityDistrict} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.cityDistrict} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('cityDistrict', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.cityDistrict && formik.errors.cityDistrict ? <span className='span'>{formik.errors.cityDistrict}</span> : null
@@ -203,7 +207,9 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
                                         placeholder="club"
                                         name="club"
                                         ref={club1}
-                                        value={formik.values.club} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.club} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('club', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.club && formik.errors.club ? <span className='span'>{formik.errors.club}</span> : null

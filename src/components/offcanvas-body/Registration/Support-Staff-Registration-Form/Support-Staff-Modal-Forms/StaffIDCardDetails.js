@@ -348,7 +348,9 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="aadharno"
                                         name="aadharNo"
                                         ref={aadharno1}
-                                        value={formik.values.aadharNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.aadharNo} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('aadharNo', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.aadharNo && formik.errors.aadharNo ? <span className='span'>{formik.errors.aadharNo}</span> : null
@@ -364,7 +366,9 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="panno"
                                         name="panCardNo"
                                         ref={panno1}
-                                        value={formik.values.panCardNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.panCardNo} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('panCardNo', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.panCardNo && formik.errors.panCardNo ? <span className='span'>{formik.errors.panCardNo}</span> : null
@@ -380,7 +384,9 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="passno"
                                         name="passportNo"
                                         ref={passno1}
-                                        value={formik.values.passportNo} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.passportNo} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('passportNo', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.passportNo && formik.errors.passportNo ? <span className='span'>{formik.errors.passportNo}</span> : null
@@ -414,7 +420,9 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="birth"
                                         name="birthCertificate"
                                         ref={birth1}
-                                        value={formik.values.birthCertificate} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.birthCertificate} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('birthCertificate', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.birthCertificate && formik.errors.birthCertificate ? <span className='span'>{formik.errors.birthCertificate}</span> : null
@@ -463,7 +471,9 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="visano"
                                         name="visaNumber"
                                         ref={visaNumber}
-                                        value={formik.values.visaNumber} onBlur={formik.handleBlur} onChange={formik.handleChange} disabled={formik.values.visacheck === 'No'}
+                                        value={formik.values.visaNumber} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('visaNumber', e.target.value.toUpperCase())
+                                        }} disabled={formik.values.visacheck === 'No'}
                                     />
                                     {
                                         formik.touched.visaNumber && formik.errors.visaNumber ? <span className='span'>{formik.errors.visaNumber}</span> : null
@@ -501,7 +511,9 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                         placeholder="address"
                                         name="address"
                                         ref={address0}
-                                        value={formik.values.address} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.address} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('address', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.address && formik.errors.address ? <span className='span'>{formik.errors.address}</span> : null
@@ -523,7 +535,9 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                             //     isClearAddress1 ? "" : value1
                                             // }
                                             // onChange={e => setValue1(e.target.value)}
-                                            value={formik.values.addressLine1} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            value={formik.values.addressLine1} onBlur={formik.handleBlur} onChange={(e) => {
+                                                formik.setFieldValue('addressLine1', e.target.value.toUpperCase())
+                                            }}
                                         />
                                         {
                                             formik.touched.addressLine1 && formik.errors.addressLine1 ? <span className='span'>{formik.errors.addressLine1}</span> : null
@@ -540,7 +554,9 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
                                             placeholder="address2"
                                             name="addressLine2"
                                             ref={address2}
-                                            value={formik.values.addressLine2} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                            value={formik.values.addressLine2} onBlur={formik.handleBlur} onChange={(e) => {
+                                                formik.setFieldValue('addressLine2', e.target.value.toUpperCase())
+                                            }}
                                         />
                                         {
                                             formik.touched.addressLine2 && formik.errors.addressLine2 ? <span className='span'>{formik.errors.addressLine2}</span> : null
@@ -618,7 +634,7 @@ function StaffIDCardDetails({ activationKey, onActivationKeyChild, onPreviousAct
 
 
                             <Col xs={12} lg={12} className='my-4 col'>
-                                {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previouss' style={{ width: "130px",marginTop:'6px' }} onClick={handlePreviousButton}>Previous</Button>}
+                                {previousClk && <Button variant="primary" className='me-1 mb-3 mx-1 previouss' style={{ width: "130px", marginTop: '6px' }} onClick={handlePreviousButton}>Previous</Button>}
                                 {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                                 {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>Clear</Button>}
                                 {!showSaveBtn && <Button variant="info" className='mx-1 updates' style={{ whiteSpace: 'nowrap', width: '130px', marginTop: '-8px' }} onClick={handleUpdate}>Update</Button>}

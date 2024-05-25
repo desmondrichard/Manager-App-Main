@@ -19,8 +19,8 @@ const validate = values => {
     if (!values.jerseyName) {
         errors.jerseyName = "*Required";
     }
-    else if (!/^[a-zA-Z]{2,10}$/.test(values.jerseyName)) {
-        errors.jerseyName = "Jersey Name should be between 2 to 10 characters long or only letters allowed";
+    else if (!/^[a-zA-Z\s]{2,25}$/.test(values.jerseyName)) {
+        errors.jerseyName = "Jersey Name should be between 2 to 25 characters long or only letters allowed";
     }
 
     if (!values.jerseyNo) {
@@ -35,8 +35,8 @@ const validate = values => {
         errors.jerseySize = "*Required";
     }
 
-    if (!/^[a-zA-Z]{0,1}$/.test(values.initials)) {
-        errors.initials = "only one letter allowed";
+    if (!/^[a-zA-Z_\-.\s]{0,10}$/.test(values.initials)) {
+        errors.initials = "only letters allowed upto 10 characters only";
     }
 
 
@@ -209,7 +209,9 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         placeholder="JerseyName"
                                         name='jerseyName'
                                         ref={JerseyName1}
-                                        value={formik.values.jerseyName} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.jerseyName} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('jerseyName', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.jerseyName && formik.errors.jerseyName ? <span className='span'>{formik.errors.jerseyName}</span> : null
@@ -265,7 +267,9 @@ function StaffKittingDetails({ activationKey, onActivationKeyChild, onPreviousAc
                                         placeholder="initialprint"
                                         name="initials"
 
-                                        value={formik.values.initials} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.initials} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('initials', e.target.value.toUpperCase())
+                                        }}
                                     />
                                     {
                                         formik.touched.initials && formik.errors.initials ? <span className='span'>{formik.errors.initials}</span> : null

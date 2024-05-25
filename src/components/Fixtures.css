@@ -3,9 +3,9 @@
   width: 140px;
 }
 
-.form-select {
+/* .form-select {
   border: none !important;
-}
+} */
 
 .date {
   font-weight: 700;
@@ -50,4 +50,25 @@
   .vs {
     margin-top: -7px;
   }
+}
+
+.dateFormatted {
+  font-weight: 600;
+
+}
+
+@keyframes hoverAnimation {
+  0% {
+    background-color: white;
+  }
+
+  100% {
+    background-color: #e7e4e4;
+  }
+}
+
+.fixturesCard:hover {
+  animation: hoverAnimation 0.5s forwards;
+  border-color: red !important;
+  transition: 0.6s;
 }

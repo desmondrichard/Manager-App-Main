@@ -210,7 +210,9 @@ function StaffEmergencyContact({ activationKey, onActivationKeyChild, onPrevious
                                         placeholder="emgcontactperson"
                                         name="emergencyContactPerson"
                                         ref={emgcontactperson1}
-                                        value={formik.values.emergencyContactPerson} onBlur={formik.handleBlur} onChange={formik.handleChange}
+                                        value={formik.values.emergencyContactPerson} onBlur={formik.handleBlur} onChange={(e) => {
+                                            formik.setFieldValue('emergencyContactPerson', e.target.value.toUpperCase())
+                                        }}
 
                                     />
                                     {

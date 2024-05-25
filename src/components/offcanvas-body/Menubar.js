@@ -34,7 +34,7 @@ function Menubar() {
                 <NavLink className='nav-bar-link text' to='/playersauctionlist'><ListGroup.Item action variant="secondary" className='py-3 a' ><i className="bi bi-clipboard2-check-fill"></i> PLAYERS AUCTION LIST</ListGroup.Item></NavLink>
                 <NavLink className='nav-bar-link text' to='/fixtures'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-geo-alt-fill"></i> FIXTURES</ListGroup.Item></NavLink>
                 <NavLink className='nav-bar-link text' to='/thingstodo'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-list-check"></i> THINGS TO DO</ListGroup.Item></NavLink>
-                <NavLink className='nav-bar-link text' to='/accreadiationcards'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-credit-card-2-back-fill"></i> ACCREADIATION CARDS</ListGroup.Item></NavLink>
+                <NavLink className='nav-bar-link text' to='/accreadiationcards'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-credit-card-2-back-fill"></i> MANAGEMENT REGISTRATION</ListGroup.Item></NavLink>
                 <NavLink className='nav-bar-link text' to='/addclients'><ListGroup.Item action variant="secondary" className='py-3 a'><i className="bi bi-person-gear" style={{ fontSize: '16px' }}></i> ADD CLIENTS</ListGroup.Item></NavLink>
 
                 {/* superadmindashboard */}
