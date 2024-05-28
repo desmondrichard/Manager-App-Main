@@ -46,7 +46,7 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
     // }
 
     const handlePreviousButton = () => {
-        onPreviousActivationKey("8")
+        onPreviousActivationKey("9")
         handlePrevClick(true)
     }
 
@@ -155,7 +155,7 @@ function SocialMediaInfo({ onCloseModal, onPreviousActivationKey, onShowData, sh
     }, [formik.values])
 
     return (
-        <Accordion.Item eventKey="9">
+        <Accordion.Item eventKey="10">
             <ToastContainer />
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>SOCIAL MEDIA INFORMATION</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>

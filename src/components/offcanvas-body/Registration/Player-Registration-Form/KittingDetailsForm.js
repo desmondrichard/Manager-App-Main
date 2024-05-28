@@ -1108,7 +1108,7 @@ function KittingDetailsForm({ activationKey, onActivationKeyChild, onPreviousAct
 
 
                         <Col lg={12} className='my-4 col'>
-                            {console.log("previousClkBtn", previousClk, showSkipBtn)}
+                            {/* {console.log("previousClkBtn", previousClk, showSkipBtn)} */}
                             {previousClk && <Button variant="primary" className='me-1 mb-2 previousP' style={{ width: "130px" }} onClick={handlePreviousButton}>Previous</Button>}
                             {showSaveBtn && !previousClk && <Button type="submit" variant="success" className='me-1 mb-2 mx-1 ' style={{ width: "130px" }}>Save and Next</Button>}
                             {showClearBtn && <Button variant="warning" className='text-white mb-2 ' style={{ width: "130px" }} onClick={() => handleReset()}>Clear</Button>}

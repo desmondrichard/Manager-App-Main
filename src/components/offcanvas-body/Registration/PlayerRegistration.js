@@ -37,6 +37,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 // import './SearchButton.css';
 import TablePagination from '@mui/material/TablePagination';
+import PlayerAuctionInformation from './Player-Registration-Form/PlayerAuctionInformation';
 
 function PlayerRegistration(props) {
   const [show, setShow] = useState(false);
@@ -68,7 +69,7 @@ function PlayerRegistration(props) {
   const handleShow = () => {
     //make setShowPutData as empty  object when handleShow is triggered when add players button is clicked
     // Reset state variables related to modal content
-    setParentKey("1");//to open from starting accordion
+    setParentKey("9");//to open from starting accordion
     setShowPutData({})//to  reset put data in form fields
     //buttons:
     setPreviousClk(false);//to disable previous btn
@@ -80,7 +81,7 @@ function PlayerRegistration(props) {
   };
 
   //Next Btn:
-  const [parentkey, setParentKey] = useState("1");
+  const [parentkey, setParentKey] = useState("9");
 
   //PreviousBtn show/hide:
   const [previousClk, setPreviousClk] = useState(false)
@@ -344,6 +345,8 @@ function PlayerRegistration(props) {
                 {/* Accordion:9 */}
                 <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} />
                 {/* Accordion:10 */}
+                <PlayerAuctionInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} />
+                {/* Accordion:11 */}
                 <SocialMediaInfo activationKey={parentkey} onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} />
               </Accordion>
             </Modal.Body>
