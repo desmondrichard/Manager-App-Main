@@ -61,7 +61,7 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
         },
         validate,
         onSubmit: values => {
-            axios.post('http://192.168.1.135/Manager-App-API/StaffRepresentation', values)
+            axios.post('https://localhost:7097/StaffRepresentation', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -122,7 +122,7 @@ function StaffPreviousRepresentation({ activationKey, onActivationKeyChild, onPr
     console.log('showPutDataRep', showPutData)
     function handleUpdate() {
 
-        axios.put(`http://192.168.1.135/Manager-App-API/StaffRepresentationinformationModel/${showPutData.alldataStaffId}`, formik.values, {
+        axios.put(`https://localhost:7097/StaffRepresentationinformationModel/${showPutData.alldataStaffId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

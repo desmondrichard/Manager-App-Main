@@ -76,7 +76,7 @@ const [StaffMobilNo, setStaffMobilNo] = useState("null");
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, StaffMobilNo }
-            axios.post('http://192.168.1.135/Manager-App-API/register/AccreadiationStaff', newValues)
+            axios.post('https://localhost:7097/register/AccreadiationStaff', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);

@@ -27,7 +27,7 @@ function ThingsTodo() {
   //
 
   useEffect(() => {
-    fetch('http://192.168.1.135/Manager-App-API/register/AllDataThingsToDo')
+    fetch('https://localhost:7097/register/AllDataThingsToDo')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -63,14 +63,14 @@ function ThingsTodo() {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://192.168.1.135/Manager-App-API/Delete-AlldataThings/${id}`).then((response) => {
+        axios.delete(`https://localhost:7097/Delete-AlldataThings/${id}`).then((response) => {
           if (response.data.alldataThingsId === id) {   //check how to use alldataThingsId here 
             console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
 
           //Call the GET method here:
-          axios.get(`http://192.168.1.135/Manager-App-API/register/AllDataThingsToDo`).then((response) => {
+          axios.get(`https://localhost:7097/register/AllDataThingsToDo`).then((response) => {
             console.log("GET Success", response.data)
             // Update the state with the new data
             setShowData(response.data)

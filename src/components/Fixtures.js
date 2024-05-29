@@ -24,7 +24,7 @@ function Fixtures() {
   const [showData, setShowData] = useState(null);
 
   useEffect(() => {
-    fetch('http://192.168.1.135/Manager-App-API/register/AllDataThingsToDo')
+    fetch('https://localhost:7097/register/AllDataThingsToDo')
       .then((data) => data.json())
       .then((data) => {
         console.log("dataFixtures", data);

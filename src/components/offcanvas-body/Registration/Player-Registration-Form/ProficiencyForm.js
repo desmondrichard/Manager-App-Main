@@ -80,7 +80,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         },
         validate,
         onSubmit: values => {
-            axios.post('http://192.168.1.135/Manager-App-API/playerSpecializationModel', values)
+            axios.post('https://localhost:7097/playerSpecializationModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
@@ -106,8 +106,6 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
         onPreviousActivationKey("0")
         handlePrevClick(true)
     }
-
-
 
 
     // progress Bar for static fields:
@@ -151,7 +149,7 @@ function ProficiencyForm({ activationKey, onActivationKeyChild, onPreviousActiva
 
     //update Method:
     function handleUpdate() {
-        axios.put(`http://192.168.1.135/Manager-App-API/SpecializationModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`https://localhost:7097/SpecializationModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

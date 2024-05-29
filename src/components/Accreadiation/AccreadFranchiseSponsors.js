@@ -81,7 +81,7 @@ function AccreadFranchiseSponsors({ activationKey, onPreviousActivationKey }) {
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, SponsorMobilNo }
-            axios.post('http://192.168.1.135/Manager-App-API/register/FranciseSponsors', newValues)
+            axios.post('https://localhost:7097/register/FranciseSponsors', newValues)
                 .then(response => {
                     console.log(response.data);
                     console.log("newvalues", newValues)

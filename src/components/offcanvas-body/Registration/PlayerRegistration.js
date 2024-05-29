@@ -56,7 +56,7 @@ function PlayerRegistration(props) {
       }
     });
     //after closing get api is called to show updated values in table:
-    axios.get(`http://192.168.1.135/Manager-App-API/getAllPlayers`).then((response) => {
+    axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
       console.log("GET Success", response.data)
       // Update the state with the new data
       setShowData(response.data)
@@ -69,7 +69,7 @@ function PlayerRegistration(props) {
   const handleShow = () => {
     //make setShowPutData as empty  object when handleShow is triggered when add players button is clicked
     // Reset state variables related to modal content
-    setParentKey("9");//to open from starting accordion
+    setParentKey("0");//to open from starting accordion
     setShowPutData({})//to  reset put data in form fields
     //buttons:
     setPreviousClk(false);//to disable previous btn
@@ -81,7 +81,7 @@ function PlayerRegistration(props) {
   };
 
   //Next Btn:
-  const [parentkey, setParentKey] = useState("9");
+  const [parentkey, setParentKey] = useState("0");
 
   //PreviousBtn show/hide:
   const [previousClk, setPreviousClk] = useState(false)
@@ -98,7 +98,7 @@ function PlayerRegistration(props) {
   //Data Binding GET:
   const [showData, setShowData] = useState(null);
   useEffect(() => {
-    fetch('http://192.168.1.135/Manager-App-API/getAllPlayers')
+    fetch('https://localhost:7097/getAllPlayers')
       .then((data) => data.json())
       .then((data) => {
         console.log("data", data);
@@ -152,7 +152,7 @@ function PlayerRegistration(props) {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('http://192.168.1.135/Manager-App-API/getAllPlayers');
+      const response = await fetch('https://localhost:7097/getAllPlayers');
       const data = await response.json();
       console.log("response", data);
 
@@ -196,14 +196,14 @@ function PlayerRegistration(props) {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://192.168.1.135/Manager-App-API/Delete-Alldataplayers/${id}`).then((response) => {
+        axios.delete(`https://localhost:7097/Delete-Alldataplayers/${id}`).then((response) => {
           if (response.data.alldataplayerId === id) {   //check how to use alldataThingsId here 
             console.log("Deletion Success", response.data)
           }
           console.log("res", response.data)
 
           //Call the GET method here:
-          axios.get(`http://192.168.1.135/Manager-App-API/getAllPlayers`).then((response) => {
+          axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
             console.log("GET Success", response.data)
             // Update the state with the new data
             setShowData(response.data)
@@ -232,7 +232,7 @@ function PlayerRegistration(props) {
 
   function handleShowData() {
     //Call the GET method here:
-    axios.get(`http://192.168.1.135/Manager-App-API/getAllPlayers`).then((response) => {
+    axios.get(`https://localhost:7097/getAllPlayers`).then((response) => {
       console.log("GET Success", response.data)
       // Update the state with the new data
       setShowData(response.data)
@@ -258,7 +258,7 @@ function PlayerRegistration(props) {
     // console.log("progressBar", showProgressBar)
     // setShowProgressBar(false);//so progress bar wont open
     //
-    setParentKey("0");
+    setParentKey("9");
     setShowSaveBtn(false)//so  Save/update button will be disabled
     setShowClearBtn(false)//so clear button will be disabled
     setPreviousClk(true)//displayed
@@ -343,9 +343,9 @@ function PlayerRegistration(props) {
                 {/* Accordion:8 */}
                 <RepresentationInfo activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:9 */}
-                <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} />
+                <EmergencyContact activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:10 */}
-                <PlayerAuctionInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} updateClicked={updateClicked} />
+                <PlayerAuctionInformation activationKey={parentkey} onActivationKeyChild={getKeyFromChild} onPreviousActivationKey={getPreviousKeyFromChild} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} showSkipBtn={showSkipBtn} />
                 {/* Accordion:11 */}
                 <SocialMediaInfo activationKey={parentkey} onCloseModal={handleModalClose} onPreviousActivationKey={getPreviousKeyFromChild} onShowData={handleShowData} showPutData={showPutData} showSaveBtn={showSaveBtn} showClearBtn={showClearBtn} previousClk={previousClk} handlePrevClick={handlePrevClick} />
               </Accordion>

@@ -46,7 +46,7 @@ function ExploreOptions() {
     //excel:
     const handleDownloadExcel = async () => {
         try {
-            const response = await fetch('http://192.168.1.135/Manager-App-API/GetStaffAllDataAndImages');
+            const response = await fetch('https://localhost:7097/GetStaffAllDataAndImages');
             const data = await response.json();
             console.log("response", data);
 

@@ -88,7 +88,7 @@ function Register() {
             const newValues = { ...values, dob: formattedDOB, userType: 'other' }
 
 
-            axios.post('http://192.168.1.135/Manager-App-API/register/Signup', newValues)
+            axios.post('https://localhost:7097/register/Signup', newValues)
                 .then(response => {
                     console.log("response status: ", response.status)  //to fetch  the status of API like 200 etc
                     console.log(response.data);

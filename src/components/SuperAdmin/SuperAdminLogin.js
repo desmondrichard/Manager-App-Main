@@ -71,7 +71,7 @@ function SuperAdminLogin() {
         // }
 
         try {
-            const response = await axios.post('http://192.168.1.135/Manager-App-API/SuperAdminAuthenticate', {
+            const response = await axios.post('https://localhost:7097/SuperAdminAuthenticate', {
                 userName: userName,
                 password: password,
 

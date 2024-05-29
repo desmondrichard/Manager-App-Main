@@ -11,7 +11,7 @@ function Piechart() {
     const [totalPlayers, setTotalPlayers] = useState(0)////created a state for players total count
 
     useEffect(() => {
-        fetch('http://192.168.1.135/Manager-App-API/getAllPlayers')
+        fetch('https://localhost:7097/getAllPlayers')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("total players:", data.length);
@@ -25,7 +25,7 @@ function Piechart() {
     const [showData1, setShowData1] = useState([]);
     const [totalStaffs, setTotalStaffs] = useState(0)////created a state for staffs total count
     useEffect(() => {
-        fetch('http://192.168.1.135/Manager-App-API/GETalldata-Staffs')
+        fetch('https://localhost:7097/GETalldata-Staffs')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("data",data);

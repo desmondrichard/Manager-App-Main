@@ -54,7 +54,7 @@ function ThingsToDoBranding({ activationKey, onChildNextActivationKey, onPreviou
       busBooking: 'no'
     },
     onSubmit: values => {
-      axios.post('http://192.168.1.135/Manager-App-API/register/Branding', values)
+      axios.post('https://localhost:7097/register/Branding', values)
         .then(response => {
           console.log(response.data);
           onChildNextActivationKey(childNextKey)

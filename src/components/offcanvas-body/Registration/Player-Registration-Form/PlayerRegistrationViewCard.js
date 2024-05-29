@@ -275,7 +275,7 @@ function PlayerRegistrationViewCard() {
                         </Card.Body>
                     </Card>
 
-                    {/* Card:4 */}
+                    {/* Card:5 */}
                     <Card style={{ width: '100%' }} className='todoSubCard mt-3'>
                         <Card.Header className='todoHeader'>FOOD DETAILS</Card.Header>
                         <Card.Body>
@@ -291,7 +291,7 @@ function PlayerRegistrationViewCard() {
                         </Card.Body>
                     </Card>
 
-                    {/* Card:5 */}
+                    {/* Card:6 */}
                     <Card style={{ width: '100%' }} className='todoSubCard mt-3'>
                         <Card.Header className='todoHeader'>TRAVEL DETAILS</Card.Header>
                         <Card.Body>
@@ -302,7 +302,7 @@ function PlayerRegistrationViewCard() {
                         </Card.Body>
                     </Card>
 
-                    {/* Card:6 */}
+                    {/* Card:7 */}
                     <Card style={{ width: '100%' }} className='todoSubCard mt-3'>
                         <Card.Header className='todoHeader'>REPRESENTATION DETAILS</Card.Header>
                         <Card.Body>
@@ -314,7 +314,7 @@ function PlayerRegistrationViewCard() {
                         </Card.Body>
                     </Card>
 
-                    {/* Card:7 */}
+                    {/* Card:8 */}
                     <Card style={{ width: '100%' }} className='todoSubCard mt-3'>
                         <Card.Header className='todoHeader'>EMERGENCY CONTACT DETAILS</Card.Header>
                         <Card.Body>
@@ -326,7 +326,20 @@ function PlayerRegistrationViewCard() {
                         </Card.Body>
                     </Card>
 
-                    {/* Card:8 */}
+                    {/* Card:9 */}
+                    <Card style={{ width: '100%' }} className='todoSubCard mt-3'>
+                        <Card.Header className='todoHeader'>PLAYER AUCTION DETAILS</Card.Header>
+                        <Card.Body>
+                            <Row style={{ fontSize: '15px' }}>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Price: <span style={{ fontWeight: '400' }}>{location.state.showData.price ? location.state.showData.price : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Pick Status: <span style={{ fontWeight: '400' }}>{location.state.showData.pickStatus ? location.state.showData.pickStatus : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Category: <span style={{ fontWeight: '400' }}>{location.state.showData.category ? location.state.showData.category : 'N/A'}</span></div></Col>
+                                <Col xs={12} md={6} xl={4} className='todoCol'><div className='divCard'>Current Status: <span style={{ fontWeight: '400' }}>{location.state.showData.currentStatus ? location.state.showData.currentStatus : 'N/A'}</span></div></Col>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+
+                    {/* Card:10 */}
                     <Card style={{ width: '100%' }} className='todoSubCard mt-3'>
                         <Card.Header className='todoHeader'>SOCIAL MEDIA INFORMATION</Card.Header>
                         <Card.Body>

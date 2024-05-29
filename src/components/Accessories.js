@@ -31,7 +31,7 @@ function Accessories() {
 
 
 
-    fetch('http://192.168.1.135/Manager-App-API/getAllPlayers')
+    fetch('https://localhost:7097/getAllPlayers')
       .then((data) => data.json())
       .then((data) => {
         // console.log("data",data);
@@ -75,7 +75,7 @@ function Accessories() {
   //excel:
   const handleDownloadExcel = async () => {
     try {
-      const response = await fetch('http://192.168.1.135/Manager-App-API/getAllPlayers');
+      const response = await fetch('https://localhost:7097/getAllPlayers');
       const data = await response.json();
       console.log("response", data);
 

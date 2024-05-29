@@ -135,7 +135,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
         },
         validate,
         onSubmit: values => {
-            axios.post('http://192.168.1.135/Manager-App-API/bankModel', values)
+            axios.post('https://localhost:7097/bankModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
@@ -197,7 +197,7 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
     //update Method:
     function handleUpdate() {
 
-        axios.put(`http://192.168.1.135/Manager-App-API/bankModel/${showPutData.alldataplayerId}`, formik.values, {
+        axios.put(`https://localhost:7097/bankModel/${showPutData.alldataplayerId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -235,6 +235,9 @@ function BankAccountDetails({ activationKey, onActivationKeyChild, onPreviousAct
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>BANK ACCOUNT DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
+                    {
+                        console.log("formikk",formik.values)
+                    }
                     {/* <p>{activationKey}</p> */}
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>

@@ -75,7 +75,7 @@ function SuperAdminRegister() {
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, userType: 'superadmin' };
 
-            axios.post('http://192.168.1.135/Manager-App-API/SuperAdmin', newValues)
+            axios.post('https://localhost:7097/SuperAdmin', newValues)
                 .then(response => {
                     console.log("response status: ", response.status) //to fetch  the status of API like 200 etc
                     console.log(response.data);

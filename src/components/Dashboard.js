@@ -22,7 +22,7 @@ function Dashboard() {
     //Data Binding for player registration:
     const [showData, setShowData] = useState([]);
     useEffect(() => {
-        fetch('http://192.168.1.135/Manager-App-API/getAllPlayers')
+        fetch('https://localhost:7097/getAllPlayers')
             .then((data) => data.json())
             .then((data) => {
                 console.log("data in dashboard for players:", data);
@@ -35,7 +35,7 @@ function Dashboard() {
 
     const [showData1, setShowData1] = useState([]);
     useEffect(() => {
-        fetch('http://192.168.1.135/Manager-App-API/GETalldata-Staffs')
+        fetch('https://localhost:7097/GETalldata-Staffs')
             .then((data) => data.json())
             .then((data) => {
                 // console.log("data",data);

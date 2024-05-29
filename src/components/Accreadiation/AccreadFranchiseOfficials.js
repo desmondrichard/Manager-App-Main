@@ -75,7 +75,7 @@ function AccreadFranchiseOfficials({ activationKey, onChildNextActivationKey, on
         validate,
         onSubmit: (values, { setSubmitting }) => {
             const newValues = { ...values, OfficialMobilNo }
-            axios.post('http://192.168.1.135/Manager-App-API/register/FrnciseOfficials', newValues)
+            axios.post('https://localhost:7097/register/FrnciseOfficials', newValues)
                 .then(response => {
                     console.log(response.data);
                     onChildNextActivationKey(childNextKey);

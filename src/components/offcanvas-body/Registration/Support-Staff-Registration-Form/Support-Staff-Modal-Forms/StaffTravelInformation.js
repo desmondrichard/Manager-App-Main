@@ -33,7 +33,7 @@ function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviou
         },
         validate,
         onSubmit: values => {
-            axios.post('http://192.168.1.135/Manager-App-API/StaffTravelInformationModel', values)
+            axios.post('https://localhost:7097/StaffTravelInformationModel', values)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey)
@@ -107,7 +107,7 @@ function StaffTravelInformation({ activationKey, onActivationKeyChild, onPreviou
     //update:
     function handleUpdate() {
 
-        axios.put(`http://192.168.1.135/Manager-App-API/StaffTravelInformationModel/${showPutData.alldataStaffId}`, formik.values, {
+        axios.put(`https://localhost:7097/StaffTravelInformationModel/${showPutData.alldataStaffId}`, formik.values, {
             headers: {
                 'Content-Type': 'application/json'
             }

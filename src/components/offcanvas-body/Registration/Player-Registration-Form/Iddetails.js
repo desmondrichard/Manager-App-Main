@@ -149,7 +149,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             // const dob = formattedPassportExpDate;
             const newValues = { ...values };
 
-            axios.post('http://192.168.1.135/Manager-App-API/IDCardDetailsModel', newValues)
+            axios.post('https://localhost:7097/IDCardDetailsModel', newValues)
                 .then(response => {
                     console.log(response.data);
                     onActivationKeyChild(childNextKey);
@@ -252,7 +252,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
         // Format dates as "yyyy-MM-dd"
         const formattedPassportExpDate = formatDate(passportExpDate);
 
-        axios.put(`http://192.168.1.135/Manager-App-API/PlayerIDcardModel/${showPutData.alldataplayerId}`, {
+        axios.put(`https://localhost:7097/PlayerIDcardModel/${showPutData.alldataplayerId}`, {
             ...formik.values, passportExpDate: formattedPassportExpDate,
         }, {
             headers: {
@@ -298,6 +298,9 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
             <Accordion.Header><i className="bi bi-info-circle-fill me-1"></i><span style={{ fontWeight: '700' }}>ID CARD DETAILS</span><ProgressBarWithLabel progressValue={progress} /></Accordion.Header>
             <Accordion.Body>
                 <Container >
+                    {
+                        console.log("formikId", formik.values)
+                    }
                     {/* <p>{activationKey}</p> */}
                     <Form style={{ paddingRight: '60px' }} onSubmit={formik.handleSubmit}>
                         <Row>
