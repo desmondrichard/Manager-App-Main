@@ -47,11 +47,11 @@ function Dashboard() {
         <div style={{ marginTop: '-24px' }}>
             <Container fluid className="my-3 py-3">
                 <Row className='row1'>
-                    <Col lg={8} >
+                    <Col lg={12} >
                         {/* ps-2 */}
                         <Card className='bgColor1 pb-4 boxShadowPlayer'>
                             <Row>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/dashboardplayerscard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -68,7 +68,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -85,7 +85,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                             <div className='image'>
@@ -97,7 +97,7 @@ function Dashboard() {
                                         </Button>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/playgroundcard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -115,7 +115,7 @@ function Dashboard() {
                                     </Card.Body>
                                 </Col>
 
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className=' mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/sponsorscard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -132,7 +132,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className=' mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                             <div className='image'>
@@ -144,9 +144,217 @@ function Dashboard() {
                                         </Button>
                                     </Card.Body>
                                 </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/fixtures_list.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>FIXTURES LIST</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/franchise_submission.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>FRANCHISE SUBMISSION</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/playing_kits.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>PLAYING KIT DETAILS</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/purchase_details.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>PURCHASE DETAILS</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/staff_requirement.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>STAFF REQUIREMENTS</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/welcome_kits.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>WELCOME KITS</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/player_payment.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>PAYMENTS PLAYERS</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/payment_vendor.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>PAYMENTS VENDORS</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/sponsors_deliverables.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>SPONSORS DELIVERABLES</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/manager_checklist.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>MANAGER CHECKLIST</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/owners_checklist.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>OWNERS CHECKLIST</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+                                <Col lg={2} sm={6} xs={12} className='col'>
+                                    <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
+                                        <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
+                                            <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <div className='image'>
+                                                    <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/vendor.png')}></ImageSupportStaff>
+                                                    <div className='content'>
+                                                        <Card.Title className='a'>VENDOR DETAILS</Card.Title>
+                                                        <Card.Text className='b'>
+                                                            {showData1.length}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
+                                            </Button>
+                                        </NavLink>
+                                    </Card.Body>
+                                </Col>
+
                             </Row>
                         </Card>
                     </Col>
+
+
+
 
                     <Col lg={4} style={{ zIndex: 0 }} className='mt-1'>
                         <Card className='boxShadowPieChart' >
