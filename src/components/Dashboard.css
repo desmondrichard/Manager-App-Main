@@ -25,6 +25,7 @@
 .image {
     width: 200px;
     position: relative;
+    padding-top: 5px;
 }
 
 .img {
@@ -111,8 +112,9 @@
 
 @media only screen and (min-width: 992px) {
     .content {
-        width: 80%;
-        left: 20px;
+        width: 62% !important;
+        left: 39px !important;
+        top: 4px;
     }
 
 }
@@ -130,16 +132,26 @@
 
 @media only screen and (min-width: 1022px) {
     .contentPartners1 {
-        width: 82% !important;
-        left: 16px !important;
+        width: 55% !important;
+        left: 45px !important;
+        top: 4px !important;
+
     }
 
     .row {
         padding-left: 22px;
     }
+
+    .a {
+        font-size: small;
+    }
+
+    .franchise {
+        font-size: 12px;
+    }
 }
 
-@media only screen and (min-width: 1079px) {
+/* @media only screen and (min-width: 1079px) {
     .contentPartners1 {
         width: 80% !important;
         left: 14px !important;
@@ -148,7 +160,7 @@
     .row {
         padding-left: 22px;
     }
-}
+} */
 
 .row1 {
     margin: auto;
@@ -194,7 +206,7 @@
 }
 
 .bgColor1 {
-    background-color: rgb(22, 21, 21);
+    background-color: rgb(162, 201, 236);
 }
 
 .boxShadow1 {
@@ -222,8 +234,7 @@
 }
 
 .boxShadowPieChart {
-    box-shadow: 2px 6px 17px 4px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 2px 6px 17px 4px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 6px 17px 4px rgba(0,0,0,0.75);
+    box-shadow: 2px 6px 17px 4px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 2px 6px 17px 4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 6px 17px 4px rgba(0, 0, 0, 0.75);
 }
-

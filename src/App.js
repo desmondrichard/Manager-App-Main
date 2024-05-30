@@ -30,6 +30,7 @@ import SuperAdminRegister from './components/SuperAdmin/SuperAdminRegister';
 import { Navigate } from 'react-router-dom';
 import LoginSignup from './components/LoginSignup';
 import SuperAdminDashboard from './components/SuperAdminDashboard';
+import AccreadiationViewTable from './components/DashboardComponents/AccreadiationViewTable';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
           <Route path='dashboardstaffcard' exact element={<DashboardSupportStaffCard />} />
           <Route path='playgroundcard' exact element={<DashboardPlayGroundViewCard />} />
           <Route path='sponsorscard' exact element={<SponsorsViewCard />} />
+          <Route path='management' exact element={<AccreadiationViewTable />} />
         </Route>
 
         <Route path='playerregister'>
