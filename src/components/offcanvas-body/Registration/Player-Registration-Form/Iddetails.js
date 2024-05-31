@@ -124,6 +124,7 @@ function Iddetails({ activationKey, onActivationKeyChild, onPreviousActivationKe
     }
 
     const [visaChecked, setVisaChecked] = useState(null);
+    
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {

@@ -136,7 +136,7 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className=' mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/organizers' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageOrganizor className='img' style={{ height: '105px', width: '120px' }} src={require('../assets/organizoricon.jpg')}></ImageOrganizor>
@@ -150,15 +150,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/fixtures' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '140px' }} src={require('../assets/Dashboard/fixtures_list.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>FIXTURES LIST</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -167,15 +164,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/franchisesubmission' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '120px' }} src={require('../assets/Dashboard/franchise_submission.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a franchise'>FRANCHISE SUBMISSION</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -184,15 +178,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/accreadiationcards' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '150px' }} src={require('../assets/Dashboard/playing_kits.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>KIT DETAILS</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -201,15 +192,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/purchasedetails' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '124px' }} src={require('../assets/Dashboard/purchase_details.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>PURCHASE DETAILS</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -218,15 +206,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/staffrequirements' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '125px' }} src={require('../assets/Dashboard/staff_requirement.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>STAFF REQUIREMENTS</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -235,15 +220,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/welcomekits' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '122px' }} src={require('../assets/Dashboard/welcome_kits.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>WELCOME KITS</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -252,15 +234,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/paymentplayers' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '120px' }} src={require('../assets/Dashboard/player_payment.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>PAYMENTS PLAYERS</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -269,15 +248,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/paymentvendors' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '120px' }} src={require('../assets/Dashboard/payment_vendor.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>PAYMENTS VENDORS</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -286,15 +262,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/sponsorsdeliverables' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '130px' }} src={require('../assets/Dashboard/sponsors_deliverables.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>SPONSORS DELIVERABLES</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>
@@ -309,9 +282,7 @@ function Dashboard() {
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '125px' }} src={require('../assets/Dashboard/manager_checklist.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>MANAGER CHECKLIST</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
+                                                   
                                                     </div>
                                                 </div>
                                             </Button>
@@ -326,9 +297,7 @@ function Dashboard() {
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '124px' }} src={require('../assets/Dashboard/owners_checklist.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>OWNERS CHECKLIST</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
+                                                    
                                                     </div>
                                                 </div>
                                             </Button>
@@ -337,15 +306,12 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/vendorDetails' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '124px' }} src={require('../assets/Dashboard/vendor.png')}></ImageSupportStaff>
                                                     <div className='content'>
                                                         <Card.Title className='a'>VENDOR DETAILS</Card.Title>
-                                                        <Card.Text className='b'>
-                                                            {showData1.length}
-                                                        </Card.Text>
                                                     </div>
                                                 </div>
                                             </Button>

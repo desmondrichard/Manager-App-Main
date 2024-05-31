@@ -180,7 +180,7 @@ function AccreadiationViewTable() {
             <div>
                 <main className='m-4 main'>
 
-                    <h5>Owners Data:</h5>
+                    {(showOwner && <h5>Owners Data:</h5>) || (showOfficial && <h5>Franchise-Official Data:</h5>) || (showFranchise && <h5>Franchise-Sponsor Data:</h5>)}
                     <Table hover bordered responsive>
                         <thead>
                             <tr style={{ backgroundColor: 'red', whiteSpace: 'nowrap' }}>

@@ -7,8 +7,10 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import moment from 'moment';
+import { NavLink } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
-function Fixtures() {
+function Fixtures({ showBackBtn }) {
   const [selectedYear, setSelectedYear] = useState(null);
 
   // Filtering Year:
@@ -48,6 +50,17 @@ function Fixtures() {
         <div className='playersList'>FIXTURES</div>
       </div>
       <div>
+
+        {showBackBtn &&
+          <Row className='mt-2'>
+            <Col xs={4} style={{ marginTop: '-5px' }}>
+              <NavLink to='/dashboard' className='navLinks'><Button variant="primary" className='mt-3 addPlayers butn1'>
+                Go Back
+              </Button>
+              </NavLink>
+            </Col>
+          </Row>
+        }
         <Row>
           <Col>
             <Form.Select aria-label="Default select example" className='year' onChange={(e) => setSelectedYear(e.target.value)}>

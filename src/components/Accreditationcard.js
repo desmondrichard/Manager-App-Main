@@ -10,6 +10,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import NoDataImg from 'react-bootstrap/Image';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Col from 'react-bootstrap/Col';
 //excel:
 // import * as XLSX from 'xlsx';
 //pdf:
@@ -17,7 +18,7 @@ import Swal from 'sweetalert2';
 import 'jspdf-autotable'; // Import the autotable plugin for table support
 import TablePagination from '@mui/material/TablePagination';
 
-function Accreditationcard() {
+function Accreditationcard({ showBtns }) {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
@@ -119,13 +120,27 @@ function Accreditationcard() {
     <div>
       <Header />
       <div className='text-center'>
-        <div className='playersList'>ACCREADIATION LIST</div>
-        <>
-          <NavLink to='/accreadiationcards/accreadiationform' className='navLinks'><Button variant="primary" className='mt-3 addPlayers'>
-            ADD
-          </Button>
-          </NavLink>
-        </>
+        <div className='playersList'>ACCESSORIES LIST</div>
+        {
+          !showBtns &&
+          <>
+            <NavLink to='/accreadiationcards/accreadiationform' className='navLinks'><Button variant="primary" className='mt-3 addPlayers'>
+              ADD
+            </Button>
+            </NavLink>
+          </>
+        }
+        {showBtns &&
+          <Row className='mt-2'>
+            <Col xs={4} md={2} style={{ marginTop: '-5px' }}>
+              <NavLink to='/dashboard' className='navLinks'><Button variant="primary" className='mt-3 addPlayers butn1'>
+                Go Back
+              </Button>
+              </NavLink>
+            </Col>
+            <Col md={10}></Col>
+          </Row>
+        }
       </div>
       <Container fluid className='p-0 mt-2'>
         <Row style={{ margin: '0px' }}>

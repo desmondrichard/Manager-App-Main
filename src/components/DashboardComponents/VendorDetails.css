@@ -1,0 +1,16 @@
+.AccreadBtns {
+    margin: 10px;
+    padding: 13px;
+    font-weight: 500;
+    font-size: medium;
+    width: 170px;
+    box-shadow: 5px 7px 14px -1px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 5px 7px 14px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 5px 7px 14px -1px rgba(0, 0, 0, 0.75);
+}
+
+table.table th {
+    background-color: rgb(40, 133, 215) !important;
+    color: white !important;
+    text-align: center;
+}

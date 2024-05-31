@@ -31,6 +31,17 @@ import { Navigate } from 'react-router-dom';
 import LoginSignup from './components/LoginSignup';
 import SuperAdminDashboard from './components/SuperAdminDashboard';
 import AccreadiationViewTable from './components/DashboardComponents/AccreadiationViewTable';
+import Organizers from './components/DashboardComponents/Organizers';
+import DashboardFixtures from './components/DashboardComponents/DashboardFixtures';
+import FranchiseSubmission from './components/DashboardComponents/FranchiseSubmission';
+import KitDetails from './components/DashboardComponents/KitDetails';
+import PurchaseDetails from './components/DashboardComponents/PurchaseDetails';
+import StaffRequirements from './components/DashboardComponents/StaffRequirements';
+import WelcomeKits from './components/DashboardComponents/WelcomeKits';
+import PaymentPlayers from './components/DashboardComponents/PaymentPlayers';
+import PaymentVendors from './components/DashboardComponents/PaymentVendors';
+import SponsorsDeliverables from './components/DashboardComponents/SponsorsDeliverables';
+import VendorDetails from './components/DashboardComponents/VendorDetails';
 
 
 function App() {
@@ -65,6 +76,17 @@ function App() {
           <Route path='playgroundcard' exact element={<DashboardPlayGroundViewCard />} />
           <Route path='sponsorscard' exact element={<SponsorsViewCard />} />
           <Route path='management' exact element={<AccreadiationViewTable />} />
+          <Route path='organizers' exact element={<Organizers />} />
+          <Route path='fixtures' exact element={<DashboardFixtures />} />
+          <Route path='franchisesubmission' exact element={<FranchiseSubmission />} />
+          <Route path='accreadiationcards' exact element={<KitDetails />} />
+          <Route path='purchasedetails' exact element={<PurchaseDetails />} />
+          <Route path='staffrequirements' exact element={<StaffRequirements />} />
+          <Route path='welcomekits' exact element={<WelcomeKits />} />
+          <Route path='paymentplayers' exact element={<PaymentPlayers />} />
+          <Route path='paymentvendors' exact element={<PaymentVendors />} />
+          <Route path='sponsorsdeliverables' exact element={<SponsorsDeliverables />} />
+          <Route path='vendorDetails' exact element={<VendorDetails />} />
         </Route>
 
         <Route path='playerregister'>
