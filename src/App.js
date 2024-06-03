@@ -42,6 +42,7 @@ import PaymentPlayers from './components/DashboardComponents/PaymentPlayers';
 import PaymentVendors from './components/DashboardComponents/PaymentVendors';
 import SponsorsDeliverables from './components/DashboardComponents/SponsorsDeliverables';
 import VendorDetails from './components/DashboardComponents/VendorDetails';
+import ManagerChecklist from './components/DashboardComponents/ManagerChecklist';
 
 
 function App() {
@@ -87,6 +88,7 @@ function App() {
           <Route path='paymentvendors' exact element={<PaymentVendors />} />
           <Route path='sponsorsdeliverables' exact element={<SponsorsDeliverables />} />
           <Route path='vendorDetails' exact element={<VendorDetails />} />
+          <Route path='managerchecklist' exact element={<ManagerChecklist />} />
         </Route>
 
         <Route path='playerregister'>

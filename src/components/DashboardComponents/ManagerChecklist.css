@@ -1,0 +1,13 @@
+.bordered1 {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.tableFontSize {
+    font-weight: 500;
+}
+
+.hide {
+    position: absolute;
+    left: -99999px;
+}

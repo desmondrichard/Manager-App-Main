@@ -276,7 +276,7 @@ function Dashboard() {
                                 </Col>
                                 <Col lg={2} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
-                                        <NavLink to='' className='navLinks'>
+                                        <NavLink to='/dashboard/managerchecklist' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
                                                 <div className='image'>
                                                     <ImageSupportStaff className='img' style={{ height: '100px', width: '125px' }} src={require('../assets/Dashboard/manager_checklist.png')}></ImageSupportStaff>
