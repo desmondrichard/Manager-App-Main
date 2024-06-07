@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
 
 function ManagerChecklist() {
     return (
@@ -400,18 +400,7 @@ function ManagerChecklist() {
                                     <td className='text-center bordered1'>20</td>
                                     <td className='bordered1' style={{ backgroundColor: "rgb(240,220,132)" }}>Team Playing Guards Vendor:</td>
                                     <td className='text-center bordered1'>
-                                        <label for="hotelBookingsAdvanced" className='hide '></label>
-                                        <select className="hotelBookingsAdvanced" id="hotelBookingsAdvanced">
-                                            <option value="none">Open this select menu</option>
-                                            <option value="Ordered">Ordered</option>
-                                            <option value="Yet to Order">Yet to Order</option>
-                                            <option value="Invoice Received">Invoice Received</option>
-                                            <option value="Delivered">Delivered</option>
-                                            <option value="Received">Received</option>
-                                            <option value="In Transit">In Transit</option>
-                                            <option value="Payment Completed">Payment Completed</option>
-
-                                        </select>
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -523,18 +512,7 @@ function ManagerChecklist() {
                                     <td className='text-center bordered1'>21</td>
                                     <td className='bordered1' style={{ backgroundColor: "rgb(240,220,132)" }}>Head Gears:</td>
                                     <td className='text-center bordered1'>
-                                        <label for="HeadGears" className='hide '></label>
-                                        <select className="HeadGears" id="HeadGears">
-                                            <option value="none">Open this select menu</option>
-                                            <option value="Ordered">Ordered</option>
-                                            <option value="Yet to Order">Yet to Order</option>
-                                            <option value="Invoice Received">Invoice Received</option>
-                                            <option value="Delivered">Delivered</option>
-                                            <option value="Received">Received</option>
-                                            <option value="In Transit">In Transit</option>
-                                            <option value="Payment Completed">Payment Completed</option>
-
-                                        </select>
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -649,18 +627,7 @@ function ManagerChecklist() {
                                     <td className='text-center bordered1'>22</td>
                                     <td className='bordered1' style={{ backgroundColor: "rgb(240,220,132)" }}>Bags Vendor:</td>
                                     <td className='text-center bordered1'>
-                                        <label for="BagsVendor" className='hide '></label>
-                                        <select className="BagsVendor" id="BagsVendor">
-                                            <option value="none">Open this select menu</option>
-                                            <option value="Ordered">Ordered</option>
-                                            <option value="Yet to Order">Yet to Order</option>
-                                            <option value="Invoice Received">Invoice Received</option>
-                                            <option value="Delivered">Delivered</option>
-                                            <option value="Received">Received</option>
-                                            <option value="In Transit">In Transit</option>
-                                            <option value="Payment Completed">Payment Completed</option>
-
-                                        </select>
+                                       
                                     </td>
                                 </tr>
                                 <tr>
@@ -739,18 +706,7 @@ function ManagerChecklist() {
                                     <td className='text-center bordered1'>24</td>
                                     <td className='bordered1' style={{ backgroundColor: "rgb(240,220,132)" }}>Team Jersey Design Approval:</td>
                                     <td className='text-center bordered1'>
-                                        <label for="TeamJerseyDesign" className='hide '></label>
-                                        <select className="TeamJerseyDesign" id="TeamJerseyDesign">
-                                            <option value="none">Open this select menu</option>
-                                            <option value="Ordered">Ordered</option>
-                                            <option value="Yet to Order">Yet to Order</option>
-                                            <option value="Invoice Received">Invoice Received</option>
-                                            <option value="Delivered">Delivered</option>
-                                            <option value="Received">Received</option>
-                                            <option value="In Transit">In Transit</option>
-                                            <option value="Payment Completed">Payment Completed</option>
-
-                                        </select>
+                                       
                                     </td>
                                 </tr>
                                 <tr>

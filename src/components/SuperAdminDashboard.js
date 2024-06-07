@@ -18,7 +18,7 @@ function SuperAdminDashboard() {
                 <Row className='mx-auto'>
                     <Col lg={3} md={4} sm={6}>
                         <Card style={{ width: '15rem' }} className='glassCard mb-2' border="danger">
-                            <Card.Body>
+                            <Card.Body className='adminCard'>
                                 <Card.Title className='text-center' style={{ fontSize: '25px' }}>PLAYERS</Card.Title>
                                 <Card.Text>
                                     <ImagePlayer className='img' style={{ height: '100px', width: '140px' }} src={require('../assets/playernew1.png')}></ImagePlayer>
@@ -30,7 +30,7 @@ function SuperAdminDashboard() {
                     <Col lg={3} md={4} sm={6}>
 
                         <Card style={{ width: '15rem' }} className='glassCard mb-2' border="success">
-                            <Card.Body>
+                            <Card.Body className='adminCard'>
                                 <Card.Title className='text-center' style={{ fontSize: '25px', whiteSpace: 'nowrap' }}>SUPPORT STAFFS</Card.Title>
                                 <Card.Text>
                                     <ImagePlayer className='img' style={{ height: '100px', width: '140px' }} src={require('../assets/supportstaffsicon-removebg-preview.png')}></ImagePlayer>
@@ -41,7 +41,7 @@ function SuperAdminDashboard() {
                     </Col>
                     <Col lg={3} md={4} sm={6}>
                         <Card style={{ width: '15em' }} className='glassCard mb-2' border="warning">
-                            <Card.Body>
+                            <Card.Body className='adminCard'>
                                 <Card.Title className='text-center' style={{ fontSize: '25px' }}>TEAMS</Card.Title>
                                 <Card.Text>
                                     <ImagePlayer className='img' style={{ height: '100px', width: '140px' }} src={require('../assets/teams-removebg-preview.png')}></ImagePlayer>
@@ -52,7 +52,7 @@ function SuperAdminDashboard() {
                     </Col>
                     <Col lg={3} md={4} sm={6}>
                         <Card style={{ width: '15rem' }} className='glassCard mb-2' border="info">
-                            <Card.Body>
+                            <Card.Body className='adminCard'>
                                 <Card.Title className='text-center' style={{ fontSize: '25px' }}>ACTIVE USERS</Card.Title>
                                 <Card.Text>
                                     <ImagePlayer className='img' style={{ height: '100px', width: '140px' }} src={require('../assets/activeuser.png')}></ImagePlayer>
