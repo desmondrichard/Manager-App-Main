@@ -10,7 +10,7 @@ function App1() {
       <Header />
       {/* <HeaderSponsors /> */}
       <Dashboard />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
