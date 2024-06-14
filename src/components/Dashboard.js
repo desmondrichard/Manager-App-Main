@@ -12,6 +12,7 @@ import ImageSponsorNew from 'react-bootstrap/Image';
 import ImageOrganizor from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import { NavLink } from 'react-router-dom';
+import OrganizerSubmissionTab from './DashboardComponents/OrganizerSubmissionTab';
 // import CarouselScoreCard from './CarouselScoreCard';
 // import FullCalendar from './FullCalendar';
 // import Piechart from './Chart/Piechart';
@@ -51,7 +52,7 @@ function Dashboard() {
                         {/* ps-2 */}
                         <Card className='bgColor1 pb-4 boxShadowPlayer'>
                             <Row>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/dashboardplayerscard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -68,7 +69,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/dashboardstaffcard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -85,7 +86,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/management' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -99,7 +100,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/playgroundcard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -117,7 +118,7 @@ function Dashboard() {
                                     </Card.Body>
                                 </Col>
 
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className=' mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/sponsorscard' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -134,7 +135,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className=' mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/organizers' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -148,7 +149,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/fixtures' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -162,7 +163,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/franchisesubmission' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -176,7 +177,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/accreadiationcards' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -190,7 +191,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/purchasedetails' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -204,7 +205,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/staffrequirements' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -218,7 +219,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/welcomekits' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -232,7 +233,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/paymentplayers' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -246,7 +247,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/paymentvendors' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -260,7 +261,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/sponsorsdeliverables' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -274,7 +275,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/managerchecklist' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -289,7 +290,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/ownerchecklist' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -303,7 +304,7 @@ function Dashboard() {
                                         </NavLink>
                                     </Card.Body>
                                 </Col>
-                                <Col lg={4} sm={6} xs={12} className='col'>
+                                <Col lg={3} sm={6} xs={12} className='col'>
                                     <Card.Body style={{ borderRadius: '5px', height: '140px', margin: 'auto' }} className='mt-3 text-center pt-4 boxShadow bg-light wrapper'>
                                         <NavLink to='/dashboard/vendorDetails' className='navLinks'>
                                             <Button variant="dark" style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -321,20 +322,20 @@ function Dashboard() {
                             </Row>
                         </Card>
                     </Col>
-                    <Col lg={6}>ergfer</Col>
+                    <Col lg={6}><OrganizerSubmissionTab /></Col>
 
 
                     {/* <Col lg={4} style={{ zIndex: 0 }} className='mt-1'> */}
-                        {/* <Card className='boxShadowPieChart' > */}
-                            {/* <Calendar /> */}
-                            {/* <CarouselScoreCard /> */}
-                            {/* <Piechart /> */}
-                        {/* </Card> */}
+                    {/* <Card className='boxShadowPieChart' > */}
+                    {/* <Calendar /> */}
+                    {/* <CarouselScoreCard /> */}
+                    {/* <Piechart /> */}
+                    {/* </Card> */}
                     {/* </Col> */}
                 </Row>
-               
 
-              
+
+
 
             </Container>
 

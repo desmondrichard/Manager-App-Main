@@ -1,0 +1,9 @@
+.tableBorder1 {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+  }
+
+  .hide {
+    position: absolute;
+    left: -99999px;
+}
