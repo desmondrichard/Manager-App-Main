@@ -258,7 +258,7 @@ function PlayerRegistration(props) {
     // console.log("progressBar", showProgressBar)
     // setShowProgressBar(false);//so progress bar wont open
     //
-    setParentKey("9");
+    setParentKey("0");
     setShowSaveBtn(false)//so  Save/update button will be disabled
     setShowClearBtn(false)//so clear button will be disabled
     setPreviousClk(true)//displayed
